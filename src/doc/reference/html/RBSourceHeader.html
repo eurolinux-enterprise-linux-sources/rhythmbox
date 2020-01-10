@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBSourceHeader</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch05.html" title="Shell">
+<link rel="prev" href="RBShell.html" title="RBShell">
+<link rel="next" href="RBStatusbar.html" title="RBStatusbar">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBShell.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch05.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBStatusbar.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBSourceHeader.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBSourceHeader.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBSourceHeader.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBSourceHeader.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#RBSourceHeader.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#RBSourceHeader.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBSourceHeader">
+<a name="RBSourceHeader"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBSourceHeader.top_of_page"></a>RBSourceHeader</span></h2>
+<p>RBSourceHeader — container for search box and toolbar</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="RBSourceHeader.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="RBSourceHeader.html#RBSourceHeader-struct" title="RBSourceHeader">RBSourceHeader</a>;
+                    <a class="link" href="RBSourceHeader.html#RBSourceHeaderClass" title="RBSourceHeaderClass">RBSourceHeaderClass</a>;
+<a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="returnvalue">RBSourceHeader</span></a> *    <a class="link" href="RBSourceHeader.html#rb-source-header-new" title="rb_source_header_new ()">rb_source_header_new</a>                (<a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="returnvalue">GtkUIManager</span></a> *mgr,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkActionGroup.html"><span class="returnvalue">GtkActionGroup</span></a> *actiongroup);
+<span class="returnvalue">void</span>                <a class="link" href="RBSourceHeader.html#rb-source-header-set-source" title="rb_source_header_set_source ()">rb_source_header_set_source</a>         (<a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="returnvalue">RBSourceHeader</span></a> *header,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSourceHeader.html#rb-source-header-clear-search" title="rb_source_header_clear_search ()">rb_source_header_clear_search</a>       (<a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="returnvalue">RBSourceHeader</span></a> *header);
+<span class="returnvalue">void</span>                <a class="link" href="RBSourceHeader.html#rb-source-header-sync-control-state" title="rb_source_header_sync_control_state ()">rb_source_header_sync_control_state</a> (<a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="returnvalue">RBSourceHeader</span></a> *header);
+<span class="returnvalue">void</span>                <a class="link" href="RBSourceHeader.html#rb-source-header-focus-search-box" title="rb_source_header_focus_search_box ()">rb_source_header_focus_search_box</a>   (<a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="returnvalue">RBSourceHeader</span></a> *header);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="RBSourceHeader.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkObject.html">GtkObject</a>
+               +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html">GtkWidget</a>
+                     +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkContainer.html">GtkContainer</a>
+                           +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkTable.html">GtkTable</a>
+                                 +----RBSourceHeader
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="RBSourceHeader.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBSourceHeader implements
+ AtkImplementorIface and  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1" title="Properties">
+<a name="RBSourceHeader.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBSourceHeader.html#RBSourceHeader--action-group" title='The "action-group" property'>action-group</a>"             <a href="http://library.gnome.org/devel/gtk/unstable/GtkActionGroup.html"><span class="type">GtkActionGroup</span></a>*       : Read / Write / Construct Only
+  "<a class="link" href="RBSourceHeader.html#RBSourceHeader--source" title='The "source" property'>source</a>"                   <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>*             : Read / Write
+  "<a class="link" href="RBSourceHeader.html#RBSourceHeader--ui-manager" title='The "ui-manager" property'>ui-manager</a>"               <a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="type">GtkUIManager</span></a>*         : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1" title="Signals">
+<a name="RBSourceHeader.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBSourceHeader.html#RBSourceHeader-get-search-actions" title='The "get-search-actions" signal'>get-search-actions</a>"                             : Run Last
+  "<a class="link" href="RBSourceHeader.html#RBSourceHeader-refresh-search-bar" title='The "refresh-search-bar" signal'>refresh-search-bar</a>"                             : Run Last
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="RBSourceHeader.description"></a><h2>Description</h2>
+<p>
+The source header contains the search box and the search
+action toolbar.  It remembers the search text and browser
+visibility state for each source, applying the stored state
+for the newly selected source when the source selection changes.
+</p>
+<p>
+The search bar contains a set of actions determined by the
+selected source.  The source is responsible for tracking
+which search action is active.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="RBSourceHeader.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBSourceHeader">
+<a name="RBSourceHeader-struct"></a><h3>RBSourceHeader</h3>
+<pre class="programlisting">typedef struct _RBSourceHeader RBSourceHeader;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBSourceHeaderClass">
+<a name="RBSourceHeaderClass"></a><h3>RBSourceHeaderClass</h3>
+<pre class="programlisting">typedef struct {
+	GtkTableClass parent_class;
+
+	/* action signal */
+	void (*refresh_search_bar) (RBSourceHeader *header);
+} RBSourceHeaderClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_header_new ()">
+<a name="rb-source-header-new"></a><h3>rb_source_header_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="returnvalue">RBSourceHeader</span></a> *    rb_source_header_new                (<a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="returnvalue">GtkUIManager</span></a> *mgr,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkActionGroup.html"><span class="returnvalue">GtkActionGroup</span></a> *actiongroup);</pre>
+<p>
+Creates the <a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="type">RBSourceHeader</span></a>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
+<td> the <a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="type">GtkUIManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>actiongroup</code></em> :</span></p></td>
+<td> the <a href="http://library.gnome.org/devel/gtk/unstable/GtkActionGroup.html"><span class="type">GtkActionGroup</span></a> to add actions to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the <a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="type">RBSourceHeader</span></a> instance
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_header_set_source ()">
+<a name="rb-source-header-set-source"></a><h3>rb_source_header_set_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_header_set_source         (<a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="returnvalue">RBSourceHeader</span></a> *header,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Updates the source header when a new source is selected.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>header</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="type">RBSourceHeader</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the new selected <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_header_clear_search ()">
+<a name="rb-source-header-clear-search"></a><h3>rb_source_header_clear_search ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_header_clear_search       (<a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="returnvalue">RBSourceHeader</span></a> *header);</pre>
+<p>
+Clears the search box and resets all search state for the
+current selected source.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>header</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="type">RBSourceHeader</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_header_sync_control_state ()">
+<a name="rb-source-header-sync-control-state"></a><h3>rb_source_header_sync_control_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_header_sync_control_state (<a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="returnvalue">RBSourceHeader</span></a> *header);</pre>
+<p>
+Updates the sensitivity and active state of various actions
+related to the source header.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>header</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="type">RBSourceHeader</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_header_focus_search_box ()">
+<a name="rb-source-header-focus-search-box"></a><h3>rb_source_header_focus_search_box ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_header_focus_search_box   (<a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="returnvalue">RBSourceHeader</span></a> *header);</pre>
+<p>
+Grabs input focus for the search box.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>header</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="type">RBSourceHeader</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="RBSourceHeader.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "action-group" property'>
+<a name="RBSourceHeader--action-group"></a><h3>The <code class="literal">"action-group"</code> property</h3>
+<pre class="programlisting">  "action-group"             <a href="http://library.gnome.org/devel/gtk/unstable/GtkActionGroup.html"><span class="type">GtkActionGroup</span></a>*       : Read / Write / Construct Only</pre>
+<p>
+The <a href="http://library.gnome.org/devel/gtk/unstable/GtkActionGroup.html"><span class="type">GtkActionGroup</span></a> to add actions to.</p>
+</div>
+<hr>
+<div class="refsect2" title='The "source" property'>
+<a name="RBSourceHeader--source"></a><h3>The <code class="literal">"source"</code> property</h3>
+<pre class="programlisting">  "source"                   <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>*             : Read / Write</pre>
+<p>
+The currently selected <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2" title='The "ui-manager" property'>
+<a name="RBSourceHeader--ui-manager"></a><h3>The <code class="literal">"ui-manager"</code> property</h3>
+<pre class="programlisting">  "ui-manager"               <a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="type">GtkUIManager</span></a>*         : Read / Write / Construct Only</pre>
+<p>
+The <a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="type">GtkUIManager</span></a> instance.</p>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="RBSourceHeader.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "get-search-actions" signal'>
+<a name="RBSourceHeader-get-search-actions"></a><h3>The <code class="literal">"get-search-actions"</code> signal</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="returnvalue">GValueArray</span></a>*        user_function                      (<a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="type">RBSourceHeader</span></a> *header,
+                                                        <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>       *arg1,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>        user_data)      : Run Last</pre>
+<p>
+Allows signal handlers to add search actions to the search
+bar by returning an array of search action names.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>header</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="type">RBSourceHeader</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "refresh-search-bar" signal'>
+<a name="RBSourceHeader-refresh-search-bar"></a><h3>The <code class="literal">"refresh-search-bar"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="type">RBSourceHeader</span></a> *header,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>        user_data)      : Run Last</pre>
+<p>
+An action signal used to repopulate the search bar.
+This should be called after a signal handler for
+<span class="type">"get-search-actions"</span> has been connected
+or disconnected.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>header</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="type">RBSourceHeader</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

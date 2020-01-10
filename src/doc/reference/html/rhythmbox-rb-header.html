@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>rb-header</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch07.html" title="Widgets">
+<link rel="prev" href="RBEntryView.html" title="RBEntryView">
+<link rel="next" href="RBLibraryBrowser.html" title="RBLibraryBrowser">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBEntryView.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch07.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBLibraryBrowser.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#rhythmbox-rb-header.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#rhythmbox-rb-header.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#rhythmbox-rb-header.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#rhythmbox-rb-header.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#rhythmbox-rb-header.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry" title="rb-header">
+<a name="rhythmbox-rb-header"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="rhythmbox-rb-header.top_of_page"></a>rb-header</span></h2>
+<p>rb-header — playback area widgetry</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="rhythmbox-rb-header.synopsis"></a><h2>Synopsis</h2>
+<a name="RBHeader"></a><pre class="synopsis">                    <a class="link" href="rhythmbox-rb-header.html#RBHeader-struct" title="RBHeader">RBHeader</a>;
+                    <a class="link" href="rhythmbox-rb-header.html#RBHeaderClass" title="RBHeaderClass">RBHeaderClass</a>;
+<a class="link" href="rhythmbox-rb-header.html#RBHeader"><span class="returnvalue">RBHeader</span></a> *          <a class="link" href="rhythmbox-rb-header.html#rb-header-new" title="rb_header_new ()">rb_header_new</a>                       (<a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="returnvalue">RBShellPlayer</span></a> *shell_player,
+                                                         <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="returnvalue">RhythmDB</span></a> *db);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-header.html#rb-header-set-show-position-slider" title="rb_header_set_show_position_slider ()">rb_header_set_show_position_slider</a>  (<a class="link" href="rhythmbox-rb-header.html#RBHeader"><span class="returnvalue">RBHeader</span></a> *header,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> show);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-header.html#rb-header-sync" title="rb_header_sync ()">rb_header_sync</a>                      (<a class="link" href="rhythmbox-rb-header.html#RBHeader"><span class="returnvalue">RBHeader</span></a> *header);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-header.html#rb-header-sync-time" title="rb_header_sync_time ()">rb_header_sync_time</a>                 (<a class="link" href="rhythmbox-rb-header.html#RBHeader"><span class="returnvalue">RBHeader</span></a> *header);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="rhythmbox-rb-header.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkObject.html">GtkObject</a>
+               +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html">GtkWidget</a>
+                     +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkContainer.html">GtkContainer</a>
+                           +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkBox.html">GtkBox</a>
+                                 +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkHBox.html">GtkHBox</a>
+                                       +----RBHeader
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="rhythmbox-rb-header.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBHeader implements
+ AtkImplementorIface,  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1" title="Properties">
+<a name="rhythmbox-rb-header.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="rhythmbox-rb-header.html#RBHeader--db" title='The "db" property'>db</a>"                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>*             : Read / Write
+  "<a class="link" href="rhythmbox-rb-header.html#RBHeader--seekable" title='The "seekable" property'>seekable</a>"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="rhythmbox-rb-header.html#RBHeader--shell-player" title='The "shell-player" property'>shell-player</a>"             <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a>*        : Read / Write / Construct Only
+  "<a class="link" href="rhythmbox-rb-header.html#RBHeader--slider-dragging" title='The "slider-dragging" property'>slider-dragging</a>"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="rhythmbox-rb-header.description"></a><h2>Description</h2>
+<p>
+The RBHeader widget displays information about the current playing track
+(title, album, artist), the elapsed or remaining playback time, and a
+position slider indicating the playback position.  It translates slider
+move and drag events into seek requests for the player backend.
+</p>
+<p>
+For shoutcast-style streams, the title/artist/album display is supplemented
+by metadata extracted from the stream.  See <a class="link" href="RBStreamingSource.html" title="RBStreamingSource"><span class="type">RBStreamingSource</span></a> for more information
+on how the metadata is reported.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="rhythmbox-rb-header.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBHeader">
+<a name="RBHeader-struct"></a><h3>RBHeader</h3>
+<pre class="programlisting">typedef struct _RBHeader RBHeader;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBHeaderClass">
+<a name="RBHeaderClass"></a><h3>RBHeaderClass</h3>
+<pre class="programlisting">typedef struct {
+	GtkHBoxClass parent;
+} RBHeaderClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_header_new ()">
+<a name="rb-header-new"></a><h3>rb_header_new ()</h3>
+<pre class="programlisting"><a class="link" href="rhythmbox-rb-header.html#RBHeader"><span class="returnvalue">RBHeader</span></a> *          rb_header_new                       (<a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="returnvalue">RBShellPlayer</span></a> *shell_player,
+                                                         <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="returnvalue">RhythmDB</span></a> *db);</pre>
+<p>
+Creates a new header widget.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell_player</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> instance
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>db</code></em> :</span></p></td>
+<td> the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the header widget
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_header_set_show_position_slider ()">
+<a name="rb-header-set-show-position-slider"></a><h3>rb_header_set_show_position_slider ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_header_set_show_position_slider  (<a class="link" href="rhythmbox-rb-header.html#RBHeader"><span class="returnvalue">RBHeader</span></a> *header,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> show);</pre>
+<p>
+Sets the visibility of the position slider.  This is not currently
+used properly.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>header</code></em> :</span></p></td>
+<td> the <a class="link" href="rhythmbox-rb-header.html#RBHeader"><span class="type">RBHeader</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>show</code></em> :</span></p></td>
+<td> whether the position slider should be shown
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_header_sync ()">
+<a name="rb-header-sync"></a><h3>rb_header_sync ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_header_sync                      (<a class="link" href="rhythmbox-rb-header.html#RBHeader"><span class="returnvalue">RBHeader</span></a> *header);</pre>
+<p>
+Updates the header widget to be consistent with the current playing entry
+including all streaming metadata.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>header</code></em> :</span></p></td>
+<td> the <a class="link" href="rhythmbox-rb-header.html#RBHeader"><span class="type">RBHeader</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_header_sync_time ()">
+<a name="rb-header-sync-time"></a><h3>rb_header_sync_time ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_header_sync_time                 (<a class="link" href="rhythmbox-rb-header.html#RBHeader"><span class="returnvalue">RBHeader</span></a> *header);</pre>
+<p>
+Updates the time display components of the header.
+If the position slider is being dragged, the display is not updated.
+If the duration of the playing entry is known, the position slider is
+updated along with the elapsed/remaining time display.  Otherwise,
+the slider is made insensitive.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>header</code></em> :</span></p></td>
+<td> the <a class="link" href="rhythmbox-rb-header.html#RBHeader"><span class="type">RBHeader</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="rhythmbox-rb-header.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "db" property'>
+<a name="RBHeader--db"></a><h3>The <code class="literal">"db"</code> property</h3>
+<pre class="programlisting">  "db"                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>*             : Read / Write</pre>
+<p>
+<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance</p>
+</div>
+<hr>
+<div class="refsect2" title='The "seekable" property'>
+<a name="RBHeader--seekable"></a><h3>The <code class="literal">"seekable"</code> property</h3>
+<pre class="programlisting">  "seekable"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>
+If TRUE, the header should allow seeking by dragging the playback position slider</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2" title='The "shell-player" property'>
+<a name="RBHeader--shell-player"></a><h3>The <code class="literal">"shell-player"</code> property</h3>
+<pre class="programlisting">  "shell-player"             <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a>*        : Read / Write / Construct Only</pre>
+<p>
+The <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> instance</p>
+</div>
+<hr>
+<div class="refsect2" title='The "slider-dragging" property'>
+<a name="RBHeader--slider-dragging"></a><h3>The <code class="literal">"slider-dragging"</code> property</h3>
+<pre class="programlisting">  "slider-dragging"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+Whether the song position slider is currently being dragged.</p>
+<p>Default value: FALSE</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

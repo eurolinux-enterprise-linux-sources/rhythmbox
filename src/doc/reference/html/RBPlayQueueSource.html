@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBPlayQueueSource</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch06.html" title="Sources">
+<link rel="prev" href="RBMissingFilesSource.html" title="RBMissingFilesSource">
+<link rel="next" href="RBPlaylistSource.html" title="RBPlaylistSource">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBMissingFilesSource.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBPlaylistSource.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBPlayQueueSource.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBPlayQueueSource.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBPlayQueueSource.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBPlayQueueSource.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#RBPlayQueueSource.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBPlayQueueSource">
+<a name="RBPlayQueueSource"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBPlayQueueSource.top_of_page"></a>RBPlayQueueSource</span></h2>
+<p>RBPlayQueueSource — source object for the play queue</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="RBPlayQueueSource.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="RBPlayQueueSource.html#RBPlayQueueSource-struct" title="RBPlayQueueSource">RBPlayQueueSource</a>;
+                    <a class="link" href="RBPlayQueueSource.html#RBPlayQueueSourceClass" title="RBPlayQueueSourceClass">RBPlayQueueSourceClass</a>;
+<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          <a class="link" href="RBPlayQueueSource.html#rb-play-queue-source-new" title="rb_play_queue_source_new ()">rb_play_queue_source_new</a>            (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);
+<span class="returnvalue">void</span>                <a class="link" href="RBPlayQueueSource.html#rb-play-queue-source-sidebar-song-info" title="rb_play_queue_source_sidebar_song_info ()">rb_play_queue_source_sidebar_song_info</a>
+                                                        (<a class="link" href="RBPlayQueueSource.html" title="RBPlayQueueSource"><span class="returnvalue">RBPlayQueueSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBPlayQueueSource.html#rb-play-queue-source-sidebar-delete" title="rb_play_queue_source_sidebar_delete ()">rb_play_queue_source_sidebar_delete</a> (<a class="link" href="RBPlayQueueSource.html" title="RBPlayQueueSource"><span class="returnvalue">RBPlayQueueSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBPlayQueueSource.html#rb-play-queue-source-clear-queue" title="rb_play_queue_source_clear_queue ()">rb_play_queue_source_clear_queue</a>    (<a class="link" href="RBPlayQueueSource.html" title="RBPlayQueueSource"><span class="returnvalue">RBPlayQueueSource</span></a> *source);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="RBPlayQueueSource.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkObject.html">GtkObject</a>
+               +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html">GtkWidget</a>
+                     +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkContainer.html">GtkContainer</a>
+                           +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkBox.html">GtkBox</a>
+                                 +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkHBox.html">GtkHBox</a>
+                                       +----<a class="link" href="RBSource.html" title="RBSource">RBSource</a>
+                                             +----<a class="link" href="RBPlaylistSource.html" title="RBPlaylistSource">RBPlaylistSource</a>
+                                                   +----<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource">RBStaticPlaylistSource</a>
+                                                         +----RBPlayQueueSource
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="RBPlayQueueSource.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBPlayQueueSource implements
+ AtkImplementorIface,  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1" title="Properties">
+<a name="RBPlayQueueSource.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBPlayQueueSource.html#RBPlayQueueSource--sidebar" title='The "sidebar" property'>sidebar</a>"                  <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a>*          : Read
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="RBPlayQueueSource.description"></a><h2>Description</h2>
+<p>
+The main interesting thing about this source is that is
+contains a second <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> to be displayed in the side
+pane (beneath the source list).  This entry view displays
+the track title, artist, and album in a single column,
+split across three lines so the information mostly fits in
+the usual horizontal space allowed for the side bar.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="RBPlayQueueSource.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBPlayQueueSource">
+<a name="RBPlayQueueSource-struct"></a><h3>RBPlayQueueSource</h3>
+<pre class="programlisting">typedef struct _RBPlayQueueSource RBPlayQueueSource;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBPlayQueueSourceClass">
+<a name="RBPlayQueueSourceClass"></a><h3>RBPlayQueueSourceClass</h3>
+<pre class="programlisting">typedef struct {
+	RBStaticPlaylistSourceClass parent;
+} RBPlayQueueSourceClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_play_queue_source_new ()">
+<a name="rb-play-queue-source-new"></a><h3>rb_play_queue_source_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          rb_play_queue_source_new            (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);</pre>
+<p>
+Creates the play queue source object.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> instance
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the play queue source
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_play_queue_source_sidebar_song_info ()">
+<a name="rb-play-queue-source-sidebar-song-info"></a><h3>rb_play_queue_source_sidebar_song_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_play_queue_source_sidebar_song_info
+                                                        (<a class="link" href="RBPlayQueueSource.html" title="RBPlayQueueSource"><span class="returnvalue">RBPlayQueueSource</span></a> *source);</pre>
+<p>
+Creates and displays a <a class="link" href="RBSongInfo.html" title="RBSongInfo"><span class="type">RBSongInfo</span></a> for the currently selected
+entry in the side pane play queue view</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the <a class="link" href="RBPlayQueueSource.html" title="RBPlayQueueSource"><span class="type">RBPlayQueueSource</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_play_queue_source_sidebar_delete ()">
+<a name="rb-play-queue-source-sidebar-delete"></a><h3>rb_play_queue_source_sidebar_delete ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_play_queue_source_sidebar_delete (<a class="link" href="RBPlayQueueSource.html" title="RBPlayQueueSource"><span class="returnvalue">RBPlayQueueSource</span></a> *source);</pre>
+<p>
+Deletes the selected entries from the play queue side pane.
+This is called by the <a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="type">RBShellClipboard</span></a>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the <a class="link" href="RBPlayQueueSource.html" title="RBPlayQueueSource"><span class="type">RBPlayQueueSource</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_play_queue_source_clear_queue ()">
+<a name="rb-play-queue-source-clear-queue"></a><h3>rb_play_queue_source_clear_queue ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_play_queue_source_clear_queue    (<a class="link" href="RBPlayQueueSource.html" title="RBPlayQueueSource"><span class="returnvalue">RBPlayQueueSource</span></a> *source);</pre>
+<p>
+Clears the play queue.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the <a class="link" href="RBPlayQueueSource.html" title="RBPlayQueueSource"><span class="type">RBPlayQueueSource</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="RBPlayQueueSource.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "sidebar" property'>
+<a name="RBPlayQueueSource--sidebar"></a><h3>The <code class="literal">"sidebar"</code> property</h3>
+<pre class="programlisting">  "sidebar"                  <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a>*          : Read</pre>
+<p>
+The <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> for the play queue side pane.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

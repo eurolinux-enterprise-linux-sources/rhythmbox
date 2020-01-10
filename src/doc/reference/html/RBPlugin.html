@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBPlugin</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch05.html" title="Shell">
+<link rel="prev" href="RBPlaylistManager.html" title="RBPlaylistManager">
+<link rel="next" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBPlaylistManager.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch05.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBRemovableMediaManager.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBPlugin.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBPlugin.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBPlugin.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBPlugin.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBPlugin">
+<a name="RBPlugin"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBPlugin.top_of_page"></a>RBPlugin</span></h2>
+<p>RBPlugin — Base class for plugins</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="RBPlugin.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="RBPlugin.html#RBPlugin-struct" title="RBPlugin">RBPlugin</a>;
+                    <a class="link" href="RBPlugin.html#RBPluginClass" title="RBPluginClass">RBPluginClass</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="RBPlugin.html#RBPluginActivationFunc" title="RBPluginActivationFunc ()">*RBPluginActivationFunc</a>)           (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin,
+                                                         <a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);
+<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         (<a class="link" href="RBPlugin.html#RBPluginWidgetFunc" title="RBPluginWidgetFunc ()">*RBPluginWidgetFunc</a>)               (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="RBPlugin.html#RBPluginBooleanFunc" title="RBPluginBooleanFunc ()">*RBPluginBooleanFunc</a>)              (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin);
+<span class="returnvalue">void</span>                <a class="link" href="RBPlugin.html#rb-plugin-activate" title="rb_plugin_activate ()">rb_plugin_activate</a>                  (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin,
+                                                         <a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);
+<span class="returnvalue">void</span>                <a class="link" href="RBPlugin.html#rb-plugin-deactivate" title="rb_plugin_deactivate ()">rb_plugin_deactivate</a>                (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin,
+                                                         <a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBPlugin.html#rb-plugin-is-configurable" title="rb_plugin_is_configurable ()">rb_plugin_is_configurable</a>           (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin);
+<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="RBPlugin.html#rb-plugin-create-configure-dialog" title="rb_plugin_create_configure_dialog ()">rb_plugin_create_configure_dialog</a>   (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin);
+<span class="returnvalue">char</span> *              <a class="link" href="RBPlugin.html#rb-plugin-find-file" title="rb_plugin_find_file ()">rb_plugin_find_file</a>                 (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin,
+                                                         const <span class="returnvalue">char</span> *file);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="RBPlugin.html#rb-get-plugin-paths" title="rb_get_plugin_paths ()">rb_get_plugin_paths</a>                 (void);
+#define             <a class="link" href="RBPlugin.html#RB-PLUGIN-REGISTER:CAPS" title="RB_PLUGIN_REGISTER()">RB_PLUGIN_REGISTER</a>                  (PluginName, plugin_name)
+#define             <a class="link" href="RBPlugin.html#RB-PLUGIN-REGISTER-TYPE:CAPS" title="RB_PLUGIN_REGISTER_TYPE()">RB_PLUGIN_REGISTER_TYPE</a>             (type_name)
+#define             <a class="link" href="RBPlugin.html#RB-PLUGIN-DEFINE-TYPE:CAPS" title="RB_PLUGIN_DEFINE_TYPE()">RB_PLUGIN_DEFINE_TYPE</a>               (TypeName, type_name, TYPE_PARENT)
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="RBPlugin.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----RBPlugin
+</pre>
+</div>
+<div class="refsect1" title="Properties">
+<a name="RBPlugin.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBPlugin.html#RBPlugin--name" title='The "name" property'>name</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="RBPlugin.description"></a><h2>Description</h2>
+<p>
+This is the base class for all plugins.  It provides methods called
+when activating, deactivating, and configuring plugins.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="RBPlugin.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBPlugin">
+<a name="RBPlugin-struct"></a><h3>RBPlugin</h3>
+<pre class="programlisting">typedef struct _RBPlugin RBPlugin;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBPluginClass">
+<a name="RBPluginClass"></a><h3>RBPluginClass</h3>
+<pre class="programlisting">typedef struct {
+	GObjectClass parent_class;
+
+	/* Virtual public methods */
+
+	RBPluginActivationFunc		activate;
+	RBPluginActivationFunc		deactivate;
+	RBPluginWidgetFunc		create_configure_dialog;
+
+	/* Plugins should not override this, it's handled automatically by
+	   the RbPluginClass */
+	RBPluginBooleanFunc		is_configurable;
+} RBPluginClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBPluginActivationFunc ()">
+<a name="RBPluginActivationFunc"></a><h3>RBPluginActivationFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*RBPluginActivationFunc)           (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin,
+                                                         <a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);</pre>
+<p>
+Typedef for plugin activation and deactivation functions.
+These functions include the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> as an argument to allow
+the plugin to locate other parts of Rhythmbox.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td> the <a class="link" href="RBPlugin.html" title="RBPlugin"><span class="type">RBPlugin</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="RBPluginWidgetFunc ()">
+<a name="RBPluginWidgetFunc"></a><h3>RBPluginWidgetFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         (*RBPluginWidgetFunc)               (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin);</pre>
+<p>
+Typedef for plugin configuration functions.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td> the <a class="link" href="RBPlugin.html" title="RBPlugin"><span class="type">RBPlugin</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="type">GtkWidget</span></a> for the plugin
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="RBPluginBooleanFunc ()">
+<a name="RBPluginBooleanFunc"></a><h3>RBPluginBooleanFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*RBPluginBooleanFunc)              (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin);</pre>
+<p>
+Typedef for plugin functions that return a gboolean.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td> the <a class="link" href="RBPlugin.html" title="RBPlugin"><span class="type">RBPlugin</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> something
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_plugin_activate ()">
+<a name="rb-plugin-activate"></a><h3>rb_plugin_activate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_plugin_activate                  (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin,
+                                                         <a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);</pre>
+<p>
+Called when a plugin is being activated, either on startup or when
+enabled in the plugin configuration dialog.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td> the <a class="link" href="RBPlugin.html" title="RBPlugin"><span class="type">RBPlugin</span></a> being activated
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_plugin_deactivate ()">
+<a name="rb-plugin-deactivate"></a><h3>rb_plugin_deactivate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_plugin_deactivate                (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin,
+                                                         <a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);</pre>
+<p>
+Called when a plugin is being deactivated, either on shutdown or
+when disabled in the plugin configuration dialog.
+</p>
+<p>
+Note that plugin instances are never destroyed, so the same plugin
+instance can be deactivated and then reactivated.  After deactivation,
+the plugin must be in a state where it can be reactivated.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td> the <a class="link" href="RBPlugin.html" title="RBPlugin"><span class="type">RBPlugin</span></a> being deactivated
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_plugin_is_configurable ()">
+<a name="rb-plugin-is-configurable"></a><h3>rb_plugin_is_configurable ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_plugin_is_configurable           (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin);</pre>
+<p>
+Determines whether the plugin is configurable.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td> the <a class="link" href="RBPlugin.html" title="RBPlugin"><span class="type">RBPlugin</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if configurable
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_plugin_create_configure_dialog ()">
+<a name="rb-plugin-create-configure-dialog"></a><h3>rb_plugin_create_configure_dialog ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         rb_plugin_create_configure_dialog   (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin);</pre>
+<p>
+Creates a configuration dialog for <em class="parameter"><code>plugin</code></em>.  The plugin can store
+the dialog instance the first time it is created and just return it
+thereafter.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td> the <a class="link" href="RBPlugin.html" title="RBPlugin"><span class="type">RBPlugin</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> configuration widget for <em class="parameter"><code>plugin</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_plugin_find_file ()">
+<a name="rb-plugin-find-file"></a><h3>rb_plugin_find_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              rb_plugin_find_file                 (<a class="link" href="RBPlugin.html" title="RBPlugin"><span class="returnvalue">RBPlugin</span></a> *plugin,
+                                                         const <span class="returnvalue">char</span> *file);</pre>
+<p>
+Searches for <em class="parameter"><code>file</code></em> in the install directory for <em class="parameter"><code>plugin</code></em>.
+Plugins should use this to locate any data files they install.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td> the <a class="link" href="RBPlugin.html" title="RBPlugin"><span class="type">RBPlugin</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td> file to search for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> path to the file, must be freed by caller.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_get_plugin_paths ()">
+<a name="rb-get-plugin-paths"></a><h3>rb_get_plugin_paths ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             rb_get_plugin_paths                 (void);</pre>
+<p>
+Returns a list containing the paths to search for plugins.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of paths, must be freed by caller
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="RB_PLUGIN_REGISTER()">
+<a name="RB-PLUGIN-REGISTER:CAPS"></a><h3>RB_PLUGIN_REGISTER()</h3>
+<pre class="programlisting">#define             RB_PLUGIN_REGISTER(PluginName, plugin_name)</pre>
+<p>
+Registers a Rhythmbox plugin type.  Use this instead of G_DEFINE_TYPE
+(or similar) for RBPlugin implementations.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>PluginName</code></em> :</span></p></td>
+<td> plugin name in CamelCase
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin_name</code></em> :</span></p></td>
+<td> plugin name in lowercase with words separated by '_'
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="RB_PLUGIN_REGISTER_TYPE()">
+<a name="RB-PLUGIN-REGISTER-TYPE:CAPS"></a><h3>RB_PLUGIN_REGISTER_TYPE()</h3>
+<pre class="programlisting">#define             RB_PLUGIN_REGISTER_TYPE(type_name)</pre>
+<p>
+Registers additional types for the plugin.  This should be called in
+the plugin class_init function for types besides the plugin itself that
+need to be registered with the GObject type system.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>type_name</code></em> :</span></p></td>
+<td> CamelCase name of the type to register
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="RB_PLUGIN_DEFINE_TYPE()">
+<a name="RB-PLUGIN-DEFINE-TYPE:CAPS"></a><h3>RB_PLUGIN_DEFINE_TYPE()</h3>
+<pre class="programlisting">#define             RB_PLUGIN_DEFINE_TYPE(TypeName, type_name, TYPE_PARENT)</pre>
+<p>
+Defines additional types for the plugin.  This should be used instead
+of G_DEFINE_TYPE for additional object types that need to be registered
+with the GObject type system.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>TypeName</code></em> :</span></p></td>
+<td> type name in CamelCase
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type_name</code></em> :</span></p></td>
+<td> type name in lowercase with words separated by '_'
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>TYPE_PARENT</code></em> :</span></p></td>
+<td> GType macro for the parent type
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="RBPlugin.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "name" property'>
+<a name="RBPlugin--name"></a><h3>The <code class="literal">"name"</code> property</h3>
+<pre class="programlisting">  "name"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>name.</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

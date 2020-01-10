@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBLibraryBrowser</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch07.html" title="Widgets">
+<link rel="prev" href="rhythmbox-rb-header.html" title="rb-header">
+<link rel="next" href="RBPropertyView.html" title="RBPropertyView">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="rhythmbox-rb-header.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch07.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBPropertyView.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBLibraryBrowser.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBLibraryBrowser.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBLibraryBrowser.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBLibraryBrowser.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#RBLibraryBrowser.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBLibraryBrowser">
+<a name="RBLibraryBrowser"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBLibraryBrowser.top_of_page"></a>RBLibraryBrowser</span></h2>
+<p>RBLibraryBrowser — album/artist/genre browser widget</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="RBLibraryBrowser.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;rb-library-browser.h&gt;
+
+                    <a class="link" href="RBLibraryBrowser.html#RBLibraryBrowser-struct" title="RBLibraryBrowser">RBLibraryBrowser</a>;
+                    <a class="link" href="RBLibraryBrowser.html#RBLibraryBrowserClass" title="RBLibraryBrowserClass">RBLibraryBrowserClass</a>;
+<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *  <a class="link" href="RBLibraryBrowser.html#rb-library-browser-new" title="rb_library_browser_new ()">rb_library_browser_new</a>              (<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="returnvalue">RhythmDB</span></a> *db,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntryType" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> entry_type);
+<span class="returnvalue">void</span>                <a class="link" href="RBLibraryBrowser.html#rb-library-browser-set-model" title="rb_library_browser_set_model ()">rb_library_browser_set_model</a>        (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget,
+                                                         <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="returnvalue">RhythmDBQueryModel</span></a> *model,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> query_pending);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBLibraryBrowser.html#rb-library-browser-reset" title="rb_library_browser_reset ()">rb_library_browser_reset</a>            (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget);
+<a class="link" href="RhythmDB.html#RhythmDBQuery" title="RhythmDBQuery"><span class="returnvalue">RhythmDBQuery</span></a>*      <a class="link" href="RBLibraryBrowser.html#rb-library-browser-construct-query" title="rb_library_browser_construct_query ()">rb_library_browser_construct_query</a>  (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="RBLibraryBrowser.html#rb-library-browser-get-property-views" title="rb_library_browser_get_property_views ()">rb_library_browser_get_property_views</a>
+                                                        (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget);
+<a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="returnvalue">RBPropertyView</span></a>*     <a class="link" href="RBLibraryBrowser.html#rb-library-browser-get-property-view" title="rb_library_browser_get_property_view ()">rb_library_browser_get_property_view</a>
+                                                        (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBPropType" title="enum RhythmDBPropType"><span class="returnvalue">RhythmDBPropType</span></a> type);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBLibraryBrowser.html#rb-library-browser-has-selection" title="rb_library_browser_has_selection ()">rb_library_browser_has_selection</a>    (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget);
+<span class="returnvalue">void</span>                <a class="link" href="RBLibraryBrowser.html#rb-library-browser-set-selection" title="rb_library_browser_set_selection ()">rb_library_browser_set_selection</a>    (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBPropType" title="enum RhythmDBPropType"><span class="returnvalue">RhythmDBPropType</span></a> type,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *selection);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="RBLibraryBrowser.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkObject.html">GtkObject</a>
+               +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html">GtkWidget</a>
+                     +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkContainer.html">GtkContainer</a>
+                           +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkBox.html">GtkBox</a>
+                                 +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkHBox.html">GtkHBox</a>
+                                       +----RBLibraryBrowser
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="RBLibraryBrowser.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBLibraryBrowser implements
+ AtkImplementorIface,  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1" title="Properties">
+<a name="RBLibraryBrowser.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBLibraryBrowser.html#RBLibraryBrowser--db" title='The "db" property'>db</a>"                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>*             : Read / Write / Construct Only
+  "<a class="link" href="RBLibraryBrowser.html#RBLibraryBrowser--entry-type" title='The "entry-type" property'>entry-type</a>"               <a class="link" href="RhythmDB.html#RhythmDBEntryType" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a>*    : Read / Write / Construct Only
+  "<a class="link" href="RBLibraryBrowser.html#RBLibraryBrowser--input-model" title='The "input-model" property'>input-model</a>"              <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>*   : Read
+  "<a class="link" href="RBLibraryBrowser.html#RBLibraryBrowser--output-model" title='The "output-model" property'>output-model</a>"             <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>*   : Read
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="RBLibraryBrowser.description"></a><h2>Description</h2>
+<p>
+This widget contains a set of <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a>s backed by
+<a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a>s and constructs a chain of
+<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>s to perform filtering of the entries
+in a source.
+</p>
+<p>
+It operates on an input query model, containing the full set of
+entries that may be displayed in the source, and produces an
+output query model containing those entries that match the current
+selection.
+</p>
+<p>
+When the selection in any of the property views changes, or when
+<a class="link" href="RBLibraryBrowser.html#rb-library-browser-reset" title="rb_library_browser_reset ()"><span class="type">rb_library_browser_reset</span></a> or <a class="link" href="RBLibraryBrowser.html#rb-library-browser-set-selection" title="rb_library_browser_set_selection ()"><span class="type">rb_library_browser_set_selection</span></a> are
+called to manipulate the selection, the query chain is rebuilt
+asynchronously to update the property views.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="RBLibraryBrowser.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBLibraryBrowser">
+<a name="RBLibraryBrowser-struct"></a><h3>RBLibraryBrowser</h3>
+<pre class="programlisting">typedef struct _RBLibraryBrowser RBLibraryBrowser;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBLibraryBrowserClass">
+<a name="RBLibraryBrowserClass"></a><h3>RBLibraryBrowserClass</h3>
+<pre class="programlisting">typedef struct {
+	GtkHBoxClass parent;
+} RBLibraryBrowserClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_library_browser_new ()">
+<a name="rb-library-browser-new"></a><h3>rb_library_browser_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *  rb_library_browser_new              (<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="returnvalue">RhythmDB</span></a> *db,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntryType" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> entry_type);</pre>
+<p>
+Creates a new library browser.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>db</code></em> :</span></p></td>
+<td> the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry_type</code></em> :</span></p></td>
+<td> the entry type to use in the browser
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new RBLibraryBrowser
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_library_browser_set_model ()">
+<a name="rb-library-browser-set-model"></a><h3>rb_library_browser_set_model ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_library_browser_set_model        (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget,
+                                                         <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="returnvalue">RhythmDBQueryModel</span></a> *model,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> query_pending);</pre>
+<p>
+Specifies a new input query model for the browser.
+This should be the query model constructed from the 
+current search text, or the basic query model for the 
+source if there is no search text.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
+<td> a <a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="type">RBLibraryBrowser</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td> the new input <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>query_pending</code></em> :</span></p></td>
+<td> if TRUE, the caller promises to run a
+ query to populate the input query model.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_library_browser_reset ()">
+<a name="rb-library-browser-reset"></a><h3>rb_library_browser_reset ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_library_browser_reset            (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget);</pre>
+<p>
+Clears all selections in the browser.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
+<td> a <a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="type">RBLibraryBrowser</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if anything was changed
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_library_browser_construct_query ()">
+<a name="rb-library-browser-construct-query"></a><h3>rb_library_browser_construct_query ()</h3>
+<pre class="programlisting"><a class="link" href="RhythmDB.html#RhythmDBQuery" title="RhythmDBQuery"><span class="returnvalue">RhythmDBQuery</span></a>*      rb_library_browser_construct_query  (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget);</pre>
+<p>
+Constructs a <a class="link" href="RhythmDB.html#RhythmDBQuery" title="RhythmDBQuery"><span class="type">RhythmDBQuery</span></a> from the current selections in the browser.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
+<td> a <a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="type">RBLibraryBrowser</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <a class="link" href="RhythmDB.html#RhythmDBQuery" title="RhythmDBQuery"><span class="type">RhythmDBQuery</span></a> constructed from the current selection.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_library_browser_get_property_views ()">
+<a name="rb-library-browser-get-property-views"></a><h3>rb_library_browser_get_property_views ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              rb_library_browser_get_property_views
+                                                        (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget);</pre>
+<p>
+Retrieves the property view widgets from the browser.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
+<td> a <a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="type">RBLibraryBrowser</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a GList containing the <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> widgets
+ in the browser.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_library_browser_get_property_view ()">
+<a name="rb-library-browser-get-property-view"></a><h3>rb_library_browser_get_property_view ()</h3>
+<pre class="programlisting"><a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="returnvalue">RBPropertyView</span></a>*     rb_library_browser_get_property_view
+                                                        (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBPropType" title="enum RhythmDBPropType"><span class="returnvalue">RhythmDBPropType</span></a> type);</pre>
+<p>
+Retrieves the property view widget for the specified property,
+if there is one.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
+<td> a <a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="type">RBLibraryBrowser</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td> the property
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> widget, or NULL
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_library_browser_has_selection ()">
+<a name="rb-library-browser-has-selection"></a><h3>rb_library_browser_has_selection ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_library_browser_has_selection    (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget);</pre>
+<p>
+Determines whether the browser has an active selection.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
+<td> a <a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="type">RBLibraryBrowser</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if any items in the browser are selected.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_library_browser_set_selection ()">
+<a name="rb-library-browser-set-selection"></a><h3>rb_library_browser_set_selection ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_library_browser_set_selection    (<a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="returnvalue">RBLibraryBrowser</span></a> *widget,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBPropType" title="enum RhythmDBPropType"><span class="returnvalue">RhythmDBPropType</span></a> type,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *selection);</pre>
+<p>
+Replaces any current selection for the specified property.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
+<td> a <a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="type">RBLibraryBrowser</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td> the property for which to set the selection
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selection</code></em> :</span></p></td>
+<td> a list of strings to select
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="RBLibraryBrowser.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "db" property'>
+<a name="RBLibraryBrowser--db"></a><h3>The <code class="literal">"db"</code> property</h3>
+<pre class="programlisting">  "db"                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>*             : Read / Write / Construct Only</pre>
+<p>
+<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance</p>
+</div>
+<hr>
+<div class="refsect2" title='The "entry-type" property'>
+<a name="RBLibraryBrowser--entry-type"></a><h3>The <code class="literal">"entry-type"</code> property</h3>
+<pre class="programlisting">  "entry-type"               <a class="link" href="RhythmDB.html#RhythmDBEntryType" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a>*    : Read / Write / Construct Only</pre>
+<p>
+The type of entries to use in the browser.</p>
+</div>
+<hr>
+<div class="refsect2" title='The "input-model" property'>
+<a name="RBLibraryBrowser--input-model"></a><h3>The <code class="literal">"input-model"</code> property</h3>
+<pre class="programlisting">  "input-model"              <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>*   : Read</pre>
+<p>
+This <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> defines the set of entries that
+the browser filters.  This property is not writeable.
+To set a new input query model, use
+<a class="link" href="RBLibraryBrowser.html#rb-library-browser-set-model" title="rb_library_browser_set_model ()"><span class="type">rb_library_browser_set_model</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2" title='The "output-model" property'>
+<a name="RBLibraryBrowser--output-model"></a><h3>The <code class="literal">"output-model"</code> property</h3>
+<pre class="programlisting">  "output-model"             <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>*   : Read</pre>
+<p>
+This <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> contains the filtered set of
+entries.  It is a subset of the entries contained in the
+input model.  This should be used as the model backing
+the source's entry view.
+</p>
+<p>
+Sources using this widget should connect to the notify
+signal for this property, updating their entry view when
+it changes.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

@@ -1,0 +1,1491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBSource</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch06.html" title="Sources">
+<link rel="prev" href="RBSourceSearchBasic.html" title="RBSourceSearchBasic">
+<link rel="next" href="RBSourceListModel.html" title="RBSourceListModel">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBSourceSearchBasic.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBSourceListModel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBSource.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBSource.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBSource.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBSource.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#RBSource.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#RBSource.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBSource">
+<a name="RBSource"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBSource.top_of_page"></a>RBSource</span></h2>
+<p>RBSource — base class for sources</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="RBSource.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="RBSource.html#RBSource-struct" title="RBSource">RBSource</a>;
+                    <a class="link" href="RBSource.html#RBSourceClass" title="RBSourceClass">RBSourceClass</a>;
+enum                <a class="link" href="RBSource.html#RBSourceEOFType" title="enum RBSourceEOFType">RBSourceEOFType</a>;
+#define             <a class="link" href="RBSource.html#RB-SOURCE-ICON-SIZE:CAPS" title="RB_SOURCE_ICON_SIZE">RB_SOURCE_ICON_SIZE</a>
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-notify-filter-changed" title="rb_source_notify_filter_changed ()">rb_source_notify_filter_changed</a>     (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-notify-status-changed" title="rb_source_notify_status_changed ()">rb_source_notify_status_changed</a>     (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-update-play-statistics" title="rb_source_update_play_statistics ()">rb_source_update_play_statistics</a>    (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="returnvalue">RhythmDB</span></a> *db,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-set-pixbuf" title="rb_source_set_pixbuf ()">rb_source_set_pixbuf</a>                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"><span class="returnvalue">GdkPixbuf</span></a> *pixbuf);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-get-status" title="rb_source_get_status ()">rb_source_get_status</a>                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <span class="returnvalue">char</span> **text,
+                                                         <span class="returnvalue">char</span> **progress_text,
+                                                         <span class="returnvalue">float</span> *progress);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-can-browse" title="rb_source_can_browse ()">rb_source_can_browse</a>                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">char</span> *              <a class="link" href="RBSource.html#rb-source-get-browser-key" title="rb_source_get_browser_key ()">rb_source_get_browser_key</a>           (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-browser-toggled" title="rb_source_browser_toggled ()">rb_source_browser_toggled</a>           (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> enabled);
+<a class="link" href="RBEntryView.html" title="RBEntryView"><span class="returnvalue">RBEntryView</span></a> *       <a class="link" href="RBSource.html#rb-source-get-entry-view" title="rb_source_get_entry_view ()">rb_source_get_entry_view</a>            (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="RBSource.html#rb-source-get-property-views" title="rb_source_get_property_views ()">rb_source_get_property_views</a>        (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-can-rename" title="rb_source_can_rename ()">rb_source_can_rename</a>                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-search" title="rb_source_search ()">rb_source_search</a>                    (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RBSourceSearch.html" title="RBSourceSearch"><span class="returnvalue">RBSourceSearch</span></a> *search,
+                                                         const <span class="returnvalue">char</span> *cur_text,
+                                                         const <span class="returnvalue">char</span> *new_text);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-reset-filters" title="rb_source_reset_filters ()">rb_source_reset_filters</a>             (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="RBSource.html#rb-source-get-config-widget" title="rb_source_get_config_widget ()">rb_source_get_config_widget</a>         (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="returnvalue">RBShellPreferences</span></a> *prefs);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-can-cut" title="rb_source_can_cut ()">rb_source_can_cut</a>                   (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-can-delete" title="rb_source_can_delete ()">rb_source_can_delete</a>                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-can-move-to-trash" title="rb_source_can_move_to_trash ()">rb_source_can_move_to_trash</a>         (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-can-copy" title="rb_source_can_copy ()">rb_source_can_copy</a>                  (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-can-paste" title="rb_source_can_paste ()">rb_source_can_paste</a>                 (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-can-add-to-queue" title="rb_source_can_add_to_queue ()">rb_source_can_add_to_queue</a>          (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-can-show-properties" title="rb_source_can_show_properties ()">rb_source_can_show_properties</a>       (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="RBSource.html#rb-source-cut" title="rb_source_cut ()">rb_source_cut</a>                       (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="RBSource.html#rb-source-copy" title="rb_source_copy ()">rb_source_copy</a>                      (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-paste" title="rb_source_paste ()">rb_source_paste</a>                     (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *entries);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-delete" title="rb_source_delete ()">rb_source_delete</a>                    (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-add-to-queue" title="rb_source_add_to_queue ()">rb_source_add_to_queue</a>              (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *queue);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-move-to-trash" title="rb_source_move_to_trash ()">rb_source_move_to_trash</a>             (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-song-properties" title="rb_source_song_properties ()">rb_source_song_properties</a>           (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-try-playlist" title="rb_source_try_playlist ()">rb_source_try_playlist</a>              (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="RBSource.html#rb-source-want-uri" title="rb_source_want_uri ()">rb_source_want_uri</a>                  (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         const <span class="returnvalue">char</span> *uri);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-uri-is-source" title="rb_source_uri_is_source ()">rb_source_uri_is_source</a>             (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         const <span class="returnvalue">char</span> *uri);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-add-uri" title="rb_source_add_uri ()">rb_source_add_uri</a>                   (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         const <span class="returnvalue">char</span> *title,
+                                                         const <span class="returnvalue">char</span> *genre);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-can-pause" title="rb_source_can_pause ()">rb_source_can_pause</a>                 (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a class="link" href="RBSource.html#RBSourceEOFType" title="enum RBSourceEOFType"><span class="returnvalue">RBSourceEOFType</span></a>     <a class="link" href="RBSource.html#rb-source-handle-eos" title="rb_source_handle_eos ()">rb_source_handle_eos</a>                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-receive-drag" title="rb_source_receive_drag ()">rb_source_receive_drag</a>              (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html#GtkSelectionData"><span class="returnvalue">GtkSelectionData</span></a> *data);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSource.html#rb-source-show-popup" title="rb_source_show_popup ()">rb_source_show_popup</a>                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-delete-thyself" title="rb_source_delete_thyself ()">rb_source_delete_thyself</a>            (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-activate" title="rb_source_activate ()">rb_source_activate</a>                  (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-deactivate" title="rb_source_deactivate ()">rb_source_deactivate</a>                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="RBSource.html#rb-source-get-ui-actions" title="rb_source_get_ui_actions ()">rb_source_get_ui_actions</a>            (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="RBSource.html#rb-source-get-search-actions" title="rb_source_get_search_actions ()">rb_source_get_search_actions</a>        (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="RBSource.html#rb-source-gather-selected-properties" title="rb_source_gather_selected_properties ()">rb_source_gather_selected_properties</a>
+                                                        (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBPropType" title="enum RhythmDBPropType"><span class="returnvalue">RhythmDBPropType</span></a> prop);
+<span class="returnvalue">void</span>                <a class="link" href="RBSource.html#rb-source-set-hidden-when-empty" title="rb_source_set_hidden_when_empty ()">rb_source_set_hidden_when_empty</a>     (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> hidden);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="RBSource.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkObject.html">GtkObject</a>
+               +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html">GtkWidget</a>
+                     +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkContainer.html">GtkContainer</a>
+                           +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkBox.html">GtkBox</a>
+                                 +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkHBox.html">GtkHBox</a>
+                                       +----RBSource
+                                             +----<a class="link" href="RBPlaylistSource.html" title="RBPlaylistSource">RBPlaylistSource</a>
+                                             +----<a class="link" href="RBBrowserSource.html" title="RBBrowserSource">RBBrowserSource</a>
+                                             +----<a class="link" href="RBImportErrorsSource.html" title="RBImportErrorsSource">RBImportErrorsSource</a>
+                                             +----<a class="link" href="RBMissingFilesSource.html" title="RBMissingFilesSource">RBMissingFilesSource</a>
+                                             +----<a class="link" href="RBStreamingSource.html" title="RBStreamingSource">RBStreamingSource</a>
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="RBSource.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBSource implements
+ AtkImplementorIface,  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1" title="Properties">
+<a name="RBSource.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBSource.html#RBSource--base-query-model" title='The "base-query-model" property'>base-query-model</a>"         <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>*   : Read
+  "<a class="link" href="RBSource.html#RBSource--entry-type" title='The "entry-type" property'>entry-type</a>"               <a class="link" href="RhythmDB.html#RhythmDBEntryType" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a>*    : Read / Write / Construct Only
+  "<a class="link" href="RBSource.html#RBSource--hidden-when-empty" title='The "hidden-when-empty" property'>hidden-when-empty</a>"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="RBSource.html#RBSource--icon" title='The "icon" property'>icon</a>"                     <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"><span class="type">GdkPixbuf</span></a>*            : Read / Write
+  "<a class="link" href="RBSource.html#RBSource--name" title='The "name" property'>name</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="RBSource.html#RBSource--play-order" title='The "play-order" property'>play-order</a>"               <a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a>*          : Read
+  "<a class="link" href="RBSource.html#RBSource--plugin" title='The "plugin" property'>plugin</a>"                   <a class="link" href="RBPlugin.html" title="RBPlugin"><span class="type">RBPlugin</span></a>*             : Read / Write / Construct
+  "<a class="link" href="RBSource.html#RBSource--query-model" title='The "query-model" property'>query-model</a>"              <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>*   : Read / Write
+  "<a class="link" href="RBSource.html#RBSource--search-type" title='The "search-type" property'>search-type</a>"              <span class="type">RBSourceSearchType</span>    : Read / Write / Construct
+  "<a class="link" href="RBSource.html#RBSource--shell" title='The "shell" property'>shell</a>"                    <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>*              : Read / Write / Construct Only
+  "<a class="link" href="RBSource.html#RBSource--source-group" title='The "source-group" property'>source-group</a>"             <a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="type">RBSourceGroup</span></a>*        : Read / Write / Construct Only
+  "<a class="link" href="RBSource.html#RBSource--ui-manager" title='The "ui-manager" property'>ui-manager</a>"               <a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="type">GtkUIManager</span></a>*         : Read
+  "<a class="link" href="RBSource.html#RBSource--visibility" title='The "visibility" property'>visibility</a>"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+</pre>
+</div>
+<div class="refsect1" title="Signals">
+<a name="RBSource.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBSource.html#RBSource-deleted" title='The "deleted" signal'>deleted</a>"                                        : Run Last
+  "<a class="link" href="RBSource.html#RBSource-filter-changed" title='The "filter-changed" signal'>filter-changed</a>"                                 : Run Last
+  "<a class="link" href="RBSource.html#RBSource-status-changed" title='The "status-changed" signal'>status-changed</a>"                                 : Run Last
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="RBSource.description"></a><h2>Description</h2>
+<p>
+This class provides methods for requesting information
+about the UI capabilities of the source, and defines the
+expectations that apply to all sources - that they will
+provide <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> and <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> objects, mostly.
+</p>
+<p>
+Many of the methods on this class come in can_do_x and do_x
+pairs.  When can_do_x always returns FALSE, the class does not
+need to implement the do_x method.
+</p>
+<p>
+Useful subclasses include <a class="link" href="RBBrowserSource.html" title="RBBrowserSource"><span class="type">RBBrowserSource</span></a>, which includes a <a class="link" href="RBLibraryBrowser.html" title="RBLibraryBrowser"><span class="type">RBLibraryBrowser</span></a>
+and takes care of constructing an <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> too; <a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="type">RBRemovableMediaSource</span></a>,
+which takes care of many aspects of implementing a source that represents a
+removable device; and <a class="link" href="RBPlaylistSource.html" title="RBPlaylistSource"><span class="type">RBPlaylistSource</span></a>, which provides functionality for
+playlist-like sources.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="RBSource.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBSource">
+<a name="RBSource-struct"></a><h3>RBSource</h3>
+<pre class="programlisting">typedef struct _RBSource RBSource;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBSourceClass">
+<a name="RBSourceClass"></a><h3>RBSourceClass</h3>
+<pre class="programlisting">typedef struct {
+	GtkHBoxClass parent;
+
+	/* signals */
+	void (*status_changed) (RBSource *source);
+	void (*filter_changed) (RBSource *source);
+	void (*deleted)		(RBSource *source);
+	void (*artistalbum_changed) (RBSource *source);
+
+	/* methods */
+	void		(*impl_get_status) (RBSource *source, char **text, char **progress_text, float *progress);
+
+	gboolean (*impl_can_browse) (RBSource *source);
+	char *		(*impl_get_browser_key) (RBSource *source);
+	void		(*impl_browser_toggled) (RBSource *source, gboolean enabled);
+
+	RBEntryView * (*impl_get_entry_view) (RBSource *source);
+	GList *		(*impl_get_property_views) (RBSource *source);
+
+	gboolean (*impl_can_rename) (RBSource *source);
+
+	void		(*impl_search)		(RBSource *source, RBSourceSearch *search, const char *cur_text, const char *new_text);
+	void		(*impl_reset_filters) (RBSource *source);
+	GtkWidget * (*impl_get_config_widget)(RBSource *source, RBShellPreferences *prefs);
+
+	gboolean (*impl_can_cut)		(RBSource *source);
+	gboolean (*impl_can_delete) (RBSource *source);
+	gboolean (*impl_can_move_to_trash) (RBSource *source);
+	gboolean (*impl_can_copy) (RBSource *source);
+	gboolean (*impl_can_paste) (RBSource *source);
+	gboolean (*impl_can_add_to_queue)(RBSource *source);
+
+	GList *		(*impl_cut)		(RBSource *source);
+	GList *		(*impl_copy)		(RBSource *source);
+	void		(*impl_paste)		(RBSource *source, GList *entries);
+	void		(*impl_delete)		(RBSource *source);
+	void		(*impl_add_to_queue) (RBSource *source, RBSource *queue);
+	void		(*impl_move_to_trash) (RBSource *source);
+
+	void		(*impl_song_properties) (RBSource *source);
+
+	gboolean (*impl_try_playlist) (RBSource *source);
+	guint		(*impl_want_uri) (RBSource *source, const char *uri);
+	gboolean (*impl_add_uri)		(RBSource *source, const char *uri, const char *title, const char *genre);
+	gboolean (*impl_uri_is_source) (RBSource *source, const char *uri);
+
+	gboolean (*impl_can_pause) (RBSource *source);
+	RBSourceEOFType (*impl_handle_eos) (RBSource *source);
+
+	gboolean (*impl_have_url) (RBSource *source);
+	gboolean (*impl_receive_drag) (RBSource *source, GtkSelectionData *data);
+	gboolean (*impl_show_popup) (RBSource *source);
+
+	void		(*impl_delete_thyself) (RBSource *source);
+	void		(*impl_activate) (RBSource *source);
+	void		(*impl_deactivate) (RBSource *source);
+	GList *		(*impl_get_ui_actions) (RBSource *source);
+	GList *		(*impl_get_search_actions) (RBSource *source);
+	char *		(*impl_get_delete_action) (RBSource *source);
+} RBSourceClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="enum RBSourceEOFType">
+<a name="RBSourceEOFType"></a><h3>enum RBSourceEOFType</h3>
+<pre class="programlisting">typedef enum {
+	RB_SOURCE_EOF_ERROR,
+	RB_SOURCE_EOF_STOP,
+	RB_SOURCE_EOF_RETRY,
+	RB_SOURCE_EOF_NEXT,
+} RBSourceEOFType;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RB_SOURCE_ICON_SIZE">
+<a name="RB-SOURCE-ICON-SIZE:CAPS"></a><h3>RB_SOURCE_ICON_SIZE</h3>
+<pre class="programlisting">#define RB_SOURCE_ICON_SIZE GTK_ICON_SIZE_LARGE_TOOLBAR
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_notify_filter_changed ()">
+<a name="rb-source-notify-filter-changed"></a><h3>rb_source_notify_filter_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_notify_filter_changed     (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Source implementations call this when their filter state changes</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_notify_status_changed ()">
+<a name="rb-source-notify-status-changed"></a><h3>rb_source_notify_status_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_notify_status_changed     (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Source implementations call this when their status bar information
+changes.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_update_play_statistics ()">
+<a name="rb-source-update-play-statistics"></a><h3>rb_source_update_play_statistics ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_update_play_statistics    (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="returnvalue">RhythmDB</span></a> *db,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry);</pre>
+<p>
+Updates play count and play time statistics for a database entry.
+Sources containing entries that do not normally reach EOS should
+call this for an entry when it is no longer being played.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>db</code></em> :</span></p></td>
+<td> the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> the <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="type">RhythmDBEntry</span></a> to update
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_set_pixbuf ()">
+<a name="rb-source-set-pixbuf"></a><h3>rb_source_set_pixbuf ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_set_pixbuf                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"><span class="returnvalue">GdkPixbuf</span></a> *pixbuf);</pre>
+<p>
+Sets the pixbuf for the source.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pixbuf</code></em> :</span></p></td>
+<td> new GdkPixbuf for the source
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_get_status ()">
+<a name="rb-source-get-status"></a><h3>rb_source_get_status ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_get_status                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <span class="returnvalue">char</span> **text,
+                                                         <span class="returnvalue">char</span> **progress_text,
+                                                         <span class="returnvalue">float</span> *progress);</pre>
+<p>
+Retrieves the details to display in the status bar for the source.
+If the progress value returned is less than zero, the progress bar
+will pulse.  If the progress value is greater than or equal to 1,
+the progress bar will be hidden.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td> holds the returned status text (allocated)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>progress_text</code></em> :</span></p></td>
+<td> holds the returned text for the progress bar (allocated)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>progress</code></em> :</span></p></td>
+<td> holds the progress value
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_can_browse ()">
+<a name="rb-source-can-browse"></a><h3>rb_source_can_browse ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_can_browse                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Determines whether the source has a browser</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if this source has a browser
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_get_browser_key ()">
+<a name="rb-source-get-browser-key"></a><h3>rb_source_get_browser_key ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              rb_source_get_browser_key           (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Gets the GConf key controlling browser visibility</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the GConf key name (allocated)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_browser_toggled ()">
+<a name="rb-source-browser-toggled"></a><h3>rb_source_browser_toggled ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_browser_toggled           (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> enabled);</pre>
+<p>
+Called when the visibility of the browser changes.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>enabled</code></em> :</span></p></td>
+<td> TRUE if the browser should be visible
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_get_entry_view ()">
+<a name="rb-source-get-entry-view"></a><h3>rb_source_get_entry_view ()</h3>
+<pre class="programlisting"><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="returnvalue">RBEntryView</span></a> *       rb_source_get_entry_view            (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Returns the entry view widget for the source.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> instance for the source
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_get_property_views ()">
+<a name="rb-source-get-property-views"></a><h3>rb_source_get_property_views ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             rb_source_get_property_views        (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Returns a list containing the <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> instances for the
+source, if any.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>  list of property views
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_can_rename ()">
+<a name="rb-source-can-rename"></a><h3>rb_source_can_rename ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_can_rename                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Determines whether the source can be renamed.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if this source can be renamed
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_search ()">
+<a name="rb-source-search"></a><h3>rb_source_search ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_search                    (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RBSourceSearch.html" title="RBSourceSearch"><span class="returnvalue">RBSourceSearch</span></a> *search,
+                                                         const <span class="returnvalue">char</span> *cur_text,
+                                                         const <span class="returnvalue">char</span> *new_text);</pre>
+<p>
+Updates the source with new search text.  The source
+should recreate the database query that feeds into the
+browser (if any).</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>search</code></em> :</span></p></td>
+<td> the active <a class="link" href="RBSourceSearch.html" title="RBSourceSearch"><span class="type">RBSourceSearch</span></a> instance
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cur_text</code></em> :</span></p></td>
+<td> the current search text
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>new_text</code></em> :</span></p></td>
+<td> the new search text
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_reset_filters ()">
+<a name="rb-source-reset-filters"></a><h3>rb_source_reset_filters ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_reset_filters             (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Clears all filters (browser selections, etc.) in this source.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_get_config_widget ()">
+<a name="rb-source-get-config-widget"></a><h3>rb_source_get_config_widget ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         rb_source_get_config_widget         (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="returnvalue">RBShellPreferences</span></a> *prefs);</pre>
+<p>
+Source implementations can use this to return an optional
+configuration widget. The widget will be displayed in a 
+page in the preferences dialog.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prefs</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> configuration widget
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_can_cut ()">
+<a name="rb-source-can-cut"></a><h3>rb_source_can_cut ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_can_cut                   (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Determines whether the source supporst the typical cut
+(as in cut-and-paste) operation.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if cutting is supported
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_can_delete ()">
+<a name="rb-source-can-delete"></a><h3>rb_source_can_delete ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_can_delete                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Determines whether the source allows the user to delete
+a selected set of entries.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if deletion is supported
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_can_move_to_trash ()">
+<a name="rb-source-can-move-to-trash"></a><h3>rb_source_can_move_to_trash ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_can_move_to_trash         (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Determines whether the source allows the user to trash
+the files backing a selected set of entries.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if trashing is supported
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_can_copy ()">
+<a name="rb-source-can-copy"></a><h3>rb_source_can_copy ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_can_copy                  (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Determines whether the source supports the copy part
+of a copy-and-paste operation.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if copying is supported
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_can_paste ()">
+<a name="rb-source-can-paste"></a><h3>rb_source_can_paste ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_can_paste                 (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Determines whether the source supports paste operations.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if the pasting is supported
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_can_add_to_queue ()">
+<a name="rb-source-can-add-to-queue"></a><h3>rb_source_can_add_to_queue ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_can_add_to_queue          (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Determines whether the source can add the selected entries to
+the play queue.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if adding to the play queue is supported
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_can_show_properties ()">
+<a name="rb-source-can-show-properties"></a><h3>rb_source_can_show_properties ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_can_show_properties       (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Determines whether the source can display a properties
+window for the currently selected entry (or set of entries)</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if showing properties is supported
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_cut ()">
+<a name="rb-source-cut"></a><h3>rb_source_cut ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             rb_source_cut                       (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Removes the currently selected entries from the source and
+returns them so they can be pasted into another source.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a list of <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="type">RhythmDBEntry</span></a> objects cut from
+the source.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_copy ()">
+<a name="rb-source-copy"></a><h3>rb_source_copy ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             rb_source_copy                      (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Copies the selected entries to the clipboard.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a list containing the currently selected entries from
+the source.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_paste ()">
+<a name="rb-source-paste"></a><h3>rb_source_paste ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_paste                     (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *entries);</pre>
+<p>
+Adds a list of entries previously cut or copied from another
+source.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entries</code></em> :</span></p></td>
+<td> a list of <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="type">RhythmDBEntry</span></a> objects to paste in
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_delete ()">
+<a name="rb-source-delete"></a><h3>rb_source_delete ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_delete                    (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Deletes the currently selected entries from the source.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_add_to_queue ()">
+<a name="rb-source-add-to-queue"></a><h3>rb_source_add_to_queue ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_add_to_queue              (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *queue);</pre>
+<p>
+Adds the currently selected entries to the end of the
+play queue.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>queue</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> for the play queue
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_move_to_trash ()">
+<a name="rb-source-move-to-trash"></a><h3>rb_source_move_to_trash ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_move_to_trash             (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Trashes the files backing the currently selected set of entries.
+In general, this should use <a class="link" href="RhythmDB.html#rhythmdb-entry-move-to-trash" title="rhythmdb_entry_move_to_trash ()"><span class="type">rhythmdb_entry_move_to_trash</span></a> to
+perform the actual trash operation.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_song_properties ()">
+<a name="rb-source-song-properties"></a><h3>rb_source_song_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_song_properties           (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Displays a properties window for the currently selected entries.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_try_playlist ()">
+<a name="rb-source-try-playlist"></a><h3>rb_source_try_playlist ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_try_playlist              (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Determines whether playback URIs for entries in the source should
+be parsed as playlists rather than just played.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE to attempt playlist parsing
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_want_uri ()">
+<a name="rb-source-want-uri"></a><h3>rb_source_want_uri ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               rb_source_want_uri                  (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         const <span class="returnvalue">char</span> *uri);</pre>
+<p>
+Returns an indication of how much the source wants to handle
+the specified URI.  100 is the highest usual value, and should
+only be used when the URI can only be associated with this source.
+0 should be used when the URI does not match the source at all.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td> a URI for the source to consider
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> value from 0 to 100 indicating how much the
+ source wants this URI.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_uri_is_source ()">
+<a name="rb-source-uri-is-source"></a><h3>rb_source_uri_is_source ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_uri_is_source             (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         const <span class="returnvalue">char</span> *uri);</pre>
+<p>
+Checks if the URI matches the source itself.  A source
+should return TRUE here if the URI points to the device that
+the source represents, for example.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td> a URI for the source to consider
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if the URI identifies the source itself.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_add_uri ()">
+<a name="rb-source-add-uri"></a><h3>rb_source_add_uri ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_add_uri                   (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         const <span class="returnvalue">char</span> *title,
+                                                         const <span class="returnvalue">char</span> *genre);</pre>
+<p>
+Adds an entry corresponding to the URI to the source.  The
+<em class="parameter"><code>title</code></em> and <em class="parameter"><code>genre</code></em> parameters are not really used.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td> a URI to add
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>title</code></em> :</span></p></td>
+<td> theoretically, the title of the entity the URI points to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>genre</code></em> :</span></p></td>
+<td> theoretically, the genre of the entity the URI points to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if the URI was successfully added to the source
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_can_pause ()">
+<a name="rb-source-can-pause"></a><h3>rb_source_can_pause ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_can_pause                 (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Determines whether playback of entries from the source can
+be paused.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if pausing is supported
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_handle_eos ()">
+<a name="rb-source-handle-eos"></a><h3>rb_source_handle_eos ()</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html#RBSourceEOFType" title="enum RBSourceEOFType"><span class="returnvalue">RBSourceEOFType</span></a>     rb_source_handle_eos                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Determines how EOS events should be handled when playing entries
+from the source.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> EOS event handling type
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_receive_drag ()">
+<a name="rb-source-receive-drag"></a><h3>rb_source_receive_drag ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_receive_drag              (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html#GtkSelectionData"><span class="returnvalue">GtkSelectionData</span></a> *data);</pre>
+<p>
+This is called when the user drags something to the source.
+Depending on the drag data type, the data might be a list of
+<a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="type">RhythmDBEntry</span></a> objects, a list of URIs, or a list of album
+or artist or genre names.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td> the selection data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if the source accepted the drag data
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_show_popup ()">
+<a name="rb-source-show-popup"></a><h3>rb_source_show_popup ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_source_show_popup                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Called when the user performs an action (such as right-clicking)
+that should result in a popup menu being displayed for the source.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if the source managed to display a popup
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_delete_thyself ()">
+<a name="rb-source-delete-thyself"></a><h3>rb_source_delete_thyself ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_delete_thyself            (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+This is called when the source should delete itself.
+The 'deleted' signal will be emitted, which removes the source
+from the source list.  This will not actually dispose of the
+source object, so reference counting must still be handled
+correctly.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_activate ()">
+<a name="rb-source-activate"></a><h3>rb_source_activate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_activate                  (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Called when the source is selected in the source list.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_deactivate ()">
+<a name="rb-source-deactivate"></a><h3>rb_source_deactivate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_deactivate                (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Called when the source is deselected in the source list.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_get_ui_actions ()">
+<a name="rb-source-get-ui-actions"></a><h3>rb_source_get_ui_actions ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             rb_source_get_ui_actions            (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Returns a list of UI action names.  Items for
+these actions will be added to the toolbar.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> list of action names
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_get_search_actions ()">
+<a name="rb-source-get-search-actions"></a><h3>rb_source_get_search_actions ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             rb_source_get_search_actions        (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Returns a list of UI action names. Buttons for these
+actions will be added to the search bar.  The source
+must identify the selected search action when constructing
+a database query for searching</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> list of search actions
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_gather_selected_properties ()">
+<a name="rb-source-gather-selected-properties"></a><h3>rb_source_gather_selected_properties ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             rb_source_gather_selected_properties
+                                                        (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBPropType" title="enum RhythmDBPropType"><span class="returnvalue">RhythmDBPropType</span></a> prop);</pre>
+<p>
+Returns a list containing the values of the specified
+property from the selected entries in the source.
+This is used to implement the 'browse this artist' (etc.)
+actions.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prop</code></em> :</span></p></td>
+<td> property for which to gather selection
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> list of property values
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_set_hidden_when_empty ()">
+<a name="rb-source-set-hidden-when-empty"></a><h3>rb_source_set_hidden_when_empty ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_set_hidden_when_empty     (<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> hidden);</pre>
+<p>
+Enables or disables automatic hiding of the source when
+there are no entries in it.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hidden</code></em> :</span></p></td>
+<td> if TRUE, automatically hide the source
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="RBSource.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "base-query-model" property'>
+<a name="RBSource--base-query-model"></a><h3>The <code class="literal">"base-query-model"</code> property</h3>
+<pre class="programlisting">  "base-query-model"         <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>*   : Read</pre>
+<p>
+The unfiltered query model for the source, containing all entries in the source.
+Source classes should override this if they perform filtering based on the search
+box or a browser.</p>
+</div>
+<hr>
+<div class="refsect2" title='The "entry-type" property'>
+<a name="RBSource--entry-type"></a><h3>The <code class="literal">"entry-type"</code> property</h3>
+<pre class="programlisting">  "entry-type"               <a class="link" href="RhythmDB.html#RhythmDBEntryType" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a>*    : Read / Write / Construct Only</pre>
+<p>
+Entry type for entries in this source.</p>
+</div>
+<hr>
+<div class="refsect2" title='The "hidden-when-empty" property'>
+<a name="RBSource--hidden-when-empty"></a><h3>The <code class="literal">"hidden-when-empty"</code> property</h3>
+<pre class="programlisting">  "hidden-when-empty"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>
+If TRUE, the source will not be displayed in the source list
+when it contains no entries.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2" title='The "icon" property'>
+<a name="RBSource--icon"></a><h3>The <code class="literal">"icon"</code> property</h3>
+<pre class="programlisting">  "icon"                     <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"><span class="type">GdkPixbuf</span></a>*            : Read / Write</pre>
+<p>
+Icon to display in the source list</p>
+</div>
+<hr>
+<div class="refsect2" title='The "name" property'>
+<a name="RBSource--name"></a><h3>The <code class="literal">"name"</code> property</h3>
+<pre class="programlisting">  "name"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>
+Source name as displayed in the source list</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2" title='The "play-order" property'>
+<a name="RBSource--play-order"></a><h3>The <code class="literal">"play-order"</code> property</h3>
+<pre class="programlisting">  "play-order"               <a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a>*          : Read</pre>
+<p>
+If the source provides its own play order, it can override this property.</p>
+</div>
+<hr>
+<div class="refsect2" title='The "plugin" property'>
+<a name="RBSource--plugin"></a><h3>The <code class="literal">"plugin"</code> property</h3>
+<pre class="programlisting">  "plugin"                   <a class="link" href="RBPlugin.html" title="RBPlugin"><span class="type">RBPlugin</span></a>*             : Read / Write / Construct</pre>
+<p>
+The plugin that created this source.</p>
+</div>
+<hr>
+<div class="refsect2" title='The "query-model" property'>
+<a name="RBSource--query-model"></a><h3>The <code class="literal">"query-model"</code> property</h3>
+<pre class="programlisting">  "query-model"              <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>*   : Read / Write</pre>
+<p>
+The current query model for the source.  This is used in
+various places, including the play order, to find the
+set of entries within the source.</p>
+</div>
+<hr>
+<div class="refsect2" title='The "search-type" property'>
+<a name="RBSource--search-type"></a><h3>The <code class="literal">"search-type"</code> property</h3>
+<pre class="programlisting">  "search-type"              <span class="type">RBSourceSearchType</span>    : Read / Write / Construct</pre>
+<p>
+The type of searching this source provides, as a RBSourceSearchType value.
+This is used by the RBSourceHeader to modify the search box widget.</p>
+<p>Default value: RB_SOURCE_SEARCH_NONE</p>
+</div>
+<hr>
+<div class="refsect2" title='The "shell" property'>
+<a name="RBSource--shell"></a><h3>The <code class="literal">"shell"</code> property</h3>
+<pre class="programlisting">  "shell"                    <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>*              : Read / Write / Construct Only</pre>
+<p>
+The rhythmbox shell object</p>
+</div>
+<hr>
+<div class="refsect2" title='The "source-group" property'>
+<a name="RBSource--source-group"></a><h3>The <code class="literal">"source-group"</code> property</h3>
+<pre class="programlisting">  "source-group"             <a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="type">RBSourceGroup</span></a>*        : Read / Write / Construct Only</pre>
+<p>
+Source group in which to display the source</p>
+</div>
+<hr>
+<div class="refsect2" title='The "ui-manager" property'>
+<a name="RBSource--ui-manager"></a><h3>The <code class="literal">"ui-manager"</code> property</h3>
+<pre class="programlisting">  "ui-manager"               <a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="type">GtkUIManager</span></a>*         : Read</pre>
+<p>
+The Gtk UIManager object</p>
+</div>
+<hr>
+<div class="refsect2" title='The "visibility" property'>
+<a name="RBSource--visibility"></a><h3>The <code class="literal">"visibility"</code> property</h3>
+<pre class="programlisting">  "visibility"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>
+If FALSE, the source will not be displayed in the source list</p>
+<p>Default value: TRUE</p>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="RBSource.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "deleted" signal'>
+<a name="RBSource-deleted"></a><h3>The <code class="literal">"deleted"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : Run Last</pre>
+<p>
+Emitted when the source is being deleted.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "filter-changed" signal'>
+<a name="RBSource-filter-changed"></a><h3>The <code class="literal">"filter-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : Run Last</pre>
+<p>
+Fires when the user changes the filter, either by changing the
+contents of the search box or by selecting a different browser
+entry.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "status-changed" signal'>
+<a name="RBSource-status-changed"></a><h3>The <code class="literal">"status-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : Run Last</pre>
+<p>
+Emitted when the source's status changes.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

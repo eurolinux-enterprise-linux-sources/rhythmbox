@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBSearchEntry</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch07.html" title="Widgets">
+<link rel="prev" href="RBRating.html" title="RBRating">
+<link rel="next" href="RBSongInfo.html" title="RBSongInfo">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBRating.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch07.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBSongInfo.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBSearchEntry.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBSearchEntry.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBSearchEntry.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBSearchEntry.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#RBSearchEntry.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBSearchEntry">
+<a name="RBSearchEntry"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBSearchEntry.top_of_page"></a>RBSearchEntry</span></h2>
+<p>RBSearchEntry — text entry widget for the search box</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="RBSearchEntry.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="RBSearchEntry.html#RBSearchEntry-struct" title="RBSearchEntry">RBSearchEntry</a>;
+                    <a class="link" href="RBSearchEntry.html#RBSearchEntryClass" title="RBSearchEntryClass">RBSearchEntryClass</a>;
+<a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="returnvalue">RBSearchEntry</span></a> *     <a class="link" href="RBSearchEntry.html#rb-search-entry-new" title="rb_search_entry_new ()">rb_search_entry_new</a>                 (void);
+<span class="returnvalue">void</span>                <a class="link" href="RBSearchEntry.html#rb-search-entry-clear" title="rb_search_entry_clear ()">rb_search_entry_clear</a>               (<a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="returnvalue">RBSearchEntry</span></a> *entry);
+<span class="returnvalue">void</span>                <a class="link" href="RBSearchEntry.html#rb-search-entry-set-text" title="rb_search_entry_set_text ()">rb_search_entry_set_text</a>            (<a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="returnvalue">RBSearchEntry</span></a> *entry,
+                                                         const <span class="returnvalue">char</span> *text);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBSearchEntry.html#rb-search-entry-searching" title="rb_search_entry_searching ()">rb_search_entry_searching</a>           (<a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="returnvalue">RBSearchEntry</span></a> *entry);
+<span class="returnvalue">void</span>                <a class="link" href="RBSearchEntry.html#rb-search-entry-grab-focus" title="rb_search_entry_grab_focus ()">rb_search_entry_grab_focus</a>          (<a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="returnvalue">RBSearchEntry</span></a> *entry);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="RBSearchEntry.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkObject.html">GtkObject</a>
+               +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html">GtkWidget</a>
+                     +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkContainer.html">GtkContainer</a>
+                           +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkBox.html">GtkBox</a>
+                                 +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkHBox.html">GtkHBox</a>
+                                       +----RBSearchEntry
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="RBSearchEntry.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBSearchEntry implements
+ AtkImplementorIface,  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1" title="Signals">
+<a name="RBSearchEntry.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBSearchEntry.html#RBSearchEntry-activate" title='The "activate" signal'>activate</a>"                                       : Run Last
+  "<a class="link" href="RBSearchEntry.html#RBSearchEntry-search" title='The "search" signal'>search</a>"                                         : Run Last
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="RBSearchEntry.description"></a><h2>Description</h2>
+<p>
+The search entry contains a label and a text entry box.
+The text entry box contains an icon that acts as a 'clear'
+button.
+</p>
+<p>
+Signals are emitted when the search text changes,
+arbitrarily rate-limited to one every 300ms.
+</p>
+<p>
+When the text entry widget is non-empty, its colours are
+changed to display the text in black on yellow.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="RBSearchEntry.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBSearchEntry">
+<a name="RBSearchEntry-struct"></a><h3>RBSearchEntry</h3>
+<pre class="programlisting">typedef struct _RBSearchEntry RBSearchEntry;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBSearchEntryClass">
+<a name="RBSearchEntryClass"></a><h3>RBSearchEntryClass</h3>
+<pre class="programlisting">typedef struct {
+	GtkHBoxClass parent;
+
+	void (*search) (RBSearchEntry *view, const char *text);
+	void (*activate) (RBSearchEntry *entry);
+} RBSearchEntryClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_search_entry_new ()">
+<a name="rb-search-entry-new"></a><h3>rb_search_entry_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="returnvalue">RBSearchEntry</span></a> *     rb_search_entry_new                 (void);</pre>
+<p>
+Creates a new search entry widget.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> new search entry widget.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_search_entry_clear ()">
+<a name="rb-search-entry-clear"></a><h3>rb_search_entry_clear ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_search_entry_clear               (<a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="returnvalue">RBSearchEntry</span></a> *entry);</pre>
+<p>
+Clears the search entry text.  The 'search' signal will
+be emitted.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="type">RBSearchEntry</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_search_entry_set_text ()">
+<a name="rb-search-entry-set-text"></a><h3>rb_search_entry_set_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_search_entry_set_text            (<a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="returnvalue">RBSearchEntry</span></a> *entry,
+                                                         const <span class="returnvalue">char</span> *text);</pre>
+<p>
+Sets the text in the search entry box.
+The 'search' signal will be emitted.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="type">RBSearchEntry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td> new search text
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_search_entry_searching ()">
+<a name="rb-search-entry-searching"></a><h3>rb_search_entry_searching ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_search_entry_searching           (<a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="returnvalue">RBSearchEntry</span></a> *entry);</pre>
+<p>
+Returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if there is search text in the entry widget.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="type">RBSearchEntry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if searching
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_search_entry_grab_focus ()">
+<a name="rb-search-entry-grab-focus"></a><h3>rb_search_entry_grab_focus ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_search_entry_grab_focus          (<a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="returnvalue">RBSearchEntry</span></a> *entry);</pre>
+<p>
+Grabs input focus for the text entry widget.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> a <a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="type">RBSearchEntry</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="RBSearchEntry.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "activate" signal'>
+<a name="RBSearchEntry-activate"></a><h3>The <code class="literal">"activate"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="type">RBSearchEntry</span></a> *entry,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>         *text,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>       user_data)      : Run Last</pre>
+<p>
+Emitted when the entry is activated.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="type">RBSearchEntry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td> search text
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "search" signal'>
+<a name="RBSearchEntry-search"></a><h3>The <code class="literal">"search"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="type">RBSearchEntry</span></a> *entry,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>         *text,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>       user_data)      : Run Last</pre>
+<p>
+Emitted when the search text changes.  A signal
+handler must initiate a search on the current
+source.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSearchEntry.html" title="RBSearchEntry"><span class="type">RBSearchEntry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td> search text
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

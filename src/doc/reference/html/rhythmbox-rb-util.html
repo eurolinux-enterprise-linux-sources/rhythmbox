@@ -1,0 +1,914 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>rb-util</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch02.html" title="Lib">
+<link rel="prev" href="rhythmbox-rb-tree-dnd.html" title="rb-tree-dnd">
+<link rel="next" href="rhythmbox-rb-text-helpers.html" title="rb-text-helpers">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="rhythmbox-rb-tree-dnd.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="rhythmbox-rb-text-helpers.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#rhythmbox-rb-util.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#rhythmbox-rb-util.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="rb-util">
+<a name="rhythmbox-rb-util"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="rhythmbox-rb-util.top_of_page"></a>rb-util</span></h2>
+<p>rb-util — assorted utility functions</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="rhythmbox-rb-util.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="rhythmbox-rb-util.html#rb-true-function" title="rb_true_function ()">rb_true_function</a>                    (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> dummy);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="rhythmbox-rb-util.html#rb-false-function" title="rb_false_function ()">rb_false_function</a>                   (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> dummy);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="rhythmbox-rb-util.html#rb-null-function" title="rb_null_function ()">rb_null_function</a>                    (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> dummy);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="rhythmbox-rb-util.html#rb-copy-function" title="rb_copy_function ()">rb_copy_function</a>                    (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> data);
+<span class="returnvalue">int</span>                 <a class="link" href="rhythmbox-rb-util.html#rb-gvalue-compare" title="rb_gvalue_compare ()">rb_gvalue_compare</a>                   (<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *a,
+                                                         <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *b);
+<span class="returnvalue">int</span>                 <a class="link" href="rhythmbox-rb-util.html#rb-compare-gtimeval" title="rb_compare_gtimeval ()">rb_compare_gtimeval</a>                 (<a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GTimeVal"><span class="returnvalue">GTimeVal</span></a> *a,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GTimeVal"><span class="returnvalue">GTimeVal</span></a> *b);
+<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="rhythmbox-rb-util.html#rb-image-new-from-stock" title="rb_image_new_from_stock ()">rb_image_new_from_stock</a>             (const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *stock_id,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/gtk-Themeable-Stock-Images.html#GtkIconSize"><span class="returnvalue">GtkIconSize</span></a> size);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-util.html#rb-gtk-action-popup-menu" title="rb_gtk_action_popup_menu ()">rb_gtk_action_popup_menu</a>            (<a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="returnvalue">GtkUIManager</span></a> *uimanager,
+                                                         const <span class="returnvalue">char</span> *path);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="rhythmbox-rb-util.html#rb-is-main-thread" title="rb_is_main_thread ()">rb_is_main_thread</a>                   (void);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-util.html#rb-assert-locked" title="rb_assert_locked ()">rb_assert_locked</a>                    (<a href="http://library.gnome.org/devel/glib/unstable/glib-Threads.html#GMutex"><span class="returnvalue">GMutex</span></a> *mutex);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-util.html#rb-threads-init" title="rb_threads_init ()">rb_threads_init</a>                     (void);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>**             <a class="link" href="rhythmbox-rb-util.html#rb-string-split-words" title="rb_string_split_words ()">rb_string_split_words</a>               (const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *string);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*              <a class="link" href="rhythmbox-rb-util.html#rb-search-fold" title="rb_search_fold ()">rb_search_fold</a>                      (const <span class="returnvalue">char</span> *original);
+<span class="returnvalue">char</span> *              <a class="link" href="rhythmbox-rb-util.html#rb-make-duration-string" title="rb_make_duration_string ()">rb_make_duration_string</a>             (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a> duration);
+<span class="returnvalue">char</span> *              <a class="link" href="rhythmbox-rb-util.html#rb-make-elapsed-time-string" title="rb_make_elapsed_time_string ()">rb_make_elapsed_time_string</a>         (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a> elapsed,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a> duration,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> show_remaining);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="rhythmbox-rb-util.html#rb-string-list-equal" title="rb_string_list_equal ()">rb_string_list_equal</a>                (<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *a,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *b);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="rhythmbox-rb-util.html#rb-string-list-copy" title="rb_string_list_copy ()">rb_string_list_copy</a>                 (<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *list);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="rhythmbox-rb-util.html#rb-string-list-contains" title="rb_string_list_contains ()">rb_string_list_contains</a>             (<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *list,
+                                                         const <span class="returnvalue">char</span> *s);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-util.html#rb-list-destroy-free" title="rb_list_destroy_free ()">rb_list_destroy_free</a>                (<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *list,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="returnvalue">GDestroyNotify</span></a> destroyer);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-util.html#rb-list-deep-free" title="rb_list_deep_free ()">rb_list_deep_free</a>                   (<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *list);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-util.html#rb-slist-deep-free" title="rb_slist_deep_free ()">rb_slist_deep_free</a>                  (<a href="http://library.gnome.org/devel/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *list);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="rhythmbox-rb-util.html#rb-collate-hash-table-keys" title="rb_collate_hash_table_keys ()">rb_collate_hash_table_keys</a>          (<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *table);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="rhythmbox-rb-util.html#rb-collate-hash-table-values" title="rb_collate_hash_table_values ()">rb_collate_hash_table_values</a>        (<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *table);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="rhythmbox-rb-util.html#rb-uri-list-parse" title="rb_uri_list_parse ()">rb_uri_list_parse</a>                   (const <span class="returnvalue">char</span> *uri_list);
+<span class="returnvalue">char</span>*               <a class="link" href="rhythmbox-rb-util.html#rb-mime-get-friendly-name" title="rb_mime_get_friendly_name ()">rb_mime_get_friendly_name</a>           (const <span class="returnvalue">char</span> *mime_type);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="rhythmbox-rb-util.html#rb-signal-accumulator-object-handled" title="rb_signal_accumulator_object_handled ()">rb_signal_accumulator_object_handled</a>
+                                                        (<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#GSignalInvocationHint"><span class="returnvalue">GSignalInvocationHint</span></a> *hint,
+                                                         <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *return_accu,
+                                                         const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *handler_return,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> dummy);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="rhythmbox-rb-util.html#rb-signal-accumulator-value-array" title="rb_signal_accumulator_value_array ()">rb_signal_accumulator_value_array</a>   (<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#GSignalInvocationHint"><span class="returnvalue">GSignalInvocationHint</span></a> *hint,
+                                                         <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *return_accu,
+                                                         const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *handler_return,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> dummy);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-util.html#rb-value-array-append-data" title="rb_value_array_append_data ()">rb_value_array_append_data</a>          (<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="returnvalue">GValueArray</span></a> *array,
+                                                         <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a> type,
+                                                         ...);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-util.html#rb-value-free" title="rb_value_free ()">rb_value_free</a>                       (<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *val);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="rhythmbox-rb-util.html#rb-str-in-strv" title="rb_str_in_strv ()">rb_str_in_strv</a>                      (const <span class="returnvalue">char</span> *needle,
+                                                         <span class="returnvalue">char</span> **haystack);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-util.html#rb-set-tree-view-column-fixed-width" title="rb_set_tree_view_column_fixed_width ()">rb_set_tree_view_column_fixed_width</a> (<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *treeview,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeViewColumn.html"><span class="returnvalue">GtkTreeViewColumn</span></a> *column,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkCellRenderer.html"><span class="returnvalue">GtkCellRenderer</span></a> *renderer,
+                                                         const <span class="returnvalue">char</span> **strings,
+                                                         <span class="returnvalue">int</span> padding);
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"><span class="returnvalue">GdkPixbuf</span></a> *         <a class="link" href="rhythmbox-rb-util.html#rb-scale-pixbuf-to-size" title="rb_scale_pixbuf_to_size ()">rb_scale_pixbuf_to_size</a>             (<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"><span class="returnvalue">GdkPixbuf</span></a> *pixbuf,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/gtk-Themeable-Stock-Images.html#GtkIconSize"><span class="returnvalue">GtkIconSize</span></a> size);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="rhythmbox-rb-util.description"></a><h2>Description</h2>
+<p>
+This is a dumping ground for utility functions that may or may not
+be generally useful in Rhythmbox or elsewhere.  Things end up here
+if they're clever or if they're used all over the place.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="rhythmbox-rb-util.details"></a><h2>Details</h2>
+<div class="refsect2" title="rb_true_function ()">
+<a name="rb-true-function"></a><h3>rb_true_function ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_true_function                    (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> dummy);</pre>
+<p>
+Just returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, useful as a callback function.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dummy</code></em> :</span></p></td>
+<td> unused
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_false_function ()">
+<a name="rb-false-function"></a><h3>rb_false_function ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_false_function                   (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> dummy);</pre>
+<p>
+Just returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, useful as a callback function.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dummy</code></em> :</span></p></td>
+<td> unused
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_null_function ()">
+<a name="rb-null-function"></a><h3>rb_null_function ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            rb_null_function                    (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> dummy);</pre>
+<p>
+Just returns NULL.  Useful as a callback function.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dummy</code></em> :</span></p></td>
+<td> unused
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> NULL
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_copy_function ()">
+<a name="rb-copy-function"></a><h3>rb_copy_function ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            rb_copy_function                    (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> data);</pre>
+<p>
+Just returns its first argument.  Useful as a callback function.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td> generic argument
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <em class="parameter"><code>data</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_gvalue_compare ()">
+<a name="rb-gvalue-compare"></a><h3>rb_gvalue_compare ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 rb_gvalue_compare                   (<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *a,
+                                                         <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *b);</pre>
+<p>
+Compares <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> for sorting.  <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> must contain the same value
+type for the comparison to be valid.  Comparisons for some value types
+are not particularly useful.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td> left hand side
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td> right hand size
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> -1 if <em class="parameter"><code>a</code></em> &lt; <em class="parameter"><code>b</code></em>, 0 if <em class="parameter"><code>a</code></em> == <em class="parameter"><code>b</code></em>, 1 if <em class="parameter"><code>a</code></em> &gt; <em class="parameter"><code>b</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_compare_gtimeval ()">
+<a name="rb-compare-gtimeval"></a><h3>rb_compare_gtimeval ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 rb_compare_gtimeval                 (<a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GTimeVal"><span class="returnvalue">GTimeVal</span></a> *a,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GTimeVal"><span class="returnvalue">GTimeVal</span></a> *b);</pre>
+<p>
+Compares two <span class="type">GTimeval</span> structures for sorting.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td> left hand side
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td> right hand size
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> -1 if <em class="parameter"><code>a</code></em> &lt; <em class="parameter"><code>b</code></em>, 0 if <em class="parameter"><code>a</code></em> == <em class="parameter"><code>b</code></em>, 1 if <em class="parameter"><code>a</code></em> &gt; <em class="parameter"><code>b</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_image_new_from_stock ()">
+<a name="rb-image-new-from-stock"></a><h3>rb_image_new_from_stock ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         rb_image_new_from_stock             (const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *stock_id,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/gtk-Themeable-Stock-Images.html#GtkIconSize"><span class="returnvalue">GtkIconSize</span></a> size);</pre>
+<p>
+Same as <em class="parameter"><code>gtk_image_new_from_stock</code></em> except that it mirrors the icons for RTL
+languages.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stock_id</code></em> :</span></p></td>
+<td> stock image id
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td> requested icon size
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <a href="http://library.gnome.org/devel/gtk/unstable/GtkImage.html"><span class="type">GtkImage</span></a> of the requested stock item
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_gtk_action_popup_menu ()">
+<a name="rb-gtk-action-popup-menu"></a><h3>rb_gtk_action_popup_menu ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_gtk_action_popup_menu            (<a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="returnvalue">GtkUIManager</span></a> *uimanager,
+                                                         const <span class="returnvalue">char</span> *path);</pre>
+<p>
+Simple shortcut for getting a popup menu from a <a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="type">GtkUIManager</span></a> and
+displaying it.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uimanager</code></em> :</span></p></td>
+<td> a <a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="type">GtkUIManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td> UI path for the popup to display
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_is_main_thread ()">
+<a name="rb-is-main-thread"></a><h3>rb_is_main_thread ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_is_main_thread                   (void);</pre>
+<p>
+Checks if currently executing on the main thread.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if on the main thread
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_assert_locked ()">
+<a name="rb-assert-locked"></a><h3>rb_assert_locked ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_assert_locked                    (<a href="http://library.gnome.org/devel/glib/unstable/glib-Threads.html#GMutex"><span class="returnvalue">GMutex</span></a> *mutex);</pre>
+<p>
+Asserts that <em class="parameter"><code>mutex</code></em> is currently locked.  Does not work with all
+mutex implementations.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mutex</code></em> :</span></p></td>
+<td> a <a href="http://library.gnome.org/devel/glib/unstable/glib-Threads.html#GMutex"><span class="type">GMutex</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_threads_init ()">
+<a name="rb-threads-init"></a><h3>rb_threads_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_threads_init                     (void);</pre>
+<p>
+Initializes various thread helpers.  Must be called on startup.</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_string_split_words ()">
+<a name="rb-string-split-words"></a><h3>rb_string_split_words ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>**             rb_string_split_words               (const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *string);</pre>
+<p>
+Splits <em class="parameter"><code>string</code></em> on word boundaries using Unicode character definitions.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td> the string to split
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> NULL-terminated array of strings, must be freed by caller (see <em class="parameter"><code>g_strfreev</code></em>)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_search_fold ()">
+<a name="rb-search-fold"></a><h3>rb_search_fold ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*              rb_search_fold                      (const <span class="returnvalue">char</span> *original);</pre>
+<p>
+Returns a case-folded and punctuation-stripped version of <em class="parameter"><code>original</code></em>, useful
+for performing text searches.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>original</code></em> :</span></p></td>
+<td> the string to fold
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> case-folded string, must be freed by caller.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_make_duration_string ()">
+<a name="rb-make-duration-string"></a><h3>rb_make_duration_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              rb_make_duration_string             (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a> duration);</pre>
+<p>
+Constructs a string describing the specified duration.  The string
+describes hours, minutes, and seconds, and its format is localised.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>duration</code></em> :</span></p></td>
+<td> duration in seconds
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> duration string, must be freed by caller.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_make_elapsed_time_string ()">
+<a name="rb-make-elapsed-time-string"></a><h3>rb_make_elapsed_time_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              rb_make_elapsed_time_string         (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a> elapsed,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a> duration,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> show_remaining);</pre>
+<p>
+Constructs a string describing a playback position.  The string describes hours,
+minutes, and seconds, and its format is localised.  The string can describe either
+the elapsed time or the time remaining.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>elapsed</code></em> :</span></p></td>
+<td> elapsed time (in seconds)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>duration</code></em> :</span></p></td>
+<td> duration (in seconds)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>show_remaining</code></em> :</span></p></td>
+<td> if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, show the remaining time, otherwise show elapsed time
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> elapsed/remaining time string, must be freed by caller
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_string_list_equal ()">
+<a name="rb-string-list-equal"></a><h3>rb_string_list_equal ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_string_list_equal                (<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *a,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *b);</pre>
+<p>
+Checks if <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> contain exactly the same set of strings,
+regardless of order.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td> list of strings to compare
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td> other list of strings to compare
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the lists contain all the same strings
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_string_list_copy ()">
+<a name="rb-string-list-copy"></a><h3>rb_string_list_copy ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              rb_string_list_copy                 (<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *list);</pre>
+<p>
+Creates a deep copy of <em class="parameter"><code>list</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td> list of strings to copy
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> copied list, must be freed (and its contents freed)
+ by caller
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_string_list_contains ()">
+<a name="rb-string-list-contains"></a><h3>rb_string_list_contains ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_string_list_contains             (<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *list,
+                                                         const <span class="returnvalue">char</span> *s);</pre>
+<p>
+Checks if <em class="parameter"><code>list</code></em> contains the string <em class="parameter"><code>s</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td> list to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td> string to check for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if found
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_list_destroy_free ()">
+<a name="rb-list-destroy-free"></a><h3>rb_list_destroy_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_list_destroy_free                (<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *list,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="returnvalue">GDestroyNotify</span></a> destroyer);</pre>
+<p>
+Calls <em class="parameter"><code>destroyer</code></em> for each element in <em class="parameter"><code>list</code></em>, then frees <em class="parameter"><code>list</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td> list to destroy
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroyer</code></em> :</span></p></td>
+<td> function to call to free elements of <em class="parameter"><code>list</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_list_deep_free ()">
+<a name="rb-list-deep-free"></a><h3>rb_list_deep_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_list_deep_free                   (<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *list);</pre>
+<p>
+Frees each element of <em class="parameter"><code>list</code></em> and <em class="parameter"><code>list</code></em> itself.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td> list to free
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_slist_deep_free ()">
+<a name="rb-slist-deep-free"></a><h3>rb_slist_deep_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_slist_deep_free                  (<a href="http://library.gnome.org/devel/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *list);</pre>
+<p>
+Frees each element of <em class="parameter"><code>list</code></em> and <em class="parameter"><code>list</code></em> itself.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td> list to free
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_collate_hash_table_keys ()">
+<a name="rb-collate-hash-table-keys"></a><h3>rb_collate_hash_table_keys ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              rb_collate_hash_table_keys          (<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *table);</pre>
+<p>
+Returns a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> containing all keys from <em class="parameter"><code>table</code></em>.  The keys are
+not copied.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>table</code></em> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> to collate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of keys, must be freed by caller
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_collate_hash_table_values ()">
+<a name="rb-collate-hash-table-values"></a><h3>rb_collate_hash_table_values ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              rb_collate_hash_table_values        (<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *table);</pre>
+<p>
+Returns a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> containing all values from <em class="parameter"><code>table</code></em>.  The values are
+not copied.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>table</code></em> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> to collate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of values, must be freed by caller
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_uri_list_parse ()">
+<a name="rb-uri-list-parse"></a><h3>rb_uri_list_parse ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              rb_uri_list_parse                   (const <span class="returnvalue">char</span> *uri_list);</pre>
+<p>
+Converts a single string containing a list of URIs into
+a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of URI strings.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri_list</code></em> :</span></p></td>
+<td> string containing URIs to parse
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of URI strings, must be deep-freed by caller
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_mime_get_friendly_name ()">
+<a name="rb-mime-get-friendly-name"></a><h3>rb_mime_get_friendly_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span>*               rb_mime_get_friendly_name           (const <span class="returnvalue">char</span> *mime_type);</pre>
+<p>
+Returns a human-friendly description of the MIME type <em class="parameter"><code>mime_type</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mime_type</code></em> :</span></p></td>
+<td> a MIME type
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> type description, must be freed by caller
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_signal_accumulator_object_handled ()">
+<a name="rb-signal-accumulator-object-handled"></a><h3>rb_signal_accumulator_object_handled ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_signal_accumulator_object_handled
+                                                        (<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#GSignalInvocationHint"><span class="returnvalue">GSignalInvocationHint</span></a> *hint,
+                                                         <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *return_accu,
+                                                         const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *handler_return,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> dummy);</pre>
+<p>
+A <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#GSignalAccumulator"><span class="type">GSignalAccumulator</span></a> that aborts the signal emission after the
+first handler to return a value, and returns the value returned by
+that handler.  This is the opposite behaviour from what you get when
+no accumulator is specified, where the last signal handler wins.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hint</code></em> :</span></p></td>
+<td> a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#GSignalInvocationHint"><span class="type">GSignalInvocationHint</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>return_accu</code></em> :</span></p></td>
+<td> holds the accumulated return value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handler_return</code></em> :</span></p></td>
+<td> holds the return value to be accumulated
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dummy</code></em> :</span></p></td>
+<td> user data (unused)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> to abort signal emission, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> to continue
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_signal_accumulator_value_array ()">
+<a name="rb-signal-accumulator-value-array"></a><h3>rb_signal_accumulator_value_array ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_signal_accumulator_value_array   (<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#GSignalInvocationHint"><span class="returnvalue">GSignalInvocationHint</span></a> *hint,
+                                                         <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *return_accu,
+                                                         const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *handler_return,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> dummy);</pre>
+<p>
+A <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#GSignalAccumulator"><span class="type">GSignalAccumulator</span></a> used to combine all returned values into
+a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hint</code></em> :</span></p></td>
+<td> a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#GSignalInvocationHint"><span class="type">GSignalInvocationHint</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>return_accu</code></em> :</span></p></td>
+<td> holds the accumulated return value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handler_return</code></em> :</span></p></td>
+<td> holds the return value to be accumulated
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dummy</code></em> :</span></p></td>
+<td> user data (unused)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> to abort signal emission, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> to continue
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_value_array_append_data ()">
+<a name="rb-value-array-append-data"></a><h3>rb_value_array_append_data ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_value_array_append_data          (<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="returnvalue">GValueArray</span></a> *array,
+                                                         <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a> type,
+                                                         ...);</pre>
+<p>
+Appends a single value to <em class="parameter"><code>array</code></em>, collecting it from <em class="parameter"><code>Varargs</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a> to append to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> of the value being appended
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td> value to append
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_value_free ()">
+<a name="rb-value-free"></a><h3>rb_value_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_value_free                       (<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *val);</pre>
+<p>
+Unsets and frees <em class="parameter"><code>val</code></em>.  <em class="parameter"><code>val</code></em> must have been allocated using
+<em class="parameter"><code>g_slice_new</code></em> or <em class="parameter"><code>g_slice_new0</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>val</code></em> :</span></p></td>
+<td> a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_str_in_strv ()">
+<a name="rb-str-in-strv"></a><h3>rb_str_in_strv ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_str_in_strv                      (const <span class="returnvalue">char</span> *needle,
+                                                         <span class="returnvalue">char</span> **haystack);</pre>
+<p>
+Checks if <em class="parameter"><code>needle</code></em> is present in the NULL-terminated string
+array <em class="parameter"><code>haystack</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>needle</code></em> :</span></p></td>
+<td> string to search for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>haystack</code></em> :</span></p></td>
+<td> array of strings to search
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if found
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_set_tree_view_column_fixed_width ()">
+<a name="rb-set-tree-view-column-fixed-width"></a><h3>rb_set_tree_view_column_fixed_width ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_set_tree_view_column_fixed_width (<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *treeview,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeViewColumn.html"><span class="returnvalue">GtkTreeViewColumn</span></a> *column,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkCellRenderer.html"><span class="returnvalue">GtkCellRenderer</span></a> *renderer,
+                                                         const <span class="returnvalue">char</span> **strings,
+                                                         <span class="returnvalue">int</span> padding);</pre>
+<p>
+Sets a fixed size for a tree view column based on
+a set of strings to be displayed in the column.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>treeview</code></em> :</span></p></td>
+<td> the <a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeView.html"><span class="type">GtkTreeView</span></a> containing the column
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>column</code></em> :</span></p></td>
+<td> the <a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeViewColumn.html"><span class="type">GtkTreeViewColumn</span></a> to size
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>renderer</code></em> :</span></p></td>
+<td> the <a href="http://library.gnome.org/devel/gtk/unstable/GtkCellRenderer.html"><span class="type">GtkCellRenderer</span></a> used in the column
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>strings</code></em> :</span></p></td>
+<td> a NULL-terminated set of strings to base the size on
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>padding</code></em> :</span></p></td>
+<td> a small amount of extra padding for the column
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_scale_pixbuf_to_size ()">
+<a name="rb-scale-pixbuf-to-size"></a><h3>rb_scale_pixbuf_to_size ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"><span class="returnvalue">GdkPixbuf</span></a> *         rb_scale_pixbuf_to_size             (<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"><span class="returnvalue">GdkPixbuf</span></a> *pixbuf,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/gtk-Themeable-Stock-Images.html#GtkIconSize"><span class="returnvalue">GtkIconSize</span></a> size);</pre>
+<p>
+Creates a new <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"><span class="type">GdkPixbuf</span></a> from the original one, for a target of
+size, respecting the aspect ratio of the image.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pixbuf</code></em> :</span></p></td>
+<td> the <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"><span class="type">GdkPixbuf</span></a> containing the original image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td> a stock icon size
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> scaled <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"><span class="type">GdkPixbuf</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

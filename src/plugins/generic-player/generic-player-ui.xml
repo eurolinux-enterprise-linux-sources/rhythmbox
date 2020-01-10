@@ -1,0 +1,15 @@
+<ui>
+  <popup name="GenericPlayerSourcePopup">
+    <menuitem name="GenericPlayerSourcePopupEject" action="RemovableSourceEject"/>
+    <menuitem name="GenericPlayerSourcePopupNewPlaylist" action="GenericPlayerSourceNewPlaylist"/>
+    <menuitem name="GenericPlayerSourcePopupProperties" action="GenericPlayerSourceProperties"/>
+  </popup>
+
+  <popup name="GenericPlayerPlaylistSourcePopup">
+    <menuitem name="RenameAutoPlaylistPopup" action="MusicPlaylistRenamePlaylist"/>
+    <separator/>
+    <menuitem name="QueuePlaylistPopup" action="QueuePlaylist"/>
+    <separator/>
+    <menuitem name="GenericPlayerPlaylistDeletePopup" action="GenericPlayerPlaylistDelete"/>
+  </popup>
+</ui>

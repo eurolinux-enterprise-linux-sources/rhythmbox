@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBEncoder</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch01.html" title="Backends">
+<link rel="prev" href="RBPlayerGstTee.html" title="RBPlayerGstTee">
+<link rel="next" href="ch02.html" title="Lib">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBPlayerGstTee.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="ch02.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBEncoder.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBEncoder.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBEncoder.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBEncoder.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBEncoder">
+<a name="RBEncoder"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBEncoder.top_of_page"></a>RBEncoder</span></h2>
+<p>RBEncoder — audio transcoder interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="RBEncoder.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="RBEncoder.html#RBEncoder-struct" title="RBEncoder">RBEncoder</a>;
+                    <a class="link" href="RBEncoder.html#RBEncoderIface" title="RBEncoderIface">RBEncoderIface</a>;
+<a class="link" href="RBEncoder.html" title="RBEncoder"><span class="returnvalue">RBEncoder</span></a>*          <a class="link" href="RBEncoder.html#rb-encoder-new" title="rb_encoder_new ()">rb_encoder_new</a>                      (void);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBEncoder.html#rb-encoder-encode" title="rb_encoder_encode ()">rb_encoder_encode</a>                   (<a class="link" href="RBEncoder.html" title="RBEncoder"><span class="returnvalue">RBEncoder</span></a> *encoder,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         const <span class="returnvalue">char</span> *dest,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *mime_types);
+<span class="returnvalue">void</span>                <a class="link" href="RBEncoder.html#rb-encoder-cancel" title="rb_encoder_cancel ()">rb_encoder_cancel</a>                   (<a class="link" href="RBEncoder.html" title="RBEncoder"><span class="returnvalue">RBEncoder</span></a> *encoder);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBEncoder.html#rb-encoder-get-preferred-mimetype" title="rb_encoder_get_preferred_mimetype ()">rb_encoder_get_preferred_mimetype</a>   (<a class="link" href="RBEncoder.html" title="RBEncoder"><span class="returnvalue">RBEncoder</span></a> *encoder,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *mime_types,
+                                                         <span class="returnvalue">char</span> **mime,
+                                                         <span class="returnvalue">char</span> **extension);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="RBEncoder.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----RBEncoder
+</pre>
+</div>
+<div class="refsect1" title="Signals">
+<a name="RBEncoder.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBEncoder.html#RBEncoder-completed" title='The "completed" signal'>completed</a>"                                      : Run Last
+  "<a class="link" href="RBEncoder.html#RBEncoder-error" title='The "error" signal'>error</a>"                                          : Run Last
+  "<a class="link" href="RBEncoder.html#RBEncoder-progress" title='The "progress" signal'>progress</a>"                                       : Run Last
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="RBEncoder.description"></a><h2>Description</h2>
+<p>
+The RBEncoder interface provides transcoding between audio formats based on
+MIME types.
+</p>
+<p>
+The encoder picks the output format from a list provided by the caller,
+limited by the available codecs.  It operatees asynchronously and provides
+status updates in the form of signals.
+</p>
+<p>
+A new encoder instance should be created for each file that is transcoded.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="RBEncoder.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBEncoder">
+<a name="RBEncoder-struct"></a><h3>RBEncoder</h3>
+<pre class="programlisting">typedef struct _RBEncoder RBEncoder;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBEncoderIface">
+<a name="RBEncoderIface"></a><h3>RBEncoderIface</h3>
+<pre class="programlisting">typedef struct {
+	GTypeInterface g_iface;
+
+	/* vtable */
+	gboolean (*encode) (RBEncoder *encoder,
+					 RhythmDBEntry *entry,
+					 const char *dest,
+					 GList *mime_types);
+	void		(*cancel) (RBEncoder *encoder);
+	gboolean (*get_preferred_mimetype) (RBEncoder *encoder,
+							 GList *mime_types,
+							 char **mime,
+							 char **extension);
+
+	/* signals */
+	void (*progress) (RBEncoder *encoder,  double fraction);
+	void (*completed) (RBEncoder *encoder, guint64 dest_size);
+	void (*error) (RBEncoder *encoder, GError *error);
+} RBEncoderIface;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_encoder_new ()">
+<a name="rb-encoder-new"></a><h3>rb_encoder_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBEncoder.html" title="RBEncoder"><span class="returnvalue">RBEncoder</span></a>*          rb_encoder_new                      (void);</pre>
+<p>
+Creates a new <a class="link" href="RBEncoder.html" title="RBEncoder"><span class="type">RBEncoder</span></a> instance.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the new <a class="link" href="RBEncoder.html" title="RBEncoder"><span class="type">RBEncoder</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_encoder_encode ()">
+<a name="rb-encoder-encode"></a><h3>rb_encoder_encode ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_encoder_encode                   (<a class="link" href="RBEncoder.html" title="RBEncoder"><span class="returnvalue">RBEncoder</span></a> *encoder,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         const <span class="returnvalue">char</span> *dest,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *mime_types);</pre>
+<p>
+Initiates encoding.  A target MIME type will be selected from the list
+given.  If the source format is in the list, that will be chosen regardless
+of order.  Otherwise, the first type in the list that the encoder can produce
+will be selected.
+</p>
+<p>
+Encoding takes places asynchronously.  If the return value is TRUE, the caller
+should wait for a 'completed' or 'error' signal to indicate that it has finished.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>encoder</code></em> :</span></p></td>
+<td> the <a class="link" href="RBEncoder.html" title="RBEncoder"><span class="type">RBEncoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> the <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="type">RhythmDBEntry</span></a> to transcode
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest</code></em> :</span></p></td>
+<td> destination file URI
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mime_types</code></em> :</span></p></td>
+<td> a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of target MIME types in order of preference
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if encoding has started
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_encoder_cancel ()">
+<a name="rb-encoder-cancel"></a><h3>rb_encoder_cancel ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_encoder_cancel                   (<a class="link" href="RBEncoder.html" title="RBEncoder"><span class="returnvalue">RBEncoder</span></a> *encoder);</pre>
+<p>
+Attempts to cancel any in progress encoding.  The encoder should
+delete the destination file, if it created one.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>encoder</code></em> :</span></p></td>
+<td> a <a class="link" href="RBEncoder.html" title="RBEncoder"><span class="type">RBEncoder</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_encoder_get_preferred_mimetype ()">
+<a name="rb-encoder-get-preferred-mimetype"></a><h3>rb_encoder_get_preferred_mimetype ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_encoder_get_preferred_mimetype   (<a class="link" href="RBEncoder.html" title="RBEncoder"><span class="returnvalue">RBEncoder</span></a> *encoder,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *mime_types,
+                                                         <span class="returnvalue">char</span> **mime,
+                                                         <span class="returnvalue">char</span> **extension);</pre>
+<p>
+Identifies the first MIME type in the list that the encoder can actually encode to.
+The file extension (eg. '.mp3' for audio/mpeg) associated with the selected type is
+also returned.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>encoder</code></em> :</span></p></td>
+<td> a <a class="link" href="RBEncoder.html" title="RBEncoder"><span class="type">RBEncoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mime_types</code></em> :</span></p></td>
+<td> a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of MIME type strings in order of preference
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mime</code></em> :</span></p></td>
+<td> returns the selected MIME type, if any
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td> returns the file extension associated with the selected MIME type, if any
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if a format was identified
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="RBEncoder.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "completed" signal'>
+<a name="RBEncoder-completed"></a><h3>The <code class="literal">"completed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBEncoder.html" title="RBEncoder"><span class="type">RBEncoder</span></a> *encoder,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint64"><span class="type">guint64</span></a>    arg1,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>   user_data)      : Run Last</pre>
+<p>
+Emitted when the encoding process is complete.  The destination file
+will be closed and flushed to disk when this occurs.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>encoder</code></em> :</span></p></td>
+<td> the <a class="link" href="RBEncoder.html" title="RBEncoder"><span class="type">RBEncoder</span></a> instance
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "error" signal'>
+<a name="RBEncoder-error"></a><h3>The <code class="literal">"error"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBEncoder.html" title="RBEncoder"><span class="type">RBEncoder</span></a> *encoder,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>   error,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>   user_data)      : Run Last</pre>
+<p>
+Emitted when an error occurs during encoding.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>encoder</code></em> :</span></p></td>
+<td> the <a class="link" href="RBEncoder.html" title="RBEncoder"><span class="type">RBEncoder</span></a> instance
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td> a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> describing the error
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "progress" signal'>
+<a name="RBEncoder-progress"></a><h3>The <code class="literal">"progress"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBEncoder.html" title="RBEncoder"><span class="type">RBEncoder</span></a> *encoder,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>    fraction,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>   user_data)      : Run Last</pre>
+<p>
+Emitted regularly during the encoding process to provide progress updates.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>encoder</code></em> :</span></p></td>
+<td> the <a class="link" href="RBEncoder.html" title="RBEncoder"><span class="type">RBEncoder</span></a> instance
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fraction</code></em> :</span></p></td>
+<td> progress as a fraction (0..1)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

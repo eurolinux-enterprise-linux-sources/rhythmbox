@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBRemovableMediaManager</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch05.html" title="Shell">
+<link rel="prev" href="RBPlugin.html" title="RBPlugin">
+<link rel="next" href="RBShellClipboard.html" title="RBShellClipboard">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBPlugin.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch05.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBShellClipboard.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBRemovableMediaManager.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBRemovableMediaManager.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBRemovableMediaManager.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBRemovableMediaManager.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#RBRemovableMediaManager.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBRemovableMediaManager">
+<a name="RBRemovableMediaManager"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBRemovableMediaManager.top_of_page"></a>RBRemovableMediaManager</span></h2>
+<p>RBRemovableMediaManager — handling of removable media such as audio CDs and DAP devices</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="RBRemovableMediaManager.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="RBRemovableMediaManager.html#RBRemovableMediaManager-struct" title="RBRemovableMediaManager">RBRemovableMediaManager</a>;
+                    <a class="link" href="RBRemovableMediaManager.html#RBRemovableMediaManagerClass" title="RBRemovableMediaManagerClass">RBRemovableMediaManagerClass</a>;
+<a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="returnvalue">RBRemovableMediaManager</span></a>* <a class="link" href="RBRemovableMediaManager.html#rb-removable-media-manager-new" title="rb_removable_media_manager_new ()">rb_removable_media_manager_new</a> (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);
+<span class="returnvalue">void</span>                <a class="link" href="RBRemovableMediaManager.html#rb-removable-media-manager-scan" title="rb_removable_media_manager_scan ()">rb_removable_media_manager_scan</a>     (<a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="returnvalue">RBRemovableMediaManager</span></a> *manager);
+<span class="returnvalue">void</span>                <a class="link" href="RBRemovableMediaManager.html#rb-removable-media-manager-queue-transfer" title="rb_removable_media_manager_queue_transfer ()">rb_removable_media_manager_queue_transfer</a>
+                                                        (<a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="returnvalue">RBRemovableMediaManager</span></a> *manager,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         const <span class="returnvalue">char</span> *dest,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *mime_types,
+                                                         <span class="returnvalue">RBTransferCompleteCallback</span> callback,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> userdata);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="RBRemovableMediaManager.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----RBRemovableMediaManager
+</pre>
+</div>
+<div class="refsect1" title="Properties">
+<a name="RBRemovableMediaManager.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBRemovableMediaManager.html#RBRemovableMediaManager--scanned" title='The "scanned" property'>scanned</a>"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="RBRemovableMediaManager.html#RBRemovableMediaManager--shell" title='The "shell" property'>shell</a>"                    <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>*              : Read / Write
+  "<a class="link" href="RBRemovableMediaManager.html#RBRemovableMediaManager--source" title='The "source" property'>source</a>"                   <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>*             : Read / Write
+</pre>
+</div>
+<div class="refsect1" title="Signals">
+<a name="RBRemovableMediaManager.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBRemovableMediaManager.html#RBRemovableMediaManager-create-source-device" title='The "create-source-device" signal'>create-source-device</a>"                           : Run Last
+  "<a class="link" href="RBRemovableMediaManager.html#RBRemovableMediaManager-create-source-mount" title='The "create-source-mount" signal'>create-source-mount</a>"                            : Run Last
+  "<a class="link" href="RBRemovableMediaManager.html#RBRemovableMediaManager-create-source-volume" title='The "create-source-volume" signal'>create-source-volume</a>"                           : Run Last
+  "<a class="link" href="RBRemovableMediaManager.html#RBRemovableMediaManager-medium-added" title='The "medium-added" signal'>medium-added</a>"                                   : Run Last
+  "<a class="link" href="RBRemovableMediaManager.html#RBRemovableMediaManager-transfer-progress" title='The "transfer-progress" signal'>transfer-progress</a>"                              : Run Last
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="RBRemovableMediaManager.description"></a><h2>Description</h2>
+<p>
+The removable media manager maintains the mapping between GIO GVolume and GMount
+objects and rhythmbox sources, and also performs track transfers between
+removable media sources and the library.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="RBRemovableMediaManager.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBRemovableMediaManager">
+<a name="RBRemovableMediaManager-struct"></a><h3>RBRemovableMediaManager</h3>
+<pre class="programlisting">typedef struct _RBRemovableMediaManager RBRemovableMediaManager;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBRemovableMediaManagerClass">
+<a name="RBRemovableMediaManagerClass"></a><h3>RBRemovableMediaManagerClass</h3>
+<pre class="programlisting">typedef struct {
+	GObjectClass parent_class;
+
+	/* signals */
+	void (*medium_added)		(RBRemovableMediaManager *mgr,
+					 RBSource *source);
+	void (*transfer_progress) (RBRemovableMediaManager *mgr,
+					 gint done,
+					 gint total,
+					 double fraction);
+
+	RBSource * (*create_source_device) (RBRemovableMediaManager *mgr,
+					 GObject *device);		/* actually a GUdevDevice */
+	RBSource * (*create_source_mount) (RBRemovableMediaManager *mgr,
+					 GMount *mount,
+					 MPIDDevice *device_info);
+	RBSource * (*create_source_volume) (RBRemovableMediaManager *mgr,
+					 GVolume *volume);
+} RBRemovableMediaManagerClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_removable_media_manager_new ()">
+<a name="rb-removable-media-manager-new"></a><h3>rb_removable_media_manager_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="returnvalue">RBRemovableMediaManager</span></a>* rb_removable_media_manager_new (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);</pre>
+<p>
+Creates the <a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a> instance.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the <a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_removable_media_manager_scan ()">
+<a name="rb-removable-media-manager-scan"></a><h3>rb_removable_media_manager_scan ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_removable_media_manager_scan     (<a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="returnvalue">RBRemovableMediaManager</span></a> *manager);</pre>
+<p>
+Initiates a new scan of all attached media.  Newly activated plugins that use
+the create-source-volume or create-source-mount signals should call this if
+the 'scanned' property is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.  Otherwise, the first scan will catch any
+existing volumes or mounts that the plugin is interested in.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>manager</code></em> :</span></p></td>
+<td> the <a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_removable_media_manager_queue_transfer ()">
+<a name="rb-removable-media-manager-queue-transfer"></a><h3>rb_removable_media_manager_queue_transfer ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_removable_media_manager_queue_transfer
+                                                        (<a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="returnvalue">RBRemovableMediaManager</span></a> *manager,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         const <span class="returnvalue">char</span> *dest,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *mime_types,
+                                                         <span class="returnvalue">RBTransferCompleteCallback</span> callback,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a> userdata);</pre>
+<p>
+Initiates a track transfer.  This will transfer the track identified by the
+<a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="type">RhythmDBEntry</span></a> to the given destination, transcoding it if its
+current media type is not in the list of acceptable output types.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>manager</code></em> :</span></p></td>
+<td> the <a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> the <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="type">RhythmDBEntry</span></a> to transfer
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest</code></em> :</span></p></td>
+<td> the destination URI
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mime_types</code></em> :</span></p></td>
+<td> a list of acceptable output MIME types
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td> function to call when the transfer is complete
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>userdata</code></em> :</span></p></td>
+<td> data to pass to the callback
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="RBRemovableMediaManager.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "scanned" property'>
+<a name="RBRemovableMediaManager--scanned"></a><h3>The <code class="literal">"scanned"</code> property</h3>
+<pre class="programlisting">  "scanned"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+This is set to TRUE when the removable media manager has scanned
+all existing volumes and mounts.  When a plugin that handles removable
+media is activated, it should request a new scan if this property is
+already set to TRUE.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2" title='The "shell" property'>
+<a name="RBRemovableMediaManager--shell"></a><h3>The <code class="literal">"shell"</code> property</h3>
+<pre class="programlisting">  "shell"                    <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>*              : Read / Write</pre>
+<p>
+The <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> instance.</p>
+</div>
+<hr>
+<div class="refsect2" title='The "source" property'>
+<a name="RBRemovableMediaManager--source"></a><h3>The <code class="literal">"source"</code> property</h3>
+<pre class="programlisting">  "source"                   <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>*             : Read / Write</pre>
+<p>
+The current selected source.</p>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="RBRemovableMediaManager.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "create-source-device" signal'>
+<a name="RBRemovableMediaManager-create-source-device"></a><h3>The <code class="literal">"create-source-device"</code> signal</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a>*           user_function                      (<a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a> *mgr,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>                 *device,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                 user_data)      : Run Last</pre>
+<p>
+Emitted when a new device is detected to allow plugins to create a
+corresponding <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>.  The first signal handler that returns a
+source wins.  Plugins should only use this signal if there will be
+no <a href="http://library.gnome.org/devel/gio/unstable/GVolume.html"><span class="type">GVolume</span></a> or <a href="http://library.gnome.org/devel/gio/unstable/GMount.html"><span class="type">GMount</span></a> created for the device.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
+<td> the <a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em> :</span></p></td>
+<td> the device (actually a <a href="/usr/share/gtk-doc/html/gudev/GUdevDevice.html"><span class="type">GUdevDevice</span></a>)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "create-source-mount" signal'>
+<a name="RBRemovableMediaManager-create-source-mount"></a><h3>The <code class="literal">"create-source-mount"</code> signal</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a>*           user_function                      (<a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a> *mgr,
+                                                        <a href="http://library.gnome.org/devel/gio/unstable/GMount.html"><span class="type">GMount</span></a>                  *device_info,
+                                                        <span class="type">MPIDDevice</span>              *mount,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                 user_data)        : Run Last</pre>
+<p>
+Emitted when a new mount is added to allow plugins to create a
+corresponding <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>.  The first signal handler that returns
+a source wins.  If a source was created for the <a href="http://library.gnome.org/devel/gio/unstable/GVolume.html"><span class="type">GVolume</span></a>
+for a mount, then this signal will not be emitted.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
+<td> the <a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device_info</code></em> :</span></p></td>
+<td> a <span class="type">MPIDDevice</span> containing information on the device
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mount</code></em> :</span></p></td>
+<td> the <a href="http://library.gnome.org/devel/gio/unstable/GMount.html"><span class="type">GMount</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "create-source-volume" signal'>
+<a name="RBRemovableMediaManager-create-source-volume"></a><h3>The <code class="literal">"create-source-volume"</code> signal</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a>*           user_function                      (<a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a> *mgr,
+                                                        <a href="http://library.gnome.org/devel/gio/unstable/GVolume.html"><span class="type">GVolume</span></a>                 *volume,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                 user_data)      : Run Last</pre>
+<p>
+Emitted when a new volume is added to allow plugins to create a
+corresponding <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>.  The first signal handler that returns
+a source wins.  A plugin should only use this signal if it
+doesn't require the volume to be mounted.  If the volume must be
+mounted to be useful, use the create-source-mount signal instead.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
+<td> the <a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>volume</code></em> :</span></p></td>
+<td> the <a href="http://library.gnome.org/devel/gio/unstable/GVolume.html"><span class="type">GVolume</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "medium-added" signal'>
+<a name="RBRemovableMediaManager-medium-added"></a><h3>The <code class="literal">"medium-added"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a> *mgr,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>                 *source,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                 user_data)      : Run Last</pre>
+<p>
+Emitted when a new source is added for a removable medium.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
+<td> the <a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the newly added <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "transfer-progress" signal'>
+<a name="RBRemovableMediaManager-transfer-progress"></a><h3>The <code class="literal">"transfer-progress"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a> *mgr,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                     done,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                     total,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>                  progress,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                 user_data)      : Run Last</pre>
+<p>
+Emitted throughout the track transfer process to allow UI elements
+showing transfer progress to be updated.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
+<td> the <a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>done</code></em> :</span></p></td>
+<td> number of tracks that have been fully transferred
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>total</code></em> :</span></p></td>
+<td> total number of tracks to transfer
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>progress</code></em> :</span></p></td>
+<td> fraction of the current track that has been transferred
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

@@ -1,0 +1,570 @@
+<!-- ##### SECTION Title ##### -->
+RBSource
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT RBSource ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL RBSource::deleted ##### -->
+<para>
+
+</para>
+
+@rbsource: the object which received the signal.
+
+<!-- ##### SIGNAL RBSource::filter-changed ##### -->
+<para>
+
+</para>
+
+@rbsource: the object which received the signal.
+
+<!-- ##### SIGNAL RBSource::status-changed ##### -->
+<para>
+
+</para>
+
+@rbsource: the object which received the signal.
+
+<!-- ##### ARG RBSource:base-query-model ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSource:entry-type ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSource:hidden-when-empty ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSource:icon ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSource:name ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSource:play-order ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSource:plugin ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSource:query-model ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSource:search-type ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSource:shell ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSource:source-group ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSource:ui-manager ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSource:visibility ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT RBSourceClass ##### -->
+<para>
+
+</para>
+
+@parent: 
+@status_changed: 
+@filter_changed: 
+@deleted: 
+@artistalbum_changed: 
+@impl_get_status: 
+@impl_can_browse: 
+@impl_get_browser_key: 
+@impl_browser_toggled: 
+@impl_get_entry_view: 
+@impl_get_property_views: 
+@impl_can_rename: 
+@impl_search: 
+@impl_reset_filters: 
+@impl_get_config_widget: 
+@impl_can_cut: 
+@impl_can_delete: 
+@impl_can_move_to_trash: 
+@impl_can_copy: 
+@impl_can_paste: 
+@impl_can_add_to_queue: 
+@impl_cut: 
+@impl_copy: 
+@impl_paste: 
+@impl_delete: 
+@impl_add_to_queue: 
+@impl_move_to_trash: 
+@impl_song_properties: 
+@impl_try_playlist: 
+@impl_want_uri: 
+@impl_add_uri: 
+@impl_uri_is_source: 
+@impl_can_pause: 
+@impl_handle_eos: 
+@impl_have_url: 
+@impl_receive_drag: 
+@impl_show_popup: 
+@impl_delete_thyself: 
+@impl_activate: 
+@impl_deactivate: 
+@impl_get_ui_actions: 
+@impl_get_search_actions: 
+@impl_get_delete_action: 
+
+<!-- ##### ENUM RBSourceEOFType ##### -->
+<para>
+
+</para>
+
+@RB_SOURCE_EOF_ERROR: 
+@RB_SOURCE_EOF_STOP: 
+@RB_SOURCE_EOF_RETRY: 
+@RB_SOURCE_EOF_NEXT: 
+
+<!-- ##### MACRO RB_SOURCE_ICON_SIZE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION rb_source_notify_filter_changed ##### -->
+<para>
+
+</para>
+
+@source: 
+
+
+<!-- ##### FUNCTION rb_source_notify_status_changed ##### -->
+<para>
+
+</para>
+
+@source: 
+
+
+<!-- ##### FUNCTION rb_source_update_play_statistics ##### -->
+<para>
+
+</para>
+
+@source: 
+@db: 
+@entry: 
+
+
+<!-- ##### FUNCTION rb_source_set_pixbuf ##### -->
+<para>
+
+</para>
+
+@source: 
+@pixbuf: 
+
+
+<!-- ##### FUNCTION rb_source_get_status ##### -->
+<para>
+
+</para>
+
+@source: 
+@text: 
+@progress_text: 
+@progress: 
+
+
+<!-- ##### FUNCTION rb_source_can_browse ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_get_browser_key ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_browser_toggled ##### -->
+<para>
+
+</para>
+
+@source: 
+@enabled: 
+
+
+<!-- ##### FUNCTION rb_source_get_entry_view ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_get_property_views ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_can_rename ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_search ##### -->
+<para>
+
+</para>
+
+@source: 
+@search: 
+@cur_text: 
+@new_text: 
+
+
+<!-- ##### FUNCTION rb_source_reset_filters ##### -->
+<para>
+
+</para>
+
+@source: 
+
+
+<!-- ##### FUNCTION rb_source_get_config_widget ##### -->
+<para>
+
+</para>
+
+@source: 
+@prefs: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_can_cut ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_can_delete ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_can_move_to_trash ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_can_copy ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_can_paste ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_can_add_to_queue ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_can_show_properties ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_cut ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_copy ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_paste ##### -->
+<para>
+
+</para>
+
+@source: 
+@entries: 
+
+
+<!-- ##### FUNCTION rb_source_delete ##### -->
+<para>
+
+</para>
+
+@source: 
+
+
+<!-- ##### FUNCTION rb_source_add_to_queue ##### -->
+<para>
+
+</para>
+
+@source: 
+@queue: 
+
+
+<!-- ##### FUNCTION rb_source_move_to_trash ##### -->
+<para>
+
+</para>
+
+@source: 
+
+
+<!-- ##### FUNCTION rb_source_song_properties ##### -->
+<para>
+
+</para>
+
+@source: 
+
+
+<!-- ##### FUNCTION rb_source_try_playlist ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_want_uri ##### -->
+<para>
+
+</para>
+
+@source: 
+@uri: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_uri_is_source ##### -->
+<para>
+
+</para>
+
+@source: 
+@uri: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_add_uri ##### -->
+<para>
+
+</para>
+
+@source: 
+@uri: 
+@title: 
+@genre: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_can_pause ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_handle_eos ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_receive_drag ##### -->
+<para>
+
+</para>
+
+@source: 
+@data: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_show_popup ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_delete_thyself ##### -->
+<para>
+
+</para>
+
+@source: 
+
+
+<!-- ##### FUNCTION rb_source_activate ##### -->
+<para>
+
+</para>
+
+@source: 
+
+
+<!-- ##### FUNCTION rb_source_deactivate ##### -->
+<para>
+
+</para>
+
+@source: 
+
+
+<!-- ##### FUNCTION rb_source_get_ui_actions ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_get_search_actions ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_gather_selected_properties ##### -->
+<para>
+
+</para>
+
+@source: 
+@prop: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_set_hidden_when_empty ##### -->
+<para>
+
+</para>
+
+@source: 
+@hidden: 
+
+

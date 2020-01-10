@@ -1,0 +1,137 @@
+<!-- ##### SECTION Title ##### -->
+RBSourceList
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT RBSourceList ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL RBSourceList::drop-received ##### -->
+<para>
+
+</para>
+
+@rbsourcelist: the object which received the signal.
+@arg1: 
+@arg2: 
+
+<!-- ##### SIGNAL RBSourceList::selected ##### -->
+<para>
+
+</para>
+
+@rbsourcelist: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL RBSourceList::show-popup ##### -->
+<para>
+
+</para>
+
+@rbsourcelist: the object which received the signal.
+@arg1: 
+@Returns: 
+
+<!-- ##### SIGNAL RBSourceList::source-activated ##### -->
+<para>
+
+</para>
+
+@rbsourcelist: the object which received the signal.
+@arg1: 
+
+<!-- ##### ARG RBSourceList:model ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSourceList:shell ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT RBSourceListClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+@selected: 
+@drop_received: 
+@source_activated: 
+@show_popup: 
+
+<!-- ##### FUNCTION rb_sourcelist_new ##### -->
+<para>
+
+</para>
+
+@shell: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_sourcelist_append ##### -->
+<para>
+
+</para>
+
+@sourcelist: 
+@source: 
+@parent: 
+
+
+<!-- ##### FUNCTION rb_sourcelist_set_playing_source ##### -->
+<para>
+
+</para>
+
+@sourcelist: 
+@source: 
+
+
+<!-- ##### FUNCTION rb_sourcelist_edit_source_name ##### -->
+<para>
+
+</para>
+
+@sourcelist: 
+@source: 
+
+
+<!-- ##### FUNCTION rb_sourcelist_remove ##### -->
+<para>
+
+</para>
+
+@sourcelist: 
+@source: 
+
+
+<!-- ##### FUNCTION rb_sourcelist_select ##### -->
+<para>
+
+</para>
+
+@sourcelist: 
+@source: 
+
+

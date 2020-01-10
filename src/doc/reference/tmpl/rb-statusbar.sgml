@@ -1,0 +1,78 @@
+<!-- ##### SECTION Title ##### -->
+RBStatusbar
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT RBStatusbar ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ARG RBStatusbar:db ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBStatusbar:source ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBStatusbar:ui-manager ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT RBStatusbarClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+
+<!-- ##### FUNCTION rb_statusbar_new ##### -->
+<para>
+
+</para>
+
+@db: 
+@ui_manager: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_statusbar_set_source ##### -->
+<para>
+
+</para>
+
+@statusbar: 
+@source: 
+
+
+<!-- ##### FUNCTION rb_statusbar_set_progress ##### -->
+<para>
+
+</para>
+
+@statusbar: 
+@progress: 
+@text: 
+
+

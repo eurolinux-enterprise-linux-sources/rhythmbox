@@ -1,0 +1,151 @@
+<!-- ##### SECTION Title ##### -->
+RBPlugin
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT RBPlugin ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ARG RBPlugin:name ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT RBPluginClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+@activate: 
+@deactivate: 
+@create_configure_dialog: 
+@is_configurable: 
+
+<!-- ##### USER_FUNCTION RBPluginActivationFunc ##### -->
+<para>
+
+</para>
+
+@plugin: 
+@shell: 
+
+
+<!-- ##### USER_FUNCTION RBPluginWidgetFunc ##### -->
+<para>
+
+</para>
+
+@plugin: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION RBPluginBooleanFunc ##### -->
+<para>
+
+</para>
+
+@plugin: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_plugin_activate ##### -->
+<para>
+
+</para>
+
+@plugin: 
+@shell: 
+
+
+<!-- ##### FUNCTION rb_plugin_deactivate ##### -->
+<para>
+
+</para>
+
+@plugin: 
+@shell: 
+
+
+<!-- ##### FUNCTION rb_plugin_is_configurable ##### -->
+<para>
+
+</para>
+
+@plugin: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_plugin_create_configure_dialog ##### -->
+<para>
+
+</para>
+
+@plugin: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_plugin_find_file ##### -->
+<para>
+
+</para>
+
+@plugin: 
+@file: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_get_plugin_paths ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### MACRO RB_PLUGIN_REGISTER ##### -->
+<para>
+
+</para>
+
+@PluginName: 
+@plugin_name: 
+
+
+<!-- ##### MACRO RB_PLUGIN_REGISTER_TYPE ##### -->
+<para>
+
+</para>
+
+@type_name: 
+
+
+<!-- ##### MACRO RB_PLUGIN_DEFINE_TYPE ##### -->
+<para>
+
+</para>
+
+@TypeName: 
+@type_name: 
+@TYPE_PARENT: 
+
+

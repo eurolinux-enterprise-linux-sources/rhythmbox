@@ -1,0 +1,109 @@
+<!-- ##### SECTION Title ##### -->
+RBSourceHeader
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT RBSourceHeader ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL RBSourceHeader::get-search-actions ##### -->
+<para>
+
+</para>
+
+@rbsourceheader: the object which received the signal.
+@arg1: 
+@Returns: 
+
+<!-- ##### SIGNAL RBSourceHeader::refresh-search-bar ##### -->
+<para>
+
+</para>
+
+@rbsourceheader: the object which received the signal.
+
+<!-- ##### ARG RBSourceHeader:action-group ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSourceHeader:source ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBSourceHeader:ui-manager ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT RBSourceHeaderClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+@refresh_search_bar: 
+
+<!-- ##### FUNCTION rb_source_header_new ##### -->
+<para>
+
+</para>
+
+@mgr: 
+@actiongroup: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_header_set_source ##### -->
+<para>
+
+</para>
+
+@header: 
+@source: 
+
+
+<!-- ##### FUNCTION rb_source_header_clear_search ##### -->
+<para>
+
+</para>
+
+@header: 
+
+
+<!-- ##### FUNCTION rb_source_header_sync_control_state ##### -->
+<para>
+
+</para>
+
+@header: 
+
+
+<!-- ##### FUNCTION rb_source_header_focus_search_box ##### -->
+<para>
+
+</para>
+
+@header: 
+
+

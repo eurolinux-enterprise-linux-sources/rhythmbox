@@ -1,0 +1,447 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBSourceList</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch06.html" title="Sources">
+<link rel="prev" href="RBSourceListModel.html" title="RBSourceListModel">
+<link rel="next" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBSourceListModel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBStaticPlaylistSource.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBSourceList.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBSourceList.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBSourceList.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBSourceList.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#RBSourceList.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#RBSourceList.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBSourceList">
+<a name="RBSourceList"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBSourceList.top_of_page"></a>RBSourceList</span></h2>
+<p>RBSourceList — source list widget</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="RBSourceList.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="RBSourceList.html#RBSourceList-struct" title="RBSourceList">RBSourceList</a>;
+                    <a class="link" href="RBSourceList.html#RBSourceListClass" title="RBSourceListClass">RBSourceListClass</a>;
+<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="RBSourceList.html#rb-sourcelist-new" title="rb_sourcelist_new ()">rb_sourcelist_new</a>                   (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);
+<span class="returnvalue">void</span>                <a class="link" href="RBSourceList.html#rb-sourcelist-append" title="rb_sourcelist_append ()">rb_sourcelist_append</a>                (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="returnvalue">RBSourceList</span></a> *sourcelist,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *parent);
+<span class="returnvalue">void</span>                <a class="link" href="RBSourceList.html#rb-sourcelist-set-playing-source" title="rb_sourcelist_set_playing_source ()">rb_sourcelist_set_playing_source</a>    (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="returnvalue">RBSourceList</span></a> *sourcelist,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSourceList.html#rb-sourcelist-edit-source-name" title="rb_sourcelist_edit_source_name ()">rb_sourcelist_edit_source_name</a>      (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="returnvalue">RBSourceList</span></a> *sourcelist,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSourceList.html#rb-sourcelist-remove" title="rb_sourcelist_remove ()">rb_sourcelist_remove</a>                (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="returnvalue">RBSourceList</span></a> *sourcelist,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+<span class="returnvalue">void</span>                <a class="link" href="RBSourceList.html#rb-sourcelist-select" title="rb_sourcelist_select ()">rb_sourcelist_select</a>                (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="returnvalue">RBSourceList</span></a> *sourcelist,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="RBSourceList.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkObject.html">GtkObject</a>
+               +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html">GtkWidget</a>
+                     +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkContainer.html">GtkContainer</a>
+                           +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkBin.html">GtkBin</a>
+                                 +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkScrolledWindow.html">GtkScrolledWindow</a>
+                                       +----RBSourceList
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="RBSourceList.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBSourceList implements
+ AtkImplementorIface and  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1" title="Properties">
+<a name="RBSourceList.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBSourceList.html#RBSourceList--model" title='The "model" property'>model</a>"                    <a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeModel.html"><span class="type">GtkTreeModel</span></a>*         : Read
+  "<a class="link" href="RBSourceList.html#RBSourceList--shell" title='The "shell" property'>shell</a>"                    <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>*              : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1" title="Signals">
+<a name="RBSourceList.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBSourceList.html#RBSourceList-drop-received" title='The "drop-received" signal'>drop-received</a>"                                  : Run Last
+  "<a class="link" href="RBSourceList.html#RBSourceList-selected" title='The "selected" signal'>selected</a>"                                       : Run Last
+  "<a class="link" href="RBSourceList.html#RBSourceList-show-popup" title='The "show-popup" signal'>show-popup</a>"                                     : Run Last
+  "<a class="link" href="RBSourceList.html#RBSourceList-source-activated" title='The "source-activated" signal'>source-activated</a>"                               : Run Last
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="RBSourceList.description"></a><h2>Description</h2>
+<p>
+The source list widget is a GtkTreeView backed by a GtkListStore
+containing the sources and some extra data used to structure the
+tree view.
+</p>
+<p>
+The source list widget displays the available sources.  Sources are divided into
+groups - library, stores, playlists, devices, network shares.  Groups are
+displayed as headers, with expanders for hiding and showing the sources in 
+the group.  Sources themselves may also have child sources, such as playlists
+on portable audio players.
+</p>
+<p>
+Sources are displayed with an icon and a name.  If the source is currently
+playing, the name is displayed in bold.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="RBSourceList.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBSourceList">
+<a name="RBSourceList-struct"></a><h3>RBSourceList</h3>
+<pre class="programlisting">typedef struct _RBSourceList RBSourceList;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBSourceListClass">
+<a name="RBSourceListClass"></a><h3>RBSourceListClass</h3>
+<pre class="programlisting">typedef struct {
+	GtkScrolledWindowClass parent_class;
+
+	/* signals */
+	void (*selected) (RBSourceList *list, RBSource *source);
+
+	void (*drop_received) (RBSourceList *list, RBSource *target, GtkSelectionData *data);
+
+	void (*source_activated) (RBSourceList *list, RBSource *target);
+
+	gboolean (*show_popup) (RBSourceList *list, RBSource *target);
+} RBSourceListClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_sourcelist_new ()">
+<a name="rb-sourcelist-new"></a><h3>rb_sourcelist_new ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         rb_sourcelist_new                   (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);</pre>
+<p>
+Creates the source list widget.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> instance
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the source list widget.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_sourcelist_append ()">
+<a name="rb-sourcelist-append"></a><h3>rb_sourcelist_append ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_sourcelist_append                (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="returnvalue">RBSourceList</span></a> *sourcelist,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *parent);</pre>
+<p>
+Adds a new source to the source list.  If <em class="parameter"><code>parent</code></em> is not NULL, the new
+source is added beneath it.  Otherwise, it is added to the end of the
+source group specified by the source's source-group property.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sourcelist</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> to add
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> below which to add the new source, or NULL
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_sourcelist_set_playing_source ()">
+<a name="rb-sourcelist-set-playing-source"></a><h3>rb_sourcelist_set_playing_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_sourcelist_set_playing_source    (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="returnvalue">RBSourceList</span></a> *sourcelist,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Updates the source list with the new playing source.
+The source list tracks which source is playing in order to display
+the name of the playing source in bold type.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sourcelist</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the new playing <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_sourcelist_edit_source_name ()">
+<a name="rb-sourcelist-edit-source-name"></a><h3>rb_sourcelist_edit_source_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_sourcelist_edit_source_name      (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="returnvalue">RBSourceList</span></a> *sourcelist,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Initiates editing of the name of the specified source.  The row for the source 
+is selected and given input focus, allowing the user to edit the name.
+source_name_edited_cb is called when the user finishes editing.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sourcelist</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> to edit
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_sourcelist_remove ()">
+<a name="rb-sourcelist-remove"></a><h3>rb_sourcelist_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_sourcelist_remove                (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="returnvalue">RBSourceList</span></a> *sourcelist,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Removes a source from the source list.  Disconnects signal handlers,
+removes the source from the underlying model, and updates the visibility
+of the group containing the source.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sourcelist</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> being removed
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_sourcelist_select ()">
+<a name="rb-sourcelist-select"></a><h3>rb_sourcelist_select ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_sourcelist_select                (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="returnvalue">RBSourceList</span></a> *sourcelist,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source);</pre>
+<p>
+Selects the specified source in the source list.  This will result in the 'selected'
+signal being emitted.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sourcelist</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> to select
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="RBSourceList.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "model" property'>
+<a name="RBSourceList--model"></a><h3>The <code class="literal">"model"</code> property</h3>
+<pre class="programlisting">  "model"                    <a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeModel.html"><span class="type">GtkTreeModel</span></a>*         : Read</pre>
+<p>
+The <a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeModel.html"><span class="type">GtkTreeModel</span></a> for the source list</p>
+</div>
+<hr>
+<div class="refsect2" title='The "shell" property'>
+<a name="RBSourceList--shell"></a><h3>The <code class="literal">"shell"</code> property</h3>
+<pre class="programlisting">  "shell"                    <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>*              : Read / Write / Construct Only</pre>
+<p>
+The <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> instance</p>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="RBSourceList.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "drop-received" signal'>
+<a name="RBSourceList-drop-received"></a><h3>The <code class="literal">"drop-received"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a> *list,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      target,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      data,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : Run Last</pre>
+<p>
+Emitted when a drag and drop to the source list completes.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>target</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> receiving the drop
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td> the drop data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "selected" signal'>
+<a name="RBSourceList-selected"></a><h3>The <code class="literal">"selected"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a> *list,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>      *source,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : Run Last</pre>
+<p>
+Emitted when a source is selected from the source list</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the newly selected <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "show-popup" signal'>
+<a name="RBSourceList-show-popup"></a><h3>The <code class="literal">"show-popup"</code> signal</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            user_function                      (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a> *list,
+                                                        <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>     *target,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : Run Last</pre>
+<p>
+Emitted when a source should display a popup menu in response to some
+user action, such as right clicking or pressing shift-f10.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>target</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> for which a popup menu should be shown
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "source-activated" signal'>
+<a name="RBSourceList-source-activated"></a><h3>The <code class="literal">"source-activated"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a> *list,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>      *target,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : Run Last</pre>
+<p>
+Emitted when a source is activated (by double clicking or hitting
+the enter key)</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>target</code></em> :</span></p></td>
+<td> the activated <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

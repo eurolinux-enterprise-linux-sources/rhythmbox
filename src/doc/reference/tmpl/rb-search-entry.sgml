@@ -1,0 +1,94 @@
+<!-- ##### SECTION Title ##### -->
+RBSearchEntry
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT RBSearchEntry ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL RBSearchEntry::activate ##### -->
+<para>
+
+</para>
+
+@rbsearchentry: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL RBSearchEntry::search ##### -->
+<para>
+
+</para>
+
+@rbsearchentry: the object which received the signal.
+@arg1: 
+
+<!-- ##### STRUCT RBSearchEntryClass ##### -->
+<para>
+
+</para>
+
+@parent: 
+@search: 
+@activate: 
+
+<!-- ##### FUNCTION rb_search_entry_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_search_entry_clear ##### -->
+<para>
+
+</para>
+
+@entry: 
+
+
+<!-- ##### FUNCTION rb_search_entry_set_text ##### -->
+<para>
+
+</para>
+
+@entry: 
+@text: 
+
+
+<!-- ##### FUNCTION rb_search_entry_searching ##### -->
+<para>
+
+</para>
+
+@entry: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_search_entry_grab_focus ##### -->
+<para>
+
+</para>
+
+@entry: 
+
+

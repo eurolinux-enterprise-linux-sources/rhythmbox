@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBSourceGroup</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch06.html" title="Sources">
+<link rel="prev" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource">
+<link rel="next" href="RBSourceSearch.html" title="RBSourceSearch">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBRemovableMediaSource.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBSourceSearch.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#rhythmbox-RBSourceGroup.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#rhythmbox-RBSourceGroup.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBSourceGroup">
+<a name="rhythmbox-RBSourceGroup"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="rhythmbox-RBSourceGroup.top_of_page"></a>RBSourceGroup</span></h2>
+<p>RBSourceGroup — Source list grouping</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="rhythmbox-RBSourceGroup.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">enum                <a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroupCategory" title="enum RBSourceGroupCategory">RBSourceGroupCategory</a>;
+                    <a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup">RBSourceGroup</a>;
+#define             <a class="link" href="rhythmbox-RBSourceGroup.html#RB-SOURCE-GROUP-LIBRARY:CAPS" title="RB_SOURCE_GROUP_LIBRARY">RB_SOURCE_GROUP_LIBRARY</a>
+#define             <a class="link" href="rhythmbox-RBSourceGroup.html#RB-SOURCE-GROUP-PLAYLISTS:CAPS" title="RB_SOURCE_GROUP_PLAYLISTS">RB_SOURCE_GROUP_PLAYLISTS</a>
+#define             <a class="link" href="rhythmbox-RBSourceGroup.html#RB-SOURCE-GROUP-DEVICES:CAPS" title="RB_SOURCE_GROUP_DEVICES">RB_SOURCE_GROUP_DEVICES</a>
+#define             <a class="link" href="rhythmbox-RBSourceGroup.html#RB-SOURCE-GROUP-SHARED:CAPS" title="RB_SOURCE_GROUP_SHARED">RB_SOURCE_GROUP_SHARED</a>
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-RBSourceGroup.html#rb-source-group-init" title="rb_source_group_init ()">rb_source_group_init</a>                (void);
+<a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="returnvalue">RBSourceGroup</span></a> *     <a class="link" href="rhythmbox-RBSourceGroup.html#rb-source-group-get-by-name" title="rb_source_group_get_by_name ()">rb_source_group_get_by_name</a>         (const <span class="returnvalue">char</span> *name);
+<a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="returnvalue">RBSourceGroup</span></a> *     <a class="link" href="rhythmbox-RBSourceGroup.html#rb-source-group-register" title="rb_source_group_register ()">rb_source_group_register</a>            (const <span class="returnvalue">char</span> *name,
+                                                         const <span class="returnvalue">char</span> *display_name,
+                                                         <a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroupCategory" title="enum RBSourceGroupCategory"><span class="returnvalue">RBSourceGroupCategory</span></a> category);
+<a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="returnvalue">RBSourceGroup</span></a> *     <a class="link" href="rhythmbox-RBSourceGroup.html#rb-source-group-library-get-type" title="rb_source_group_library_get_type ()">rb_source_group_library_get_type</a>    (void);
+<a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="returnvalue">RBSourceGroup</span></a> *     <a class="link" href="rhythmbox-RBSourceGroup.html#rb-source-group-playlists-get-type" title="rb_source_group_playlists_get_type ()">rb_source_group_playlists_get_type</a>  (void);
+<a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="returnvalue">RBSourceGroup</span></a> *     <a class="link" href="rhythmbox-RBSourceGroup.html#rb-source-group-devices-get-type" title="rb_source_group_devices_get_type ()">rb_source_group_devices_get_type</a>    (void);
+<a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="returnvalue">RBSourceGroup</span></a> *     <a class="link" href="rhythmbox-RBSourceGroup.html#rb-source-group-shared-get-type" title="rb_source_group_shared_get_type ()">rb_source_group_shared_get_type</a>     (void);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="rhythmbox-RBSourceGroup.description"></a><h2>Description</h2>
+<p>
+Source groups define sections of the source list.  A source group
+consists of an internal name, a display name, and a category.
+The internal name can be used to locate a registered source group.
+The category is used to sort the source groups.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="rhythmbox-RBSourceGroup.details"></a><h2>Details</h2>
+<div class="refsect2" title="enum RBSourceGroupCategory">
+<a name="RBSourceGroupCategory"></a><h3>enum RBSourceGroupCategory</h3>
+<pre class="programlisting">typedef enum {
+	RB_SOURCE_GROUP_CATEGORY_FIXED = 0, /* library, iradio, podcast, queue */
+	RB_SOURCE_GROUP_CATEGORY_REMOVABLE, /* ipod, generic audio player, audio CD */
+	RB_SOURCE_GROUP_CATEGORY_PERSISTENT, /* playlists */
+	RB_SOURCE_GROUP_CATEGORY_TRANSIENT, /* DAAP shares */
+	RB_SOURCE_GROUP_CATEGORY_LAST
+} RBSourceGroupCategory;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBSourceGroup">
+<a name="RBSourceGroup"></a><h3>RBSourceGroup</h3>
+<pre class="programlisting">typedef struct {
+	char                 *name;
+	char                 *display_name;
+	RBSourceGroupCategory category;
+} RBSourceGroup;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RB_SOURCE_GROUP_LIBRARY">
+<a name="RB-SOURCE-GROUP-LIBRARY:CAPS"></a><h3>RB_SOURCE_GROUP_LIBRARY</h3>
+<pre class="programlisting">#define RB_SOURCE_GROUP_LIBRARY           (rb_source_group_library_get_type ())
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RB_SOURCE_GROUP_PLAYLISTS">
+<a name="RB-SOURCE-GROUP-PLAYLISTS:CAPS"></a><h3>RB_SOURCE_GROUP_PLAYLISTS</h3>
+<pre class="programlisting">#define RB_SOURCE_GROUP_PLAYLISTS         (rb_source_group_playlists_get_type ())
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RB_SOURCE_GROUP_DEVICES">
+<a name="RB-SOURCE-GROUP-DEVICES:CAPS"></a><h3>RB_SOURCE_GROUP_DEVICES</h3>
+<pre class="programlisting">#define RB_SOURCE_GROUP_DEVICES           (rb_source_group_devices_get_type ())
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RB_SOURCE_GROUP_SHARED">
+<a name="RB-SOURCE-GROUP-SHARED:CAPS"></a><h3>RB_SOURCE_GROUP_SHARED</h3>
+<pre class="programlisting">#define RB_SOURCE_GROUP_SHARED            (rb_source_group_shared_get_type ())
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_group_init ()">
+<a name="rb-source-group-init"></a><h3>rb_source_group_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_source_group_init                (void);</pre>
+<p>
+Initializes source groups.</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_group_get_by_name ()">
+<a name="rb-source-group-get-by-name"></a><h3>rb_source_group_get_by_name ()</h3>
+<pre class="programlisting"><a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="returnvalue">RBSourceGroup</span></a> *     rb_source_group_get_by_name         (const <span class="returnvalue">char</span> *name);</pre>
+<p>
+Locates a source group by name.  If the source group has not been registered yet,
+returns NULL instead.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td> name of source group to find
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> existing source group, or NULL.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_group_register ()">
+<a name="rb-source-group-register"></a><h3>rb_source_group_register ()</h3>
+<pre class="programlisting"><a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="returnvalue">RBSourceGroup</span></a> *     rb_source_group_register            (const <span class="returnvalue">char</span> *name,
+                                                         const <span class="returnvalue">char</span> *display_name,
+                                                         <a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroupCategory" title="enum RBSourceGroupCategory"><span class="returnvalue">RBSourceGroupCategory</span></a> category);</pre>
+<p>
+Registers and returns a new source group.  Registering a source group
+that already exists will probably do bad things.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td> name of the source group (untranslated, used in code)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>display_name</code></em> :</span></p></td>
+<td> display name of the source group (translated)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>category</code></em> :</span></p></td>
+<td> category for the source group
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> new source group
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_group_library_get_type ()">
+<a name="rb-source-group-library-get-type"></a><h3>rb_source_group_library_get_type ()</h3>
+<pre class="programlisting"><a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="returnvalue">RBSourceGroup</span></a> *     rb_source_group_library_get_type    (void);</pre>
+<p>
+Returns the predefined library source group</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> library source group
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_group_playlists_get_type ()">
+<a name="rb-source-group-playlists-get-type"></a><h3>rb_source_group_playlists_get_type ()</h3>
+<pre class="programlisting"><a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="returnvalue">RBSourceGroup</span></a> *     rb_source_group_playlists_get_type  (void);</pre>
+<p>
+Returns the predefined playlists source group</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> playlists source group
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_group_devices_get_type ()">
+<a name="rb-source-group-devices-get-type"></a><h3>rb_source_group_devices_get_type ()</h3>
+<pre class="programlisting"><a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="returnvalue">RBSourceGroup</span></a> *     rb_source_group_devices_get_type    (void);</pre>
+<p>
+Returns the predefined devices source group</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> devices source group
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_source_group_shared_get_type ()">
+<a name="rb-source-group-shared-get-type"></a><h3>rb_source_group_shared_get_type ()</h3>
+<pre class="programlisting"><a class="link" href="rhythmbox-RBSourceGroup.html#RBSourceGroup" title="RBSourceGroup"><span class="returnvalue">RBSourceGroup</span></a> *     rb_source_group_shared_get_type     (void);</pre>
+<p>
+Returns the predefined shared source group</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> shared source group
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!-- ##### SECTION Title ##### -->
+RBBrowserSource
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT RBBrowserSource ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ARG RBBrowserSource:populate ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBBrowserSource:sorting-key ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT RBBrowserSourceClass ##### -->
+<para>
+
+</para>
+
+@parent: 
+@impl_pack_paned: 
+@impl_get_paned_key: 
+@impl_has_drop_support: 
+@impl_show_entry_popup: 
+
+<!-- ##### FUNCTION rb_browser_source_get_paned_key ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_browser_source_has_drop_support ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+

@@ -1,0 +1,432 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBRemovableMediaSource</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch06.html" title="Sources">
+<link rel="prev" href="RBPlaylistSource.html" title="RBPlaylistSource">
+<link rel="next" href="rhythmbox-RBSourceGroup.html" title="RBSourceGroup">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBPlaylistSource.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="rhythmbox-RBSourceGroup.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBRemovableMediaSource.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBRemovableMediaSource.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBRemovableMediaSource.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBRemovableMediaSource.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#RBRemovableMediaSource.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBRemovableMediaSource">
+<a name="RBRemovableMediaSource"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBRemovableMediaSource.top_of_page"></a>RBRemovableMediaSource</span></h2>
+<p>RBRemovableMediaSource — Base class for sources representing removable media</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="RBRemovableMediaSource.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="RBRemovableMediaSource.html#RBRemovableMediaSource-struct" title="RBRemovableMediaSource">RBRemovableMediaSource</a>;
+                    <a class="link" href="RBRemovableMediaSource.html#RBRemovableMediaSourceClass" title="RBRemovableMediaSourceClass">RBRemovableMediaSourceClass</a>;
+<span class="returnvalue">char</span>*               <a class="link" href="RBRemovableMediaSource.html#rb-removable-media-source-build-dest-uri" title="rb_removable_media_source_build_dest_uri ()">rb_removable_media_source_build_dest_uri</a>
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         const <span class="returnvalue">char</span> *mimetype,
+                                                         const <span class="returnvalue">char</span> *extension);
+<span class="returnvalue">void</span>                <a class="link" href="RBRemovableMediaSource.html#rb-removable-media-source-track-added" title="rb_removable_media_source_track_added ()">rb_removable_media_source_track_added</a>
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint64"><span class="returnvalue">guint64</span></a> filesize,
+                                                         const <span class="returnvalue">char</span> *mimetype);
+<span class="returnvalue">void</span>                <a class="link" href="RBRemovableMediaSource.html#rb-removable-media-source-track-add-error" title="rb_removable_media_source_track_add_error ()">rb_removable_media_source_track_add_error</a>
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> *error);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="RBRemovableMediaSource.html#rb-removable-media-source-get-mime-types" title="rb_removable_media_source_get_mime_types ()">rb_removable_media_source_get_mime_types</a>
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="RBRemovableMediaSource.html#rb-removable-media-source-get-format-descriptions" title="rb_removable_media_source_get_format_descriptions ()">rb_removable_media_source_get_format_descriptions</a>
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBRemovableMediaSource.html#rb-removable-media-source-should-paste" title="rb_removable_media_source_should_paste ()">rb_removable_media_source_should_paste</a>
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBRemovableMediaSource.html#rb-removable-media-source-should-paste-no-duplicate" title="rb_removable_media_source_should_paste_no_duplicate ()">rb_removable_media_source_should_paste_no_duplicate</a>
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="RBRemovableMediaSource.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkObject.html">GtkObject</a>
+               +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html">GtkWidget</a>
+                     +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkContainer.html">GtkContainer</a>
+                           +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkBox.html">GtkBox</a>
+                                 +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkHBox.html">GtkHBox</a>
+                                       +----<a class="link" href="RBSource.html" title="RBSource">RBSource</a>
+                                             +----<a class="link" href="RBBrowserSource.html" title="RBBrowserSource">RBBrowserSource</a>
+                                                   +----RBRemovableMediaSource
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="RBRemovableMediaSource.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBRemovableMediaSource implements
+ AtkImplementorIface,  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1" title="Properties">
+<a name="RBRemovableMediaSource.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBRemovableMediaSource.html#RBRemovableMediaSource--mount" title='The "mount" property'>mount</a>"                    <a href="http://library.gnome.org/devel/gio/unstable/GMount.html"><span class="type">GMount</span></a>*               : Read / Write / Construct Only
+  "<a class="link" href="RBRemovableMediaSource.html#RBRemovableMediaSource--volume" title='The "volume" property'>volume</a>"                   <a href="http://library.gnome.org/devel/gio/unstable/GVolume.html"><span class="type">GVolume</span></a>*              : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="RBRemovableMediaSource.description"></a><h2>Description</h2>
+<p>
+This class provides support for transferring (and transcoding) entries to
+the device using drag and drop or cut and paste.  The implementation must
+at minimum provide methods for returning a list of supported media types,
+and for constructing destination URIs for transfers.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="RBRemovableMediaSource.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBRemovableMediaSource">
+<a name="RBRemovableMediaSource-struct"></a><h3>RBRemovableMediaSource</h3>
+<pre class="programlisting">typedef struct _RBRemovableMediaSource RBRemovableMediaSource;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBRemovableMediaSourceClass">
+<a name="RBRemovableMediaSourceClass"></a><h3>RBRemovableMediaSourceClass</h3>
+<pre class="programlisting">typedef struct {
+	RBBrowserSourceClass parent;
+
+	char*		(*impl_build_dest_uri) (RBRemovableMediaSource *source,
+						 RhythmDBEntry *entry,
+						 const char *mimetype,
+						 const char *extension);
+	GList*		(*impl_get_mime_types) (RBRemovableMediaSource *source);
+	gboolean (*impl_track_added) (RBRemovableMediaSource *source,
+						 RhythmDBEntry *entry,
+						 const char *uri,
+						 guint64 dest_size,
+						 const char *mimetype);
+	gboolean (*impl_track_add_error) (RBRemovableMediaSource *source,
+						 RhythmDBEntry *entry,
+						 const char *uri,
+						 GError *error);
+	gboolean (*impl_should_paste) (RBRemovableMediaSource *source,
+						 RhythmDBEntry *entry);
+} RBRemovableMediaSourceClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_removable_media_source_build_dest_uri ()">
+<a name="rb-removable-media-source-build-dest-uri"></a><h3>rb_removable_media_source_build_dest_uri ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span>*               rb_removable_media_source_build_dest_uri
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         const <span class="returnvalue">char</span> *mimetype,
+                                                         const <span class="returnvalue">char</span> *extension);</pre>
+<p>
+Constructs a URI to use as the destination for a transfer or transcoding
+operation.  The URI may be on the device itself, if the device is mounted
+into the normal filesystem or through gvfs, or it may be a temporary
+location used to store the file before uploading it to the device.
+</p>
+<p>
+The destination URI should conform to the device's normal URI format,
+and should use the provided extension instead of the extension from
+the source entry.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> an <a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="type">RBRemovableMediaSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> the <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="type">RhythmDBEntry</span></a> to build a URI for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mimetype</code></em> :</span></p></td>
+<td> destination media type
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td> extension associated with destination media type
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> constructed URI
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_removable_media_source_track_added ()">
+<a name="rb-removable-media-source-track-added"></a><h3>rb_removable_media_source_track_added ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_removable_media_source_track_added
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint64"><span class="returnvalue">guint64</span></a> filesize,
+                                                         const <span class="returnvalue">char</span> *mimetype);</pre>
+<p>
+This is called when a transfer to the device has completed.
+If the source's impl_track_added method returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the destination
+URI will be added to the database using the entry type for the device.
+</p>
+<p>
+If the source uses a temporary area as the destination for transfers,
+it can instead upload the destination file to the device and create an
+entry for it, then return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> an <a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="type">RBRemovableMediaSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> the source <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="type">RhythmDBEntry</span></a> for the transfer
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td> the destination URI
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filesize</code></em> :</span></p></td>
+<td> size of the destination file
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mimetype</code></em> :</span></p></td>
+<td> media type of the destination file
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_removable_media_source_track_add_error ()">
+<a name="rb-removable-media-source-track-add-error"></a><h3>rb_removable_media_source_track_add_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_removable_media_source_track_add_error
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> *error);</pre>
+<p>
+This is called when a transfer fails.  If the source's
+impl_track_add_error implementation returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, an error dialog
+will be displayed to the user containing the error message, unless
+the error indicates that the destination file already exists.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> an <a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="type">RBRemovableMediaSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> the source <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="type">RhythmDBEntry</span></a> for the transfer
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td> the destination URI
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td> the transfer error information
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_removable_media_source_get_mime_types ()">
+<a name="rb-removable-media-source-get-mime-types"></a><h3>rb_removable_media_source_get_mime_types ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             rb_removable_media_source_get_mime_types
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source);</pre>
+<p>
+Returns a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of allocated media type strings describing the
+formats supported by the device.  If possible, these should be
+sorted in order of preference, as the first entry in the list
+for which an encoder is available will be used.
+</p>
+<p>
+Common media types include "audio/mpeg" for MP3, "application/ogg"
+for Ogg Vorbis, "audio/x-flac" for FLAC, and "audio/x-aac" for
+MP4/AAC.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> an <a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="type">RBRemovableMediaSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> list of media types
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_removable_media_source_get_format_descriptions ()">
+<a name="rb-removable-media-source-get-format-descriptions"></a><h3>rb_removable_media_source_get_format_descriptions ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             rb_removable_media_source_get_format_descriptions
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source);</pre>
+<p>
+Returns a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of allocated media format descriptions for
+the formats supported by the device.  The list and the strings
+it holds must be freed by the caller.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> a <a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="type">RBRemovableMediaSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> list of descriptions.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_removable_media_source_should_paste ()">
+<a name="rb-removable-media-source-should-paste"></a><h3>rb_removable_media_source_should_paste ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_removable_media_source_should_paste
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry);</pre>
+<p>
+Checks whether <em class="parameter"><code>entry</code></em> should be transferred to the device.
+The source can check whether a matching entry already exists on the device,
+for instance.  See <em class="parameter"><code>rb_removable_media_source_should_paste_no_duplicate</code></em>
+a useful implementation.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> an <a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="type">RBRemovableMediaSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> a <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="type">RhythmDBEntry</span></a> to consider pasting
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the entry should be transferred to the device
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_removable_media_source_should_paste_no_duplicate ()">
+<a name="rb-removable-media-source-should-paste-no-duplicate"></a><h3>rb_removable_media_source_should_paste_no_duplicate ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_removable_media_source_should_paste_no_duplicate
+                                                        (<a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="returnvalue">RBRemovableMediaSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry);</pre>
+<p>
+This implementation of <span class="type">rb_removable_media_should_paste</span> checks for
+an existing entry on the device that matches the title, album, artist,
+and track number of the entry being considered.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> an <a class="link" href="RBRemovableMediaSource.html" title="RBRemovableMediaSource"><span class="type">RBRemovableMediaSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> a <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="type">RhythmDBEntry</span></a> to consider pasting
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the entry should be transferred to the device.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="RBRemovableMediaSource.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "mount" property'>
+<a name="RBRemovableMediaSource--mount"></a><h3>The <code class="literal">"mount"</code> property</h3>
+<pre class="programlisting">  "mount"                    <a href="http://library.gnome.org/devel/gio/unstable/GMount.html"><span class="type">GMount</span></a>*               : Read / Write / Construct Only</pre>
+<p>
+The <a href="http://library.gnome.org/devel/gio/unstable/GMount.html"><span class="type">GMount</span></a> object that the source represents</p>
+</div>
+<hr>
+<div class="refsect2" title='The "volume" property'>
+<a name="RBRemovableMediaSource--volume"></a><h3>The <code class="literal">"volume"</code> property</h3>
+<pre class="programlisting">  "volume"                   <a href="http://library.gnome.org/devel/gio/unstable/GVolume.html"><span class="type">GVolume</span></a>*              : Read / Write / Construct Only</pre>
+<p>
+The <a href="http://library.gnome.org/devel/gio/unstable/GVolume.html"><span class="type">GVolume</span></a> object that the source represents (optional)</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

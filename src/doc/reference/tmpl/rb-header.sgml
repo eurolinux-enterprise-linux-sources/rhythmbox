@@ -1,0 +1,89 @@
+<!-- ##### SECTION Title ##### -->
+rb-header
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT RBHeader ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ARG RBHeader:db ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBHeader:seekable ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBHeader:shell-player ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBHeader:slider-dragging ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT RBHeaderClass ##### -->
+<para>
+
+</para>
+
+@parent: 
+
+<!-- ##### FUNCTION rb_header_new ##### -->
+<para>
+
+</para>
+
+@shell_player: 
+@db: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_header_set_show_position_slider ##### -->
+<para>
+
+</para>
+
+@header: 
+@show: 
+
+
+<!-- ##### FUNCTION rb_header_sync ##### -->
+<para>
+
+</para>
+
+@header: 
+
+
+<!-- ##### FUNCTION rb_header_sync_time ##### -->
+<para>
+
+</para>
+
+@header: 
+
+

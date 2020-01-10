@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBSourceListModel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch06.html" title="Sources">
+<link rel="prev" href="RBSource.html" title="RBSource">
+<link rel="next" href="RBSourceList.html" title="RBSourceList">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBSource.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBSourceList.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBSourceListModel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBSourceListModel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBSourceListModel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBSourceListModel.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#RBSourceListModel.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBSourceListModel">
+<a name="RBSourceListModel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBSourceListModel.top_of_page"></a>RBSourceListModel</span></h2>
+<p>RBSourceListModel — models backing the source list widget</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="RBSourceListModel.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="RBSourceListModel.html#RBSourceListModel-struct" title="RBSourceListModel">RBSourceListModel</a>;
+                    <a class="link" href="RBSourceListModel.html#RBSourceListModelClass" title="RBSourceListModelClass">RBSourceListModelClass</a>;
+enum                <a class="link" href="RBSourceListModel.html#RBSourceListModelColumn" title="enum RBSourceListModelColumn">RBSourceListModelColumn</a>;
+<a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeModel.html"><span class="returnvalue">GtkTreeModel</span></a> *      <a class="link" href="RBSourceListModel.html#rb-sourcelist-model-new" title="rb_sourcelist_model_new ()">rb_sourcelist_model_new</a>             (void);
+<span class="returnvalue">void</span>                <a class="link" href="RBSourceListModel.html#rb-sourcelist-model-set-dnd-targets" title="rb_sourcelist_model_set_dnd_targets ()">rb_sourcelist_model_set_dnd_targets</a> (<a class="link" href="RBSourceListModel.html" title="RBSourceListModel"><span class="returnvalue">RBSourceListModel</span></a> *sourcelist,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeView.html"><span class="returnvalue">GtkTreeView</span></a> *treeview);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="RBSourceListModel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeModelFilter.html">GtkTreeModelFilter</a>
+         +----RBSourceListModel
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="RBSourceListModel.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBSourceListModel implements
+ <a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeModel.html">GtkTreeModel</a>,  <a class="link" href="rhythmbox-rb-tree-dnd.html#RbTreeDragDest">RbTreeDragDest</a>,  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-GtkTreeView-drag-and-drop.html#GtkTreeDragSource">GtkTreeDragSource</a> and  <a class="link" href="rhythmbox-rb-tree-dnd.html#RbTreeDragSource">RbTreeDragSource</a>.</p>
+</div>
+<div class="refsect1" title="Signals">
+<a name="RBSourceListModel.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBSourceListModel.html#RBSourceListModel-drop-received" title='The "drop-received" signal'>drop-received</a>"                                  : Run Last
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="RBSourceListModel.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a> widget is backed by a <a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeStore.html"><span class="type">GtkTreeStore</span></a> containing
+the sources and a set of attributes used to structure and display
+them, and a <a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeModelFilter.html"><span class="type">GtkTreeModelFilter</span></a> that hides sources with the
+visibility property set to FALSE.  This class implements the filter
+model and also creates the actual model.
+</p>
+<p>
+The source list model supports drag and drop in a variety of formats.
+The simplest of these are text/uri-list and application/x-rhythmbox-entry,
+which convey URIs and IDs of existing database entries.  When dragged
+to an existing source, these just add the URIs or entries to the target
+source.  When dragged to an empty space in the source list, this results
+in the creation of a static playlist.
+</p>
+<p>
+text/x-rhythmbox-artist, text/x-rhythmbox-album, and text/x-rhythmbox-genre
+are used when dragging items from the library browser.  When dragged to
+the source list, these result in the creation of a new auto playlist with
+the dragged items as criteria.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="RBSourceListModel.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBSourceListModel">
+<a name="RBSourceListModel-struct"></a><h3>RBSourceListModel</h3>
+<pre class="programlisting">typedef struct _RBSourceListModel RBSourceListModel;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBSourceListModelClass">
+<a name="RBSourceListModelClass"></a><h3>RBSourceListModelClass</h3>
+<pre class="programlisting">typedef struct {
+	GtkTreeModelFilterClass parent_class;
+
+	void (*drop_received) (RBSourceListModel *model, RBSource *target, GtkTreeViewDropPosition pos, GtkSelectionData *data);
+} RBSourceListModelClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="enum RBSourceListModelColumn">
+<a name="RBSourceListModelColumn"></a><h3>enum RBSourceListModelColumn</h3>
+<pre class="programlisting">typedef enum {
+	RB_SOURCELIST_MODEL_COLUMN_PLAYING = 0,
+	RB_SOURCELIST_MODEL_COLUMN_PIXBUF,
+	RB_SOURCELIST_MODEL_COLUMN_NAME,
+	RB_SOURCELIST_MODEL_COLUMN_SOURCE,
+	RB_SOURCELIST_MODEL_COLUMN_ATTRIBUTES,
+	RB_SOURCELIST_MODEL_COLUMN_VISIBILITY,
+	RB_SOURCELIST_MODEL_COLUMN_IS_GROUP,
+	RB_SOURCELIST_MODEL_COLUMN_GROUP_CATEGORY,
+	RB_SOURCELIST_MODEL_N_COLUMNS
+} RBSourceListModelColumn;
+</pre>
+<p>
+Columns present in the source list model.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="RB-SOURCELIST-MODEL-COLUMN-PLAYING:CAPS"></a><span class="term"><code class="literal">RB_SOURCELIST_MODEL_COLUMN_PLAYING</code></span></p></td>
+<td> TRUE if the source is playing
+</td>
+</tr>
+<tr>
+<td><p><a name="RB-SOURCELIST-MODEL-COLUMN-PIXBUF:CAPS"></a><span class="term"><code class="literal">RB_SOURCELIST_MODEL_COLUMN_PIXBUF</code></span></p></td>
+<td> the source's icon as a pixbuf
+</td>
+</tr>
+<tr>
+<td><p><a name="RB-SOURCELIST-MODEL-COLUMN-NAME:CAPS"></a><span class="term"><code class="literal">RB_SOURCELIST_MODEL_COLUMN_NAME</code></span></p></td>
+<td> the source name
+</td>
+</tr>
+<tr>
+<td><p><a name="RB-SOURCELIST-MODEL-COLUMN-SOURCE:CAPS"></a><span class="term"><code class="literal">RB_SOURCELIST_MODEL_COLUMN_SOURCE</code></span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><a name="RB-SOURCELIST-MODEL-COLUMN-ATTRIBUTES:CAPS"></a><span class="term"><code class="literal">RB_SOURCELIST_MODEL_COLUMN_ATTRIBUTES</code></span></p></td>
+<td> Pango attributes used to render the source name
+</td>
+</tr>
+<tr>
+<td><p><a name="RB-SOURCELIST-MODEL-COLUMN-VISIBILITY:CAPS"></a><span class="term"><code class="literal">RB_SOURCELIST_MODEL_COLUMN_VISIBILITY</code></span></p></td>
+<td> the source's visibility
+</td>
+</tr>
+<tr>
+<td><p><a name="RB-SOURCELIST-MODEL-COLUMN-IS-GROUP:CAPS"></a><span class="term"><code class="literal">RB_SOURCELIST_MODEL_COLUMN_IS_GROUP</code></span></p></td>
+<td> whether the row identifies a group or a source
+</td>
+</tr>
+<tr>
+<td><p><a name="RB-SOURCELIST-MODEL-COLUMN-GROUP-CATEGORY:CAPS"></a><span class="term"><code class="literal">RB_SOURCELIST_MODEL_COLUMN_GROUP_CATEGORY</code></span></p></td>
+<td> if the row is a group, the category for the group
+</td>
+</tr>
+<tr>
+<td><p><a name="RB-SOURCELIST-MODEL-N-COLUMNS:CAPS"></a><span class="term"><code class="literal">RB_SOURCELIST_MODEL_N_COLUMNS</code></span></p></td>
+<td> the number of columns
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_sourcelist_model_new ()">
+<a name="rb-sourcelist-model-new"></a><h3>rb_sourcelist_model_new ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeModel.html"><span class="returnvalue">GtkTreeModel</span></a> *      rb_sourcelist_model_new             (void);</pre>
+<p>
+This constructs both the GtkTreeStore holding the source
+data and the filter model that hides invisible sources.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the <a class="link" href="RBSourceListModel.html" title="RBSourceListModel"><span class="type">RBSourceListModel</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_sourcelist_model_set_dnd_targets ()">
+<a name="rb-sourcelist-model-set-dnd-targets"></a><h3>rb_sourcelist_model_set_dnd_targets ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_sourcelist_model_set_dnd_targets (<a class="link" href="RBSourceListModel.html" title="RBSourceListModel"><span class="returnvalue">RBSourceListModel</span></a> *sourcelist,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeView.html"><span class="returnvalue">GtkTreeView</span></a> *treeview);</pre>
+<p>
+Sets up the drag and drop targets for the source list.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sourcelist</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceListModel.html" title="RBSourceListModel"><span class="type">RBSourceListModel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>treeview</code></em> :</span></p></td>
+<td> the sourcel ist <a href="http://library.gnome.org/devel/gtk/unstable/GtkTreeView.html"><span class="type">GtkTreeView</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="RBSourceListModel.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "drop-received" signal'>
+<a name="RBSourceListModel-drop-received"></a><h3>The <code class="literal">"drop-received"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBSourceListModel.html" title="RBSourceListModel"><span class="type">RBSourceListModel</span></a> *model,
+                                                        <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>          *target,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>               pos,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           data,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : Run Last</pre>
+<p>
+Emitted when a drag and drop operation to the source list completes.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSourceListModel.html" title="RBSourceListModel"><span class="type">RBSourceListModel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>target</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> receiving the drop
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pos</code></em> :</span></p></td>
+<td> the drop position
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td> the drop data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

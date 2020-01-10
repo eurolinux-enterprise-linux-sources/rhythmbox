@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<node name="/">
+  <interface name="org.gnome.Rhythmbox.Shell">
+
+    <method name="loadURI">
+      <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="rb_shell_load_uri"/>
+      <arg type="s"/>
+      <arg type="b"/>
+    </method>
+
+    <method name="getPlayer">
+      <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="rb_shell_get_player_path"/>
+      <arg type="o" direction="out">
+	<annotation name="org.freedesktop.DBus.GLib.ReturnVal" value=""/>
+	<annotation name="org.freedesktop.DBus.GLib.Const" value=""/>
+      </arg>
+    </method>
+
+    <method name="getPlaylistManager">
+      <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="rb_shell_get_playlist_manager_path"/>
+      <arg type="o" direction="out">
+	<annotation name="org.freedesktop.DBus.GLib.ReturnVal" value=""/>
+	<annotation name="org.freedesktop.DBus.GLib.Const" value=""/>
+      </arg>
+    </method>
+
+    <method name="present">
+      <arg type="u"/>
+    </method>
+
+    <method name="getSongProperties">
+      <arg type="s" name="uri"/>
+      <arg type="a{sv}" direction="out"/>
+    </method>
+
+    <method name="setSongProperty">
+      <arg type="s" name="uri"/>
+      <arg type="s" name="propname"/>
+      <arg type="v" name="value"/>
+    </method>
+
+    <method name="addToQueue">
+      <arg type="s" name="uri"/>
+    </method>
+
+    <method name="quit"/>
+
+    <method name="removeFromQueue">
+      <arg type="s" name="uri"/>
+    </method>
+
+    <method name="clearQueue"/>
+
+    <method name="notify">
+      <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="rb_shell_do_notify"/>
+      <arg type="b" name="userRequested"/>
+    </method>
+
+    <signal name="visibilityChanged">
+      <arg type="b" name="visibility"/>
+    </signal>
+
+    <!-- Until a version of dbus with bug #7057 fixed is widely available,
+         this does more harm than good.  -->
+    <!-- <property name="visibility" type="b" access="readwrite"/> -->
+
+  </interface>
+</node>

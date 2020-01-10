@@ -1,0 +1,122 @@
+<!-- ##### SECTION Title ##### -->
+RBRemovableMediaSource
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT RBRemovableMediaSource ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ARG RBRemovableMediaSource:mount ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBRemovableMediaSource:volume ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT RBRemovableMediaSourceClass ##### -->
+<para>
+
+</para>
+
+@parent: 
+@impl_build_dest_uri: 
+@impl_get_mime_types: 
+@impl_track_added: 
+@impl_track_add_error: 
+@impl_should_paste: 
+
+<!-- ##### FUNCTION rb_removable_media_source_build_dest_uri ##### -->
+<para>
+
+</para>
+
+@source: 
+@entry: 
+@mimetype: 
+@extension: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_removable_media_source_track_added ##### -->
+<para>
+
+</para>
+
+@source: 
+@entry: 
+@uri: 
+@filesize: 
+@mimetype: 
+
+
+<!-- ##### FUNCTION rb_removable_media_source_track_add_error ##### -->
+<para>
+
+</para>
+
+@source: 
+@entry: 
+@uri: 
+@error: 
+
+
+<!-- ##### FUNCTION rb_removable_media_source_get_mime_types ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_removable_media_source_get_format_descriptions ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_removable_media_source_should_paste ##### -->
+<para>
+
+</para>
+
+@source: 
+@entry: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_removable_media_source_should_paste_no_duplicate ##### -->
+<para>
+
+</para>
+
+@source: 
+@entry: 
+@Returns: 
+
+

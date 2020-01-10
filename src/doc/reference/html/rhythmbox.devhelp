@@ -1,0 +1,1022 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "">
+<book xmlns="http://www.devhelp.net/book" title="Rhythmbox Development Reference Manual" link="index.html" author="" name="rhythmbox">
+  <chapters>
+    <sub name="Backends" link="ch01.html">
+      <sub name="RBPlayer" link="RBPlayer.html"/>
+      <sub name="RBPlayerGstDataTee" link="RBPlayerGstDataTee.html"/>
+      <sub name="RBPlayerGstFilter" link="RBPlayerGstFilter.html"/>
+      <sub name="RBPlayerGstTee" link="RBPlayerGstTee.html"/>
+      <sub name="RBEncoder" link="RBEncoder.html"/>
+    </sub>
+    <sub name="Lib" link="ch02.html">
+      <sub name="rb-async-queue-watch" link="rhythmbox-rb-async-queue-watch.html"/>
+      <sub name="rb-debug" link="rhythmbox-rb-debug.html"/>
+      <sub name="rb-file-helpers" link="rhythmbox-rb-file-helpers.html"/>
+      <sub name="rb-builder-helpers" link="rhythmbox-rb-builder-helpers.html"/>
+      <sub name="RBStringValueMap" link="RBStringValueMap.html"/>
+      <sub name="rb-tree-dnd" link="rhythmbox-rb-tree-dnd.html"/>
+      <sub name="rb-util" link="rhythmbox-rb-util.html"/>
+      <sub name="rb-text-helpers" link="rhythmbox-rb-text-helpers.html"/>
+    </sub>
+    <sub name="Metadata" link="ch03.html">
+      <sub name="RBMetaData" link="RBMetaData.html"/>
+    </sub>
+    <sub name="RhythmDB" link="ch04.html">
+      <sub name="RhythmDBImportJob" link="RhythmDBImportJob.html"/>
+      <sub name="RhythmDBPropertyModel" link="RhythmDBPropertyModel.html"/>
+      <sub name="RhythmDBQueryModel" link="RhythmDBQueryModel.html"/>
+      <sub name="RhythmDBQueryResults" link="RhythmDBQueryResults.html"/>
+      <sub name="RhythmDB" link="RhythmDB.html"/>
+    </sub>
+    <sub name="Shell" link="ch05.html">
+      <sub name="RBHistory" link="RBHistory.html"/>
+      <sub name="RBPlayOrder" link="RBPlayOrder.html"/>
+      <sub name="RBRandomPlayOrder" link="RBRandomPlayOrder.html"/>
+      <sub name="RBPlaylistManager" link="RBPlaylistManager.html"/>
+      <sub name="RBPlugin" link="RBPlugin.html"/>
+      <sub name="RBRemovableMediaManager" link="RBRemovableMediaManager.html"/>
+      <sub name="RBShellClipboard" link="RBShellClipboard.html"/>
+      <sub name="RBShellPlayer" link="RBShellPlayer.html"/>
+      <sub name="RBShellPreferences" link="RBShellPreferences.html"/>
+      <sub name="RBShell" link="RBShell.html"/>
+      <sub name="RBSourceHeader" link="RBSourceHeader.html"/>
+      <sub name="RBStatusbar" link="RBStatusbar.html"/>
+    </sub>
+    <sub name="Sources" link="ch06.html">
+      <sub name="RBAutoPlaylistSource" link="RBAutoPlaylistSource.html"/>
+      <sub name="RBBrowserSource" link="RBBrowserSource.html"/>
+      <sub name="RBImportErrorsSource" link="RBImportErrorsSource.html"/>
+      <sub name="RBLibrarySource" link="RBLibrarySource.html"/>
+      <sub name="RBMissingFilesSource" link="RBMissingFilesSource.html"/>
+      <sub name="RBPlayQueueSource" link="RBPlayQueueSource.html"/>
+      <sub name="RBPlaylistSource" link="RBPlaylistSource.html"/>
+      <sub name="RBRemovableMediaSource" link="RBRemovableMediaSource.html"/>
+      <sub name="RBSourceGroup" link="rhythmbox-RBSourceGroup.html"/>
+      <sub name="RBSourceSearch" link="RBSourceSearch.html"/>
+      <sub name="RBSourceSearchBasic" link="RBSourceSearchBasic.html"/>
+      <sub name="RBSource" link="RBSource.html"/>
+      <sub name="RBSourceListModel" link="RBSourceListModel.html"/>
+      <sub name="RBSourceList" link="RBSourceList.html"/>
+      <sub name="RBStaticPlaylistSource" link="RBStaticPlaylistSource.html"/>
+      <sub name="RBStreamingSource" link="RBStreamingSource.html"/>
+    </sub>
+    <sub name="Widgets" link="ch07.html">
+      <sub name="RBCellRendererPixbuf" link="RBCellRendererPixbuf.html"/>
+      <sub name="RBCellRendererRating" link="RBCellRendererRating.html"/>
+      <sub name="rb-dialog" link="rhythmbox-rb-dialog.html"/>
+      <sub name="RBEntryView" link="RBEntryView.html"/>
+      <sub name="rb-header" link="rhythmbox-rb-header.html"/>
+      <sub name="RBLibraryBrowser" link="RBLibraryBrowser.html"/>
+      <sub name="RBPropertyView" link="RBPropertyView.html"/>
+      <sub name="RBQueryCreator" link="RBQueryCreator.html"/>
+      <sub name="rb-rating-helper" link="rhythmbox-rb-rating-helper.html"/>
+      <sub name="RBRating" link="RBRating.html"/>
+      <sub name="RBSearchEntry" link="RBSearchEntry.html"/>
+      <sub name="RBSongInfo" link="RBSongInfo.html"/>
+      <sub name="RBURIDialog" link="RBURIDialog.html"/>
+    </sub>
+  </chapters>
+  <functions>
+    <function name="RBPlayer" link="RBPlayer.html#RBPlayer-struct"/>
+    <function name="RBPlayerIface" link="RBPlayer.html#RBPlayerIface"/>
+    <function name="enum RBPlayerError" link="RBPlayer.html#RBPlayerError"/>
+    <function name="rb_player_new ()" link="RBPlayer.html#rb-player-new"/>
+    <function name="rb_player_open ()" link="RBPlayer.html#rb-player-open"/>
+    <function name="rb_player_opened ()" link="RBPlayer.html#rb-player-opened"/>
+    <function name="rb_player_close ()" link="RBPlayer.html#rb-player-close"/>
+    <function name="rb_player_play ()" link="RBPlayer.html#rb-player-play"/>
+    <function name="rb_player_pause ()" link="RBPlayer.html#rb-player-pause"/>
+    <function name="rb_player_playing ()" link="RBPlayer.html#rb-player-playing"/>
+    <function name="rb_player_set_volume ()" link="RBPlayer.html#rb-player-set-volume"/>
+    <function name="rb_player_get_volume ()" link="RBPlayer.html#rb-player-get-volume"/>
+    <function name="rb_player_seekable ()" link="RBPlayer.html#rb-player-seekable"/>
+    <function name="rb_player_set_time ()" link="RBPlayer.html#rb-player-set-time"/>
+    <function name="rb_player_get_time ()" link="RBPlayer.html#rb-player-get-time"/>
+    <function name="rb_player_multiple_open ()" link="RBPlayer.html#rb-player-multiple-open"/>
+    <function name="The &quot;buffering&quot; signal" link="RBPlayer.html#RBPlayer-buffering"/>
+    <function name="The &quot;eos&quot; signal" link="RBPlayer.html#RBPlayer-eos"/>
+    <function name="The &quot;error&quot; signal" link="RBPlayer.html#RBPlayer-error"/>
+    <function name="The &quot;event&quot; signal" link="RBPlayer.html#RBPlayer-event"/>
+    <function name="The &quot;image&quot; signal" link="RBPlayer.html#RBPlayer-image"/>
+    <function name="The &quot;info&quot; signal" link="RBPlayer.html#RBPlayer-info"/>
+    <function name="The &quot;playing-stream&quot; signal" link="RBPlayer.html#RBPlayer-playing-stream"/>
+    <function name="The &quot;tick&quot; signal" link="RBPlayer.html#RBPlayer-tick"/>
+    <function name="The &quot;volume-changed&quot; signal" link="RBPlayer.html#RBPlayer-volume-changed"/>
+    <function name="RBPlayerGstDataTee" link="RBPlayerGstDataTee.html#RBPlayerGstDataTee-struct"/>
+    <function name="RBPlayerGstDataTeeIface" link="RBPlayerGstDataTee.html#RBPlayerGstDataTeeIface"/>
+    <function name="rb_player_gst_data_tee_add_data_tee ()" link="RBPlayerGstDataTee.html#rb-player-gst-data-tee-add-data-tee"/>
+    <function name="rb_player_gst_data_tee_remove_data_tee ()" link="RBPlayerGstDataTee.html#rb-player-gst-data-tee-remove-data-tee"/>
+    <function name="The &quot;data-tee-inserted&quot; signal" link="RBPlayerGstDataTee.html#RBPlayerGstDataTee-data-tee-inserted"/>
+    <function name="The &quot;data-tee-pre-remove&quot; signal" link="RBPlayerGstDataTee.html#RBPlayerGstDataTee-data-tee-pre-remove"/>
+    <function name="RBPlayerGstFilter" link="RBPlayerGstFilter.html#RBPlayerGstFilter-struct"/>
+    <function name="RBPlayerGstFilterIface" link="RBPlayerGstFilter.html#RBPlayerGstFilterIface"/>
+    <function name="rb_player_gst_filter_add_filter ()" link="RBPlayerGstFilter.html#rb-player-gst-filter-add-filter"/>
+    <function name="rb_player_gst_filter_remove_filter ()" link="RBPlayerGstFilter.html#rb-player-gst-filter-remove-filter"/>
+    <function name="The &quot;filter-inserted&quot; signal" link="RBPlayerGstFilter.html#RBPlayerGstFilter-filter-inserted"/>
+    <function name="The &quot;filter-pre-remove&quot; signal" link="RBPlayerGstFilter.html#RBPlayerGstFilter-filter-pre-remove"/>
+    <function name="RBPlayerGstTee" link="RBPlayerGstTee.html#RBPlayerGstTee-struct"/>
+    <function name="RBPlayerGstTeeIface" link="RBPlayerGstTee.html#RBPlayerGstTeeIface"/>
+    <function name="rb_player_gst_tee_add_tee ()" link="RBPlayerGstTee.html#rb-player-gst-tee-add-tee"/>
+    <function name="rb_player_gst_tee_remove_tee ()" link="RBPlayerGstTee.html#rb-player-gst-tee-remove-tee"/>
+    <function name="The &quot;tee-inserted&quot; signal" link="RBPlayerGstTee.html#RBPlayerGstTee-tee-inserted"/>
+    <function name="The &quot;tee-pre-remove&quot; signal" link="RBPlayerGstTee.html#RBPlayerGstTee-tee-pre-remove"/>
+    <function name="RBEncoder" link="RBEncoder.html#RBEncoder-struct"/>
+    <function name="RBEncoderIface" link="RBEncoder.html#RBEncoderIface"/>
+    <function name="rb_encoder_new ()" link="RBEncoder.html#rb-encoder-new"/>
+    <function name="rb_encoder_encode ()" link="RBEncoder.html#rb-encoder-encode"/>
+    <function name="rb_encoder_cancel ()" link="RBEncoder.html#rb-encoder-cancel"/>
+    <function name="rb_encoder_get_preferred_mimetype ()" link="RBEncoder.html#rb-encoder-get-preferred-mimetype"/>
+    <function name="The &quot;completed&quot; signal" link="RBEncoder.html#RBEncoder-completed"/>
+    <function name="The &quot;error&quot; signal" link="RBEncoder.html#RBEncoder-error"/>
+    <function name="The &quot;progress&quot; signal" link="RBEncoder.html#RBEncoder-progress"/>
+    <function name="RBAsyncQueueWatchFunc ()" link="rhythmbox-rb-async-queue-watch.html#RBAsyncQueueWatchFunc"/>
+    <function name="rb_async_queue_watch_new ()" link="rhythmbox-rb-async-queue-watch.html#rb-async-queue-watch-new"/>
+    <function name="rb_debug()" link="rhythmbox-rb-debug.html#rb-debug"/>
+    <function name="rb_debug_init ()" link="rhythmbox-rb-debug.html#rb-debug-init"/>
+    <function name="rb_debug_init_match ()" link="rhythmbox-rb-debug.html#rb-debug-init-match"/>
+    <function name="rb_debug_matches ()" link="rhythmbox-rb-debug.html#rb-debug-matches"/>
+    <function name="rb_debug_get_args ()" link="rhythmbox-rb-debug.html#rb-debug-get-args"/>
+    <function name="rb_debug_stop_in_debugger ()" link="rhythmbox-rb-debug.html#rb-debug-stop-in-debugger"/>
+    <function name="RBProfiler" link="rhythmbox-rb-debug.html#RBProfiler"/>
+    <function name="rb_profiler_new ()" link="rhythmbox-rb-debug.html#rb-profiler-new"/>
+    <function name="rb_profiler_dump ()" link="rhythmbox-rb-debug.html#rb-profiler-dump"/>
+    <function name="rb_profiler_reset ()" link="rhythmbox-rb-debug.html#rb-profiler-reset"/>
+    <function name="rb_profiler_free ()" link="rhythmbox-rb-debug.html#rb-profiler-free"/>
+    <function name="rb_profile_start()" link="rhythmbox-rb-debug.html#rb-profile-start"/>
+    <function name="rb_profile_end()" link="rhythmbox-rb-debug.html#rb-profile-end"/>
+    <function name="rb_file ()" link="rhythmbox-rb-file-helpers.html#rb-file"/>
+    <function name="rb_user_data_dir ()" link="rhythmbox-rb-file-helpers.html#rb-user-data-dir"/>
+    <function name="rb_user_cache_dir ()" link="rhythmbox-rb-file-helpers.html#rb-user-cache-dir"/>
+    <function name="rb_music_dir ()" link="rhythmbox-rb-file-helpers.html#rb-music-dir"/>
+    <function name="rb_find_user_data_file ()" link="rhythmbox-rb-file-helpers.html#rb-find-user-data-file"/>
+    <function name="rb_find_user_cache_file ()" link="rhythmbox-rb-file-helpers.html#rb-find-user-cache-file"/>
+    <function name="rb_file_helpers_init ()" link="rhythmbox-rb-file-helpers.html#rb-file-helpers-init"/>
+    <function name="rb_file_helpers_shutdown ()" link="rhythmbox-rb-file-helpers.html#rb-file-helpers-shutdown"/>
+    <function name="rb_uri_resolve_symlink ()" link="rhythmbox-rb-file-helpers.html#rb-uri-resolve-symlink"/>
+    <function name="rb_uri_is_directory ()" link="rhythmbox-rb-file-helpers.html#rb-uri-is-directory"/>
+    <function name="rb_uri_exists ()" link="rhythmbox-rb-file-helpers.html#rb-uri-exists"/>
+    <function name="rb_uri_is_readable ()" link="rhythmbox-rb-file-helpers.html#rb-uri-is-readable"/>
+    <function name="rb_uri_is_writable ()" link="rhythmbox-rb-file-helpers.html#rb-uri-is-writable"/>
+    <function name="rb_uri_is_local ()" link="rhythmbox-rb-file-helpers.html#rb-uri-is-local"/>
+    <function name="rb_uri_is_hidden ()" link="rhythmbox-rb-file-helpers.html#rb-uri-is-hidden"/>
+    <function name="rb_uri_could_be_podcast ()" link="rhythmbox-rb-file-helpers.html#rb-uri-could-be-podcast"/>
+    <function name="rb_uri_make_hidden ()" link="rhythmbox-rb-file-helpers.html#rb-uri-make-hidden"/>
+    <function name="rb_uri_handle_recursively ()" link="rhythmbox-rb-file-helpers.html#rb-uri-handle-recursively"/>
+    <function name="rb_uri_handle_recursively_async ()" link="rhythmbox-rb-file-helpers.html#rb-uri-handle-recursively-async"/>
+    <function name="rb_uri_mkstemp ()" link="rhythmbox-rb-file-helpers.html#rb-uri-mkstemp"/>
+    <function name="rb_canonicalise_uri ()" link="rhythmbox-rb-file-helpers.html#rb-canonicalise-uri"/>
+    <function name="rb_uri_append_path ()" link="rhythmbox-rb-file-helpers.html#rb-uri-append-path"/>
+    <function name="rb_uri_append_uri ()" link="rhythmbox-rb-file-helpers.html#rb-uri-append-uri"/>
+    <function name="rb_uri_get_dir_name ()" link="rhythmbox-rb-file-helpers.html#rb-uri-get-dir-name"/>
+    <function name="rb_uri_get_short_path_name ()" link="rhythmbox-rb-file-helpers.html#rb-uri-get-short-path-name"/>
+    <function name="rb_check_dir_has_space ()" link="rhythmbox-rb-file-helpers.html#rb-check-dir-has-space"/>
+    <function name="rb_check_dir_has_space_uri ()" link="rhythmbox-rb-file-helpers.html#rb-check-dir-has-space-uri"/>
+    <function name="rb_uri_get_mount_point ()" link="rhythmbox-rb-file-helpers.html#rb-uri-get-mount-point"/>
+    <function name="rb_uri_create_parent_dirs ()" link="rhythmbox-rb-file-helpers.html#rb-uri-create-parent-dirs"/>
+    <function name="rb_file_find_extant_parent ()" link="rhythmbox-rb-file-helpers.html#rb-file-find-extant-parent"/>
+    <function name="rb_uri_get_filesystem_type ()" link="rhythmbox-rb-file-helpers.html#rb-uri-get-filesystem-type"/>
+    <function name="rb_sanitize_path_for_msdos_filesystem ()" link="rhythmbox-rb-file-helpers.html#rb-sanitize-path-for-msdos-filesystem"/>
+    <function name="rb_sanitize_uri_for_filesystem ()" link="rhythmbox-rb-file-helpers.html#rb-sanitize-uri-for-filesystem"/>
+    <function name="RBUriRecurseFunc ()" link="rhythmbox-rb-file-helpers.html#RBUriRecurseFunc"/>
+    <function name="rb_builder_load ()" link="rhythmbox-rb-builder-helpers.html#rb-builder-load"/>
+    <function name="rb_builder_boldify_label ()" link="rhythmbox-rb-builder-helpers.html#rb-builder-boldify-label"/>
+    <function name="rb_combo_box_hyphen_separator_func ()" link="rhythmbox-rb-builder-helpers.html#rb-combo-box-hyphen-separator-func"/>
+    <function name="RBStringValueMap" link="RBStringValueMap.html#RBStringValueMap-struct"/>
+    <function name="RBStringValueMapClass" link="RBStringValueMap.html#RBStringValueMapClass"/>
+    <function name="rb_string_value_map_new ()" link="RBStringValueMap.html#rb-string-value-map-new"/>
+    <function name="rb_string_value_map_set ()" link="RBStringValueMap.html#rb-string-value-map-set"/>
+    <function name="rb_string_value_map_get ()" link="RBStringValueMap.html#rb-string-value-map-get"/>
+    <function name="rb_string_value_map_peek ()" link="RBStringValueMap.html#rb-string-value-map-peek"/>
+    <function name="rb_string_value_map_remove ()" link="RBStringValueMap.html#rb-string-value-map-remove"/>
+    <function name="rb_string_value_map_size ()" link="RBStringValueMap.html#rb-string-value-map-size"/>
+    <function name="rb_string_value_map_steal_hashtable ()" link="RBStringValueMap.html#rb-string-value-map-steal-hashtable"/>
+    <function name="RbTreeDragSource" link="rhythmbox-rb-tree-dnd.html#RbTreeDragSource-struct"/>
+    <function name="RbTreeDragSourceIface" link="rhythmbox-rb-tree-dnd.html#RbTreeDragSourceIface"/>
+    <function name="RbTreeDragDest" link="rhythmbox-rb-tree-dnd.html#RbTreeDragDest-struct"/>
+    <function name="RbTreeDragDestIface" link="rhythmbox-rb-tree-dnd.html#RbTreeDragDestIface"/>
+    <function name="enum RbTreeDestFlag" link="rhythmbox-rb-tree-dnd.html#RbTreeDestFlag"/>
+    <function name="rb_tree_drag_source_row_draggable ()" link="rhythmbox-rb-tree-dnd.html#rb-tree-drag-source-row-draggable"/>
+    <function name="rb_tree_drag_source_drag_data_delete ()" link="rhythmbox-rb-tree-dnd.html#rb-tree-drag-source-drag-data-delete"/>
+    <function name="rb_tree_drag_source_drag_data_get ()" link="rhythmbox-rb-tree-dnd.html#rb-tree-drag-source-drag-data-get"/>
+    <function name="rb_tree_drag_dest_drag_data_received ()" link="rhythmbox-rb-tree-dnd.html#rb-tree-drag-dest-drag-data-received"/>
+    <function name="rb_tree_drag_dest_row_drop_possible ()" link="rhythmbox-rb-tree-dnd.html#rb-tree-drag-dest-row-drop-possible"/>
+    <function name="rb_tree_drag_dest_row_drop_position ()" link="rhythmbox-rb-tree-dnd.html#rb-tree-drag-dest-row-drop-position"/>
+    <function name="rb_tree_dnd_add_drag_dest_support ()" link="rhythmbox-rb-tree-dnd.html#rb-tree-dnd-add-drag-dest-support"/>
+    <function name="rb_tree_dnd_add_drag_source_support ()" link="rhythmbox-rb-tree-dnd.html#rb-tree-dnd-add-drag-source-support"/>
+    <function name="rb_true_function ()" link="rhythmbox-rb-util.html#rb-true-function"/>
+    <function name="rb_false_function ()" link="rhythmbox-rb-util.html#rb-false-function"/>
+    <function name="rb_null_function ()" link="rhythmbox-rb-util.html#rb-null-function"/>
+    <function name="rb_copy_function ()" link="rhythmbox-rb-util.html#rb-copy-function"/>
+    <function name="rb_gvalue_compare ()" link="rhythmbox-rb-util.html#rb-gvalue-compare"/>
+    <function name="rb_compare_gtimeval ()" link="rhythmbox-rb-util.html#rb-compare-gtimeval"/>
+    <function name="rb_image_new_from_stock ()" link="rhythmbox-rb-util.html#rb-image-new-from-stock"/>
+    <function name="rb_gtk_action_popup_menu ()" link="rhythmbox-rb-util.html#rb-gtk-action-popup-menu"/>
+    <function name="rb_is_main_thread ()" link="rhythmbox-rb-util.html#rb-is-main-thread"/>
+    <function name="rb_assert_locked ()" link="rhythmbox-rb-util.html#rb-assert-locked"/>
+    <function name="rb_threads_init ()" link="rhythmbox-rb-util.html#rb-threads-init"/>
+    <function name="rb_string_split_words ()" link="rhythmbox-rb-util.html#rb-string-split-words"/>
+    <function name="rb_search_fold ()" link="rhythmbox-rb-util.html#rb-search-fold"/>
+    <function name="rb_make_duration_string ()" link="rhythmbox-rb-util.html#rb-make-duration-string"/>
+    <function name="rb_make_elapsed_time_string ()" link="rhythmbox-rb-util.html#rb-make-elapsed-time-string"/>
+    <function name="rb_string_list_equal ()" link="rhythmbox-rb-util.html#rb-string-list-equal"/>
+    <function name="rb_string_list_copy ()" link="rhythmbox-rb-util.html#rb-string-list-copy"/>
+    <function name="rb_string_list_contains ()" link="rhythmbox-rb-util.html#rb-string-list-contains"/>
+    <function name="rb_list_destroy_free ()" link="rhythmbox-rb-util.html#rb-list-destroy-free"/>
+    <function name="rb_list_deep_free ()" link="rhythmbox-rb-util.html#rb-list-deep-free"/>
+    <function name="rb_slist_deep_free ()" link="rhythmbox-rb-util.html#rb-slist-deep-free"/>
+    <function name="rb_collate_hash_table_keys ()" link="rhythmbox-rb-util.html#rb-collate-hash-table-keys"/>
+    <function name="rb_collate_hash_table_values ()" link="rhythmbox-rb-util.html#rb-collate-hash-table-values"/>
+    <function name="rb_uri_list_parse ()" link="rhythmbox-rb-util.html#rb-uri-list-parse"/>
+    <function name="rb_mime_get_friendly_name ()" link="rhythmbox-rb-util.html#rb-mime-get-friendly-name"/>
+    <function name="rb_signal_accumulator_object_handled ()" link="rhythmbox-rb-util.html#rb-signal-accumulator-object-handled"/>
+    <function name="rb_signal_accumulator_value_array ()" link="rhythmbox-rb-util.html#rb-signal-accumulator-value-array"/>
+    <function name="rb_value_array_append_data ()" link="rhythmbox-rb-util.html#rb-value-array-append-data"/>
+    <function name="rb_value_free ()" link="rhythmbox-rb-util.html#rb-value-free"/>
+    <function name="rb_str_in_strv ()" link="rhythmbox-rb-util.html#rb-str-in-strv"/>
+    <function name="rb_set_tree_view_column_fixed_width ()" link="rhythmbox-rb-util.html#rb-set-tree-view-column-fixed-width"/>
+    <function name="rb_scale_pixbuf_to_size ()" link="rhythmbox-rb-util.html#rb-scale-pixbuf-to-size"/>
+    <function name="rb_text_direction_conflict ()" link="rhythmbox-rb-text-helpers.html#rb-text-direction-conflict"/>
+    <function name="rb_text_common_direction ()" link="rhythmbox-rb-text-helpers.html#rb-text-common-direction"/>
+    <function name="rb_text_cat ()" link="rhythmbox-rb-text-helpers.html#rb-text-cat"/>
+    <function name="RBMetaData" link="RBMetaData.html#RBMetaData-struct"/>
+    <function name="RBMetaDataClass" link="RBMetaData.html#RBMetaDataClass"/>
+    <function name="enum RBMetaDataField" link="RBMetaData.html#RBMetaDataField"/>
+    <function name="enum RBMetaDataError" link="RBMetaData.html#RBMetaDataError"/>
+    <function name="rb_metadata_new ()" link="RBMetaData.html#rb-metadata-new"/>
+    <function name="rb_metadata_get_field_type ()" link="RBMetaData.html#rb-metadata-get-field-type"/>
+    <function name="rb_metadata_get_field_name ()" link="RBMetaData.html#rb-metadata-get-field-name"/>
+    <function name="rb_metadata_can_save ()" link="RBMetaData.html#rb-metadata-can-save"/>
+    <function name="rb_metadata_load ()" link="RBMetaData.html#rb-metadata-load"/>
+    <function name="rb_metadata_save ()" link="RBMetaData.html#rb-metadata-save"/>
+    <function name="rb_metadata_get_mime ()" link="RBMetaData.html#rb-metadata-get-mime"/>
+    <function name="rb_metadata_has_missing_plugins ()" link="RBMetaData.html#rb-metadata-has-missing-plugins"/>
+    <function name="rb_metadata_get_missing_plugins ()" link="RBMetaData.html#rb-metadata-get-missing-plugins"/>
+    <function name="rb_metadata_get ()" link="RBMetaData.html#rb-metadata-get"/>
+    <function name="rb_metadata_set ()" link="RBMetaData.html#rb-metadata-set"/>
+    <function name="RhythmDBImportJob" link="RhythmDBImportJob.html#RhythmDBImportJob-struct"/>
+    <function name="RhythmDBImportJobClass" link="RhythmDBImportJob.html#RhythmDBImportJobClass"/>
+    <function name="rhythmdb_import_job_new ()" link="RhythmDBImportJob.html#rhythmdb-import-job-new"/>
+    <function name="rhythmdb_import_job_add_uri ()" link="RhythmDBImportJob.html#rhythmdb-import-job-add-uri"/>
+    <function name="rhythmdb_import_job_start ()" link="RhythmDBImportJob.html#rhythmdb-import-job-start"/>
+    <function name="rhythmdb_import_job_cancel ()" link="RhythmDBImportJob.html#rhythmdb-import-job-cancel"/>
+    <function name="rhythmdb_import_job_complete ()" link="RhythmDBImportJob.html#rhythmdb-import-job-complete"/>
+    <function name="rhythmdb_import_job_scan_complete ()" link="RhythmDBImportJob.html#rhythmdb-import-job-scan-complete"/>
+    <function name="rhythmdb_import_job_get_total ()" link="RhythmDBImportJob.html#rhythmdb-import-job-get-total"/>
+    <function name="rhythmdb_import_job_get_imported ()" link="RhythmDBImportJob.html#rhythmdb-import-job-get-imported"/>
+    <function name="The &quot;db&quot; property" link="RhythmDBImportJob.html#RhythmDBImportJob--db"/>
+    <function name="The &quot;entry-type&quot; property" link="RhythmDBImportJob.html#RhythmDBImportJob--entry-type"/>
+    <function name="The &quot;error-type&quot; property" link="RhythmDBImportJob.html#RhythmDBImportJob--error-type"/>
+    <function name="The &quot;ignore-type&quot; property" link="RhythmDBImportJob.html#RhythmDBImportJob--ignore-type"/>
+    <function name="The &quot;complete&quot; signal" link="RhythmDBImportJob.html#RhythmDBImportJob-complete"/>
+    <function name="The &quot;entry-added&quot; signal" link="RhythmDBImportJob.html#RhythmDBImportJob-entry-added"/>
+    <function name="The &quot;scan-complete&quot; signal" link="RhythmDBImportJob.html#RhythmDBImportJob-scan-complete"/>
+    <function name="The &quot;status-changed&quot; signal" link="RhythmDBImportJob.html#RhythmDBImportJob-status-changed"/>
+    <function name="RhythmDBPropertyModel" link="RhythmDBPropertyModel.html#RhythmDBPropertyModel-struct"/>
+    <function name="RhythmDBPropertyModelClass" link="RhythmDBPropertyModel.html#RhythmDBPropertyModelClass"/>
+    <function name="enum RhythmDBPropertyModelColumn" link="RhythmDBPropertyModel.html#RhythmDBPropertyModelColumn"/>
+    <function name="rhythmdb_property_model_new ()" link="RhythmDBPropertyModel.html#rhythmdb-property-model-new"/>
+    <function name="rhythmdb_property_model_iter_from_string ()" link="RhythmDBPropertyModel.html#rhythmdb-property-model-iter-from-string"/>
+    <function name="rhythmdb_property_model_enable_drag ()" link="RhythmDBPropertyModel.html#rhythmdb-property-model-enable-drag"/>
+    <function name="The &quot;db&quot; property" link="RhythmDBPropertyModel.html#RhythmDBPropertyModel--db"/>
+    <function name="The &quot;prop&quot; property" link="RhythmDBPropertyModel.html#RhythmDBPropertyModel--prop"/>
+    <function name="The &quot;query-model&quot; property" link="RhythmDBPropertyModel.html#RhythmDBPropertyModel--query-model"/>
+    <function name="The &quot;pre-row-deletion&quot; signal" link="RhythmDBPropertyModel.html#RhythmDBPropertyModel-pre-row-deletion"/>
+    <function name="RhythmDBQueryModel" link="RhythmDBQueryModel.html#RhythmDBQueryModel-struct"/>
+    <function name="RhythmDBQueryModelClass" link="RhythmDBQueryModel.html#RhythmDBQueryModelClass"/>
+    <function name="enum RhythmDBQueryModelLimitType" link="RhythmDBQueryModel.html#RhythmDBQueryModelLimitType"/>
+    <function name="RHYTHMDB_QUERY_MODEL_SUGGESTED_UPDATE_CHUNK" link="RhythmDBQueryModel.html#RHYTHMDB-QUERY-MODEL-SUGGESTED-UPDATE-CHUNK:CAPS"/>
+    <function name="rhythmdb_query_model_new ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-new"/>
+    <function name="rhythmdb_query_model_new_empty ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-new-empty"/>
+    <function name="rhythmdb_query_model_copy_contents ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-copy-contents"/>
+    <function name="rhythmdb_query_model_chain ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-chain"/>
+    <function name="rhythmdb_query_model_add_entry ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-add-entry"/>
+    <function name="rhythmdb_query_model_remove_entry ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-remove-entry"/>
+    <function name="rhythmdb_query_model_shuffle_entries ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-shuffle-entries"/>
+    <function name="rhythmdb_query_model_move_entry ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-move-entry"/>
+    <function name="rhythmdb_query_model_get_size ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-get-size"/>
+    <function name="rhythmdb_query_model_get_duration ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-get-duration"/>
+    <function name="rhythmdb_query_model_entry_to_iter ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-entry-to-iter"/>
+    <function name="rhythmdb_query_model_has_pending_changes ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-has-pending-changes"/>
+    <function name="rhythmdb_query_model_tree_path_to_entry ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-tree-path-to-entry"/>
+    <function name="rhythmdb_query_model_iter_to_entry ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-iter-to-entry"/>
+    <function name="rhythmdb_query_model_get_next_from_entry ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-get-next-from-entry"/>
+    <function name="rhythmdb_query_model_get_previous_from_entry ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-get-previous-from-entry"/>
+    <function name="rhythmdb_query_model_compute_status_normal ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-compute-status-normal"/>
+    <function name="rhythmdb_query_model_set_sort_order ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-set-sort-order"/>
+    <function name="rhythmdb_query_model_reapply_query ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-reapply-query"/>
+    <function name="rhythmdb_query_model_location_sort_func ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-location-sort-func"/>
+    <function name="rhythmdb_query_model_string_sort_func ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-string-sort-func"/>
+    <function name="rhythmdb_query_model_title_sort_func ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-title-sort-func"/>
+    <function name="rhythmdb_query_model_album_sort_func ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-album-sort-func"/>
+    <function name="rhythmdb_query_model_artist_sort_func ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-artist-sort-func"/>
+    <function name="rhythmdb_query_model_genre_sort_func ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-genre-sort-func"/>
+    <function name="rhythmdb_query_model_track_sort_func ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-track-sort-func"/>
+    <function name="rhythmdb_query_model_double_ceiling_sort_func ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-double-ceiling-sort-func"/>
+    <function name="rhythmdb_query_model_ulong_sort_func ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-ulong-sort-func"/>
+    <function name="rhythmdb_query_model_date_sort_func ()" link="RhythmDBQueryModel.html#rhythmdb-query-model-date-sort-func"/>
+    <function name="The &quot;base-model&quot; property" link="RhythmDBQueryModel.html#RhythmDBQueryModel--base-model"/>
+    <function name="The &quot;db&quot; property" link="RhythmDBQueryModel.html#RhythmDBQueryModel--db"/>
+    <function name="The &quot;limit-type&quot; property" link="RhythmDBQueryModel.html#RhythmDBQueryModel--limit-type"/>
+    <function name="The &quot;limit-value&quot; property" link="RhythmDBQueryModel.html#RhythmDBQueryModel--limit-value"/>
+    <function name="The &quot;query&quot; property" link="RhythmDBQueryModel.html#RhythmDBQueryModel--query"/>
+    <function name="The &quot;show-hidden&quot; property" link="RhythmDBQueryModel.html#RhythmDBQueryModel--show-hidden"/>
+    <function name="The &quot;sort-data&quot; property" link="RhythmDBQueryModel.html#RhythmDBQueryModel--sort-data"/>
+    <function name="The &quot;sort-data-destroy&quot; property" link="RhythmDBQueryModel.html#RhythmDBQueryModel--sort-data-destroy"/>
+    <function name="The &quot;sort-func&quot; property" link="RhythmDBQueryModel.html#RhythmDBQueryModel--sort-func"/>
+    <function name="The &quot;sort-reverse&quot; property" link="RhythmDBQueryModel.html#RhythmDBQueryModel--sort-reverse"/>
+    <function name="The &quot;complete&quot; signal" link="RhythmDBQueryModel.html#RhythmDBQueryModel-complete"/>
+    <function name="The &quot;entry-prop-changed&quot; signal" link="RhythmDBQueryModel.html#RhythmDBQueryModel-entry-prop-changed"/>
+    <function name="The &quot;entry-removed&quot; signal" link="RhythmDBQueryModel.html#RhythmDBQueryModel-entry-removed"/>
+    <function name="The &quot;filter-entry-drop&quot; signal" link="RhythmDBQueryModel.html#RhythmDBQueryModel-filter-entry-drop"/>
+    <function name="The &quot;non-entry-dropped&quot; signal" link="RhythmDBQueryModel.html#RhythmDBQueryModel-non-entry-dropped"/>
+    <function name="The &quot;post-entry-delete&quot; signal" link="RhythmDBQueryModel.html#RhythmDBQueryModel-post-entry-delete"/>
+    <function name="RhythmDBQueryResults" link="RhythmDBQueryResults.html#RhythmDBQueryResults-struct"/>
+    <function name="RhythmDBQueryResultsIface" link="RhythmDBQueryResults.html#RhythmDBQueryResultsIface"/>
+    <function name="rhythmdb_query_results_set_query ()" link="RhythmDBQueryResults.html#rhythmdb-query-results-set-query"/>
+    <function name="rhythmdb_query_results_add_results ()" link="RhythmDBQueryResults.html#rhythmdb-query-results-add-results"/>
+    <function name="rhythmdb_query_results_query_complete ()" link="RhythmDBQueryResults.html#rhythmdb-query-results-query-complete"/>
+    <function name="RhythmDB" link="RhythmDB.html#RhythmDB-struct"/>
+    <function name="RhythmDBEntry" link="RhythmDB.html#RhythmDBEntry"/>
+    <function name="RhythmDBEntryActionFunc ()" link="RhythmDB.html#RhythmDBEntryActionFunc"/>
+    <function name="RhythmDBEntryStringFunc ()" link="RhythmDB.html#RhythmDBEntryStringFunc"/>
+    <function name="RhythmDBEntryCanSyncFunc ()" link="RhythmDB.html#RhythmDBEntryCanSyncFunc"/>
+    <function name="RhythmDBEntrySyncFunc ()" link="RhythmDB.html#RhythmDBEntrySyncFunc"/>
+    <function name="enum RhythmDBEntryCategory" link="RhythmDB.html#RhythmDBEntryCategory"/>
+    <function name="RhythmDBEntryType" link="RhythmDB.html#RhythmDBEntryType"/>
+    <function name="RhythmDBQuery" link="RhythmDB.html#RhythmDBQuery"/>
+    <function name="RHYTHMDB_ENTRY_TYPE_SONG" link="RhythmDB.html#RHYTHMDB-ENTRY-TYPE-SONG:CAPS"/>
+    <function name="RHYTHMDB_ENTRY_TYPE_PODCAST_POST" link="RhythmDB.html#RHYTHMDB-ENTRY-TYPE-PODCAST-POST:CAPS"/>
+    <function name="RHYTHMDB_ENTRY_TYPE_PODCAST_FEED" link="RhythmDB.html#RHYTHMDB-ENTRY-TYPE-PODCAST-FEED:CAPS"/>
+    <function name="RHYTHMDB_ENTRY_TYPE_IMPORT_ERROR" link="RhythmDB.html#RHYTHMDB-ENTRY-TYPE-IMPORT-ERROR:CAPS"/>
+    <function name="RHYTHMDB_ENTRY_TYPE_IGNORE" link="RhythmDB.html#RHYTHMDB-ENTRY-TYPE-IGNORE:CAPS"/>
+    <function name="RHYTHMDB_ENTRY_TYPE_INVALID" link="RhythmDB.html#RHYTHMDB-ENTRY-TYPE-INVALID:CAPS"/>
+    <function name="enum RhythmDBQueryType" link="RhythmDB.html#RhythmDBQueryType"/>
+    <function name="enum RhythmDBPropType" link="RhythmDB.html#RhythmDBPropType"/>
+    <function name="RHYTHMDB_PROP_STREAM_SONG_TITLE" link="RhythmDB.html#RHYTHMDB-PROP-STREAM-SONG-TITLE:CAPS"/>
+    <function name="RHYTHMDB_PROP_STREAM_SONG_ARTIST" link="RhythmDB.html#RHYTHMDB-PROP-STREAM-SONG-ARTIST:CAPS"/>
+    <function name="RHYTHMDB_PROP_STREAM_SONG_ALBUM" link="RhythmDB.html#RHYTHMDB-PROP-STREAM-SONG-ALBUM:CAPS"/>
+    <function name="RhythmDBQueryData" link="RhythmDB.html#RhythmDBQueryData"/>
+    <function name="RhythmDBEntryChange" link="RhythmDB.html#RhythmDBEntryChange"/>
+    <function name="rhythmdb_entry_get_string ()" link="RhythmDB.html#rhythmdb-entry-get-string"/>
+    <function name="rhythmdb_entry_get_refstring ()" link="RhythmDB.html#rhythmdb-entry-get-refstring"/>
+    <function name="rhythmdb_entry_dup_string ()" link="RhythmDB.html#rhythmdb-entry-dup-string"/>
+    <function name="rhythmdb_entry_get_boolean ()" link="RhythmDB.html#rhythmdb-entry-get-boolean"/>
+    <function name="rhythmdb_entry_get_uint64 ()" link="RhythmDB.html#rhythmdb-entry-get-uint64"/>
+    <function name="rhythmdb_entry_get_ulong ()" link="RhythmDB.html#rhythmdb-entry-get-ulong"/>
+    <function name="rhythmdb_entry_get_double ()" link="RhythmDB.html#rhythmdb-entry-get-double"/>
+    <function name="rhythmdb_entry_get_pointer ()" link="RhythmDB.html#rhythmdb-entry-get-pointer"/>
+    <function name="rhythmdb_entry_get_entry_type ()" link="RhythmDB.html#rhythmdb-entry-get-entry-type"/>
+    <function name="enum RhythmDBError" link="RhythmDB.html#RhythmDBError"/>
+    <function name="rhythmdb_new ()" link="RhythmDB.html#rhythmdb-new"/>
+    <function name="rhythmdb_shutdown ()" link="RhythmDB.html#rhythmdb-shutdown"/>
+    <function name="rhythmdb_load ()" link="RhythmDB.html#rhythmdb-load"/>
+    <function name="rhythmdb_save ()" link="RhythmDB.html#rhythmdb-save"/>
+    <function name="rhythmdb_save_async ()" link="RhythmDB.html#rhythmdb-save-async"/>
+    <function name="rhythmdb_start_action_thread ()" link="RhythmDB.html#rhythmdb-start-action-thread"/>
+    <function name="rhythmdb_commit ()" link="RhythmDB.html#rhythmdb-commit"/>
+    <function name="rhythmdb_entry_is_editable ()" link="RhythmDB.html#rhythmdb-entry-is-editable"/>
+    <function name="rhythmdb_entry_new ()" link="RhythmDB.html#rhythmdb-entry-new"/>
+    <function name="rhythmdb_entry_example_new ()" link="RhythmDB.html#rhythmdb-entry-example-new"/>
+    <function name="rhythmdb_add_uri ()" link="RhythmDB.html#rhythmdb-add-uri"/>
+    <function name="rhythmdb_add_uri_with_types ()" link="RhythmDB.html#rhythmdb-add-uri-with-types"/>
+    <function name="rhythmdb_entry_get ()" link="RhythmDB.html#rhythmdb-entry-get"/>
+    <function name="rhythmdb_entry_set ()" link="RhythmDB.html#rhythmdb-entry-set"/>
+    <function name="rhythmdb_entry_get_playback_uri ()" link="RhythmDB.html#rhythmdb-entry-get-playback-uri"/>
+    <function name="rhythmdb_entry_get_type_data ()" link="RhythmDB.html#rhythmdb-entry-get-type-data"/>
+    <function name="RHYTHMDB_ENTRY_GET_TYPE_DATA()" link="RhythmDB.html#RHYTHMDB-ENTRY-GET-TYPE-DATA:CAPS"/>
+    <function name="rhythmdb_entry_delete ()" link="RhythmDB.html#rhythmdb-entry-delete"/>
+    <function name="rhythmdb_entry_delete_by_type ()" link="RhythmDB.html#rhythmdb-entry-delete-by-type"/>
+    <function name="rhythmdb_entry_move_to_trash ()" link="RhythmDB.html#rhythmdb-entry-move-to-trash"/>
+    <function name="rhythmdb_entry_lookup_by_location ()" link="RhythmDB.html#rhythmdb-entry-lookup-by-location"/>
+    <function name="rhythmdb_entry_lookup_by_id ()" link="RhythmDB.html#rhythmdb-entry-lookup-by-id"/>
+    <function name="rhythmdb_entry_lookup_from_string ()" link="RhythmDB.html#rhythmdb-entry-lookup-from-string"/>
+    <function name="rhythmdb_evaluate_query ()" link="RhythmDB.html#rhythmdb-evaluate-query"/>
+    <function name="rhythmdb_entry_foreach ()" link="RhythmDB.html#rhythmdb-entry-foreach"/>
+    <function name="rhythmdb_entry_count ()" link="RhythmDB.html#rhythmdb-entry-count"/>
+    <function name="rhythmdb_entry_foreach_by_type ()" link="RhythmDB.html#rhythmdb-entry-foreach-by-type"/>
+    <function name="rhythmdb_entry_count_by_type ()" link="RhythmDB.html#rhythmdb-entry-count-by-type"/>
+    <function name="rhythmdb_entry_keyword_add ()" link="RhythmDB.html#rhythmdb-entry-keyword-add"/>
+    <function name="rhythmdb_entry_keyword_remove ()" link="RhythmDB.html#rhythmdb-entry-keyword-remove"/>
+    <function name="rhythmdb_entry_keyword_has ()" link="RhythmDB.html#rhythmdb-entry-keyword-has"/>
+    <function name="rhythmdb_do_full_query ()" link="RhythmDB.html#rhythmdb-do-full-query"/>
+    <function name="rhythmdb_do_full_query_parsed ()" link="RhythmDB.html#rhythmdb-do-full-query-parsed"/>
+    <function name="rhythmdb_do_full_query_async ()" link="RhythmDB.html#rhythmdb-do-full-query-async"/>
+    <function name="rhythmdb_do_full_query_async_parsed ()" link="RhythmDB.html#rhythmdb-do-full-query-async-parsed"/>
+    <function name="rhythmdb_query_parse ()" link="RhythmDB.html#rhythmdb-query-parse"/>
+    <function name="rhythmdb_query_append ()" link="RhythmDB.html#rhythmdb-query-append"/>
+    <function name="rhythmdb_query_append_params ()" link="RhythmDB.html#rhythmdb-query-append-params"/>
+    <function name="rhythmdb_query_append_prop_multiple ()" link="RhythmDB.html#rhythmdb-query-append-prop-multiple"/>
+    <function name="rhythmdb_query_concatenate ()" link="RhythmDB.html#rhythmdb-query-concatenate"/>
+    <function name="rhythmdb_query_free ()" link="RhythmDB.html#rhythmdb-query-free"/>
+    <function name="rhythmdb_query_copy ()" link="RhythmDB.html#rhythmdb-query-copy"/>
+    <function name="rhythmdb_query_preprocess ()" link="RhythmDB.html#rhythmdb-query-preprocess"/>
+    <function name="rhythmdb_query_serialize ()" link="RhythmDB.html#rhythmdb-query-serialize"/>
+    <function name="rhythmdb_query_deserialize ()" link="RhythmDB.html#rhythmdb-query-deserialize"/>
+    <function name="rhythmdb_query_to_string ()" link="RhythmDB.html#rhythmdb-query-to-string"/>
+    <function name="rhythmdb_query_is_time_relative ()" link="RhythmDB.html#rhythmdb-query-is-time-relative"/>
+    <function name="rhythmdb_nice_elt_name_from_propid ()" link="RhythmDB.html#rhythmdb-nice-elt-name-from-propid"/>
+    <function name="rhythmdb_propid_from_nice_elt_name ()" link="RhythmDB.html#rhythmdb-propid-from-nice-elt-name"/>
+    <function name="rhythmdb_entry_request_extra_metadata ()" link="RhythmDB.html#rhythmdb-entry-request-extra-metadata"/>
+    <function name="rhythmdb_entry_gather_metadata ()" link="RhythmDB.html#rhythmdb-entry-gather-metadata"/>
+    <function name="rhythmdb_emit_entry_extra_metadata_notify ()" link="RhythmDB.html#rhythmdb-emit-entry-extra-metadata-notify"/>
+    <function name="rhythmdb_is_busy ()" link="RhythmDB.html#rhythmdb-is-busy"/>
+    <function name="rhythmdb_compute_status_normal ()" link="RhythmDB.html#rhythmdb-compute-status-normal"/>
+    <function name="rhythmdb_entry_register_type ()" link="RhythmDB.html#rhythmdb-entry-register-type"/>
+    <function name="rhythmdb_entry_type_get_by_name ()" link="RhythmDB.html#rhythmdb-entry-type-get-by-name"/>
+    <function name="rhythmdb_entry_song_get_type ()" link="RhythmDB.html#rhythmdb-entry-song-get-type"/>
+    <function name="rhythmdb_entry_podcast_post_get_type ()" link="RhythmDB.html#rhythmdb-entry-podcast-post-get-type"/>
+    <function name="rhythmdb_entry_podcast_feed_get_type ()" link="RhythmDB.html#rhythmdb-entry-podcast-feed-get-type"/>
+    <function name="rhythmdb_entry_import_error_get_type ()" link="RhythmDB.html#rhythmdb-entry-import-error-get-type"/>
+    <function name="rhythmdb_entry_ignore_get_type ()" link="RhythmDB.html#rhythmdb-entry-ignore-get-type"/>
+    <function name="rhythmdb_get_property_type ()" link="RhythmDB.html#rhythmdb-get-property-type"/>
+    <function name="rhythmdb_entry_ref ()" link="RhythmDB.html#rhythmdb-entry-ref"/>
+    <function name="rhythmdb_entry_unref ()" link="RhythmDB.html#rhythmdb-entry-unref"/>
+    <function name="rhythmdb_entry_is_lossless ()" link="RhythmDB.html#rhythmdb-entry-is-lossless"/>
+    <function name="The &quot;dry-run&quot; property" link="RhythmDB.html#RhythmDB--dry-run"/>
+    <function name="The &quot;name&quot; property" link="RhythmDB.html#RhythmDB--name"/>
+    <function name="The &quot;no-update&quot; property" link="RhythmDB.html#RhythmDB--no-update"/>
+    <function name="The &quot;create-mount-op&quot; signal" link="RhythmDB.html#RhythmDB-create-mount-op"/>
+    <function name="The &quot;entry-added&quot; signal" link="RhythmDB.html#RhythmDB-entry-added"/>
+    <function name="The &quot;entry-changed&quot; signal" link="RhythmDB.html#RhythmDB-entry-changed"/>
+    <function name="The &quot;entry-deleted&quot; signal" link="RhythmDB.html#RhythmDB-entry-deleted"/>
+    <function name="The &quot;entry-extra-metadata-gather&quot; signal" link="RhythmDB.html#RhythmDB-entry-extra-metadata-gather"/>
+    <function name="The &quot;entry-extra-metadata-notify&quot; signal" link="RhythmDB.html#RhythmDB-entry-extra-metadata-notify"/>
+    <function name="The &quot;entry-extra-metadata-request&quot; signal" link="RhythmDB.html#RhythmDB-entry-extra-metadata-request"/>
+    <function name="The &quot;entry-keyword-added&quot; signal" link="RhythmDB.html#RhythmDB-entry-keyword-added"/>
+    <function name="The &quot;entry-keyword-removed&quot; signal" link="RhythmDB.html#RhythmDB-entry-keyword-removed"/>
+    <function name="The &quot;load-complete&quot; signal" link="RhythmDB.html#RhythmDB-load-complete"/>
+    <function name="The &quot;missing-plugins&quot; signal" link="RhythmDB.html#RhythmDB-missing-plugins"/>
+    <function name="The &quot;read-only&quot; signal" link="RhythmDB.html#RhythmDB-read-only"/>
+    <function name="The &quot;save-complete&quot; signal" link="RhythmDB.html#RhythmDB-save-complete"/>
+    <function name="The &quot;save-error&quot; signal" link="RhythmDB.html#RhythmDB-save-error"/>
+    <function name="RBHistory" link="RBHistory.html#RBHistory-struct"/>
+    <function name="RBHistoryClass" link="RBHistory.html#RBHistoryClass"/>
+    <function name="rb_history_new ()" link="RBHistory.html#rb-history-new"/>
+    <function name="rb_history_set_destroy_notify ()" link="RBHistory.html#rb-history-set-destroy-notify"/>
+    <function name="rb_history_set_truncate_on_play ()" link="RBHistory.html#rb-history-set-truncate-on-play"/>
+    <function name="rb_history_set_maximum_size ()" link="RBHistory.html#rb-history-set-maximum-size"/>
+    <function name="rb_history_length ()" link="RBHistory.html#rb-history-length"/>
+    <function name="rb_history_first ()" link="RBHistory.html#rb-history-first"/>
+    <function name="rb_history_previous ()" link="RBHistory.html#rb-history-previous"/>
+    <function name="rb_history_current ()" link="RBHistory.html#rb-history-current"/>
+    <function name="rb_history_next ()" link="RBHistory.html#rb-history-next"/>
+    <function name="rb_history_last ()" link="RBHistory.html#rb-history-last"/>
+    <function name="rb_history_go_first ()" link="RBHistory.html#rb-history-go-first"/>
+    <function name="rb_history_go_previous ()" link="RBHistory.html#rb-history-go-previous"/>
+    <function name="rb_history_go_next ()" link="RBHistory.html#rb-history-go-next"/>
+    <function name="rb_history_go_last ()" link="RBHistory.html#rb-history-go-last"/>
+    <function name="rb_history_set_playing ()" link="RBHistory.html#rb-history-set-playing"/>
+    <function name="rb_history_append ()" link="RBHistory.html#rb-history-append"/>
+    <function name="rb_history_get_current_index ()" link="RBHistory.html#rb-history-get-current-index"/>
+    <function name="rb_history_insert_at_index ()" link="RBHistory.html#rb-history-insert-at-index"/>
+    <function name="rb_history_remove_entry ()" link="RBHistory.html#rb-history-remove-entry"/>
+    <function name="rb_history_clear ()" link="RBHistory.html#rb-history-clear"/>
+    <function name="rb_history_dump ()" link="RBHistory.html#rb-history-dump"/>
+    <function name="rb_history_contains_entry ()" link="RBHistory.html#rb-history-contains-entry"/>
+    <function name="The &quot;maximum-size&quot; property" link="RBHistory.html#RBHistory--maximum-size"/>
+    <function name="The &quot;truncate-on-play&quot; property" link="RBHistory.html#RBHistory--truncate-on-play"/>
+    <function name="RBPlayOrder" link="RBPlayOrder.html#RBPlayOrder-struct"/>
+    <function name="RBPlayOrderClass" link="RBPlayOrder.html#RBPlayOrderClass"/>
+    <function name="rb_play_order_playing_source_changed ()" link="RBPlayOrder.html#rb-play-order-playing-source-changed"/>
+    <function name="rb_play_order_query_model_changed ()" link="RBPlayOrder.html#rb-play-order-query-model-changed"/>
+    <function name="rb_play_order_has_next ()" link="RBPlayOrder.html#rb-play-order-has-next"/>
+    <function name="rb_play_order_get_next ()" link="RBPlayOrder.html#rb-play-order-get-next"/>
+    <function name="rb_play_order_go_next ()" link="RBPlayOrder.html#rb-play-order-go-next"/>
+    <function name="rb_play_order_has_previous ()" link="RBPlayOrder.html#rb-play-order-has-previous"/>
+    <function name="rb_play_order_get_previous ()" link="RBPlayOrder.html#rb-play-order-get-previous"/>
+    <function name="rb_play_order_go_previous ()" link="RBPlayOrder.html#rb-play-order-go-previous"/>
+    <function name="rb_play_order_set_playing_entry ()" link="RBPlayOrder.html#rb-play-order-set-playing-entry"/>
+    <function name="rb_play_order_get_playing_entry ()" link="RBPlayOrder.html#rb-play-order-get-playing-entry"/>
+    <function name="rb_play_order_get_player ()" link="RBPlayOrder.html#rb-play-order-get-player"/>
+    <function name="rb_play_order_get_source ()" link="RBPlayOrder.html#rb-play-order-get-source"/>
+    <function name="rb_play_order_get_db ()" link="RBPlayOrder.html#rb-play-order-get-db"/>
+    <function name="rb_play_order_get_query_model ()" link="RBPlayOrder.html#rb-play-order-get-query-model"/>
+    <function name="rb_play_order_model_not_empty ()" link="RBPlayOrder.html#rb-play-order-model-not-empty"/>
+    <function name="The &quot;player&quot; property" link="RBPlayOrder.html#RBPlayOrder--player"/>
+    <function name="The &quot;playing-entry&quot; property" link="RBPlayOrder.html#RBPlayOrder--playing-entry"/>
+    <function name="The &quot;have-next-previous-changed&quot; signal" link="RBPlayOrder.html#RBPlayOrder-have-next-previous-changed"/>
+    <function name="RBRandomPlayOrder" link="RBRandomPlayOrder.html#RBRandomPlayOrder-struct"/>
+    <function name="RBRandomPlayOrderClass" link="RBRandomPlayOrder.html#RBRandomPlayOrderClass"/>
+    <function name="RBPlaylistManager" link="RBPlaylistManager.html#RBPlaylistManager-struct"/>
+    <function name="RBPlaylistManagerClass" link="RBPlaylistManager.html#RBPlaylistManagerClass"/>
+    <function name="enum RBPlaylistManagerError" link="RBPlaylistManager.html#RBPlaylistManagerError"/>
+    <function name="rb_playlist_manager_new ()" link="RBPlaylistManager.html#rb-playlist-manager-new"/>
+    <function name="rb_playlist_manager_shutdown ()" link="RBPlaylistManager.html#rb-playlist-manager-shutdown"/>
+    <function name="rb_playlist_manager_parse_file ()" link="RBPlaylistManager.html#rb-playlist-manager-parse-file"/>
+    <function name="rb_playlist_manager_load_playlists ()" link="RBPlaylistManager.html#rb-playlist-manager-load-playlists"/>
+    <function name="rb_playlist_manager_save_playlists ()" link="RBPlaylistManager.html#rb-playlist-manager-save-playlists"/>
+    <function name="rb_playlist_manager_new_playlist ()" link="RBPlaylistManager.html#rb-playlist-manager-new-playlist"/>
+    <function name="rb_playlist_manager_new_playlist_from_selection_data ()" link="RBPlaylistManager.html#rb-playlist-manager-new-playlist-from-selection-data"/>
+    <function name="rb_playlist_manager_get_playlists ()" link="RBPlaylistManager.html#rb-playlist-manager-get-playlists"/>
+    <function name="rb_playlist_manager_get_playlist_names ()" link="RBPlaylistManager.html#rb-playlist-manager-get-playlist-names"/>
+    <function name="rb_playlist_manager_create_static_playlist ()" link="RBPlaylistManager.html#rb-playlist-manager-create-static-playlist"/>
+    <function name="rb_playlist_manager_delete_playlist ()" link="RBPlaylistManager.html#rb-playlist-manager-delete-playlist"/>
+    <function name="rb_playlist_manager_add_to_playlist ()" link="RBPlaylistManager.html#rb-playlist-manager-add-to-playlist"/>
+    <function name="rb_playlist_manager_remove_from_playlist ()" link="RBPlaylistManager.html#rb-playlist-manager-remove-from-playlist"/>
+    <function name="rb_playlist_manager_export_playlist ()" link="RBPlaylistManager.html#rb-playlist-manager-export-playlist"/>
+    <function name="The &quot;playlists-file&quot; property" link="RBPlaylistManager.html#RBPlaylistManager--playlists-file"/>
+    <function name="The &quot;shell&quot; property" link="RBPlaylistManager.html#RBPlaylistManager--shell"/>
+    <function name="The &quot;source&quot; property" link="RBPlaylistManager.html#RBPlaylistManager--source"/>
+    <function name="The &quot;sourcelist&quot; property" link="RBPlaylistManager.html#RBPlaylistManager--sourcelist"/>
+    <function name="The &quot;load-finish&quot; signal" link="RBPlaylistManager.html#RBPlaylistManager-load-finish"/>
+    <function name="The &quot;load-start&quot; signal" link="RBPlaylistManager.html#RBPlaylistManager-load-start"/>
+    <function name="The &quot;playlist-added&quot; signal" link="RBPlaylistManager.html#RBPlaylistManager-playlist-added"/>
+    <function name="The &quot;playlist-created&quot; signal" link="RBPlaylistManager.html#RBPlaylistManager-playlist-created"/>
+    <function name="RBPlugin" link="RBPlugin.html#RBPlugin-struct"/>
+    <function name="RBPluginClass" link="RBPlugin.html#RBPluginClass"/>
+    <function name="RBPluginActivationFunc ()" link="RBPlugin.html#RBPluginActivationFunc"/>
+    <function name="RBPluginWidgetFunc ()" link="RBPlugin.html#RBPluginWidgetFunc"/>
+    <function name="RBPluginBooleanFunc ()" link="RBPlugin.html#RBPluginBooleanFunc"/>
+    <function name="rb_plugin_activate ()" link="RBPlugin.html#rb-plugin-activate"/>
+    <function name="rb_plugin_deactivate ()" link="RBPlugin.html#rb-plugin-deactivate"/>
+    <function name="rb_plugin_is_configurable ()" link="RBPlugin.html#rb-plugin-is-configurable"/>
+    <function name="rb_plugin_create_configure_dialog ()" link="RBPlugin.html#rb-plugin-create-configure-dialog"/>
+    <function name="rb_plugin_find_file ()" link="RBPlugin.html#rb-plugin-find-file"/>
+    <function name="rb_get_plugin_paths ()" link="RBPlugin.html#rb-get-plugin-paths"/>
+    <function name="RB_PLUGIN_REGISTER()" link="RBPlugin.html#RB-PLUGIN-REGISTER:CAPS"/>
+    <function name="RB_PLUGIN_REGISTER_TYPE()" link="RBPlugin.html#RB-PLUGIN-REGISTER-TYPE:CAPS"/>
+    <function name="RB_PLUGIN_DEFINE_TYPE()" link="RBPlugin.html#RB-PLUGIN-DEFINE-TYPE:CAPS"/>
+    <function name="The &quot;name&quot; property" link="RBPlugin.html#RBPlugin--name"/>
+    <function name="RBRemovableMediaManager" link="RBRemovableMediaManager.html#RBRemovableMediaManager-struct"/>
+    <function name="RBRemovableMediaManagerClass" link="RBRemovableMediaManager.html#RBRemovableMediaManagerClass"/>
+    <function name="rb_removable_media_manager_new ()" link="RBRemovableMediaManager.html#rb-removable-media-manager-new"/>
+    <function name="rb_removable_media_manager_scan ()" link="RBRemovableMediaManager.html#rb-removable-media-manager-scan"/>
+    <function name="rb_removable_media_manager_queue_transfer ()" link="RBRemovableMediaManager.html#rb-removable-media-manager-queue-transfer"/>
+    <function name="The &quot;scanned&quot; property" link="RBRemovableMediaManager.html#RBRemovableMediaManager--scanned"/>
+    <function name="The &quot;shell&quot; property" link="RBRemovableMediaManager.html#RBRemovableMediaManager--shell"/>
+    <function name="The &quot;source&quot; property" link="RBRemovableMediaManager.html#RBRemovableMediaManager--source"/>
+    <function name="The &quot;create-source-device&quot; signal" link="RBRemovableMediaManager.html#RBRemovableMediaManager-create-source-device"/>
+    <function name="The &quot;create-source-mount&quot; signal" link="RBRemovableMediaManager.html#RBRemovableMediaManager-create-source-mount"/>
+    <function name="The &quot;create-source-volume&quot; signal" link="RBRemovableMediaManager.html#RBRemovableMediaManager-create-source-volume"/>
+    <function name="The &quot;medium-added&quot; signal" link="RBRemovableMediaManager.html#RBRemovableMediaManager-medium-added"/>
+    <function name="The &quot;transfer-progress&quot; signal" link="RBRemovableMediaManager.html#RBRemovableMediaManager-transfer-progress"/>
+    <function name="RBShellClipboard" link="RBShellClipboard.html#RBShellClipboard-struct"/>
+    <function name="RBShellClipboardClass" link="RBShellClipboard.html#RBShellClipboardClass"/>
+    <function name="rb_shell_clipboard_new ()" link="RBShellClipboard.html#rb-shell-clipboard-new"/>
+    <function name="rb_shell_clipboard_set_source ()" link="RBShellClipboard.html#rb-shell-clipboard-set-source"/>
+    <function name="The &quot;action-group&quot; property" link="RBShellClipboard.html#RBShellClipboard--action-group"/>
+    <function name="The &quot;db&quot; property" link="RBShellClipboard.html#RBShellClipboard--db"/>
+    <function name="The &quot;playlist-manager&quot; property" link="RBShellClipboard.html#RBShellClipboard--playlist-manager"/>
+    <function name="The &quot;queue-source&quot; property" link="RBShellClipboard.html#RBShellClipboard--queue-source"/>
+    <function name="The &quot;source&quot; property" link="RBShellClipboard.html#RBShellClipboard--source"/>
+    <function name="The &quot;ui-manager&quot; property" link="RBShellClipboard.html#RBShellClipboard--ui-manager"/>
+    <function name="RBShellPlayer" link="RBShellPlayer.html#RBShellPlayer-struct"/>
+    <function name="RBShellPlayerClass" link="RBShellPlayer.html#RBShellPlayerClass"/>
+    <function name="enum RBShellPlayerError" link="RBShellPlayer.html#RBShellPlayerError"/>
+    <function name="rb_shell_player_new ()" link="RBShellPlayer.html#rb-shell-player-new"/>
+    <function name="rb_shell_player_set_selected_source ()" link="RBShellPlayer.html#rb-shell-player-set-selected-source"/>
+    <function name="rb_shell_player_set_playing_source ()" link="RBShellPlayer.html#rb-shell-player-set-playing-source"/>
+    <function name="rb_shell_player_get_playing_source ()" link="RBShellPlayer.html#rb-shell-player-get-playing-source"/>
+    <function name="rb_shell_player_get_active_source ()" link="RBShellPlayer.html#rb-shell-player-get-active-source"/>
+    <function name="rb_shell_player_jump_to_current ()" link="RBShellPlayer.html#rb-shell-player-jump-to-current"/>
+    <function name="rb_shell_player_play_entry ()" link="RBShellPlayer.html#rb-shell-player-play-entry"/>
+    <function name="rb_shell_player_play ()" link="RBShellPlayer.html#rb-shell-player-play"/>
+    <function name="rb_shell_player_pause ()" link="RBShellPlayer.html#rb-shell-player-pause"/>
+    <function name="rb_shell_player_playpause ()" link="RBShellPlayer.html#rb-shell-player-playpause"/>
+    <function name="rb_shell_player_stop ()" link="RBShellPlayer.html#rb-shell-player-stop"/>
+    <function name="rb_shell_player_do_previous ()" link="RBShellPlayer.html#rb-shell-player-do-previous"/>
+    <function name="rb_shell_player_do_next ()" link="RBShellPlayer.html#rb-shell-player-do-next"/>
+    <function name="rb_shell_player_get_playing_time_string ()" link="RBShellPlayer.html#rb-shell-player-get-playing-time-string"/>
+    <function name="rb_shell_player_get_playing_time ()" link="RBShellPlayer.html#rb-shell-player-get-playing-time"/>
+    <function name="rb_shell_player_set_playing_time ()" link="RBShellPlayer.html#rb-shell-player-set-playing-time"/>
+    <function name="rb_shell_player_seek ()" link="RBShellPlayer.html#rb-shell-player-seek"/>
+    <function name="rb_shell_player_get_playing_song_duration ()" link="RBShellPlayer.html#rb-shell-player-get-playing-song-duration"/>
+    <function name="rb_shell_player_get_playing ()" link="RBShellPlayer.html#rb-shell-player-get-playing"/>
+    <function name="rb_shell_player_get_playing_path ()" link="RBShellPlayer.html#rb-shell-player-get-playing-path"/>
+    <function name="rb_shell_player_set_playback_state ()" link="RBShellPlayer.html#rb-shell-player-set-playback-state"/>
+    <function name="rb_shell_player_get_playback_state ()" link="RBShellPlayer.html#rb-shell-player-get-playback-state"/>
+    <function name="rb_shell_player_get_playing_entry ()" link="RBShellPlayer.html#rb-shell-player-get-playing-entry"/>
+    <function name="rb_shell_player_toggle_mute ()" link="RBShellPlayer.html#rb-shell-player-toggle-mute"/>
+    <function name="rb_shell_player_set_volume ()" link="RBShellPlayer.html#rb-shell-player-set-volume"/>
+    <function name="rb_shell_player_get_volume ()" link="RBShellPlayer.html#rb-shell-player-get-volume"/>
+    <function name="rb_shell_player_set_volume_relative ()" link="RBShellPlayer.html#rb-shell-player-set-volume-relative"/>
+    <function name="rb_shell_player_set_mute ()" link="RBShellPlayer.html#rb-shell-player-set-mute"/>
+    <function name="rb_shell_player_get_mute ()" link="RBShellPlayer.html#rb-shell-player-get-mute"/>
+    <function name="rb_shell_player_add_play_order ()" link="RBShellPlayer.html#rb-shell-player-add-play-order"/>
+    <function name="rb_shell_player_remove_play_order ()" link="RBShellPlayer.html#rb-shell-player-remove-play-order"/>
+    <function name="The &quot;action-group&quot; property" link="RBShellPlayer.html#RBShellPlayer--action-group"/>
+    <function name="The &quot;db&quot; property" link="RBShellPlayer.html#RBShellPlayer--db"/>
+    <function name="The &quot;play-order&quot; property" link="RBShellPlayer.html#RBShellPlayer--play-order"/>
+    <function name="The &quot;player&quot; property" link="RBShellPlayer.html#RBShellPlayer--player"/>
+    <function name="The &quot;playing&quot; property" link="RBShellPlayer.html#RBShellPlayer--playing"/>
+    <function name="The &quot;playing-from-queue&quot; property" link="RBShellPlayer.html#RBShellPlayer--playing-from-queue"/>
+    <function name="The &quot;queue-only&quot; property" link="RBShellPlayer.html#RBShellPlayer--queue-only"/>
+    <function name="The &quot;queue-source&quot; property" link="RBShellPlayer.html#RBShellPlayer--queue-source"/>
+    <function name="The &quot;source&quot; property" link="RBShellPlayer.html#RBShellPlayer--source"/>
+    <function name="The &quot;statusbar&quot; property" link="RBShellPlayer.html#RBShellPlayer--statusbar"/>
+    <function name="The &quot;ui-manager&quot; property" link="RBShellPlayer.html#RBShellPlayer--ui-manager"/>
+    <function name="The &quot;volume&quot; property" link="RBShellPlayer.html#RBShellPlayer--volume"/>
+    <function name="The &quot;elapsed-changed&quot; signal" link="RBShellPlayer.html#RBShellPlayer-elapsed-changed"/>
+    <function name="The &quot;elapsed-nano-changed&quot; signal" link="RBShellPlayer.html#RBShellPlayer-elapsed-nano-changed"/>
+    <function name="The &quot;missing-plugins&quot; signal" link="RBShellPlayer.html#RBShellPlayer-missing-plugins"/>
+    <function name="The &quot;playing-changed&quot; signal" link="RBShellPlayer.html#RBShellPlayer-playing-changed"/>
+    <function name="The &quot;playing-song-changed&quot; signal" link="RBShellPlayer.html#RBShellPlayer-playing-song-changed"/>
+    <function name="The &quot;playing-song-property-changed&quot; signal" link="RBShellPlayer.html#RBShellPlayer-playing-song-property-changed"/>
+    <function name="The &quot;playing-source-changed&quot; signal" link="RBShellPlayer.html#RBShellPlayer-playing-source-changed"/>
+    <function name="The &quot;playing-uri-changed&quot; signal" link="RBShellPlayer.html#RBShellPlayer-playing-uri-changed"/>
+    <function name="The &quot;window-title-changed&quot; signal" link="RBShellPlayer.html#RBShellPlayer-window-title-changed"/>
+    <function name="RBShellPreferences" link="RBShellPreferences.html#RBShellPreferences-struct"/>
+    <function name="RBShellPreferencesClass" link="RBShellPreferences.html#RBShellPreferencesClass"/>
+    <function name="rb_shell_preferences_new ()" link="RBShellPreferences.html#rb-shell-preferences-new"/>
+    <function name="rb_shell_preferences_append_page ()" link="RBShellPreferences.html#rb-shell-preferences-append-page"/>
+    <function name="RBShell" link="RBShell.html#RBShell-struct"/>
+    <function name="RBShellClass" link="RBShell.html#RBShellClass"/>
+    <function name="rb_shell_new ()" link="RBShell.html#rb-shell-new"/>
+    <function name="rb_shell_present ()" link="RBShell.html#rb-shell-present"/>
+    <function name="rb_shell_guess_source_for_uri ()" link="RBShell.html#rb-shell-guess-source-for-uri"/>
+    <function name="rb_shell_add_uri ()" link="RBShell.html#rb-shell-add-uri"/>
+    <function name="rb_shell_load_uri ()" link="RBShell.html#rb-shell-load-uri"/>
+    <function name="rb_shell_get_player ()" link="RBShell.html#rb-shell-get-player"/>
+    <function name="rb_shell_get_player_path ()" link="RBShell.html#rb-shell-get-player-path"/>
+    <function name="rb_shell_get_playlist_manager ()" link="RBShell.html#rb-shell-get-playlist-manager"/>
+    <function name="rb_shell_get_playlist_manager_path ()" link="RBShell.html#rb-shell-get-playlist-manager-path"/>
+    <function name="rb_shell_get_ui_manager ()" link="RBShell.html#rb-shell-get-ui-manager"/>
+    <function name="rb_shell_toggle_visibility ()" link="RBShell.html#rb-shell-toggle-visibility"/>
+    <function name="rb_shell_get_song_properties ()" link="RBShell.html#rb-shell-get-song-properties"/>
+    <function name="rb_shell_set_song_property ()" link="RBShell.html#rb-shell-set-song-property"/>
+    <function name="rb_shell_add_to_queue ()" link="RBShell.html#rb-shell-add-to-queue"/>
+    <function name="rb_shell_remove_from_queue ()" link="RBShell.html#rb-shell-remove-from-queue"/>
+    <function name="rb_shell_clear_queue ()" link="RBShell.html#rb-shell-clear-queue"/>
+    <function name="rb_shell_quit ()" link="RBShell.html#rb-shell-quit"/>
+    <function name="rb_shell_do_notify ()" link="RBShell.html#rb-shell-do-notify"/>
+    <function name="rb_shell_register_entry_type_for_source ()" link="RBShell.html#rb-shell-register-entry-type-for-source"/>
+    <function name="rb_shell_get_source_by_entry_type ()" link="RBShell.html#rb-shell-get-source-by-entry-type"/>
+    <function name="rb_shell_get_party_mode ()" link="RBShell.html#rb-shell-get-party-mode"/>
+    <function name="rb_shell_append_source ()" link="RBShell.html#rb-shell-append-source"/>
+    <function name="rb_shell_add_widget ()" link="RBShell.html#rb-shell-add-widget"/>
+    <function name="rb_shell_remove_widget ()" link="RBShell.html#rb-shell-remove-widget"/>
+    <function name="rb_shell_notebook_set_page ()" link="RBShell.html#rb-shell-notebook-set-page"/>
+    <function name="The &quot;clipboard&quot; property" link="RBShell.html#RBShell--clipboard"/>
+    <function name="The &quot;db&quot; property" link="RBShell.html#RBShell--db"/>
+    <function name="The &quot;dry-run&quot; property" link="RBShell.html#RBShell--dry-run"/>
+    <function name="The &quot;library-source&quot; property" link="RBShell.html#RBShell--library-source"/>
+    <function name="The &quot;no-registration&quot; property" link="RBShell.html#RBShell--no-registration"/>
+    <function name="The &quot;no-update&quot; property" link="RBShell.html#RBShell--no-update"/>
+    <function name="The &quot;playlist-manager&quot; property" link="RBShell.html#RBShell--playlist-manager"/>
+    <function name="The &quot;playlists-file&quot; property" link="RBShell.html#RBShell--playlists-file"/>
+    <function name="The &quot;prefs&quot; property" link="RBShell.html#RBShell--prefs"/>
+    <function name="The &quot;queue-source&quot; property" link="RBShell.html#RBShell--queue-source"/>
+    <function name="The &quot;removable-media-manager&quot; property" link="RBShell.html#RBShell--removable-media-manager"/>
+    <function name="The &quot;rhythmdb-file&quot; property" link="RBShell.html#RBShell--rhythmdb-file"/>
+    <function name="The &quot;selected-source&quot; property" link="RBShell.html#RBShell--selected-source"/>
+    <function name="The &quot;shell-player&quot; property" link="RBShell.html#RBShell--shell-player"/>
+    <function name="The &quot;source-header&quot; property" link="RBShell.html#RBShell--source-header"/>
+    <function name="The &quot;sourcelist&quot; property" link="RBShell.html#RBShell--sourcelist"/>
+    <function name="The &quot;sourcelist-model&quot; property" link="RBShell.html#RBShell--sourcelist-model"/>
+    <function name="The &quot;ui-manager&quot; property" link="RBShell.html#RBShell--ui-manager"/>
+    <function name="The &quot;visibility&quot; property" link="RBShell.html#RBShell--visibility"/>
+    <function name="The &quot;window&quot; property" link="RBShell.html#RBShell--window"/>
+    <function name="The &quot;create-song-info&quot; signal" link="RBShell.html#RBShell-create-song-info"/>
+    <function name="The &quot;notify-custom&quot; signal" link="RBShell.html#RBShell-notify-custom"/>
+    <function name="The &quot;notify-playing-entry&quot; signal" link="RBShell.html#RBShell-notify-playing-entry"/>
+    <function name="The &quot;removable-media-scan-finished&quot; signal" link="RBShell.html#RBShell-removable-media-scan-finished"/>
+    <function name="The &quot;visibility-changed&quot; signal" link="RBShell.html#RBShell-visibility-changed"/>
+    <function name="The &quot;visibility-changing&quot; signal" link="RBShell.html#RBShell-visibility-changing"/>
+    <function name="RBSourceHeader" link="RBSourceHeader.html#RBSourceHeader-struct"/>
+    <function name="RBSourceHeaderClass" link="RBSourceHeader.html#RBSourceHeaderClass"/>
+    <function name="rb_source_header_new ()" link="RBSourceHeader.html#rb-source-header-new"/>
+    <function name="rb_source_header_set_source ()" link="RBSourceHeader.html#rb-source-header-set-source"/>
+    <function name="rb_source_header_clear_search ()" link="RBSourceHeader.html#rb-source-header-clear-search"/>
+    <function name="rb_source_header_sync_control_state ()" link="RBSourceHeader.html#rb-source-header-sync-control-state"/>
+    <function name="rb_source_header_focus_search_box ()" link="RBSourceHeader.html#rb-source-header-focus-search-box"/>
+    <function name="The &quot;action-group&quot; property" link="RBSourceHeader.html#RBSourceHeader--action-group"/>
+    <function name="The &quot;source&quot; property" link="RBSourceHeader.html#RBSourceHeader--source"/>
+    <function name="The &quot;ui-manager&quot; property" link="RBSourceHeader.html#RBSourceHeader--ui-manager"/>
+    <function name="The &quot;get-search-actions&quot; signal" link="RBSourceHeader.html#RBSourceHeader-get-search-actions"/>
+    <function name="The &quot;refresh-search-bar&quot; signal" link="RBSourceHeader.html#RBSourceHeader-refresh-search-bar"/>
+    <function name="RBStatusbar" link="RBStatusbar.html#RBStatusbar-struct"/>
+    <function name="RBStatusbarClass" link="RBStatusbar.html#RBStatusbarClass"/>
+    <function name="rb_statusbar_new ()" link="RBStatusbar.html#rb-statusbar-new"/>
+    <function name="rb_statusbar_set_source ()" link="RBStatusbar.html#rb-statusbar-set-source"/>
+    <function name="rb_statusbar_set_progress ()" link="RBStatusbar.html#rb-statusbar-set-progress"/>
+    <function name="The &quot;db&quot; property" link="RBStatusbar.html#RBStatusbar--db"/>
+    <function name="The &quot;source&quot; property" link="RBStatusbar.html#RBStatusbar--source"/>
+    <function name="The &quot;ui-manager&quot; property" link="RBStatusbar.html#RBStatusbar--ui-manager"/>
+    <function name="RBAutoPlaylistSource" link="RBAutoPlaylistSource.html#RBAutoPlaylistSource-struct"/>
+    <function name="RBAutoPlaylistSourceClass" link="RBAutoPlaylistSource.html#RBAutoPlaylistSourceClass"/>
+    <function name="rb_auto_playlist_source_new ()" link="RBAutoPlaylistSource.html#rb-auto-playlist-source-new"/>
+    <function name="rb_auto_playlist_source_new_from_xml ()" link="RBAutoPlaylistSource.html#rb-auto-playlist-source-new-from-xml"/>
+    <function name="rb_auto_playlist_source_set_query ()" link="RBAutoPlaylistSource.html#rb-auto-playlist-source-set-query"/>
+    <function name="rb_auto_playlist_source_get_query ()" link="RBAutoPlaylistSource.html#rb-auto-playlist-source-get-query"/>
+    <function name="RBBrowserSource" link="RBBrowserSource.html#RBBrowserSource-struct"/>
+    <function name="RBBrowserSourceClass" link="RBBrowserSource.html#RBBrowserSourceClass"/>
+    <function name="rb_browser_source_get_paned_key ()" link="RBBrowserSource.html#rb-browser-source-get-paned-key"/>
+    <function name="rb_browser_source_has_drop_support ()" link="RBBrowserSource.html#rb-browser-source-has-drop-support"/>
+    <function name="The &quot;populate&quot; property" link="RBBrowserSource.html#RBBrowserSource--populate"/>
+    <function name="The &quot;sorting-key&quot; property" link="RBBrowserSource.html#RBBrowserSource--sorting-key"/>
+    <function name="RBImportErrorsSource" link="RBImportErrorsSource.html#RBImportErrorsSource-struct"/>
+    <function name="RBImportErrorsSourceClass" link="RBImportErrorsSource.html#RBImportErrorsSourceClass"/>
+    <function name="rb_import_errors_source_new ()" link="RBImportErrorsSource.html#rb-import-errors-source-new"/>
+    <function name="RBLibrarySource" link="RBLibrarySource.html#RBLibrarySource-struct"/>
+    <function name="RBLibrarySourceClass" link="RBLibrarySource.html#RBLibrarySourceClass"/>
+    <function name="rb_library_source_new ()" link="RBLibrarySource.html#rb-library-source-new"/>
+    <function name="RBMissingFilesSource" link="RBMissingFilesSource.html#RBMissingFilesSource-struct"/>
+    <function name="RBMissingFilesSourceClass" link="RBMissingFilesSource.html#RBMissingFilesSourceClass"/>
+    <function name="rb_missing_files_source_new ()" link="RBMissingFilesSource.html#rb-missing-files-source-new"/>
+    <function name="RBPlayQueueSource" link="RBPlayQueueSource.html#RBPlayQueueSource-struct"/>
+    <function name="RBPlayQueueSourceClass" link="RBPlayQueueSource.html#RBPlayQueueSourceClass"/>
+    <function name="rb_play_queue_source_new ()" link="RBPlayQueueSource.html#rb-play-queue-source-new"/>
+    <function name="rb_play_queue_source_sidebar_song_info ()" link="RBPlayQueueSource.html#rb-play-queue-source-sidebar-song-info"/>
+    <function name="rb_play_queue_source_sidebar_delete ()" link="RBPlayQueueSource.html#rb-play-queue-source-sidebar-delete"/>
+    <function name="rb_play_queue_source_clear_queue ()" link="RBPlayQueueSource.html#rb-play-queue-source-clear-queue"/>
+    <function name="The &quot;sidebar&quot; property" link="RBPlayQueueSource.html#RBPlayQueueSource--sidebar"/>
+    <function name="RBPlaylistSource" link="RBPlaylistSource.html#RBPlaylistSource-struct"/>
+    <function name="RBPlaylistSourceClass" link="RBPlaylistSource.html#RBPlaylistSourceClass"/>
+    <function name="rb_playlist_source_new_from_xml ()" link="RBPlaylistSource.html#rb-playlist-source-new-from-xml"/>
+    <function name="rb_playlist_source_save_playlist ()" link="RBPlaylistSource.html#rb-playlist-source-save-playlist"/>
+    <function name="rb_playlist_source_save_to_xml ()" link="RBPlaylistSource.html#rb-playlist-source-save-to-xml"/>
+    <function name="rb_playlist_source_set_query_model ()" link="RBPlaylistSource.html#rb-playlist-source-set-query-model"/>
+    <function name="rb_playlist_source_get_query_model ()" link="RBPlaylistSource.html#rb-playlist-source-get-query-model"/>
+    <function name="rb_playlist_source_get_db ()" link="RBPlaylistSource.html#rb-playlist-source-get-db"/>
+    <function name="rb_playlist_source_mark_dirty ()" link="RBPlaylistSource.html#rb-playlist-source-mark-dirty"/>
+    <function name="rb_playlist_source_location_in_map ()" link="RBPlaylistSource.html#rb-playlist-source-location-in-map"/>
+    <function name="rb_playlist_source_add_to_map ()" link="RBPlaylistSource.html#rb-playlist-source-add-to-map"/>
+    <function name="The &quot;db&quot; property" link="RBPlaylistSource.html#RBPlaylistSource--db"/>
+    <function name="The &quot;dirty&quot; property" link="RBPlaylistSource.html#RBPlaylistSource--dirty"/>
+    <function name="The &quot;is-local&quot; property" link="RBPlaylistSource.html#RBPlaylistSource--is-local"/>
+    <function name="The &quot;sorting-name&quot; property" link="RBPlaylistSource.html#RBPlaylistSource--sorting-name"/>
+    <function name="RBRemovableMediaSource" link="RBRemovableMediaSource.html#RBRemovableMediaSource-struct"/>
+    <function name="RBRemovableMediaSourceClass" link="RBRemovableMediaSource.html#RBRemovableMediaSourceClass"/>
+    <function name="rb_removable_media_source_build_dest_uri ()" link="RBRemovableMediaSource.html#rb-removable-media-source-build-dest-uri"/>
+    <function name="rb_removable_media_source_track_added ()" link="RBRemovableMediaSource.html#rb-removable-media-source-track-added"/>
+    <function name="rb_removable_media_source_track_add_error ()" link="RBRemovableMediaSource.html#rb-removable-media-source-track-add-error"/>
+    <function name="rb_removable_media_source_get_mime_types ()" link="RBRemovableMediaSource.html#rb-removable-media-source-get-mime-types"/>
+    <function name="rb_removable_media_source_get_format_descriptions ()" link="RBRemovableMediaSource.html#rb-removable-media-source-get-format-descriptions"/>
+    <function name="rb_removable_media_source_should_paste ()" link="RBRemovableMediaSource.html#rb-removable-media-source-should-paste"/>
+    <function name="rb_removable_media_source_should_paste_no_duplicate ()" link="RBRemovableMediaSource.html#rb-removable-media-source-should-paste-no-duplicate"/>
+    <function name="The &quot;mount&quot; property" link="RBRemovableMediaSource.html#RBRemovableMediaSource--mount"/>
+    <function name="The &quot;volume&quot; property" link="RBRemovableMediaSource.html#RBRemovableMediaSource--volume"/>
+    <function name="enum RBSourceGroupCategory" link="rhythmbox-RBSourceGroup.html#RBSourceGroupCategory"/>
+    <function name="RBSourceGroup" link="rhythmbox-RBSourceGroup.html#RBSourceGroup"/>
+    <function name="RB_SOURCE_GROUP_LIBRARY" link="rhythmbox-RBSourceGroup.html#RB-SOURCE-GROUP-LIBRARY:CAPS"/>
+    <function name="RB_SOURCE_GROUP_PLAYLISTS" link="rhythmbox-RBSourceGroup.html#RB-SOURCE-GROUP-PLAYLISTS:CAPS"/>
+    <function name="RB_SOURCE_GROUP_DEVICES" link="rhythmbox-RBSourceGroup.html#RB-SOURCE-GROUP-DEVICES:CAPS"/>
+    <function name="RB_SOURCE_GROUP_SHARED" link="rhythmbox-RBSourceGroup.html#RB-SOURCE-GROUP-SHARED:CAPS"/>
+    <function name="rb_source_group_init ()" link="rhythmbox-RBSourceGroup.html#rb-source-group-init"/>
+    <function name="rb_source_group_get_by_name ()" link="rhythmbox-RBSourceGroup.html#rb-source-group-get-by-name"/>
+    <function name="rb_source_group_register ()" link="rhythmbox-RBSourceGroup.html#rb-source-group-register"/>
+    <function name="rb_source_group_library_get_type ()" link="rhythmbox-RBSourceGroup.html#rb-source-group-library-get-type"/>
+    <function name="rb_source_group_playlists_get_type ()" link="rhythmbox-RBSourceGroup.html#rb-source-group-playlists-get-type"/>
+    <function name="rb_source_group_devices_get_type ()" link="rhythmbox-RBSourceGroup.html#rb-source-group-devices-get-type"/>
+    <function name="rb_source_group_shared_get_type ()" link="rhythmbox-RBSourceGroup.html#rb-source-group-shared-get-type"/>
+    <function name="RBSourceSearch" link="RBSourceSearch.html#RBSourceSearch-struct"/>
+    <function name="RBSourceSearchClass" link="RBSourceSearch.html#RBSourceSearchClass"/>
+    <function name="rb_source_search_is_subset ()" link="RBSourceSearch.html#rb-source-search-is-subset"/>
+    <function name="rb_source_search_create_query ()" link="RBSourceSearch.html#rb-source-search-create-query"/>
+    <function name="rb_source_search_action_attach ()" link="RBSourceSearch.html#rb-source-search-action-attach"/>
+    <function name="rb_source_search_get_from_action ()" link="RBSourceSearch.html#rb-source-search-get-from-action"/>
+    <function name="RBSourceSearchBasic" link="RBSourceSearchBasic.html#RBSourceSearchBasic-struct"/>
+    <function name="RBSourceSearchBasicClass" link="RBSourceSearchBasic.html#RBSourceSearchBasicClass"/>
+    <function name="rb_source_search_basic_new ()" link="RBSourceSearchBasic.html#rb-source-search-basic-new"/>
+    <function name="rb_source_search_basic_create_for_actions ()" link="RBSourceSearchBasic.html#rb-source-search-basic-create-for-actions"/>
+    <function name="The &quot;prop&quot; property" link="RBSourceSearchBasic.html#RBSourceSearchBasic--prop"/>
+    <function name="RBSource" link="RBSource.html#RBSource-struct"/>
+    <function name="RBSourceClass" link="RBSource.html#RBSourceClass"/>
+    <function name="enum RBSourceEOFType" link="RBSource.html#RBSourceEOFType"/>
+    <function name="RB_SOURCE_ICON_SIZE" link="RBSource.html#RB-SOURCE-ICON-SIZE:CAPS"/>
+    <function name="rb_source_notify_filter_changed ()" link="RBSource.html#rb-source-notify-filter-changed"/>
+    <function name="rb_source_notify_status_changed ()" link="RBSource.html#rb-source-notify-status-changed"/>
+    <function name="rb_source_update_play_statistics ()" link="RBSource.html#rb-source-update-play-statistics"/>
+    <function name="rb_source_set_pixbuf ()" link="RBSource.html#rb-source-set-pixbuf"/>
+    <function name="rb_source_get_status ()" link="RBSource.html#rb-source-get-status"/>
+    <function name="rb_source_can_browse ()" link="RBSource.html#rb-source-can-browse"/>
+    <function name="rb_source_get_browser_key ()" link="RBSource.html#rb-source-get-browser-key"/>
+    <function name="rb_source_browser_toggled ()" link="RBSource.html#rb-source-browser-toggled"/>
+    <function name="rb_source_get_entry_view ()" link="RBSource.html#rb-source-get-entry-view"/>
+    <function name="rb_source_get_property_views ()" link="RBSource.html#rb-source-get-property-views"/>
+    <function name="rb_source_can_rename ()" link="RBSource.html#rb-source-can-rename"/>
+    <function name="rb_source_search ()" link="RBSource.html#rb-source-search"/>
+    <function name="rb_source_reset_filters ()" link="RBSource.html#rb-source-reset-filters"/>
+    <function name="rb_source_get_config_widget ()" link="RBSource.html#rb-source-get-config-widget"/>
+    <function name="rb_source_can_cut ()" link="RBSource.html#rb-source-can-cut"/>
+    <function name="rb_source_can_delete ()" link="RBSource.html#rb-source-can-delete"/>
+    <function name="rb_source_can_move_to_trash ()" link="RBSource.html#rb-source-can-move-to-trash"/>
+    <function name="rb_source_can_copy ()" link="RBSource.html#rb-source-can-copy"/>
+    <function name="rb_source_can_paste ()" link="RBSource.html#rb-source-can-paste"/>
+    <function name="rb_source_can_add_to_queue ()" link="RBSource.html#rb-source-can-add-to-queue"/>
+    <function name="rb_source_can_show_properties ()" link="RBSource.html#rb-source-can-show-properties"/>
+    <function name="rb_source_cut ()" link="RBSource.html#rb-source-cut"/>
+    <function name="rb_source_copy ()" link="RBSource.html#rb-source-copy"/>
+    <function name="rb_source_paste ()" link="RBSource.html#rb-source-paste"/>
+    <function name="rb_source_delete ()" link="RBSource.html#rb-source-delete"/>
+    <function name="rb_source_add_to_queue ()" link="RBSource.html#rb-source-add-to-queue"/>
+    <function name="rb_source_move_to_trash ()" link="RBSource.html#rb-source-move-to-trash"/>
+    <function name="rb_source_song_properties ()" link="RBSource.html#rb-source-song-properties"/>
+    <function name="rb_source_try_playlist ()" link="RBSource.html#rb-source-try-playlist"/>
+    <function name="rb_source_want_uri ()" link="RBSource.html#rb-source-want-uri"/>
+    <function name="rb_source_uri_is_source ()" link="RBSource.html#rb-source-uri-is-source"/>
+    <function name="rb_source_add_uri ()" link="RBSource.html#rb-source-add-uri"/>
+    <function name="rb_source_can_pause ()" link="RBSource.html#rb-source-can-pause"/>
+    <function name="rb_source_handle_eos ()" link="RBSource.html#rb-source-handle-eos"/>
+    <function name="rb_source_receive_drag ()" link="RBSource.html#rb-source-receive-drag"/>
+    <function name="rb_source_show_popup ()" link="RBSource.html#rb-source-show-popup"/>
+    <function name="rb_source_delete_thyself ()" link="RBSource.html#rb-source-delete-thyself"/>
+    <function name="rb_source_activate ()" link="RBSource.html#rb-source-activate"/>
+    <function name="rb_source_deactivate ()" link="RBSource.html#rb-source-deactivate"/>
+    <function name="rb_source_get_ui_actions ()" link="RBSource.html#rb-source-get-ui-actions"/>
+    <function name="rb_source_get_search_actions ()" link="RBSource.html#rb-source-get-search-actions"/>
+    <function name="rb_source_gather_selected_properties ()" link="RBSource.html#rb-source-gather-selected-properties"/>
+    <function name="rb_source_set_hidden_when_empty ()" link="RBSource.html#rb-source-set-hidden-when-empty"/>
+    <function name="The &quot;base-query-model&quot; property" link="RBSource.html#RBSource--base-query-model"/>
+    <function name="The &quot;entry-type&quot; property" link="RBSource.html#RBSource--entry-type"/>
+    <function name="The &quot;hidden-when-empty&quot; property" link="RBSource.html#RBSource--hidden-when-empty"/>
+    <function name="The &quot;icon&quot; property" link="RBSource.html#RBSource--icon"/>
+    <function name="The &quot;name&quot; property" link="RBSource.html#RBSource--name"/>
+    <function name="The &quot;play-order&quot; property" link="RBSource.html#RBSource--play-order"/>
+    <function name="The &quot;plugin&quot; property" link="RBSource.html#RBSource--plugin"/>
+    <function name="The &quot;query-model&quot; property" link="RBSource.html#RBSource--query-model"/>
+    <function name="The &quot;search-type&quot; property" link="RBSource.html#RBSource--search-type"/>
+    <function name="The &quot;shell&quot; property" link="RBSource.html#RBSource--shell"/>
+    <function name="The &quot;source-group&quot; property" link="RBSource.html#RBSource--source-group"/>
+    <function name="The &quot;ui-manager&quot; property" link="RBSource.html#RBSource--ui-manager"/>
+    <function name="The &quot;visibility&quot; property" link="RBSource.html#RBSource--visibility"/>
+    <function name="The &quot;deleted&quot; signal" link="RBSource.html#RBSource-deleted"/>
+    <function name="The &quot;filter-changed&quot; signal" link="RBSource.html#RBSource-filter-changed"/>
+    <function name="The &quot;status-changed&quot; signal" link="RBSource.html#RBSource-status-changed"/>
+    <function name="RBSourceListModel" link="RBSourceListModel.html#RBSourceListModel-struct"/>
+    <function name="RBSourceListModelClass" link="RBSourceListModel.html#RBSourceListModelClass"/>
+    <function name="enum RBSourceListModelColumn" link="RBSourceListModel.html#RBSourceListModelColumn"/>
+    <function name="rb_sourcelist_model_new ()" link="RBSourceListModel.html#rb-sourcelist-model-new"/>
+    <function name="rb_sourcelist_model_set_dnd_targets ()" link="RBSourceListModel.html#rb-sourcelist-model-set-dnd-targets"/>
+    <function name="The &quot;drop-received&quot; signal" link="RBSourceListModel.html#RBSourceListModel-drop-received"/>
+    <function name="RBSourceList" link="RBSourceList.html#RBSourceList-struct"/>
+    <function name="RBSourceListClass" link="RBSourceList.html#RBSourceListClass"/>
+    <function name="rb_sourcelist_new ()" link="RBSourceList.html#rb-sourcelist-new"/>
+    <function name="rb_sourcelist_append ()" link="RBSourceList.html#rb-sourcelist-append"/>
+    <function name="rb_sourcelist_set_playing_source ()" link="RBSourceList.html#rb-sourcelist-set-playing-source"/>
+    <function name="rb_sourcelist_edit_source_name ()" link="RBSourceList.html#rb-sourcelist-edit-source-name"/>
+    <function name="rb_sourcelist_remove ()" link="RBSourceList.html#rb-sourcelist-remove"/>
+    <function name="rb_sourcelist_select ()" link="RBSourceList.html#rb-sourcelist-select"/>
+    <function name="The &quot;model&quot; property" link="RBSourceList.html#RBSourceList--model"/>
+    <function name="The &quot;shell&quot; property" link="RBSourceList.html#RBSourceList--shell"/>
+    <function name="The &quot;drop-received&quot; signal" link="RBSourceList.html#RBSourceList-drop-received"/>
+    <function name="The &quot;selected&quot; signal" link="RBSourceList.html#RBSourceList-selected"/>
+    <function name="The &quot;show-popup&quot; signal" link="RBSourceList.html#RBSourceList-show-popup"/>
+    <function name="The &quot;source-activated&quot; signal" link="RBSourceList.html#RBSourceList-source-activated"/>
+    <function name="RBStaticPlaylistSource" link="RBStaticPlaylistSource.html#RBStaticPlaylistSource-struct"/>
+    <function name="RBStaticPlaylistSourceClass" link="RBStaticPlaylistSource.html#RBStaticPlaylistSourceClass"/>
+    <function name="rb_static_playlist_source_new ()" link="RBStaticPlaylistSource.html#rb-static-playlist-source-new"/>
+    <function name="rb_static_playlist_source_new_from_xml ()" link="RBStaticPlaylistSource.html#rb-static-playlist-source-new-from-xml"/>
+    <function name="rb_static_playlist_source_load_from_xml ()" link="RBStaticPlaylistSource.html#rb-static-playlist-source-load-from-xml"/>
+    <function name="rb_static_playlist_source_add_entry ()" link="RBStaticPlaylistSource.html#rb-static-playlist-source-add-entry"/>
+    <function name="rb_static_playlist_source_remove_entry ()" link="RBStaticPlaylistSource.html#rb-static-playlist-source-remove-entry"/>
+    <function name="rb_static_playlist_source_add_location ()" link="RBStaticPlaylistSource.html#rb-static-playlist-source-add-location"/>
+    <function name="rb_static_playlist_source_add_locations ()" link="RBStaticPlaylistSource.html#rb-static-playlist-source-add-locations"/>
+    <function name="rb_static_playlist_source_remove_location ()" link="RBStaticPlaylistSource.html#rb-static-playlist-source-remove-location"/>
+    <function name="rb_static_playlist_source_move_entry ()" link="RBStaticPlaylistSource.html#rb-static-playlist-source-move-entry"/>
+    <function name="RBStreamingSource" link="RBStreamingSource.html#RBStreamingSource-struct"/>
+    <function name="RBStreamingSourceClass" link="RBStreamingSource.html#RBStreamingSourceClass"/>
+    <function name="rb_streaming_source_get_progress ()" link="RBStreamingSource.html#rb-streaming-source-get-progress"/>
+    <function name="rb_streaming_source_set_streaming_title ()" link="RBStreamingSource.html#rb-streaming-source-set-streaming-title"/>
+    <function name="rb_streaming_source_set_streaming_artist ()" link="RBStreamingSource.html#rb-streaming-source-set-streaming-artist"/>
+    <function name="rb_streaming_source_set_streaming_album ()" link="RBStreamingSource.html#rb-streaming-source-set-streaming-album"/>
+    <function name="RBCellRendererPixbuf" link="RBCellRendererPixbuf.html#RBCellRendererPixbuf-struct"/>
+    <function name="RBCellRendererPixbufClass" link="RBCellRendererPixbuf.html#RBCellRendererPixbufClass"/>
+    <function name="rb_cell_renderer_pixbuf_new ()" link="RBCellRendererPixbuf.html#rb-cell-renderer-pixbuf-new"/>
+    <function name="The &quot;pixbuf&quot; property" link="RBCellRendererPixbuf.html#RBCellRendererPixbuf--pixbuf"/>
+    <function name="The &quot;pixbuf-clicked&quot; signal" link="RBCellRendererPixbuf.html#RBCellRendererPixbuf-pixbuf-clicked"/>
+    <function name="RBCellRendererRating" link="RBCellRendererRating.html#RBCellRendererRating-struct"/>
+    <function name="RBCellRendererRatingClass" link="RBCellRendererRating.html#RBCellRendererRatingClass"/>
+    <function name="rb_cell_renderer_rating_new ()" link="RBCellRendererRating.html#rb-cell-renderer-rating-new"/>
+    <function name="The &quot;rating&quot; property" link="RBCellRendererRating.html#RBCellRendererRating--rating"/>
+    <function name="The &quot;rated&quot; signal" link="RBCellRendererRating.html#RBCellRendererRating-rated"/>
+    <function name="rb_error_dialog ()" link="rhythmbox-rb-dialog.html#rb-error-dialog"/>
+    <function name="rb_file_chooser_new ()" link="rhythmbox-rb-dialog.html#rb-file-chooser-new"/>
+    <function name="RBEntryView" link="RBEntryView.html#RBEntryView-struct"/>
+    <function name="RBEntryViewClass" link="RBEntryView.html#RBEntryViewClass"/>
+    <function name="enum RBEntryViewColumn" link="RBEntryView.html#RBEntryViewColumn"/>
+    <function name="rb_entry_view_new ()" link="RBEntryView.html#rb-entry-view-new"/>
+    <function name="rb_entry_view_append_column ()" link="RBEntryView.html#rb-entry-view-append-column"/>
+    <function name="rb_entry_view_append_column_custom ()" link="RBEntryView.html#rb-entry-view-append-column-custom"/>
+    <function name="rb_entry_view_insert_column_custom ()" link="RBEntryView.html#rb-entry-view-insert-column-custom"/>
+    <function name="rb_entry_view_set_columns_clickable ()" link="RBEntryView.html#rb-entry-view-set-columns-clickable"/>
+    <function name="rb_entry_view_set_model ()" link="RBEntryView.html#rb-entry-view-set-model"/>
+    <function name="rb_entry_view_set_state ()" link="RBEntryView.html#rb-entry-view-set-state"/>
+    <function name="rb_entry_view_have_selection ()" link="RBEntryView.html#rb-entry-view-have-selection"/>
+    <function name="rb_entry_view_have_complete_selection ()" link="RBEntryView.html#rb-entry-view-have-complete-selection"/>
+    <function name="rb_entry_view_get_selected_entries ()" link="RBEntryView.html#rb-entry-view-get-selected-entries"/>
+    <function name="rb_entry_view_select_all ()" link="RBEntryView.html#rb-entry-view-select-all"/>
+    <function name="rb_entry_view_select_none ()" link="RBEntryView.html#rb-entry-view-select-none"/>
+    <function name="rb_entry_view_select_entry ()" link="RBEntryView.html#rb-entry-view-select-entry"/>
+    <function name="rb_entry_view_get_entry_contained ()" link="RBEntryView.html#rb-entry-view-get-entry-contained"/>
+    <function name="rb_entry_view_get_entry_visible ()" link="RBEntryView.html#rb-entry-view-get-entry-visible"/>
+    <function name="rb_entry_view_scroll_to_entry ()" link="RBEntryView.html#rb-entry-view-scroll-to-entry"/>
+    <function name="rb_entry_view_enable_drag_source ()" link="RBEntryView.html#rb-entry-view-enable-drag-source"/>
+    <function name="rb_entry_view_get_sorting_order ()" link="RBEntryView.html#rb-entry-view-get-sorting-order"/>
+    <function name="rb_entry_view_set_sorting_order ()" link="RBEntryView.html#rb-entry-view-set-sorting-order"/>
+    <function name="rb_entry_view_get_sorting_type ()" link="RBEntryView.html#rb-entry-view-get-sorting-type"/>
+    <function name="rb_entry_view_set_sorting_type ()" link="RBEntryView.html#rb-entry-view-set-sorting-type"/>
+    <function name="rb_entry_view_set_fixed_column_width ()" link="RBEntryView.html#rb-entry-view-set-fixed-column-width"/>
+    <function name="rb_entry_view_get_time_date_column_sample ()" link="RBEntryView.html#rb-entry-view-get-time-date-column-sample"/>
+    <function name="rb_entry_view_resort_model ()" link="RBEntryView.html#rb-entry-view-resort-model"/>
+    <function name="The &quot;db&quot; property" link="RBEntryView.html#RBEntryView--db"/>
+    <function name="The &quot;is-drag-dest&quot; property" link="RBEntryView.html#RBEntryView--is-drag-dest"/>
+    <function name="The &quot;is-drag-source&quot; property" link="RBEntryView.html#RBEntryView--is-drag-source"/>
+    <function name="The &quot;model&quot; property" link="RBEntryView.html#RBEntryView--model"/>
+    <function name="The &quot;playing-state&quot; property" link="RBEntryView.html#RBEntryView--playing-state"/>
+    <function name="The &quot;shell-player&quot; property" link="RBEntryView.html#RBEntryView--shell-player"/>
+    <function name="The &quot;sort-key&quot; property" link="RBEntryView.html#RBEntryView--sort-key"/>
+    <function name="The &quot;entries-replaced&quot; signal" link="RBEntryView.html#RBEntryView-entries-replaced"/>
+    <function name="The &quot;entry-activated&quot; signal" link="RBEntryView.html#RBEntryView-entry-activated"/>
+    <function name="The &quot;entry-added&quot; signal" link="RBEntryView.html#RBEntryView-entry-added"/>
+    <function name="The &quot;entry-deleted&quot; signal" link="RBEntryView.html#RBEntryView-entry-deleted"/>
+    <function name="The &quot;have-selection-changed&quot; signal" link="RBEntryView.html#RBEntryView-have-selection-changed"/>
+    <function name="The &quot;selection-changed&quot; signal" link="RBEntryView.html#RBEntryView-selection-changed"/>
+    <function name="The &quot;show-popup&quot; signal" link="RBEntryView.html#RBEntryView-show-popup"/>
+    <function name="The &quot;sort-order-changed&quot; signal" link="RBEntryView.html#RBEntryView-sort-order-changed"/>
+    <function name="RBHeader" link="rhythmbox-rb-header.html#RBHeader-struct"/>
+    <function name="RBHeaderClass" link="rhythmbox-rb-header.html#RBHeaderClass"/>
+    <function name="rb_header_new ()" link="rhythmbox-rb-header.html#rb-header-new"/>
+    <function name="rb_header_set_show_position_slider ()" link="rhythmbox-rb-header.html#rb-header-set-show-position-slider"/>
+    <function name="rb_header_sync ()" link="rhythmbox-rb-header.html#rb-header-sync"/>
+    <function name="rb_header_sync_time ()" link="rhythmbox-rb-header.html#rb-header-sync-time"/>
+    <function name="The &quot;db&quot; property" link="rhythmbox-rb-header.html#RBHeader--db"/>
+    <function name="The &quot;seekable&quot; property" link="rhythmbox-rb-header.html#RBHeader--seekable"/>
+    <function name="The &quot;shell-player&quot; property" link="rhythmbox-rb-header.html#RBHeader--shell-player"/>
+    <function name="The &quot;slider-dragging&quot; property" link="rhythmbox-rb-header.html#RBHeader--slider-dragging"/>
+    <function name="RBLibraryBrowser" link="RBLibraryBrowser.html#RBLibraryBrowser-struct"/>
+    <function name="RBLibraryBrowserClass" link="RBLibraryBrowser.html#RBLibraryBrowserClass"/>
+    <function name="rb_library_browser_new ()" link="RBLibraryBrowser.html#rb-library-browser-new"/>
+    <function name="rb_library_browser_set_model ()" link="RBLibraryBrowser.html#rb-library-browser-set-model"/>
+    <function name="rb_library_browser_reset ()" link="RBLibraryBrowser.html#rb-library-browser-reset"/>
+    <function name="rb_library_browser_construct_query ()" link="RBLibraryBrowser.html#rb-library-browser-construct-query"/>
+    <function name="rb_library_browser_get_property_views ()" link="RBLibraryBrowser.html#rb-library-browser-get-property-views"/>
+    <function name="rb_library_browser_get_property_view ()" link="RBLibraryBrowser.html#rb-library-browser-get-property-view"/>
+    <function name="rb_library_browser_has_selection ()" link="RBLibraryBrowser.html#rb-library-browser-has-selection"/>
+    <function name="rb_library_browser_set_selection ()" link="RBLibraryBrowser.html#rb-library-browser-set-selection"/>
+    <function name="The &quot;db&quot; property" link="RBLibraryBrowser.html#RBLibraryBrowser--db"/>
+    <function name="The &quot;entry-type&quot; property" link="RBLibraryBrowser.html#RBLibraryBrowser--entry-type"/>
+    <function name="The &quot;input-model&quot; property" link="RBLibraryBrowser.html#RBLibraryBrowser--input-model"/>
+    <function name="The &quot;output-model&quot; property" link="RBLibraryBrowser.html#RBLibraryBrowser--output-model"/>
+    <function name="RBPropertyView" link="RBPropertyView.html#RBPropertyView-struct"/>
+    <function name="RBPropertyViewClass" link="RBPropertyView.html#RBPropertyViewClass"/>
+    <function name="rb_property_view_new ()" link="RBPropertyView.html#rb-property-view-new"/>
+    <function name="rb_property_view_append_column_custom ()" link="RBPropertyView.html#rb-property-view-append-column-custom"/>
+    <function name="rb_property_view_set_selection_mode ()" link="RBPropertyView.html#rb-property-view-set-selection-mode"/>
+    <function name="rb_property_view_reset ()" link="RBPropertyView.html#rb-property-view-reset"/>
+    <function name="rb_property_view_set_selection ()" link="RBPropertyView.html#rb-property-view-set-selection"/>
+    <function name="rb_property_view_get_selection ()" link="RBPropertyView.html#rb-property-view-get-selection"/>
+    <function name="rb_property_view_get_model ()" link="RBPropertyView.html#rb-property-view-get-model"/>
+    <function name="rb_property_view_set_model ()" link="RBPropertyView.html#rb-property-view-set-model"/>
+    <function name="rb_property_view_get_num_properties ()" link="RBPropertyView.html#rb-property-view-get-num-properties"/>
+    <function name="rb_property_view_set_search_func ()" link="RBPropertyView.html#rb-property-view-set-search-func"/>
+    <function name="The &quot;db&quot; property" link="RBPropertyView.html#RBPropertyView--db"/>
+    <function name="The &quot;draggable&quot; property" link="RBPropertyView.html#RBPropertyView--draggable"/>
+    <function name="The &quot;prop&quot; property" link="RBPropertyView.html#RBPropertyView--prop"/>
+    <function name="The &quot;property-model&quot; property" link="RBPropertyView.html#RBPropertyView--property-model"/>
+    <function name="The &quot;title&quot; property" link="RBPropertyView.html#RBPropertyView--title"/>
+    <function name="The &quot;properties-selected&quot; signal" link="RBPropertyView.html#RBPropertyView-properties-selected"/>
+    <function name="The &quot;property-activated&quot; signal" link="RBPropertyView.html#RBPropertyView-property-activated"/>
+    <function name="The &quot;property-selected&quot; signal" link="RBPropertyView.html#RBPropertyView-property-selected"/>
+    <function name="The &quot;property-selection-reset&quot; signal" link="RBPropertyView.html#RBPropertyView-property-selection-reset"/>
+    <function name="The &quot;show-popup&quot; signal" link="RBPropertyView.html#RBPropertyView-show-popup"/>
+    <function name="RBQueryCreator" link="RBQueryCreator.html#RBQueryCreator-struct"/>
+    <function name="RBQueryCreatorClass" link="RBQueryCreator.html#RBQueryCreatorClass"/>
+    <function name="rb_query_creator_new ()" link="RBQueryCreator.html#rb-query-creator-new"/>
+    <function name="rb_query_creator_new_from_query ()" link="RBQueryCreator.html#rb-query-creator-new-from-query"/>
+    <function name="rb_query_creator_get_query ()" link="RBQueryCreator.html#rb-query-creator-get-query"/>
+    <function name="rb_query_creator_get_limit ()" link="RBQueryCreator.html#rb-query-creator-get-limit"/>
+    <function name="rb_query_creator_get_sort_order ()" link="RBQueryCreator.html#rb-query-creator-get-sort-order"/>
+    <function name="The &quot;creating&quot; property" link="RBQueryCreator.html#RBQueryCreator--creating"/>
+    <function name="The &quot;db&quot; property" link="RBQueryCreator.html#RBQueryCreator--db"/>
+    <function name="RBRatingPixbufs" link="rhythmbox-rb-rating-helper.html#RBRatingPixbufs"/>
+    <function name="RB_RATING_MAX_SCORE" link="rhythmbox-rb-rating-helper.html#RB-RATING-MAX-SCORE:CAPS"/>
+    <function name="rb_rating_render_stars ()" link="rhythmbox-rb-rating-helper.html#rb-rating-render-stars"/>
+    <function name="rb_rating_get_rating_from_widget ()" link="rhythmbox-rb-rating-helper.html#rb-rating-get-rating-from-widget"/>
+    <function name="rb_rating_pixbufs_new ()" link="rhythmbox-rb-rating-helper.html#rb-rating-pixbufs-new"/>
+    <function name="rb_rating_pixbufs_free ()" link="rhythmbox-rb-rating-helper.html#rb-rating-pixbufs-free"/>
+    <function name="rb_rating_install_rating_property ()" link="rhythmbox-rb-rating-helper.html#rb-rating-install-rating-property"/>
+    <function name="RBRating" link="RBRating.html#RBRating-struct"/>
+    <function name="RBRatingClass" link="RBRating.html#RBRatingClass"/>
+    <function name="rb_rating_new ()" link="RBRating.html#rb-rating-new"/>
+    <function name="The &quot;rating&quot; property" link="RBRating.html#RBRating--rating"/>
+    <function name="The &quot;adjust-rating&quot; signal" link="RBRating.html#RBRating-adjust-rating"/>
+    <function name="The &quot;rated&quot; signal" link="RBRating.html#RBRating-rated"/>
+    <function name="The &quot;set-rating&quot; signal" link="RBRating.html#RBRating-set-rating"/>
+    <function name="RBSearchEntry" link="RBSearchEntry.html#RBSearchEntry-struct"/>
+    <function name="RBSearchEntryClass" link="RBSearchEntry.html#RBSearchEntryClass"/>
+    <function name="rb_search_entry_new ()" link="RBSearchEntry.html#rb-search-entry-new"/>
+    <function name="rb_search_entry_clear ()" link="RBSearchEntry.html#rb-search-entry-clear"/>
+    <function name="rb_search_entry_set_text ()" link="RBSearchEntry.html#rb-search-entry-set-text"/>
+    <function name="rb_search_entry_searching ()" link="RBSearchEntry.html#rb-search-entry-searching"/>
+    <function name="rb_search_entry_grab_focus ()" link="RBSearchEntry.html#rb-search-entry-grab-focus"/>
+    <function name="The &quot;activate&quot; signal" link="RBSearchEntry.html#RBSearchEntry-activate"/>
+    <function name="The &quot;search&quot; signal" link="RBSearchEntry.html#RBSearchEntry-search"/>
+    <function name="RBSongInfo" link="RBSongInfo.html#RBSongInfo-struct"/>
+    <function name="RBSongInfoClass" link="RBSongInfo.html#RBSongInfoClass"/>
+    <function name="rb_song_info_new ()" link="RBSongInfo.html#rb-song-info-new"/>
+    <function name="rb_song_info_append_page ()" link="RBSongInfo.html#rb-song-info-append-page"/>
+    <function name="The &quot;current-entry&quot; property" link="RBSongInfo.html#RBSongInfo--current-entry"/>
+    <function name="The &quot;entry-view&quot; property" link="RBSongInfo.html#RBSongInfo--entry-view"/>
+    <function name="The &quot;selected-entries&quot; property" link="RBSongInfo.html#RBSongInfo--selected-entries"/>
+    <function name="The &quot;source&quot; property" link="RBSongInfo.html#RBSongInfo--source"/>
+    <function name="The &quot;post-metadata-change&quot; signal" link="RBSongInfo.html#RBSongInfo-post-metadata-change"/>
+    <function name="The &quot;pre-metadata-change&quot; signal" link="RBSongInfo.html#RBSongInfo-pre-metadata-change"/>
+    <function name="RBURIDialog" link="RBURIDialog.html#RBURIDialog-struct"/>
+    <function name="RBURIDialogClass" link="RBURIDialog.html#RBURIDialogClass"/>
+    <function name="rb_uri_dialog_new ()" link="RBURIDialog.html#rb-uri-dialog-new"/>
+    <function name="The &quot;label&quot; property" link="RBURIDialog.html#RBURIDialog--label"/>
+    <function name="The &quot;location-added&quot; signal" link="RBURIDialog.html#RBURIDialog-location-added"/>
+  </functions>
+</book>

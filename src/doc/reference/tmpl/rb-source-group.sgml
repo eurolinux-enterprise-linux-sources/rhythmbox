@@ -1,0 +1,128 @@
+<!-- ##### SECTION Title ##### -->
+RBSourceGroup
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### ENUM RBSourceGroupCategory ##### -->
+<para>
+
+</para>
+
+@RB_SOURCE_GROUP_CATEGORY_FIXED: 
+@RB_SOURCE_GROUP_CATEGORY_REMOVABLE: 
+@RB_SOURCE_GROUP_CATEGORY_PERSISTENT: 
+@RB_SOURCE_GROUP_CATEGORY_TRANSIENT: 
+@RB_SOURCE_GROUP_CATEGORY_LAST: 
+
+<!-- ##### STRUCT RBSourceGroup ##### -->
+<para>
+
+</para>
+
+@name: 
+@display_name: 
+@category: 
+
+<!-- ##### MACRO RB_SOURCE_GROUP_LIBRARY ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO RB_SOURCE_GROUP_PLAYLISTS ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO RB_SOURCE_GROUP_DEVICES ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO RB_SOURCE_GROUP_SHARED ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION rb_source_group_init ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION rb_source_group_get_by_name ##### -->
+<para>
+
+</para>
+
+@name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_group_register ##### -->
+<para>
+
+</para>
+
+@name: 
+@display_name: 
+@category: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_group_library_get_type ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_group_playlists_get_type ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_group_devices_get_type ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_group_shared_get_type ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+

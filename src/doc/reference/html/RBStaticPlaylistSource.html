@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBStaticPlaylistSource</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch06.html" title="Sources">
+<link rel="prev" href="RBSourceList.html" title="RBSourceList">
+<link rel="next" href="RBStreamingSource.html" title="RBStreamingSource">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBSourceList.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBStreamingSource.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBStaticPlaylistSource.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBStaticPlaylistSource.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBStaticPlaylistSource.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBStaticPlaylistSource.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBStaticPlaylistSource">
+<a name="RBStaticPlaylistSource"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBStaticPlaylistSource.top_of_page"></a>RBStaticPlaylistSource</span></h2>
+<p>RBStaticPlaylistSource — Manually defined playlist class</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="RBStaticPlaylistSource.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="RBStaticPlaylistSource.html#RBStaticPlaylistSource-struct" title="RBStaticPlaylistSource">RBStaticPlaylistSource</a>;
+                    <a class="link" href="RBStaticPlaylistSource.html#RBStaticPlaylistSourceClass" title="RBStaticPlaylistSourceClass">RBStaticPlaylistSourceClass</a>;
+<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          <a class="link" href="RBStaticPlaylistSource.html#rb-static-playlist-source-new" title="rb_static_playlist_source_new ()">rb_static_playlist_source_new</a>       (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <span class="returnvalue">char</span> *name,
+                                                         const <span class="returnvalue">char</span> *sorting_name,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> local,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntryType" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> entry_type);
+<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          <a class="link" href="RBStaticPlaylistSource.html#rb-static-playlist-source-new-from-xml" title="rb_static_playlist_source_new_from_xml ()">rb_static_playlist_source_new_from_xml</a>
+                                                        (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <span class="returnvalue">xmlNodePtr</span> node);
+<span class="returnvalue">void</span>                <a class="link" href="RBStaticPlaylistSource.html#rb-static-playlist-source-load-from-xml" title="rb_static_playlist_source_load_from_xml ()">rb_static_playlist_source_load_from_xml</a>
+                                                        (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         <span class="returnvalue">xmlNodePtr</span> node);
+<span class="returnvalue">void</span>                <a class="link" href="RBStaticPlaylistSource.html#rb-static-playlist-source-add-entry" title="rb_static_playlist_source_add_entry ()">rb_static_playlist_source_add_entry</a> (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a> index);
+<span class="returnvalue">void</span>                <a class="link" href="RBStaticPlaylistSource.html#rb-static-playlist-source-remove-entry" title="rb_static_playlist_source_remove_entry ()">rb_static_playlist_source_remove_entry</a>
+                                                        (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry);
+<span class="returnvalue">void</span>                <a class="link" href="RBStaticPlaylistSource.html#rb-static-playlist-source-add-location" title="rb_static_playlist_source_add_location ()">rb_static_playlist_source_add_location</a>
+                                                        (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         const <span class="returnvalue">char</span> *location,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a> index);
+<span class="returnvalue">void</span>                <a class="link" href="RBStaticPlaylistSource.html#rb-static-playlist-source-add-locations" title="rb_static_playlist_source_add_locations ()">rb_static_playlist_source_add_locations</a>
+                                                        (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *locations);
+<span class="returnvalue">void</span>                <a class="link" href="RBStaticPlaylistSource.html#rb-static-playlist-source-remove-location" title="rb_static_playlist_source_remove_location ()">rb_static_playlist_source_remove_location</a>
+                                                        (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         const <span class="returnvalue">char</span> *location);
+<span class="returnvalue">void</span>                <a class="link" href="RBStaticPlaylistSource.html#rb-static-playlist-source-move-entry" title="rb_static_playlist_source_move_entry ()">rb_static_playlist_source_move_entry</a>
+                                                        (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a> index);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="RBStaticPlaylistSource.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkObject.html">GtkObject</a>
+               +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html">GtkWidget</a>
+                     +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkContainer.html">GtkContainer</a>
+                           +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkBox.html">GtkBox</a>
+                                 +----<a href="http://library.gnome.org/devel/gtk/unstable/GtkHBox.html">GtkHBox</a>
+                                       +----<a class="link" href="RBSource.html" title="RBSource">RBSource</a>
+                                             +----<a class="link" href="RBPlaylistSource.html" title="RBPlaylistSource">RBPlaylistSource</a>
+                                                   +----RBStaticPlaylistSource
+                                                         +----<a class="link" href="RBPlayQueueSource.html" title="RBPlayQueueSource">RBPlayQueueSource</a>
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="RBStaticPlaylistSource.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBStaticPlaylistSource implements
+ AtkImplementorIface,  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="http://library.gnome.org/devel/gtk/unstable/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1" title="Description">
+<a name="RBStaticPlaylistSource.description"></a><h2>Description</h2>
+<p>
+Static playlists are not defined by a query, but instead by manually selected
+and ordered tracks.
+</p>
+<p>
+This class is used for static playlists built from the user's library, and is
+also a base class for the play queue and for playlists on devices and network
+shares.
+</p>
+<p>
+It has some ability to track locations that are not yet present in the database
+and to add them to the playlist once they are added.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="RBStaticPlaylistSource.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBStaticPlaylistSource">
+<a name="RBStaticPlaylistSource-struct"></a><h3>RBStaticPlaylistSource</h3>
+<pre class="programlisting">typedef struct _RBStaticPlaylistSource RBStaticPlaylistSource;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBStaticPlaylistSourceClass">
+<a name="RBStaticPlaylistSourceClass"></a><h3>RBStaticPlaylistSourceClass</h3>
+<pre class="programlisting">typedef struct {
+	RBPlaylistSourceClass parent;
+} RBStaticPlaylistSourceClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_static_playlist_source_new ()">
+<a name="rb-static-playlist-source-new"></a><h3>rb_static_playlist_source_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          rb_static_playlist_source_new       (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <span class="returnvalue">char</span> *name,
+                                                         const <span class="returnvalue">char</span> *sorting_name,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> local,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntryType" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> entry_type);</pre>
+<p>
+Creates a new static playlist source.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td> the playlist name
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sorting_name</code></em> :</span></p></td>
+<td> the sorting name for the playlist (GConf key friendly)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>local</code></em> :</span></p></td>
+<td> if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the playlist is local to the library
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry_type</code></em> :</span></p></td>
+<td> type of database entries that can be added to the playlist.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> new playlist.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_static_playlist_source_new_from_xml ()">
+<a name="rb-static-playlist-source-new-from-xml"></a><h3>rb_static_playlist_source_new_from_xml ()</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          rb_static_playlist_source_new_from_xml
+                                                        (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <span class="returnvalue">xmlNodePtr</span> node);</pre>
+<p>
+Constructs a new playlist from the given XML document node.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>node</code></em> :</span></p></td>
+<td> XML node containing playlist entries
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> playlist read from XML
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_static_playlist_source_load_from_xml ()">
+<a name="rb-static-playlist-source-load-from-xml"></a><h3>rb_static_playlist_source_load_from_xml ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_static_playlist_source_load_from_xml
+                                                        (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         <span class="returnvalue">xmlNodePtr</span> node);</pre>
+<p>
+Loads the playlist contents from the specified XML document node.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> an <a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="type">RBStaticPlaylistSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>node</code></em> :</span></p></td>
+<td> XML node to load from
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_static_playlist_source_add_entry ()">
+<a name="rb-static-playlist-source-add-entry"></a><h3>rb_static_playlist_source_add_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_static_playlist_source_add_entry (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a> index);</pre>
+<p>
+Adds the specified entry to the playlist.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> an <a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="type">RBStaticPlaylistSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> entry to add to the playlist
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>index</code></em> :</span></p></td>
+<td> position at which to add it (-1 to add at the end)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_static_playlist_source_remove_entry ()">
+<a name="rb-static-playlist-source-remove-entry"></a><h3>rb_static_playlist_source_remove_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_static_playlist_source_remove_entry
+                                                        (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry);</pre>
+<p>
+Removes the specified entry from the playlist.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> an <a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="type">RBStaticPlaylistSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> the entry to remove
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_static_playlist_source_add_location ()">
+<a name="rb-static-playlist-source-add-location"></a><h3>rb_static_playlist_source_add_location ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_static_playlist_source_add_location
+                                                        (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         const <span class="returnvalue">char</span> *location,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a> index);</pre>
+<p>
+If the location matches an entry in the database, the entry is added
+to the playlist.  Otherwise, if it identifies a directory, the contents
+of that directory are added.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> an <a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="type">RBStaticPlaylistSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>location</code></em> :</span></p></td>
+<td> location (URI) to add to the playlist
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>index</code></em> :</span></p></td>
+<td> position at which to add the location (-1 to add at the end)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_static_playlist_source_add_locations ()">
+<a name="rb-static-playlist-source-add-locations"></a><h3>rb_static_playlist_source_add_locations ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_static_playlist_source_add_locations
+                                                        (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *locations);</pre>
+<p>
+Adds the locations specified in <em class="parameter"><code>locations</code></em> to the playlist.
+See <em class="parameter"><code>rb_static_playlist_source_add_location</code></em> for details.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> an <a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="type">RBStaticPlaylistSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>locations</code></em> :</span></p></td>
+<td> a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of strings to add
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_static_playlist_source_remove_location ()">
+<a name="rb-static-playlist-source-remove-location"></a><h3>rb_static_playlist_source_remove_location ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_static_playlist_source_remove_location
+                                                        (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         const <span class="returnvalue">char</span> *location);</pre>
+<p>
+Removes the specified location from the playlist.  This affects both
+the location map and the query model, whether an entry exists for the
+location or not.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> an <a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="type">RBStaticPlaylistSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>location</code></em> :</span></p></td>
+<td> location to remove
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_static_playlist_source_move_entry ()">
+<a name="rb-static-playlist-source-move-entry"></a><h3>rb_static_playlist_source_move_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_static_playlist_source_move_entry
+                                                        (<a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="returnvalue">RBStaticPlaylistSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntry" title="RhythmDBEntry"><span class="returnvalue">RhythmDBEntry</span></a> *entry,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a> index);</pre>
+<p>
+Moves an entry within the playlist.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> an <a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="type">RBStaticPlaylistSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td> the entry to move
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>index</code></em> :</span></p></td>
+<td> new location for the entry
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

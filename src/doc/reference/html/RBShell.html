@@ -1,0 +1,1351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBShell</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch05.html" title="Shell">
+<link rel="prev" href="RBShellPreferences.html" title="RBShellPreferences">
+<link rel="next" href="RBSourceHeader.html" title="RBSourceHeader">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="Backends">
+<link rel="chapter" href="ch02.html" title="Lib">
+<link rel="chapter" href="ch03.html" title="Metadata">
+<link rel="chapter" href="ch04.html" title="RhythmDB">
+<link rel="chapter" href="ch05.html" title="Shell">
+<link rel="chapter" href="ch06.html" title="Sources">
+<link rel="chapter" href="ch07.html" title="Widgets">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBShellPreferences.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch05.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBSourceHeader.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBShell.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBShell.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBShell.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBShell.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#RBShell.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="RBShell">
+<a name="RBShell"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBShell.top_of_page"></a>RBShell</span></h2>
+<p>RBShell — holds the Rhythmbox main window and everything else</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="RBShell.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="RBShell.html#RBShell-struct" title="RBShell">RBShell</a>;
+                    <a class="link" href="RBShell.html#RBShellClass" title="RBShellClass">RBShellClass</a>;
+<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *           <a class="link" href="RBShell.html#rb-shell-new" title="rb_shell_new ()">rb_shell_new</a>                        (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> no_registration,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> no_update,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> dry_run,
+                                                         <span class="returnvalue">char</span> *rhythmdb,
+                                                         <span class="returnvalue">char</span> *playlists);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBShell.html#rb-shell-present" title="rb_shell_present ()">rb_shell_present</a>                    (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="returnvalue">guint32</span></a> timestamp,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);
+<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          <a class="link" href="RBShell.html#rb-shell-guess-source-for-uri" title="rb_shell_guess_source_for_uri ()">rb_shell_guess_source_for_uri</a>       (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <span class="returnvalue">char</span> *uri);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBShell.html#rb-shell-add-uri" title="rb_shell_add_uri ()">rb_shell_add_uri</a>                    (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         const <span class="returnvalue">char</span> *title,
+                                                         const <span class="returnvalue">char</span> *genre,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBShell.html#rb-shell-load-uri" title="rb_shell_load_uri ()">rb_shell_load_uri</a>                   (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> play,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="returnvalue">GObject</span></a> *           <a class="link" href="RBShell.html#rb-shell-get-player" title="rb_shell_get_player ()">rb_shell_get_player</a>                 (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);
+const <span class="returnvalue">char</span> *        <a class="link" href="RBShell.html#rb-shell-get-player-path" title="rb_shell_get_player_path ()">rb_shell_get_player_path</a>            (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="returnvalue">GObject</span></a> *           <a class="link" href="RBShell.html#rb-shell-get-playlist-manager" title="rb_shell_get_playlist_manager ()">rb_shell_get_playlist_manager</a>       (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);
+const <span class="returnvalue">char</span> *        <a class="link" href="RBShell.html#rb-shell-get-playlist-manager-path" title="rb_shell_get_playlist_manager_path ()">rb_shell_get_playlist_manager_path</a>  (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="returnvalue">GObject</span></a> *           <a class="link" href="RBShell.html#rb-shell-get-ui-manager" title="rb_shell_get_ui_manager ()">rb_shell_get_ui_manager</a>             (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);
+<span class="returnvalue">void</span>                <a class="link" href="RBShell.html#rb-shell-toggle-visibility" title="rb_shell_toggle_visibility ()">rb_shell_toggle_visibility</a>          (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBShell.html#rb-shell-get-song-properties" title="rb_shell_get_song_properties ()">rb_shell_get_song_properties</a>        (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> **properties,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBShell.html#rb-shell-set-song-property" title="rb_shell_set_song_property ()">rb_shell_set_song_property</a>          (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         const <span class="returnvalue">char</span> *propname,
+                                                         const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *value,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBShell.html#rb-shell-add-to-queue" title="rb_shell_add_to_queue ()">rb_shell_add_to_queue</a>               (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *uri,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBShell.html#rb-shell-remove-from-queue" title="rb_shell_remove_from_queue ()">rb_shell_remove_from_queue</a>          (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *uri,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBShell.html#rb-shell-clear-queue" title="rb_shell_clear_queue ()">rb_shell_clear_queue</a>                (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBShell.html#rb-shell-quit" title="rb_shell_quit ()">rb_shell_quit</a>                       (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBShell.html#rb-shell-do-notify" title="rb_shell_do_notify ()">rb_shell_do_notify</a>                  (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> requested,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);
+<span class="returnvalue">void</span>                <a class="link" href="RBShell.html#rb-shell-register-entry-type-for-source" title="rb_shell_register_entry_type_for_source ()">rb_shell_register_entry_type_for_source</a>
+                                                        (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntryType" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> type);
+<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          <a class="link" href="RBShell.html#rb-shell-get-source-by-entry-type" title="rb_shell_get_source_by_entry_type ()">rb_shell_get_source_by_entry_type</a>   (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntryType" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> type);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="RBShell.html#rb-shell-get-party-mode" title="rb_shell_get_party_mode ()">rb_shell_get_party_mode</a>             (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);
+<span class="returnvalue">void</span>                <a class="link" href="RBShell.html#rb-shell-append-source" title="rb_shell_append_source ()">rb_shell_append_source</a>              (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *parent);
+<span class="returnvalue">void</span>                <a class="link" href="RBShell.html#rb-shell-add-widget" title="rb_shell_add_widget ()">rb_shell_add_widget</a>                 (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *widget,
+                                                         <span class="returnvalue">RBShellUILocation</span> location,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> expand,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> fill);
+<span class="returnvalue">void</span>                <a class="link" href="RBShell.html#rb-shell-remove-widget" title="rb_shell_remove_widget ()">rb_shell_remove_widget</a>              (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *widget,
+                                                         <span class="returnvalue">RBShellUILocation</span> location);
+<span class="returnvalue">void</span>                <a class="link" href="RBShell.html#rb-shell-notebook-set-page" title="rb_shell_notebook_set_page ()">rb_shell_notebook_set_page</a>          (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *widget);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="RBShell.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----RBShell
+</pre>
+</div>
+<div class="refsect1" title="Properties">
+<a name="RBShell.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBShell.html#RBShell--clipboard" title='The "clipboard" property'>clipboard</a>"                <a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="type">RBShellClipboard</span></a>*     : Read
+  "<a class="link" href="RBShell.html#RBShell--db" title='The "db" property'>db</a>"                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>*             : Read
+  "<a class="link" href="RBShell.html#RBShell--dry-run" title='The "dry-run" property'>dry-run</a>"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only
+  "<a class="link" href="RBShell.html#RBShell--library-source" title='The "library-source" property'>library-source</a>"           <a class="link" href="RBLibrarySource.html" title="RBLibrarySource"><span class="type">RBLibrarySource</span></a>*      : Read
+  "<a class="link" href="RBShell.html#RBShell--no-registration" title='The "no-registration" property'>no-registration</a>"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only
+  "<a class="link" href="RBShell.html#RBShell--no-update" title='The "no-update" property'>no-update</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only
+  "<a class="link" href="RBShell.html#RBShell--playlist-manager" title='The "playlist-manager" property'>playlist-manager</a>"         <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>*    : Read
+  "<a class="link" href="RBShell.html#RBShell--playlists-file" title='The "playlists-file" property'>playlists-file</a>"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+  "<a class="link" href="RBShell.html#RBShell--prefs" title='The "prefs" property'>prefs</a>"                    <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a>*   : Read
+  "<a class="link" href="RBShell.html#RBShell--queue-source" title='The "queue-source" property'>queue-source</a>"             <a class="link" href="RBPlayQueueSource.html" title="RBPlayQueueSource"><span class="type">RBPlayQueueSource</span></a>*    : Read
+  "<a class="link" href="RBShell.html#RBShell--removable-media-manager" title='The "removable-media-manager" property'>removable-media-manager</a>"  <a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a>*  : Read
+  "<a class="link" href="RBShell.html#RBShell--rhythmdb-file" title='The "rhythmdb-file" property'>rhythmdb-file</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+  "<a class="link" href="RBShell.html#RBShell--selected-source" title='The "selected-source" property'>selected-source</a>"          <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>*             : Read
+  "<a class="link" href="RBShell.html#RBShell--shell-player" title='The "shell-player" property'>shell-player</a>"             <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a>*        : Read
+  "<a class="link" href="RBShell.html#RBShell--source-header" title='The "source-header" property'>source-header</a>"            <a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="type">RBSourceHeader</span></a>*       : Read
+  "<a class="link" href="RBShell.html#RBShell--sourcelist" title='The "sourcelist" property'>sourcelist</a>"               <a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a>*         : Read
+  "<a class="link" href="RBShell.html#RBShell--sourcelist-model" title='The "sourcelist-model" property'>sourcelist-model</a>"         <a class="link" href="RBSourceListModel.html" title="RBSourceListModel"><span class="type">RBSourceListModel</span></a>*    : Read
+  "<a class="link" href="RBShell.html#RBShell--ui-manager" title='The "ui-manager" property'>ui-manager</a>"               <a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="type">GtkUIManager</span></a>*         : Read
+  "<a class="link" href="RBShell.html#RBShell--visibility" title='The "visibility" property'>visibility</a>"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="RBShell.html#RBShell--window" title='The "window" property'>window</a>"                   <a href="http://library.gnome.org/devel/gtk/unstable/GtkWindow.html"><span class="type">GtkWindow</span></a>*            : Read
+</pre>
+</div>
+<div class="refsect1" title="Signals">
+<a name="RBShell.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBShell.html#RBShell-create-song-info" title='The "create-song-info" signal'>create-song-info</a>"                               : Run Last
+  "<a class="link" href="RBShell.html#RBShell-notify-custom" title='The "notify-custom" signal'>notify-custom</a>"                                  : Run Last
+  "<a class="link" href="RBShell.html#RBShell-notify-playing-entry" title='The "notify-playing-entry" signal'>notify-playing-entry</a>"                           : Run Last
+  "<a class="link" href="RBShell.html#RBShell-removable-media-scan-finished" title='The "removable-media-scan-finished" signal'>removable-media-scan-finished</a>"                  : Run Last
+  "<a class="link" href="RBShell.html#RBShell-visibility-changed" title='The "visibility-changed" signal'>visibility-changed</a>"                             : Run Last
+  "<a class="link" href="RBShell.html#RBShell-visibility-changing" title='The "visibility-changing" signal'>visibility-changing</a>"                            : Run Last
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="RBShell.description"></a><h2>Description</h2>
+<p>
+RBShell is the main application class in Rhythmbox.  It creates and holds
+references to the other main objects (<a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a>, <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>, <span class="type">RBSourcelist</span>),
+constructs the main window UI, and provides the basic DBus interface.</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="RBShell.details"></a><h2>Details</h2>
+<div class="refsect2" title="RBShell">
+<a name="RBShell-struct"></a><h3>RBShell</h3>
+<pre class="programlisting">typedef struct _RBShell RBShell;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="RBShellClass">
+<a name="RBShellClass"></a><h3>RBShellClass</h3>
+<pre class="programlisting">typedef struct {
+        GObjectClass parent_class;
+
+	/* signals */
+	gboolean (*visibility_changing) (RBShell *shell, gboolean initial, gboolean visible);
+	void	 (*visibility_changed) (RBShell *shell, gboolean visible);
+	void	 (*create_song_info) (RBShell *shell, RBSongInfo *song_info, gboolean multi);
+	void	 (*removable_media_scan_finished) (RBShell *shell);
+} RBShellClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_new ()">
+<a name="rb-shell-new"></a><h3>rb_shell_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *           rb_shell_new                        (<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> no_registration,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> no_update,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> dry_run,
+                                                         <span class="returnvalue">char</span> *rhythmdb,
+                                                         <span class="returnvalue">char</span> *playlists);</pre>
+<p>
+Creates the Rhythmbox shell.  This is effectively a singleton, so it doesn't
+make sense to call this from anywhere other than main.c.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>no_registration</code></em> :</span></p></td>
+<td> if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, single-instance features are disabled
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>no_update</code></em> :</span></p></td>
+<td> if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, don't update the database file
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dry_run</code></em> :</span></p></td>
+<td> if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, don't write back file metadata changes
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rhythmdb</code></em> :</span></p></td>
+<td> path to the database file
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>playlists</code></em> :</span></p></td>
+<td> path to the playlist file
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> instance
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_present ()">
+<a name="rb-shell-present"></a><h3>rb_shell_present ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_shell_present                    (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="returnvalue">guint32</span></a> timestamp,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);</pre>
+<p>
+Attempts to display the main window to the user.  See <a href="http://library.gnome.org/devel/gtk/unstable/GtkWindow.html#gtk-window-present"><span class="type">gtk_window_present</span></a> for details.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td> GTK timestamp to use (for focus-stealing prevention)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td> not used
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> not used.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_guess_source_for_uri ()">
+<a name="rb-shell-guess-source-for-uri"></a><h3>rb_shell_guess_source_for_uri ()</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          rb_shell_guess_source_for_uri       (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <span class="returnvalue">char</span> *uri);</pre>
+<p>
+Attempts to locate the source that should handle the specified URI.
+This iterates through all sources, calling <a class="link" href="RBSource.html#rb-source-want-uri" title="rb_source_want_uri ()"><span class="type">rb_source_want_uri</span></a>,
+returning the source that returns the highest value.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td> the URI to guess a source for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the most appropriate <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> for the uri
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_add_uri ()">
+<a name="rb-shell-add-uri"></a><h3>rb_shell_add_uri ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_shell_add_uri                    (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         const <span class="returnvalue">char</span> *title,
+                                                         const <span class="returnvalue">char</span> *genre,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);</pre>
+<p>
+Adds the specified URI to the Rhythmbox database.  Whether the
+title and genre specified are actually used is up to the source
+that handles the URI</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td> the URI to add
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>title</code></em> :</span></p></td>
+<td> optional title value for the URI
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>genre</code></em> :</span></p></td>
+<td> optional genre value for the URI
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td> returns error information
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if the URI was added successfully
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_load_uri ()">
+<a name="rb-shell-load-uri"></a><h3>rb_shell_load_uri ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_shell_load_uri                   (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> play,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);</pre>
+<p>
+Loads a URI representing a single song, a directory, a playlist, or
+an internet radio station, and optionally starts playing it.
+</p>
+<p>
+For playlists containing only stream URLs, we either add the playlist
+itself (if it's remote) or each URL from it (if it's local).  The main
+reason for this is so clicking on stream playlist links in web browsers
+works properly - the playlist file will be downloaded to /tmp/, and
+we can't add that to the database, so we need to add the stream URLs
+instead.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td> the URI to load
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>play</code></em> :</span></p></td>
+<td> if TRUE, start playing the URI (if possible)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td> returns error information
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE if the URI was added successfully
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_get_player ()">
+<a name="rb-shell-get-player"></a><h3>rb_shell_get_player ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="returnvalue">GObject</span></a> *           rb_shell_get_player                 (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);</pre>
+<p>
+Returns the <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> object</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> object
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_get_player_path ()">
+<a name="rb-shell-get-player-path"></a><h3>rb_shell_get_player_path ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *        rb_shell_get_player_path            (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);</pre>
+<p>
+Returns the DBus object path for the <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a></p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the DBus object path for the <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_get_playlist_manager ()">
+<a name="rb-shell-get-playlist-manager"></a><h3>rb_shell_get_playlist_manager ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="returnvalue">GObject</span></a> *           rb_shell_get_playlist_manager       (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);</pre>
+<p>
+Returns the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> object</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> object
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_get_playlist_manager_path ()">
+<a name="rb-shell-get-playlist-manager-path"></a><h3>rb_shell_get_playlist_manager_path ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *        rb_shell_get_playlist_manager_path  (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);</pre>
+<p>
+Returns the DBus path for the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> object</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the DBus object path for the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_get_ui_manager ()">
+<a name="rb-shell-get-ui-manager"></a><h3>rb_shell_get_ui_manager ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="returnvalue">GObject</span></a> *           rb_shell_get_ui_manager             (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);</pre>
+<p>
+Returns the main <a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="type">GtkUIManager</span></a> object</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the main <a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="type">GtkUIManager</span></a> object
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_toggle_visibility ()">
+<a name="rb-shell-toggle-visibility"></a><h3>rb_shell_toggle_visibility ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_shell_toggle_visibility          (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);</pre>
+<p>
+Toggles the visibility of the main Rhythmbox window.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_get_song_properties ()">
+<a name="rb-shell-get-song-properties"></a><h3>rb_shell_get_song_properties ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_shell_get_song_properties        (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> **properties,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);</pre>
+<p>
+Gathers and returns all metadata (including extra metadata such as album
+art URIs and lyrics) for the specified URI.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td> the URI to query
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>properties</code></em> :</span></p></td>
+<td> returns the properties of the specified URI
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td> returns error information
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the URI is found in the database
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_set_song_property ()">
+<a name="rb-shell-set-song-property"></a><h3>rb_shell_set_song_property ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_shell_set_song_property          (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <span class="returnvalue">char</span> *uri,
+                                                         const <span class="returnvalue">char</span> *propname,
+                                                         const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *value,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);</pre>
+<p>
+Attempts to set a property of a database entry identified by its URI.
+If the URI identifies a file and the property is one associated with a
+file metadata tag, the new value will be written to the file.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td> the URI to modify
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>propname</code></em> :</span></p></td>
+<td> the name of the property to modify
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td> the new value to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td> returns error information
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the property was set successfully.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_add_to_queue ()">
+<a name="rb-shell-add-to-queue"></a><h3>rb_shell_add_to_queue ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_shell_add_to_queue               (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *uri,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);</pre>
+<p>
+Adds the specified URI to the play queue.  This only works if URI is already
+in the database.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td> the URI to add to the play queue
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td> not used
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> not used
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_remove_from_queue ()">
+<a name="rb-shell-remove-from-queue"></a><h3>rb_shell_remove_from_queue ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_shell_remove_from_queue          (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *uri,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);</pre>
+<p>
+Removes the specified URI from the play queue.  If the URI is not
+in the play queue, nothing happens.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td> the URI to remove from the play queue
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td> not used
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> not used.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_clear_queue ()">
+<a name="rb-shell-clear-queue"></a><h3>rb_shell_clear_queue ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_shell_clear_queue                (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);</pre>
+<p>
+Removes all entries from the play queue.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td> not used
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> not used
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_quit ()">
+<a name="rb-shell-quit"></a><h3>rb_shell_quit ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_shell_quit                       (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);</pre>
+<p>
+Begins the process of shutting down Rhythmbox.  This function will
+return.  The error parameter and return value only exist because this
+function is part of the DBus interface.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td> not used
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> not important
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_do_notify ()">
+<a name="rb-shell-do-notify"></a><h3>rb_shell_do_notify ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_shell_do_notify                  (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> requested,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> **error);</pre>
+<p>
+Displays a notification of the current playing track.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>requested</code></em> :</span></p></td>
+<td> if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the notification was requested by some explicit user action
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td> not used
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> not important
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_register_entry_type_for_source ()">
+<a name="rb-shell-register-entry-type-for-source"></a><h3>rb_shell_register_entry_type_for_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_shell_register_entry_type_for_source
+                                                        (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntryType" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> type);</pre>
+<p>
+Registers a source as the owner of entries of the specified type.
+The main effect of this is that calling <a class="link" href="RBShell.html#rb-shell-get-source-by-entry-type" title="rb_shell_get_source_by_entry_type ()"><span class="type">rb_shell_get_source_by_entry_type</span></a>
+with the same entry type will return the source.  A source should only
+be registered as the owner of a single entry type.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> to register
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td> the <a class="link" href="RhythmDB.html#RhythmDBEntryType" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> to register for
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_get_source_by_entry_type ()">
+<a name="rb-shell-get-source-by-entry-type"></a><h3>rb_shell_get_source_by_entry_type ()</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          rb_shell_get_source_by_entry_type   (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a class="link" href="RhythmDB.html#RhythmDBEntryType" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> type);</pre>
+<p>
+Looks up and returns the source that owns entries of the specified
+type.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td> entry type for which to find a source
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> source instance, if any
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_get_party_mode ()">
+<a name="rb-shell-get-party-mode"></a><h3>rb_shell_get_party_mode ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            rb_shell_get_party_mode             (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell);</pre>
+<p>
+Returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the shell is in party mode</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the shell is in party mode
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_append_source ()">
+<a name="rb-shell-append-source"></a><h3>rb_shell_append_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_shell_append_source              (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *source,
+                                                         <a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *parent);</pre>
+<p>
+Registers a new source with the shell.  All sources must be
+registered.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td> the new <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td> the parent source for the new source (optional)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_add_widget ()">
+<a name="rb-shell-add-widget"></a><h3>rb_shell_add_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_shell_add_widget                 (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *widget,
+                                                         <span class="returnvalue">RBShellUILocation</span> location,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> expand,
+                                                         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a> fill);</pre>
+<p>
+Adds a widget to the main Rhythmbox window.  See <a href="http://library.gnome.org/devel/gtk/unstable/GtkBox.html#gtk-box-pack-start"><span class="type">gtk_box_pack_start</span></a> for
+details on how the expand and fill parameters work.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
+<td> the <a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="type">GtkWidget</span></a> to insert into the main window
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>location</code></em> :</span></p></td>
+<td> the location at which to insert the widget
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>expand</code></em> :</span></p></td>
+<td> whether the widget should be given extra space
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fill</code></em> :</span></p></td>
+<td> whether the widget should fill all space allocated to it
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_remove_widget ()">
+<a name="rb-shell-remove-widget"></a><h3>rb_shell_remove_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_shell_remove_widget              (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *widget,
+                                                         <span class="returnvalue">RBShellUILocation</span> location);</pre>
+<p>
+Removes a widget added with <a class="link" href="RBShell.html#rb-shell-add-widget" title="rb_shell_add_widget ()"><span class="type">rb_shell_add_widget</span></a> from the main window.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
+<td> the <a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="type">GtkWidget</span></a> to remove from the main window
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>location</code></em> :</span></p></td>
+<td> the UI location to which the widget was originally added
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="rb_shell_notebook_set_page ()">
+<a name="rb-shell-notebook-set-page"></a><h3>rb_shell_notebook_set_page ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_shell_notebook_set_page          (<a class="link" href="RBShell.html" title="RBShell"><span class="returnvalue">RBShell</span></a> *shell,
+                                                         <a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *widget);</pre>
+<p>
+Changes the visible page in the main window notebook widget.  Use this to
+display widgets added to the <span class="type">RB_SHELL_UI_LOCATION_MAIN_NOTEBOOK</span> location.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
+<td> <a href="http://library.gnome.org/devel/gtk/unstable/GtkWidget.html"><span class="type">GtkWidget</span></a> for the page to display
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="RBShell.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "clipboard" property'>
+<a name="RBShell--clipboard"></a><h3>The <code class="literal">"clipboard"</code> property</h3>
+<pre class="programlisting">  "clipboard"                <a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="type">RBShellClipboard</span></a>*     : Read</pre>
+<p>
+The <a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="type">RBShellClipboard</span></a> instance</p>
+</div>
+<hr>
+<div class="refsect2" title='The "db" property'>
+<a name="RBShell--db"></a><h3>The <code class="literal">"db"</code> property</h3>
+<pre class="programlisting">  "db"                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>*             : Read</pre>
+<p>
+The <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance</p>
+</div>
+<hr>
+<div class="refsect2" title='The "dry-run" property'>
+<a name="RBShell--dry-run"></a><h3>The <code class="literal">"dry-run"</code> property</h3>
+<pre class="programlisting">  "dry-run"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only</pre>
+<p>
+If TRUE, don't write back file metadata changes.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2" title='The "library-source" property'>
+<a name="RBShell--library-source"></a><h3>The <code class="literal">"library-source"</code> property</h3>
+<pre class="programlisting">  "library-source"           <a class="link" href="RBLibrarySource.html" title="RBLibrarySource"><span class="type">RBLibrarySource</span></a>*      : Read</pre>
+<p>
+The library source</p>
+</div>
+<hr>
+<div class="refsect2" title='The "no-registration" property'>
+<a name="RBShell--no-registration"></a><h3>The <code class="literal">"no-registration"</code> property</h3>
+<pre class="programlisting">  "no-registration"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only</pre>
+<p>
+If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, disable single-instance features.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2" title='The "no-update" property'>
+<a name="RBShell--no-update"></a><h3>The <code class="literal">"no-update"</code> property</h3>
+<pre class="programlisting">  "no-update"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only</pre>
+<p>
+If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, don't update the database.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2" title='The "playlist-manager" property'>
+<a name="RBShell--playlist-manager"></a><h3>The <code class="literal">"playlist-manager"</code> property</h3>
+<pre class="programlisting">  "playlist-manager"         <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>*    : Read</pre>
+<p>
+The <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> instance</p>
+</div>
+<hr>
+<div class="refsect2" title='The "playlists-file" property'>
+<a name="RBShell--playlists-file"></a><h3>The <code class="literal">"playlists-file"</code> property</h3>
+<pre class="programlisting">  "playlists-file"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p>
+The path to the playlist file</p>
+<p>Default value: "playlists.xml"</p>
+</div>
+<hr>
+<div class="refsect2" title='The "prefs" property'>
+<a name="RBShell--prefs"></a><h3>The <code class="literal">"prefs"</code> property</h3>
+<pre class="programlisting">  "prefs"                    <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a>*   : Read</pre>
+<p>
+The <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> instance</p>
+</div>
+<hr>
+<div class="refsect2" title='The "queue-source" property'>
+<a name="RBShell--queue-source"></a><h3>The <code class="literal">"queue-source"</code> property</h3>
+<pre class="programlisting">  "queue-source"             <a class="link" href="RBPlayQueueSource.html" title="RBPlayQueueSource"><span class="type">RBPlayQueueSource</span></a>*    : Read</pre>
+<p>
+The play queue source</p>
+</div>
+<hr>
+<div class="refsect2" title='The "removable-media-manager" property'>
+<a name="RBShell--removable-media-manager"></a><h3>The <code class="literal">"removable-media-manager"</code> property</h3>
+<pre class="programlisting">  "removable-media-manager"  <a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a>*  : Read</pre>
+<p>
+The <a class="link" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager"><span class="type">RBRemovableMediaManager</span></a> instance</p>
+</div>
+<hr>
+<div class="refsect2" title='The "rhythmdb-file" property'>
+<a name="RBShell--rhythmdb-file"></a><h3>The <code class="literal">"rhythmdb-file"</code> property</h3>
+<pre class="programlisting">  "rhythmdb-file"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p>
+The path to the rhythmdb file</p>
+<p>Default value: "rhythmdb.xml"</p>
+</div>
+<hr>
+<div class="refsect2" title='The "selected-source" property'>
+<a name="RBShell--selected-source"></a><h3>The <code class="literal">"selected-source"</code> property</h3>
+<pre class="programlisting">  "selected-source"          <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>*             : Read</pre>
+<p>
+The currently selected source object</p>
+</div>
+<hr>
+<div class="refsect2" title='The "shell-player" property'>
+<a name="RBShell--shell-player"></a><h3>The <code class="literal">"shell-player"</code> property</h3>
+<pre class="programlisting">  "shell-player"             <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a>*        : Read</pre>
+<p>
+The <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> instance</p>
+</div>
+<hr>
+<div class="refsect2" title='The "source-header" property'>
+<a name="RBShell--source-header"></a><h3>The <code class="literal">"source-header"</code> property</h3>
+<pre class="programlisting">  "source-header"            <a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="type">RBSourceHeader</span></a>*       : Read</pre>
+<p>
+The <a class="link" href="RBSourceHeader.html" title="RBSourceHeader"><span class="type">RBSourceHeader</span></a> instance</p>
+</div>
+<hr>
+<div class="refsect2" title='The "sourcelist" property'>
+<a name="RBShell--sourcelist"></a><h3>The <code class="literal">"sourcelist"</code> property</h3>
+<pre class="programlisting">  "sourcelist"               <a class="link" href="RBSourceList.html" title="RBSourceList"><span class="type">RBSourceList</span></a>*         : Read</pre>
+<p>
+The <span class="type">RBSourcelist</span> instance</p>
+</div>
+<hr>
+<div class="refsect2" title='The "sourcelist-model" property'>
+<a name="RBShell--sourcelist-model"></a><h3>The <code class="literal">"sourcelist-model"</code> property</h3>
+<pre class="programlisting">  "sourcelist-model"         <a class="link" href="RBSourceListModel.html" title="RBSourceListModel"><span class="type">RBSourceListModel</span></a>*    : Read</pre>
+<p>
+The tree model underlying the source list.</p>
+</div>
+<hr>
+<div class="refsect2" title='The "ui-manager" property'>
+<a name="RBShell--ui-manager"></a><h3>The <code class="literal">"ui-manager"</code> property</h3>
+<pre class="programlisting">  "ui-manager"               <a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="type">GtkUIManager</span></a>*         : Read</pre>
+<p>
+The <a href="http://library.gnome.org/devel/gtk/unstable/GtkUIManager.html"><span class="type">GtkUIManager</span></a> instance</p>
+</div>
+<hr>
+<div class="refsect2" title='The "visibility" property'>
+<a name="RBShell--visibility"></a><h3>The <code class="literal">"visibility"</code> property</h3>
+<pre class="programlisting">  "visibility"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>
+Whether the main window is currently visible.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2" title='The "window" property'>
+<a name="RBShell--window"></a><h3>The <code class="literal">"window"</code> property</h3>
+<pre class="programlisting">  "window"                   <a href="http://library.gnome.org/devel/gtk/unstable/GtkWindow.html"><span class="type">GtkWindow</span></a>*            : Read</pre>
+<p>
+The main Rhythmbox window.</p>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="RBShell.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "create-song-info" signal'>
+<a name="RBShell-create-song-info"></a><h3>The <code class="literal">"create-song-info"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>    *shell,
+                                                        <a class="link" href="RBSongInfo.html" title="RBSongInfo"><span class="type">RBSongInfo</span></a> *song_info,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>    multi,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>    user_data)      : Run Last</pre>
+<p>
+Emitted when creating a new <a class="link" href="RBSongInfo.html" title="RBSongInfo"><span class="type">RBSongInfo</span></a> window.  Signal handlers can
+add pages to the song info window notebook to display additional
+information.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>song_info</code></em> :</span></p></td>
+<td> the new <a class="link" href="RBSongInfo.html" title="RBSongInfo"><span class="type">RBSongInfo</span></a> window
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>multi</code></em> :</span></p></td>
+<td> if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the song info window is for multiple entries
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "notify-custom" signal'>
+<a name="RBShell-notify-custom"></a><h3>The <code class="literal">"notify-custom"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>   *shell,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>      timeout,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>     *primary,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>     *secondary,
+                                                        <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"><span class="type">GdkPixbuf</span></a> *pixbuf,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>   requested,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>   user_data)      : Run Last</pre>
+<p>
+Emitted when a custom notification should be displayed to the user.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout</code></em> :</span></p></td>
+<td> length of time (in seconds) to display the notification
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>primary</code></em> :</span></p></td>
+<td> main notification text
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>secondary</code></em> :</span></p></td>
+<td> secondary notification text
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pixbuf</code></em> :</span></p></td>
+<td> an image to include in the notification (optional)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>requested</code></em> :</span></p></td>
+<td> if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the notification was triggered by an explicit user action
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "notify-playing-entry" signal'>
+<a name="RBShell-notify-playing-entry"></a><h3>The <code class="literal">"notify-playing-entry"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> arg1,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data)      : Run Last</pre>
+<p>
+Emitted when a notification should be displayed showing the current
+playing entry.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "removable-media-scan-finished" signal'>
+<a name="RBShell-removable-media-scan-finished"></a><h3>The <code class="literal">"removable-media-scan-finished"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data)      : Run Last</pre>
+<p>
+Emitted when the initial scan for removable media devices is
+complete.  This is intended to allow plugins to request a
+device scan only if the scan on startup has already been done,
+but it isn't very useful for that.
+See <a class="link" href="RBRemovableMediaManager.html#RBRemovableMediaManager--scanned" title='The "scanned" property'><span class="type">"scanned"</span></a> for a better approach to
+this problem.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "visibility-changed" signal'>
+<a name="RBShell-visibility-changed"></a><h3>The <code class="literal">"visibility-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> visibile,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data)      : Run Last</pre>
+<p>
+Emitted after the visibility of the main Rhythmbox window has
+changed.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>visibile</code></em> :</span></p></td>
+<td> new visibility
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "visibility-changing" signal'>
+<a name="RBShell-visibility-changing"></a><h3>The <code class="literal">"visibility-changing"</code> signal</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            user_function                      (<a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> initial,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> visible,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data)      : Run Last</pre>
+<p>
+Emitted before the visibility of the main window changes.  The return
+value overrides the visibility setting.  If multiple signal handlers
+are attached, the last one wins.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
+<td> the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>initial</code></em> :</span></p></td>
+<td> if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, this is the initial visibility for the window
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>visible</code></em> :</span></p></td>
+<td> new shell visibility
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

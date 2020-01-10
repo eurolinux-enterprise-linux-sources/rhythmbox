@@ -1,0 +1,77 @@
+<!-- ##### SECTION Title ##### -->
+RBSourceListModel
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT RBSourceListModel ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL RBSourceListModel::drop-received ##### -->
+<para>
+
+</para>
+
+@rbsourcelistmodel: the object which received the signal.
+@arg1: 
+@arg2: 
+@arg3: 
+
+<!-- ##### STRUCT RBSourceListModelClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+@drop_received: 
+
+<!-- ##### ENUM RBSourceListModelColumn ##### -->
+<para>
+
+</para>
+
+@RB_SOURCELIST_MODEL_COLUMN_PLAYING: 
+@RB_SOURCELIST_MODEL_COLUMN_PIXBUF: 
+@RB_SOURCELIST_MODEL_COLUMN_NAME: 
+@RB_SOURCELIST_MODEL_COLUMN_SOURCE: 
+@RB_SOURCELIST_MODEL_COLUMN_ATTRIBUTES: 
+@RB_SOURCELIST_MODEL_COLUMN_VISIBILITY: 
+@RB_SOURCELIST_MODEL_COLUMN_IS_GROUP: 
+@RB_SOURCELIST_MODEL_COLUMN_GROUP_CATEGORY: 
+@RB_SOURCELIST_MODEL_N_COLUMNS: 
+
+<!-- ##### FUNCTION rb_sourcelist_model_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_sourcelist_model_set_dnd_targets ##### -->
+<para>
+
+</para>
+
+@sourcelist: 
+@treeview: 
+
+
