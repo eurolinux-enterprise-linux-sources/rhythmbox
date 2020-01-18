@@ -5,7 +5,7 @@
 Name: rhythmbox
 Summary: Music Management Application
 Version: 2.99.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+ with exceptions and GFDL
 Group: Applications/Multimedia
 URL: http://projects.gnome.org/rhythmbox/
@@ -176,6 +176,10 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas >&/dev/null || :
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Wed May 20 2015 Matthias Clasen <mclasen@redhat.com> - 2.99.1-4
+- Rebuild against new totem-pl-parser
+Resolves: #1221595 
+
 * Thu Mar 13 2014 Bastien Nocera <bnocera@redhat.com> 2.99.1-3
 - Fix import failing for all file types
 Resolves: #1074974
