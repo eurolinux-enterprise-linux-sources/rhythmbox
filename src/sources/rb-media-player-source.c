@@ -46,12 +46,6 @@
 #include "rb-builder-helpers.h"
 #include "rb-playlist-manager.h"
 #include "rb-util.h"
-#include "rb-encoding-settings.h"
-
-typedef struct {
-	char *uri_prefix;
-	char *key_prefix;
-} RBMediaPlayerEntryTypePrivate;
 
 typedef struct {
 	RBSyncSettings *sync_settings;
@@ -74,18 +68,11 @@ typedef struct {
 	gboolean syncing;
 
 	GstEncodingTarget *encoding_target;
-	GSettings *encoding_settings;
 } RBMediaPlayerSourcePrivate;
 
 G_DEFINE_TYPE (RBMediaPlayerSource, rb_media_player_source, RB_TYPE_BROWSER_SOURCE);
 
-G_DEFINE_TYPE (RBMediaPlayerEntryType, rb_media_player_entry_type, RHYTHMDB_TYPE_ENTRY_TYPE);
-
 #define MEDIA_PLAYER_SOURCE_GET_PRIVATE(o)   (G_TYPE_INSTANCE_GET_PRIVATE ((o), RB_TYPE_MEDIA_PLAYER_SOURCE, RBMediaPlayerSourcePrivate))
-#define MEDIA_PLAYER_ENTRY_TYPE_GET_PRIVATE(o)   (G_TYPE_INSTANCE_GET_PRIVATE ((o), RB_TYPE_MEDIA_PLAYER_ENTRY_TYPE, RBMediaPlayerEntryTypePrivate))
-
-static void rb_media_player_entry_type_class_init (RBMediaPlayerEntryTypeClass *klass);
-static void rb_media_player_entry_type_init (RBMediaPlayerEntryType *etype);
 
 static void rb_media_player_source_class_init (RBMediaPlayerSourceClass *klass);
 static void rb_media_player_source_init (RBMediaPlayerSource *source);
@@ -114,123 +101,8 @@ enum
 {
 	PROP_0,
 	PROP_DEVICE_SERIAL,
-	PROP_ENCODING_TARGET,
-	PROP_ENCODING_SETTINGS,
-	PROP_URI_PREFIX,
-	PROP_KEY_PREFIX,
+	PROP_ENCODING_TARGET
 };
-
-static char *
-impl_uri_to_cache_key (RhythmDBEntryType *etype, const char *uri)
-{
-	RBMediaPlayerEntryTypePrivate *priv = MEDIA_PLAYER_ENTRY_TYPE_GET_PRIVATE (etype);
-
-	if (g_str_has_prefix (uri, priv->uri_prefix) == FALSE) {
-		return NULL;
-	}
-
-	return g_strconcat (priv->key_prefix, ":", uri + strlen (priv->uri_prefix), NULL);
-}
-
-static char *
-impl_cache_key_to_uri (RhythmDBEntryType *etype, const char *key)
-{
-	RBMediaPlayerEntryTypePrivate *priv = MEDIA_PLAYER_ENTRY_TYPE_GET_PRIVATE (etype);
-
-	if (g_str_has_prefix (key, priv->key_prefix) == FALSE) {
-		return NULL;
-	}
-
-	return g_strconcat (priv->uri_prefix, key + strlen (priv->key_prefix) + 1, NULL);
-}
-
-static void
-impl_entry_type_set_property (GObject *object,
-			      guint prop_id,
-			      const GValue *value,
-			      GParamSpec *pspec)
-{
-	RBMediaPlayerEntryTypePrivate *priv = MEDIA_PLAYER_ENTRY_TYPE_GET_PRIVATE (object);
-	switch (prop_id) {
-	case PROP_URI_PREFIX:
-		priv->uri_prefix = g_value_dup_string (value);
-		break;
-	case PROP_KEY_PREFIX:
-		priv->key_prefix = g_value_dup_string (value);
-		break;
-	default:
-		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-		break;
-	}
-}
-
-static void
-impl_entry_type_get_property (GObject *object,
-			      guint prop_id,
-			      GValue *value,
-			      GParamSpec *pspec)
-{
-	RBMediaPlayerEntryTypePrivate *priv = MEDIA_PLAYER_ENTRY_TYPE_GET_PRIVATE (object);
-	switch (prop_id) {
-	case PROP_URI_PREFIX:
-		g_value_set_string (value, priv->uri_prefix);
-		break;
-	case PROP_KEY_PREFIX:
-		g_value_set_string (value, priv->key_prefix);
-		break;
-	default:
-		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-		break;
-	}
-}
-
-static void
-impl_entry_type_finalize (GObject *object)
-{
-	RBMediaPlayerEntryTypePrivate *priv = MEDIA_PLAYER_ENTRY_TYPE_GET_PRIVATE (object);
-
-	g_free (priv->uri_prefix);
-	g_free (priv->key_prefix);
-
-	G_OBJECT_CLASS (rb_media_player_entry_type_parent_class)->finalize (object);
-}
-
-static void
-rb_media_player_entry_type_class_init (RBMediaPlayerEntryTypeClass *klass)
-{
-	RhythmDBEntryTypeClass *etype_class = RHYTHMDB_ENTRY_TYPE_CLASS (klass);
-	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-	object_class->set_property = impl_entry_type_set_property;
-	object_class->get_property = impl_entry_type_get_property;
-	object_class->finalize = impl_entry_type_finalize;
-
-	/* sync_metadata? */
-	etype_class->uri_to_cache_key = impl_uri_to_cache_key;
-	etype_class->cache_key_to_uri = impl_cache_key_to_uri;
-
-	g_object_class_install_property (object_class,
-					 PROP_KEY_PREFIX,
-					 g_param_spec_string ("key-prefix",
-							      "key prefix",
-							      "metadata cache key prefix",
-							      NULL,
-							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
-	g_object_class_install_property (object_class,
-					 PROP_URI_PREFIX,
-					 g_param_spec_string ("uri-prefix",
-							      "uri prefix",
-							      "uri prefix for entries",
-							      NULL,
-							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
-
-	g_type_class_add_private (klass, sizeof (RBMediaPlayerEntryTypePrivate));
-}
-
-static void
-rb_media_player_entry_type_init (RBMediaPlayerEntryType *etype)
-{
-}
 
 static void
 rb_media_player_source_class_init (RBMediaPlayerSourceClass *klass)
@@ -248,21 +120,21 @@ rb_media_player_source_class_init (RBMediaPlayerSourceClass *klass)
 	page_class->receive_drag = impl_receive_drag;
 	page_class->delete_thyself = impl_delete_thyself;
 
-	source_class->can_cut = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_copy = (RBSourceFeatureFunc) rb_true_function;
-	source_class->can_paste = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_delete = (RBSourceFeatureFunc) rb_false_function;
-	source_class->get_delete_label = impl_get_delete_label;
-	source_class->delete_selected = NULL;
+	source_class->impl_can_cut = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_copy = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_can_paste = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_delete = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_get_delete_label = impl_get_delete_label;
+	source_class->impl_delete = NULL;
 
 	browser_source_class->has_drop_support = (RBBrowserSourceFeatureFunc) rb_false_function;
 
-	klass->get_entries = NULL;
-	klass->get_capacity = NULL;
-	klass->get_free_space = NULL;
-	klass->add_playlist = NULL;
-	klass->remove_playlists = NULL;
-	klass->show_properties = NULL;
+	klass->impl_get_entries = NULL;
+	klass->impl_get_capacity = NULL;
+	klass->impl_get_free_space = NULL;
+	klass->impl_add_playlist = NULL;
+	klass->impl_remove_playlists = NULL;
+	klass->impl_show_properties = NULL;
 
 	g_object_class_install_property (object_class,
 					 PROP_DEVICE_SERIAL,
@@ -282,18 +154,6 @@ rb_media_player_source_class_init (RBMediaPlayerSourceClass *klass)
 							      "encoding target",
 							      "GstEncodingTarget",
 							      GST_TYPE_ENCODING_TARGET,
-							      G_PARAM_READWRITE));
-	/**
-	 * RBMediaPlayerSource:encoding-settings
-	 *
-	 * The #GSettings instance holding encoding settings for this device
-	 */
-	g_object_class_install_property (object_class,
-					 PROP_ENCODING_SETTINGS,
-					 g_param_spec_object ("encoding-settings",
-							      "encoding settings",
-							      "GSettings holding encoding settings",
-							      G_TYPE_SETTINGS,
 							      G_PARAM_READWRITE));
 
 	g_type_class_add_private (klass, sizeof (RBMediaPlayerSourcePrivate));
@@ -341,12 +201,6 @@ rb_media_player_source_set_property (GObject *object,
 		}
 		priv->encoding_target = GST_ENCODING_TARGET (g_value_dup_object (value));
 		break;
-	case PROP_ENCODING_SETTINGS:
-		if (priv->encoding_settings) {
-			g_object_unref (priv->encoding_settings);
-		}
-		priv->encoding_settings = g_value_dup_object (value);
-		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -366,9 +220,6 @@ rb_media_player_source_get_property (GObject *object,
 		break;
 	case PROP_ENCODING_TARGET:
 		g_value_set_object (value, priv->encoding_target);
-		break;
-	case PROP_ENCODING_SETTINGS:
-		g_value_set_object (value, priv->encoding_settings);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -403,12 +254,6 @@ load_status_changed_cb (GObject *object, GParamSpec *pspec, gpointer whatever)
 }
 
 static void
-selected_changed_cb (GObject *object, GParamSpec *pspec, gpointer whatever)
-{
-	update_actions (RB_MEDIA_PLAYER_SOURCE (object));
-}
-
-static void
 rb_media_player_source_constructed (GObject *object)
 {
 	RBMediaPlayerSourcePrivate *priv = MEDIA_PLAYER_SOURCE_GET_PRIVATE (object);
@@ -429,7 +274,6 @@ rb_media_player_source_constructed (GObject *object)
 	priv->sync_action = g_action_map_lookup_action (G_ACTION_MAP (app), "media-player-sync");
 	priv->properties_action = g_action_map_lookup_action (G_ACTION_MAP (app), "media-player-properties");
 	g_signal_connect (object, "notify::load-status", G_CALLBACK (load_status_changed_cb), NULL);
-	g_signal_connect (object, "notify::selected", G_CALLBACK (selected_changed_cb), NULL);
 	update_actions (RB_MEDIA_PLAYER_SOURCE (object));
 }
 
@@ -467,7 +311,7 @@ rb_media_player_source_get_capacity (RBMediaPlayerSource *source)
 {
 	RBMediaPlayerSourceClass *klass = RB_MEDIA_PLAYER_SOURCE_GET_CLASS (source);
 
-	return klass->get_capacity (source);
+	return klass->impl_get_capacity (source);
 }
 
 guint64
@@ -475,22 +319,22 @@ rb_media_player_source_get_free_space (RBMediaPlayerSource *source)
 {
 	RBMediaPlayerSourceClass *klass = RB_MEDIA_PLAYER_SOURCE_GET_CLASS (source);
 
-	return klass->get_free_space (source);
+	return klass->impl_get_free_space (source);
 }
 
 /**
  * rb_media_player_source_get_entries:
  * @source: the #RBMediaPlayerSource
  * @category: the sync category name
- * @map: (element-type utf8 RB.RhythmDBEntry): map to hold the entries
+ * @entries: (element-type utf8 RB.RhythmDBEntry): map to hold the entries
  */
 void
 rb_media_player_source_get_entries (RBMediaPlayerSource *source,
 				    const char *category,
-				    GHashTable *map)
+				    GHashTable *entries)
 {
 	RBMediaPlayerSourceClass *klass = RB_MEDIA_PLAYER_SOURCE_GET_CLASS (source);
-	klass->get_entries (source, category, map);
+	klass->impl_get_entries (source, category, entries);
 }
 
 /**
@@ -498,17 +342,19 @@ rb_media_player_source_get_entries (RBMediaPlayerSource *source,
  * @source: the #RBMediaPlayerSource
  * @entries: (element-type RB.RhythmDBEntry) (transfer full): list of entries to delete
  * @callback: callback to call on completion
- * @data: data for callback
+ * @user_data: (closure) (scope notified): data for callback
+ * @destroy_data: callback to free the callback data
  */
 void
 rb_media_player_source_delete_entries	(RBMediaPlayerSource *source,
 					 GList *entries,
-					 GAsyncReadyCallback callback,
-					 gpointer data)
+					 RBMediaPlayerSourceDeleteCallback callback,
+					 gpointer user_data,
+					 GDestroyNotify destroy_data)
 {
 	RBMediaPlayerSourceClass *klass = RB_MEDIA_PLAYER_SOURCE_GET_CLASS (source);
 
-	klass->delete_entries (source, entries, callback, data);
+	klass->impl_delete_entries (source, entries, callback, user_data, destroy_data);
 }
 
 static void
@@ -541,6 +387,7 @@ rb_media_player_source_show_properties (RBMediaPlayerSource *source)
 	RBMediaPlayerSourceClass *klass = RB_MEDIA_PLAYER_SOURCE_GET_CLASS (source);
 	GtkBuilder *builder;
 	GtkContainer *container;
+	const char *ui_file;
 	char *name;
 	char *text;
 
@@ -550,7 +397,13 @@ rb_media_player_source_show_properties (RBMediaPlayerSource *source)
 	}
 
 	/* load dialog UI */
-	builder = rb_builder_load ("media-player-properties.ui", NULL);
+	ui_file = rb_file ("media-player-properties.ui");
+	if (ui_file == NULL) {
+		g_warning ("Couldn't find media-player-properties.ui");
+		return;
+	}
+
+	builder = rb_builder_load (ui_file, NULL);
 	if (builder == NULL) {
 		g_warning ("Couldn't load media-player-properties.ui");
 		return;
@@ -588,30 +441,19 @@ rb_media_player_source_show_properties (RBMediaPlayerSource *source)
 	 * .. battery levels?) and add more tabs to the notebook to display 'advanced' stuff.
 	 */
 
-	if (klass->show_properties) {
-		klass->show_properties (source,
+	if (klass->impl_show_properties) {
+		klass->impl_show_properties (source,
 					     GTK_WIDGET (gtk_builder_get_object (builder, "device-info-box")),
 					     GTK_WIDGET (gtk_builder_get_object (builder, "media-player-notebook")));
 	}
 
 	/* create sync UI */
 	container = GTK_CONTAINER (gtk_builder_get_object (builder, "sync-settings-ui-container"));
-	gtk_container_add (container, rb_sync_settings_ui_new (source, priv->sync_settings));
+	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (container), rb_sync_settings_ui_new (source, priv->sync_settings));
 
 	container = GTK_CONTAINER (gtk_builder_get_object (builder, "sync-state-ui-container"));
 	gtk_box_pack_start (GTK_BOX (container), rb_sync_state_ui_new (priv->sync_state), TRUE, TRUE, 0);
 	gtk_widget_show_all (GTK_WIDGET (container));
-
-	/* create encoding settings UI */
-	if (priv->encoding_settings) {
-		container = GTK_CONTAINER (gtk_builder_get_object (builder, "encoding-settings-container"));
-		gtk_container_add (container, rb_encoding_settings_new (priv->encoding_settings, priv->encoding_target, TRUE));
-		gtk_widget_show_all (GTK_WIDGET (container));
-	} else {
-		container = GTK_CONTAINER (gtk_builder_get_object (builder, "encoding-settings-frame"));
-		gtk_widget_hide (GTK_WIDGET (container));
-		gtk_widget_set_no_show_all (GTK_WIDGET (container), TRUE);
-	}
 
 	gtk_widget_show (GTK_WIDGET (priv->properties_dialog));
 
@@ -631,7 +473,7 @@ sync_playlists (RBMediaPlayerSource *source)
 	GList *all_playlists;
 	GList *l;
 
-	if (klass->add_playlist == NULL || klass->remove_playlists == NULL) {
+	if (klass->impl_add_playlist == NULL || klass->impl_remove_playlists == NULL) {
 		rb_debug ("source class doesn't support playlists");
 		return;
 	}
@@ -643,7 +485,7 @@ sync_playlists (RBMediaPlayerSource *source)
 	rb_media_player_source_get_entries (source, SYNC_CATEGORY_MUSIC, device);
 
 	/* remove all playlists from the device, then add the synced playlists. */
-	klass->remove_playlists (source);
+	klass->impl_remove_playlists (source);
 
 	/* get all local playlists */
 	g_object_get (source, "shell", &shell, NULL);
@@ -700,7 +542,7 @@ sync_playlists (RBMediaPlayerSource *source)
 
 		/* transfer the playlist to the device */
 		rb_debug ("syncing playlist %s", name);
-		klass->add_playlist (source, name, tracks);
+		klass->impl_add_playlist (source, name, tracks);
 
 		g_free (name);
 		g_list_free (tracks);
@@ -753,9 +595,8 @@ transfer_batch_cancelled_cb (RBTrackTransferBatch *batch, RBMediaPlayerSource *s
 
 
 static void
-sync_delete_done_cb (GObject *source_object, GAsyncResult *result, gpointer data)
+sync_delete_done_cb (RBMediaPlayerSource *source, gpointer dontcare)
 {
-	RBMediaPlayerSource *source = RB_MEDIA_PLAYER_SOURCE (source_object);
 	RBMediaPlayerSourcePrivate *priv = MEDIA_PLAYER_SOURCE_GET_PRIVATE (source);
 	rb_debug ("finished deleting %d files from media player", priv->sync_state->sync_remove_count);
 
@@ -766,16 +607,6 @@ sync_delete_done_cb (GObject *source_object, GAsyncResult *result, gpointer data
 		rb_debug ("transferring %d files to media player", priv->sync_state->sync_add_count);
 		batch = rb_source_paste (RB_SOURCE (source), priv->sync_state->sync_to_add);
 		if (batch != NULL) {
-			char *name;
-			char *label;
-
-			g_object_get (source, "name", &name, NULL);
-			label = g_strdup_printf (_("Syncing tracks to %s"), name);
-			g_free (name);
-
-			g_object_set (batch, "task-label", label, NULL);
-			g_free (label);
-
 			g_signal_connect_object (batch, "complete", G_CALLBACK (transfer_batch_complete_cb), source, 0);
 			g_signal_connect_object (batch, "cancelled", G_CALLBACK (transfer_batch_cancelled_cb), source, 0);
 		} else {
@@ -820,24 +651,20 @@ update_sync_settings_dialog (RBMediaPlayerSource *source)
 {
 	RBMediaPlayerSourcePrivate *priv = MEDIA_PLAYER_SOURCE_GET_PRIVATE (source);
 	gboolean can_continue;
-	gboolean show_error;
 
 	if (sync_has_items_enabled (source) == FALSE) {
 		can_continue = FALSE;
-		show_error = TRUE;
 		gtk_label_set_text (GTK_LABEL (priv->sync_dialog_label),
 				    _("You have not selected any music, playlists, or podcasts to transfer to this device."));
 	} else if (sync_has_enough_space (source) == FALSE) {
-		can_continue = TRUE;
-		show_error = TRUE;
+		can_continue = FALSE;
 		gtk_label_set_text (GTK_LABEL (priv->sync_dialog_label),
 				    _("There is not enough space on the device to transfer the selected music, playlists and podcasts."));
 	} else {
 		can_continue = TRUE;
-		show_error = FALSE;
 	}
 
-	gtk_widget_set_visible (priv->sync_dialog_error_box, show_error);
+	gtk_widget_set_visible (priv->sync_dialog_error_box, !can_continue);
 	gtk_dialog_set_response_sensitive (GTK_DIALOG (priv->sync_dialog), GTK_RESPONSE_YES, can_continue);
 }
 
@@ -878,6 +705,7 @@ display_sync_settings_dialog (RBMediaPlayerSource *source)
 	GtkWidget *content;
 	GtkWidget *widget;
 	GtkBuilder *builder;
+	const char *ui_file;
 	char *name;
 	char *title;
 
@@ -908,9 +736,16 @@ display_sync_settings_dialog (RBMediaPlayerSource *source)
 	 */
 	content = gtk_dialog_get_content_area (GTK_DIALOG (priv->sync_dialog));
 
-	builder = rb_builder_load ("sync-dialog.ui", NULL);
+	ui_file = rb_file ("sync-dialog.ui");
+	if (ui_file == NULL) {
+		g_warning ("Couldn't find sync-state.ui");
+		gtk_widget_show_all (priv->sync_dialog);
+		return;
+	}
+
+	builder = rb_builder_load (ui_file, NULL);
 	if (builder == NULL) {
-		g_warning ("Couldn't load sync-dialog.ui");
+		g_warning ("Couldn't load sync-state.ui");
 		gtk_widget_show_all (priv->sync_dialog);
 		return;
 	}
@@ -919,7 +754,7 @@ display_sync_settings_dialog (RBMediaPlayerSource *source)
 	priv->sync_dialog_error_box = GTK_WIDGET (gtk_builder_get_object (builder, "sync-dialog-message"));
 
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "sync-settings-ui-container"));
-	gtk_container_add (GTK_CONTAINER (widget), rb_sync_settings_ui_new (source, priv->sync_settings));
+	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (widget), rb_sync_settings_ui_new (source, priv->sync_settings));
 
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "sync-state-ui-container"));
 	gtk_box_pack_start (GTK_BOX (widget), rb_sync_state_ui_new (priv->sync_state), TRUE, TRUE, 0);
@@ -954,7 +789,8 @@ sync_idle_delete_entries (RBMediaPlayerSource *source)
 	rb_debug ("deleting %d files from media player", priv->sync_state->sync_remove_count);
 	rb_media_player_source_delete_entries (source,
 					       priv->sync_state->sync_to_remove,
-					       sync_delete_done_cb,
+					       (RBMediaPlayerSourceDeleteCallback) sync_delete_done_cb,
+					       NULL,
 					       NULL);
 	return FALSE;
 }
@@ -977,27 +813,6 @@ _rb_media_player_source_add_to_map (GHashTable *map, RhythmDBEntry *entry)
 	g_hash_table_insert (map,
 			     rb_sync_state_make_track_uuid (entry),
 			     rhythmdb_entry_ref (entry));
-}
-
-void
-rb_media_player_source_purge_metadata_cache (RBMediaPlayerSource *source)
-{
-	RhythmDBEntryType *entry_type;
-	GSettings *settings;
-	char *prefix;
-	gulong max_age;
-
-	settings = g_settings_new ("org.gnome.rhythmbox.rhythmdb");
-	max_age = g_settings_get_int (settings, "grace-period");
-	g_object_unref (settings);
-
-	if (max_age > 0 && max_age < 20000) {
-		g_object_get (source, "entry-type", &entry_type, NULL);
-		g_object_get (entry_type, "key-prefix", &prefix, NULL);
-		rhythmdb_entry_type_purge_metadata_cache (entry_type, prefix, max_age * 60 * 60 * 24);
-		g_object_unref (entry_type);
-		g_free (prefix);
-	}
 }
 
 static void

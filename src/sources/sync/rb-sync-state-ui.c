@@ -54,7 +54,7 @@ enum {
 	PROP_SYNC_STATE
 };
 
-G_DEFINE_TYPE (RBSyncStateUI, rb_sync_state_ui, GTK_TYPE_BOX)
+G_DEFINE_TYPE (RBSyncStateUI, rb_sync_state_ui, GTK_TYPE_VBOX)
 
 
 static char *
@@ -214,7 +214,6 @@ static void
 rb_sync_state_ui_init (RBSyncStateUI *ui)
 {
 	ui->priv = G_TYPE_INSTANCE_GET_PRIVATE (ui, RB_TYPE_SYNC_STATE_UI, RBSyncStateUIPrivate);
-	gtk_orientable_set_orientation (GTK_ORIENTABLE (ui), GTK_ORIENTATION_VERTICAL);
 }
 
 static void
@@ -225,12 +224,19 @@ build_ui (RBSyncStateUI *ui)
 	GtkWidget *container;
 	guint64 capacity;
 	GtkBuilder *builder;
+	const char *ui_file;
 
 	g_object_get (ui->priv->state, "source", &source, NULL);
 	capacity = rb_media_player_source_get_capacity (source);
 	g_object_unref (source);
 
-	builder = rb_builder_load ("sync-state.ui", NULL);
+	ui_file = rb_file ("sync-state.ui");
+	if (ui_file == NULL) {
+		g_warning ("Couldn't find sync-state.ui");
+		return;
+	}
+
+	builder = rb_builder_load (ui_file, NULL);
 	if (builder == NULL) {
 		g_warning ("Couldn't load sync-state.ui");
 		return;

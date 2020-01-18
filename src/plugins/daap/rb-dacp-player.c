@@ -59,7 +59,7 @@ static void playing_song_changed (RBShellPlayer *shell_player, RhythmDBEntry *en
 static void elapsed_changed (RBShellPlayer *shell_player, guint elapsed, RBDACPPlayer *player);
 
 static DAAPRecord *rb_dacp_player_now_playing_record  (DACPPlayer *player);
-static guchar *rb_dacp_player_now_playing_artwork (DACPPlayer *player, guint width, guint height);
+static const guchar *rb_dacp_player_now_playing_artwork (DACPPlayer *player, guint width, guint height);
 static void rb_dacp_player_play_pause          (DACPPlayer *player);
 static void rb_dacp_player_pause               (DACPPlayer *player);
 static void rb_dacp_player_next_item           (DACPPlayer *player);
@@ -151,7 +151,7 @@ rb_dacp_player_class_init (RBDACPPlayerClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBDACPPlayerClass, player_updated),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
 
 	object_class->finalize = rb_dacp_player_finalize;
@@ -305,7 +305,7 @@ rb_dacp_player_now_playing_record (DACPPlayer *player)
 	}
 }
 
-static guchar *
+static const guchar *
 rb_dacp_player_now_playing_artwork (DACPPlayer *player, guint width, guint height)
 {
 	return NULL;
@@ -314,7 +314,7 @@ rb_dacp_player_now_playing_artwork (DACPPlayer *player, guint width, guint heigh
 static void
 rb_dacp_player_play_pause (DACPPlayer *player)
 {
-	rb_shell_player_playpause (RB_DACP_PLAYER (player)->priv->shell_player, NULL);
+	rb_shell_player_playpause (RB_DACP_PLAYER (player)->priv->shell_player, FALSE, NULL);
 }
 
 static void

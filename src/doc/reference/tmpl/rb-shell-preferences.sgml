@@ -1,0 +1,84 @@
+<!-- ##### SECTION Title ##### -->
+RBShellPreferences
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### ENUM RBShellPrefsUILocation ##### -->
+<para>
+
+</para>
+
+@RB_SHELL_PREFS_UI_LOCATION_GENERAL: 
+@RB_SHELL_PREFS_UI_LOCATION_PLAYBACK: 
+
+<!-- ##### STRUCT RBShellPreferences ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT RBShellPreferencesClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+
+<!-- ##### FUNCTION rb_shell_preferences_new ##### -->
+<para>
+
+</para>
+
+@views: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_shell_preferences_append_page ##### -->
+<para>
+
+</para>
+
+@prefs: 
+@name: 
+@widget: 
+
+
+<!-- ##### FUNCTION rb_shell_preferences_add_widget ##### -->
+<para>
+
+</para>
+
+@prefs: 
+@widget: 
+@location: 
+@expand: 
+@fill: 
+
+
+<!-- ##### FUNCTION rb_shell_preferences_remove_widget ##### -->
+<para>
+
+</para>
+
+@prefs: 
+@widget: 
+@location: 
+
+

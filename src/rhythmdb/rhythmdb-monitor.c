@@ -145,12 +145,12 @@ actually_add_monitor (RhythmDB *db, GFile *directory, GError **error)
 }
 
 static gboolean
-monitor_subdirectory (GFile *file, GFileInfo *info, RhythmDB *db)
+monitor_subdirectory (GFile *file, gboolean dir, RhythmDB *db)
 {
 	char *uri;
 
 	uri = g_file_get_uri (file);
-	if (g_file_info_get_attribute_uint32 (info, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY) {
+	if (dir) {
 		actually_add_monitor (db, file, NULL);
 	} else {
 		/* add the file to the database if it's not already there */

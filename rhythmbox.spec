@@ -1,52 +1,60 @@
-%global gtk3_version 3.16.0
-%global libdmapsharing_version 2.9.19
-%global libsecret_version 0.18
+%define desktop_file_utils_version 0.9
+%define gtk3_version 3.6.0
+%define libdmapsharing_version 2.9.16
 
 Name: rhythmbox
 Summary: Music Management Application
-Version: 3.4.2
-Release: 2%{?dist}
+Version: 2.99.1
+Release: 3%{?dist}
 License: GPLv2+ with exceptions and GFDL
-URL: https://wiki.gnome.org/Apps/Rhythmbox
+Group: Applications/Multimedia
+URL: http://projects.gnome.org/rhythmbox/
 #VCS: git://git.gnome.org/rhythmbox
-Source: https://download.gnome.org/sources/rhythmbox/3.4/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/rhythmbox/2.99/%{name}-%{version}.tar.xz
 
-BuildRequires: pkgconfig(gobject-introspection-1.0) >= 0.10.0
-BuildRequires: pkgconfig(grilo-0.3) >= 0.3.0
-BuildRequires: pkgconfig(gstreamer-1.0)
-BuildRequires: pkgconfig(gstreamer-pbutils-1.0)
-BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
-BuildRequires: pkgconfig(gudev-1.0)
-BuildRequires: pkgconfig(json-glib-1.0)
-BuildRequires: pkgconfig(libbrasero-media3)
-BuildRequires: pkgconfig(libdmapsharing-3.0) >= %{libdmapsharing_version}
-BuildRequires: pkgconfig(libgpod-1.0)
-BuildRequires: pkgconfig(libmtp)
-BuildRequires: pkgconfig(libnotify)
-BuildRequires: pkgconfig(libpeas-gtk-1.0)
-BuildRequires: pkgconfig(libsecret-1) >= %{libsecret_version}
-BuildRequires: pkgconfig(libsoup-2.4) >= 2.34.0
-BuildRequires: pkgconfig(libxml-2.0)
-BuildRequires: pkgconfig(tdb)
-BuildRequires: pkgconfig(totem-plparser) >= 3.2.0
+# https://bugzilla.redhat.com/show_bug.cgi?id=1074974
+# https://bugzilla.gnome.org/show_bug.cgi?id=706470
+Patch0: 0001-metadata-GDBusServer-new-connection-signal-needs-a-r.patch
+
+Requires: gnome-icon-theme-legacy
+Requires: gtk3%{?_isa} >= %{gtk3_version}
+Requires: libdmapsharing%{?_isa} >= %{libdmapsharing_version}
+Requires: media-player-info
+Requires(post): desktop-file-utils >= %{desktop_file_utils_version}
+Requires(postun): desktop-file-utils >= %{desktop_file_utils_version}
+Requires: gvfs-afc gnome-icon-theme-extras
+Requires: pygobject3 python-mako
+
+BuildRequires: brasero-devel
+BuildRequires: clutter-gst2-devel
+BuildRequires: clutter-gtk-devel
 BuildRequires: gettext
+BuildRequires: gobject-introspection-devel >= 0.10.0
+BuildRequires: grilo-devel >= 0.2
+BuildRequires: gstreamer1-devel
+BuildRequires: gstreamer1-plugins-base-devel
+BuildRequires: gtk3-devel >= %{gtk3_version}
 BuildRequires: intltool
 BuildRequires: itstool
+BuildRequires: json-glib-devel
 BuildRequires: kernel-headers
-BuildRequires: libappstream-glib
-BuildRequires: yelp-tools
-BuildRequires: git
+BuildRequires: libdmapsharing-devel >= %{libdmapsharing_version}
+BuildRequires: libgpod-devel
+BuildRequires: libgudev1-devel
+BuildRequires: libmtp-devel
+BuildRequires: libmx-devel
+BuildRequires: libnotify-devel
+BuildRequires: libpeas-devel
+BuildRequires: libsecret-devel
+BuildRequires: libSM-devel
+BuildRequires: libsoup-devel >= 2.26.0
+BuildRequires: libtdb-devel
+BuildRequires: pygobject3-devel
+BuildRequires: python2-devel
+BuildRequires: totem-pl-parser-devel >= 3.2.0
+BuildRequires: webkitgtk3-devel
 
 ExcludeArch:    s390 s390x
-
-Requires: gtk3%{?_isa} >= %{gtk3_version}
-Requires: gvfs-afc
-Requires: libdmapsharing%{?_isa} >= %{libdmapsharing_version}
-Requires: libsecret%{?_isa} >= %{libsecret_version}
-Requires: media-player-info
-
-BuildRequires: autoconf automake libtool intltool gtk-doc
-Patch0: rb-3.4.2-bug-fixes.patch
 
 Obsoletes: rhythmbox-upnp < %{version}-%{release}
 Provides: rhythmbox-upnp = %{version}-%{release}
@@ -61,15 +69,16 @@ Rhythmbox is extensible through a plugin system.
 
 %package devel
 Summary: Development files for Rhythmbox plugins
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
 
 %description devel
 This package contains the development files necessary to create
 a Rhythmbox plugin.
 
 %prep
-%autosetup -S git -p1
-AUTOPOINT='intltoolize --automake --copy' autoreconf --force --install --verbose
+%setup -q
+%patch0 -p1
 
 %build
 %configure \
@@ -96,23 +105,6 @@ rm -f %{buildroot}%{_libdir}/rhythmbox/plugins/libsample-vala.so \
 # Don't include header files for plugins
 rm -rf %{buildroot}%{_libdir}/rhythmbox/plugins/*/*.h
 
-# Rhythmbox plugins are Python 3, but python-zeitgeist is Python 2.
-# https://bugzilla.redhat.com/show_bug.cgi?id=1062912
-rm -rf %{buildroot}%{_libdir}/rhythmbox/plugins/rbzeitgeist
-
-# Context plugin is disabled, so do not install the files.
-rm -rf %{buildroot}%{_libdir}/rhythmbox/plugins/context
-
-# Update the screenshot shown in the software center
-#
-# NOTE: It would be *awesome* if this file was pushed upstream.
-#
-# See http://people.freedesktop.org/~hughsient/appdata/#screenshots for more details.
-#
-appstream-util replace-screenshots $RPM_BUILD_ROOT%{_datadir}/appdata/rhythmbox.appdata.xml \
-  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/rhythmbox/a.png \
-  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/rhythmbox/b.png 
-
 %post
 /sbin/ldconfig
 update-desktop-database >&/dev/null || :
@@ -132,41 +124,51 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas >&/dev/null || :
 
 
 %files -f %{name}.lang
-%license COPYING
-%doc AUTHORS README NEWS
+%doc AUTHORS COPYING README NEWS
 %{_bindir}/*
 %{_datadir}/rhythmbox/
-%{_datadir}/appdata/rhythmbox.appdata.xml
 %{_datadir}/applications/rhythmbox.desktop
 %{_datadir}/applications/rhythmbox-device.desktop
 %{_datadir}/dbus-1/services/org.gnome.Rhythmbox3.service
 %{_datadir}/glib-2.0/schemas/org.gnome.rhythmbox.gschema.xml
+%{_datadir}/icons/hicolor/*/places/*.png
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/icons/hicolor/*/apps/*.svg
+%{_datadir}/icons/hicolor/*/status/*.png
 %{_libdir}/librhythmbox-core.so*
 %{_libdir}/mozilla/plugins/*.so
 %dir %{_libdir}/rhythmbox
 %dir %{_libdir}/rhythmbox/plugins
 %{_libdir}/girepository-1.0/*.typelib
-%{_libdir}/rhythmbox/plugins/android/
+%{_libdir}/rhythmbox/plugins/artsearch/
 %{_libdir}/rhythmbox/plugins/audiocd/
 %{_libdir}/rhythmbox/plugins/audioscrobbler/
 %{_libdir}/rhythmbox/plugins/cd-recorder/
+%{_libdir}/rhythmbox/plugins/context/
 %{_libdir}/rhythmbox/plugins/daap/
 %{_libdir}/rhythmbox/plugins/dbus-media-server/
 %{_libdir}/rhythmbox/plugins/fmradio/
 %{_libdir}/rhythmbox/plugins/generic-player/
 %{_libdir}/rhythmbox/plugins/grilo/
+%{_libdir}/rhythmbox/plugins/im-status/
 %{_libdir}/rhythmbox/plugins/ipod/
 %{_libdir}/rhythmbox/plugins/iradio/
+%{_libdir}/rhythmbox/plugins/lyrics/
+%{_libdir}/rhythmbox/plugins/magnatune/
 %{_libdir}/rhythmbox/plugins/mmkeys/
 %{_libdir}/rhythmbox/plugins/mpris/
 %{_libdir}/rhythmbox/plugins/mtpdevice/
 %{_libdir}/rhythmbox/plugins/notification/
 %{_libdir}/rhythmbox/plugins/power-manager/
+%{_libdir}/rhythmbox/plugins/python-console/
+%{_libdir}/rhythmbox/plugins/rb/
+%{_libdir}/rhythmbox/plugins/rbzeitgeist/
+%{_libdir}/rhythmbox/plugins/replaygain/
+%{_libdir}/rhythmbox/plugins/sendto/
+%{_libdir}/rhythmbox/plugins/visualizer/
 %{_libdir}/rhythmbox/sample-plugins/
 %{_libexecdir}/rhythmbox-metadata
-%{_mandir}/man1/rhythmbox*.1*
+%{_mandir}/man1/rhythmbox*.1.gz
 
 %files devel
 %{_includedir}/rhythmbox
@@ -174,44 +176,6 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas >&/dev/null || :
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
-* Wed Jun 13 2018 Bastien Nocera <bnocera@redhat.com> - 3.4.2-2
-+ rhythmbox-3.4.2-2
-- Fix a number of bugs
-- Resolves: #1570024
-
-* Mon Oct 09 2017 Kalev Lember <klember@redhat.com> - 3.4.2-1
-- Update to 3.4.2
-- Resolves: #1570024
-
-* Wed Mar 01 2017 Bastien Nocera <bnocera@redhat.com> - 3.4.1-1
-+ rhythmbox-3.4.1-1
-- Rebase to 3.4.1
-Resolves: #1387041, #1259708
-
-* Thu Jun 30 2016 Bastien Nocera <bnocera@redhat.com> - 3.3.1-5
-- Update translations
-Resolves: #1273062
-
-* Thu Jun 09 2016 Bastien Nocera <bnocera@redhat.com> - 3.3.1-4
-- Fix warnings when configuring DAAP music sharing
-Resolves: #1259708
-
-* Mon May 23 2016 Bastien Nocera <bnocera@redhat.com> - 3.3.1-3
-- Fix party mode menu item not reflecting current state
-Resolves: #1036203
-
-* Mon May 23 2016 Bastien Nocera <bnocera@redhat.com> - 3.3.1-2
-- Fix download URL
-Related: #1298233
-
-* Tue Apr 12 2016 Bastien Nocera <hadess@hadess.net> - 3.3.1-1
-- Update to 3.3.1
-Resolves: #1298233
-
-* Wed May 20 2015 Matthias Clasen <mclasen@redhat.com> - 2.99.1-4
-- Rebuild against new totem-pl-parser
-Resolves: #1221595 
-
 * Thu Mar 13 2014 Bastien Nocera <bnocera@redhat.com> 2.99.1-3
 - Fix import failing for all file types
 Resolves: #1074974

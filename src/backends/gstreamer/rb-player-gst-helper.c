@@ -46,15 +46,6 @@ typedef struct {
 	gboolean linking;
 } RBGstPipelineOp;
 
-/**
- * rb_player_gst_try_audio_sink:
- * @plugin_name: audio sink plugin name
- * @name: name to give to the element
- *
- * Creates and tests an instance of the specified audio sink.
- *
- * Return value: (transfer full): element instance, or NULL
- */
 GstElement *
 rb_player_gst_try_audio_sink (const char *plugin_name, const char *name)
 {
@@ -124,15 +115,6 @@ find_property_element (const GValue * value, const char *property)
 	return res;
 }
 
-/**
- * rb_player_gst_find_element_with_property:
- * @element: element to search
- * @property: name of property to search for
- *
- * Finds an element inside @element that has a property with the specified name.
- *
- * Return value: (transfer full): element instance, or NULL if not found
- */
 GstElement *
 rb_player_gst_find_element_with_property (GstElement *element, const char *property)
 {
@@ -419,7 +401,7 @@ pipeline_op (GObject *player,
  * Creates an initial bin to use for dynamically plugging filter elements into the
  * pipeline.
  *
- * Return value: (transfer full): filter bin
+ * Return value: filter bin
  */
 GstElement *
 rb_gst_create_filter_bin ()

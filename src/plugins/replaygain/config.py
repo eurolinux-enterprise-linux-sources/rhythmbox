@@ -45,13 +45,17 @@ class ReplayGainConfig(GObject.Object, PeasGtk.Configurable):
 	object = GObject.property(type=GObject.Object)
 
 	def do_create_configure_widget(self):
-		self.settings = Gio.Settings.new("org.gnome.rhythmbox.plugins.replaygain")
+		self.settings = Gio.Settings("org.gnome.rhythmbox.plugins.replaygain")
 
 		ui_file = rb.find_plugin_file(self, "replaygain-prefs.ui")
 		self.builder = Gtk.Builder()
 		self.builder.add_from_file(ui_file)
 
 		content = self.builder.get_object("replaygain-prefs")
+
+		label = self.builder.get_object("headerlabel")
+		label.set_markup("<b>%s</b>" % label.get_text())
+		label.set_use_markup(True)
 
 		combo = self.builder.get_object("replaygainmode")
 		combo.props.id_column = 1
@@ -75,7 +79,7 @@ class ReplayGainConfig(GObject.Object, PeasGtk.Configurable):
 
 	def sync_preamp(self, settings, preamp):
 		v = preamp.get_value()
-		print("preamp gain changed to %f" % v)
+		print "preamp gain changed to %f" % v
 		settings['preamp'] = v
 
 GObject.type_register(ReplayGainConfig)

@@ -1,0 +1,102 @@
+<!-- ##### SECTION Title ##### -->
+RBSegmentedBar
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT RBSegmentedBar ##### -->
+<para>
+
+</para>
+
+@parent: 
+@priv: 
+
+<!-- ##### STRUCT RBSegmentedBarClass ##### -->
+<para>
+
+</para>
+
+@parent: 
+
+<!-- ##### USER_FUNCTION RBSegmentedBarValueFormatter ##### -->
+<para>
+
+</para>
+
+@percent: 
+@data: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_segmented_bar_new ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_segmented_bar_add_segment ##### -->
+<para>
+
+</para>
+
+@bar: 
+@title: 
+@percent: 
+@red: 
+@green: 
+@blue: 
+@alpha: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_segmented_bar_add_segment_default_color ##### -->
+<para>
+
+</para>
+
+@bar: 
+@title: 
+@percent: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_segmented_bar_update_segment ##### -->
+<para>
+
+</para>
+
+@bar: 
+@segment_index: 
+@percent: 
+
+
+<!-- ##### FUNCTION rb_segmented_bar_set_value_formatter ##### -->
+<para>
+
+</para>
+
+@bar: 
+@formatter: 
+@data: 
+
+

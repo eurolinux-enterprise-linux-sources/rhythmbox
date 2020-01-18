@@ -34,9 +34,7 @@ if rbconfig.libsecret_enabled:
 	# Till libsecret completely replaces gnome-keyring, we'll fall back to not
 	# saving the password if libsecret can't be found. This code can be removed later.
 	try:
-		import gi
-		gi.require_version('Secret', '1')
-		from gi.repository import Secret
+		from gi.repository import Secret, SecretUnstable
 		# We need to be able to fetch passwords stored by libgnome-keyring, so we use
 		# a schema with SECRET_SCHEMA_DONT_MATCH_NAME set.
 		# See: http://developer.gnome.org/libsecret/unstable/migrating-schemas.html
@@ -60,17 +58,17 @@ def instance():
 
 class MagnatuneAccount(object):
 	def __init__(self):
-		self.settings = Gio.Settings.new("org.gnome.rhythmbox.plugins.magnatune")
+		self.settings = Gio.Settings("org.gnome.rhythmbox.plugins.magnatune")
 		self.secret = None
 		self.keyring_attributes = {"rhythmbox-plugin": "magnatune"}
 		if Secret is None:
 			print ("Account details will not be saved because libsecret was not found")
 			return
-		# Haha.
-		self.secret_service = Secret.Service.get_sync(Secret.ServiceFlags.OPEN_SESSION, None)
+                # Haha.
+                self.secret_service = SecretUnstable.Service.get_sync(SecretUnstable.ServiceFlags.OPEN_SESSION, None)
 		items = self.secret_service.search_sync(MAGNATUNE_SCHEMA,
 							self.keyring_attributes,
-							Secret.SearchFlags.LOAD_SECRETS,
+							SecretUnstable.SearchFlags.LOAD_SECRETS,
 							None)
 		if not items:
 			# The Python API doesn't seem to have a way to differentiate between errors and no results.
@@ -84,7 +82,7 @@ class MagnatuneAccount(object):
 
 		account_type = self.settings['account-type']
 		try:
-			(username, password) = self.secret.decode("utf-8").split("\n")
+			(username, password) = self.secret.split("\n")
 			return (account_type, username, password)
 		except ValueError:
 			return ('none', None, None)

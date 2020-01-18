@@ -3,7 +3,7 @@ noinst_LTLIBRARIES = librhythmdb.la
 librhythmdb_la_LDFLAGS = -export-dynamic
 librhythmdb_la_LIBADD = -lm
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"RhythmDB\"			\
 	-I$(top_srcdir) 				\
@@ -25,8 +25,7 @@ rhythmdbinclude_HEADERS =				\
 	rhythmdb-query-results.h			\
 	rhythmdb-import-job.h				\
 	rhythmdb-entry.h				\
-	rhythmdb-entry-type.h				\
-	rhythmdb-metadata-cache.h
+	rhythmdb-entry-type.h
 
 librhythmdb_la_SOURCES =				\
 	$(rhythmdbinclude_HEADERS)			\
@@ -42,8 +41,7 @@ librhythmdb_la_SOURCES =				\
 	rhythmdb-import-job.c				\
 	rhythmdb-entry-type.c				\
 	rhythmdb-song-entry-types.c			\
-	rhythmdb-dbus.c					\
-	rhythmdb-metadata-cache.c
+	rhythmdb-dbus.c
 
 
 if USE_TREEDB

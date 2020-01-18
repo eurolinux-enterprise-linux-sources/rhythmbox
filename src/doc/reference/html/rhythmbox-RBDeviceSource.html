@@ -2,26 +2,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RBDeviceSource: Rhythmbox Development Reference Manual</title>
-<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<title>RBDeviceSource</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch06.html" title="Sources">
 <link rel="prev" href="RBStreamingSource.html" title="RBStreamingSource">
 <link rel="next" href="rhythmbox-RBTransferTarget.html" title="RBTransferTarget">
-<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
-<td width="100%" align="left" class="shortcuts">
-<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
-                  <a href="#rhythmbox-RBDeviceSource.description" class="shortcut">Description</a></span>
-</td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
-<td><a accesskey="u" href="ch06.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
-<td><a accesskey="p" href="RBStreamingSource.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
-<td><a accesskey="n" href="rhythmbox-RBTransferTarget.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
-</tr></table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBStreamingSource.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="rhythmbox-RBTransferTarget.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#rhythmbox-RBDeviceSource.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#rhythmbox-RBDeviceSource.description" class="shortcut">Description</a>
+</td></tr>
+</table>
 <div class="refentry">
 <a name="rhythmbox-RBDeviceSource"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -29,223 +33,38 @@
 <h2><span class="refentrytitle"><a name="rhythmbox-RBDeviceSource.top_of_page"></a>RBDeviceSource</span></h2>
 <p>RBDeviceSource — interface for sources based on physical devices</p>
 </td>
-<td class="gallery_image" valign="top" align="right"></td>
+<td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsect1">
-<a name="rhythmbox-RBDeviceSource.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="functions_return">
-<col class="functions_name">
-</colgroup>
-<tbody>
-<tr>
-<td class="function_type">
-<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
-</td>
-<td class="function_name">
-<a class="link" href="rhythmbox-RBDeviceSource.html#rb-device-source-can-eject" title="rb_device_source_can_eject ()">rb_device_source_can_eject</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<span class="returnvalue">void</span>
-</td>
-<td class="function_name">
-<a class="link" href="rhythmbox-RBDeviceSource.html#rb-device-source-eject" title="rb_device_source_eject ()">rb_device_source_eject</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
-</td>
-<td class="function_name">
-<a class="link" href="rhythmbox-RBDeviceSource.html#rb-device-source-want-uri" title="rb_device_source_want_uri ()">rb_device_source_want_uri</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
-</td>
-<td class="function_name">
-<a class="link" href="rhythmbox-RBDeviceSource.html#rb-device-source-uri-is-source" title="rb_device_source_uri_is_source ()">rb_device_source_uri_is_source</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<span class="returnvalue">void</span>
-</td>
-<td class="function_name">
-<a class="link" href="rhythmbox-RBDeviceSource.html#rb-device-source-set-display-details" title="rb_device_source_set_display_details ()">rb_device_source_set_display_details</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="refsect1">
-<a name="rhythmbox-RBDeviceSource.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="name">
-<col class="description">
-</colgroup>
-<tbody><tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="rhythmbox-RBDeviceSource.html#RBDeviceSourceInterface" title="struct RBDeviceSourceInterface">RBDeviceSourceInterface</a></td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect1">
-<a name="rhythmbox-RBDeviceSource.includes"></a><h2>Includes</h2>
-<pre class="synopsis">#include &lt;rb-device-source.h&gt;
+<div class="refsynopsisdiv">
+<a name="rhythmbox-RBDeviceSource.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;rb-device-source.h&gt;
+
+struct              <a class="link" href="rhythmbox-RBDeviceSource.html#RBDeviceSourceInterface" title="struct RBDeviceSourceInterface">RBDeviceSourceInterface</a>;
+<span class="returnvalue">gboolean</span>            <a class="link" href="rhythmbox-RBDeviceSource.html#rb-device-source-can-eject" title="rb_device_source_can_eject ()">rb_device_source_can_eject</a>          (<em class="parameter"><code><span class="type">RBDeviceSource</span> *source</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-RBDeviceSource.html#rb-device-source-eject" title="rb_device_source_eject ()">rb_device_source_eject</a>              (<em class="parameter"><code><span class="type">RBDeviceSource</span> *source</code></em>);
+<span class="returnvalue">guint</span>               <a class="link" href="rhythmbox-RBDeviceSource.html#rb-device-source-want-uri" title="rb_device_source_want_uri ()">rb_device_source_want_uri</a>           (<em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="rhythmbox-RBDeviceSource.html#rb-device-source-uri-is-source" title="rb_device_source_uri_is_source ()">rb_device_source_uri_is_source</a>      (<em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-RBDeviceSource.html#rb-device-source-set-display-details" title="rb_device_source_set_display_details ()">rb_device_source_set_display_details</a>
+                                                        (<em class="parameter"><code><span class="type">RBDeviceSource</span> *source</code></em>);
 </pre>
 </div>
 <div class="refsect1">
 <a name="rhythmbox-RBDeviceSource.description"></a><h2>Description</h2>
-<p>Sources that represent physical devices should implement this interface.
-It exposes the ability to eject the device, and also can be used to
-implement some <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> methods by using details from a <a href="/usr/share/gtk-doc/html/gioGVolume.html#GVolume-struct"><span class="type">GVolume</span></a> or
-<a href="/usr/share/gtk-doc/html/gioGMount.html#GMount-struct"><span class="type">GMount</span></a> accessed via 'volume' and 'mount' properties on the source object.
-Devices that are not based on a <a href="/usr/share/gtk-doc/html/gioGVolume.html#GVolume-struct"><span class="type">GVolume</span></a> or <a href="/usr/share/gtk-doc/html/gioGMount.html#GMount-struct"><span class="type">GMount</span></a> can still use the
-interface, but they must provide implementations of the <em class="parameter"><code>can_eject</code></em>
- and
-<em class="parameter"><code>eject</code></em>
- methods.</p>
-</div>
-<div class="refsect1">
-<a name="rhythmbox-RBDeviceSource.functions_details"></a><h2>Functions</h2>
-<div class="refsect2">
-<a name="rb-device-source-can-eject"></a><h3>rb_device_source_can_eject ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
-rb_device_source_can_eject (<em class="parameter"><code><span class="type">RBDeviceSource</span> *source</code></em>);</pre>
 <p>
+Sources that represent physical devices should implement this interface.
+It exposes the ability to eject the device, and also can be used to
+implement some <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> methods by using details from a <span class="type">GVolume</span> or
+<span class="type">GMount</span> accessed via 'volume' and 'mount' properties on the source object.
+Devices that are not based on a <span class="type">GVolume</span> or <span class="type">GMount</span> can still use the
+interface, but they must provide implementations of the <em class="parameter"><code>can_eject</code></em> and
+<em class="parameter"><code>eject</code></em> methods.
 </p>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-device-source-eject"></a><h3>rb_device_source_eject ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-rb_device_source_eject (<em class="parameter"><code><span class="type">RBDeviceSource</span> *source</code></em>);</pre>
-<p>Ejects the device that the source represents.</p>
-<div class="refsect3">
-<a name="rb-device-source-eject.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>source</p></td>
-<td class="parameter_description"><p>a <span class="type">RBDeviceSource</span></p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-device-source-want-uri"></a><h3>rb_device_source_want_uri ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
-rb_device_source_want_uri (<em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>,
-                           <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);</pre>
-<p>Checks whether <em class="parameter"><code>uri</code></em>
- identifies a path underneath the
-device's mount point.  Should be used to implement
-the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> want_uri method.</p>
-<div class="refsect3">
-<a name="rb-device-source-want-uri.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody>
-<tr>
-<td class="parameter_name"><p>source</p></td>
-<td class="parameter_description"><p>a <span class="type">RBDeviceSource</span></p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-<tr>
-<td class="parameter_name"><p>uri</p></td>
-<td class="parameter_description"><p>a URI to consider</p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-device-source-want-uri.returns"></a><h4>Returns</h4>
-<p> URI match strength</p>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-device-source-uri-is-source"></a><h3>rb_device_source_uri_is_source ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
-rb_device_source_uri_is_source (<em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>,
-                                <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);</pre>
-<p>Returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>uri</code></em>
- matches <em class="parameter"><code>source</code></em>
-.  This should be
-used to implement the uri_is_source <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> method.</p>
-<div class="refsect3">
-<a name="rb-device-source-uri-is-source.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody>
-<tr>
-<td class="parameter_name"><p>source</p></td>
-<td class="parameter_description"><p>a <span class="type">RBDeviceSource</span></p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-<tr>
-<td class="parameter_name"><p>uri</p></td>
-<td class="parameter_description"><p>a URI to check</p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-device-source-uri-is-source.returns"></a><h4>Returns</h4>
-<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>uri</code></em>
-matches <em class="parameter"><code>source</code></em>
-</p>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-device-source-set-display-details"></a><h3>rb_device_source_set_display_details ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-rb_device_source_set_display_details (<em class="parameter"><code><span class="type">RBDeviceSource</span> *source</code></em>);</pre>
-<p>Sets the icon and display name for a device-based source.
-The details come from the mount and/or volume.  This should
-be called in the source's constructed method.</p>
-<div class="refsect3">
-<a name="rb-device-source-set-display-details.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>source</p></td>
-<td class="parameter_description"><p>a <span class="type">RBDeviceSource</span></p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-</div>
 </div>
 <div class="refsect1">
-<a name="rhythmbox-RBDeviceSource.other_details"></a><h2>Types and Values</h2>
+<a name="rhythmbox-RBDeviceSource.details"></a><h2>Details</h2>
 <div class="refsect2">
 <a name="RBDeviceSourceInterface"></a><h3>struct RBDeviceSourceInterface</h3>
 <pre class="programlisting">struct RBDeviceSourceInterface {
@@ -258,9 +77,123 @@ be called in the source's constructed method.</p>
 <p>
 </p>
 </div>
+<hr>
+<div class="refsect2">
+<a name="rb-device-source-can-eject"></a><h3>rb_device_source_can_eject ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_device_source_can_eject          (<em class="parameter"><code><span class="type">RBDeviceSource</span> *source</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-device-source-eject"></a><h3>rb_device_source_eject ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_device_source_eject              (<em class="parameter"><code><span class="type">RBDeviceSource</span> *source</code></em>);</pre>
+<p>
+Ejects the device that the source represents.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>a <span class="type">RBDeviceSource</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-device-source-want-uri"></a><h3>rb_device_source_want_uri ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>               rb_device_source_want_uri           (<em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);</pre>
+<p>
+Checks whether <em class="parameter"><code>uri</code></em> identifies a path underneath the
+device's mount point.  Should be used to implement
+the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> impl_want_uri method.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>a <span class="type">RBDeviceSource</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td>a URI to consider</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>URI match strength</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-device-source-uri-is-source"></a><h3>rb_device_source_uri_is_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_device_source_uri_is_source      (<em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);</pre>
+<p>
+Returns <code class="literal">TRUE</code> if <em class="parameter"><code>uri</code></em> matches <em class="parameter"><code>source</code></em>.  This should be
+used to implement the impl_uri_is_source <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> method.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>a <span class="type">RBDeviceSource</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td>a URI to check</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if <em class="parameter"><code>uri</code></em> matches <em class="parameter"><code>source</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-device-source-set-display-details"></a><h3>rb_device_source_set_display_details ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_device_source_set_display_details
+                                                        (<em class="parameter"><code><span class="type">RBDeviceSource</span> *source</code></em>);</pre>
+<p>
+Sets the icon and display name for a device-based source.
+The details come from the mount and/or volume.  This should
+be called in the source's constructed method.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>a <span class="type">RBDeviceSource</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.25</div>
+<hr>
+          Generated by GTK-Doc V1.18.1</div>
 </body>
 </html>

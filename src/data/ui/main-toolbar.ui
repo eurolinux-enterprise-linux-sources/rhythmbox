@@ -1,124 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="3.6"/>
-  <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixel_size">24</property>
-    <property name="icon_name">media-playlist-shuffle-symbolic</property>
-  </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixel_size">24</property>
-    <property name="icon_name">media-playlist-repeat-symbolic</property>
-  </object>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="margin_start">8</property>
-    <property name="margin_end">8</property>
-    <property name="margin_top">9</property>
-    <property name="margin_bottom">9</property>
-    <property name="pixel_size">24</property>
-    <property name="icon_name">media-skip-forward-symbolic</property>
-    <property name="icon_size">6</property>
-  </object>
-  <object class="GtkImage" id="image4">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="margin_start">12</property>
-    <property name="margin_end">12</property>
-    <property name="margin_top">9</property>
-    <property name="margin_bottom">9</property>
-    <property name="pixel_size">24</property>
-    <property name="icon_name">media-playback-start-symbolic</property>
-    <property name="icon_size">6</property>
-  </object>
-  <object class="GtkImage" id="image5">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="margin_start">8</property>
-    <property name="margin_end">8</property>
-    <property name="margin_top">9</property>
-    <property name="margin_bottom">9</property>
-    <property name="pixel_size">24</property>
-    <property name="icon_name">media-skip-backward-symbolic</property>
-  </object>
+  <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkToolbar" id="main-toolbar">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="toolbar_style">icons</property>
     <property name="icon_size">6</property>
     <child>
-      <object class="GtkToolItem" id="playback">
+      <object class="GtkToolButton" id="previous-button">
+        <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_end">6</property>
-        <child>
-          <object class="GtkBox" id="box3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_top">6</property>
-            <property name="margin_bottom">6</property>
-            <child>
-              <object class="GtkButton" id="previous-button">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="action_name">app.play-previous</property>
-                <property name="image">image5</property>
-                <property name="always_show_image">True</property>
-                <style>
-                  <class name="raised"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="play-button">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="action_name">app.play</property>
-                <property name="image">image4</property>
-                <style>
-                  <class name="raised"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="next-button">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="action_name">app.play-next</property>
-                <property name="image">image3</property>
-                <style>
-                  <class name="raised"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <style>
-              <class name="linked"/>
-            </style>
-          </object>
-        </child>
+        <property name="tooltip_text" translatable="yes">Start playing the previous song</property>
+        <property name="use_action_appearance">False</property>
+        <property name="action_name">app.play-previous</property>
+        <property name="label" translatable="yes">Previous</property>
+        <property name="icon_name">media-skip-backward</property>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -126,55 +23,75 @@
       </packing>
     </child>
     <child>
-      <object class="GtkToolItem" id="playorder">
+      <object class="GtkToolButton" id="play-button">
+        <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_start">6</property>
-        <property name="margin_top">12</property>
-        <property name="margin_bottom">12</property>
-        <child>
-          <object class="GtkBox" id="box4">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkToggleButton" id="repeat-button">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="action_name">app.play-repeat</property>
-                <property name="image">image2</property>
-                <style>
-                  <class name="raised"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleButton" id="shuffle-button">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="action_name">app.play-shuffle</property>
-                <property name="image">image1</property>
-                <style>
-                  <class name="raised"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <style>
-              <class name="linked"/>
-            </style>
-          </object>
-        </child>
+        <property name="tooltip_text" translatable="yes">Pause playback</property>
+        <property name="use_action_appearance">False</property>
+        <property name="action_name">app.play</property>
+        <property name="label" translatable="yes">Play</property>
+        <property name="icon_name">media-playback-start</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="homogeneous">True</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkToolButton" id="next-button">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Start playing the next song</property>
+        <property name="use_action_appearance">False</property>
+        <property name="action_name">app.play-next</property>
+        <property name="label" translatable="yes">Next</property>
+        <property name="icon_name">media-skip-forward</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="homogeneous">True</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSeparatorToolItem" id="separator1">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="use_action_appearance">False</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="homogeneous">True</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkToggleToolButton" id="repeat-button">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Play first song again after all songs are played</property>
+        <property name="use_action_appearance">False</property>
+        <property name="action_name">app.play-repeat</property>
+        <property name="label" translatable="yes">Repeat</property>
+        <property name="icon_name">media-playlist-repeat</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="homogeneous">True</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkToggleToolButton" id="shuffle-button">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Play songs in a random order</property>
+        <property name="use_action_appearance">False</property>
+        <property name="action_name">app.play-shuffle</property>
+        <property name="label" translatable="yes">Shuffle</property>
+        <property name="icon_name">media-playlist-shuffle</property>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -183,8 +100,10 @@
     </child>
     <child>
       <object class="GtkSeparatorToolItem" id="separator2">
+        <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="use_action_appearance">False</property>
       </object>
       <packing>
         <property name="expand">False</property>

@@ -190,14 +190,14 @@ rb_audiocd_source_class_init (RBAudioCdSourceClass *klass)
 
 	page_class->delete_thyself = impl_delete_thyself;
 
-	source_class->can_paste = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_cut = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_copy = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_can_paste = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_cut = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_copy = (RBSourceFeatureFunc) rb_true_function;
 
-	source_class->get_entry_view = impl_get_entry_view;
-	source_class->uri_is_source = impl_uri_is_source;
-	source_class->try_playlist = (RBSourceFeatureFunc) rb_true_function;	/* shouldn't need this. */
-	source_class->want_uri = impl_want_uri;
+	source_class->impl_get_entry_view = impl_get_entry_view;
+	source_class->impl_uri_is_source = impl_uri_is_source;
+	source_class->impl_try_playlist = (RBSourceFeatureFunc) rb_true_function;	/* shouldn't need this. */
+	source_class->impl_want_uri = impl_want_uri;
 
 	g_object_class_install_property (object_class,
 					 PROP_VOLUME,
@@ -415,7 +415,7 @@ rb_audiocd_source_constructed (GObject *object)
 	gtk_widget_set_margin_top (GTK_WIDGET (grid), 6);
 	g_object_unref (builder);
 
-	rb_source_bind_settings (RB_SOURCE (source), GTK_WIDGET (source->priv->entry_view), NULL, NULL, FALSE);
+	rb_source_bind_settings (RB_SOURCE (source), GTK_WIDGET (source->priv->entry_view), NULL, NULL);
 
 	gtk_widget_show_all (grid);
 	gtk_container_add (GTK_CONTAINER (source), grid);

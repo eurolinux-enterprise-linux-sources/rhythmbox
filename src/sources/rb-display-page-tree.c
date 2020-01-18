@@ -42,6 +42,8 @@
 #include "rb-display-page-tree.h"
 #include "rb-display-page-model.h"
 #include "rb-debug.h"
+#include "rb-stock-icons.h"
+#include "rb-marshal.h"
 #include "rb-cell-renderer-pixbuf.h"
 #include "gossip-cell-renderer-expander.h"
 #include "rb-tree-dnd.h"
@@ -93,10 +95,10 @@ struct _RBDisplayPageTreePrivate
 	GtkTreeRowReference *expand_select_row;
 	guint expand_rows_id;
 
+	GSettings *settings;
+
 	GSimpleAction *remove_action;
 	GSimpleAction *eject_action;
-
-	GdkPixbuf *blank_pixbuf;
 };
 
 
@@ -135,90 +137,135 @@ get_selected_page (RBDisplayPageTree *display_page_tree)
 	return page;
 }
 
-static void
-heading_cell_data_func (GtkTreeViewColumn *tree_column,
-			GtkCellRenderer *cell,
-			GtkTreeModel *model,
-			GtkTreeIter *iter,
-			RBDisplayPageTree *display_page_tree)
+static gboolean
+retrieve_expander_state (RBDisplayPageTree *display_page_tree, RBDisplayPageGroup *group)
 {
-	RBDisplayPage *page;
+	char **groups;
+	char *id;
+	gboolean collapsed;
 
-	gtk_tree_model_get (GTK_TREE_MODEL (display_page_tree->priv->page_model), iter,
-			    RB_DISPLAY_PAGE_MODEL_COLUMN_PAGE, &page,
-			    -1);
+	groups = g_settings_get_strv (display_page_tree->priv->settings, "collapsed-groups");
+	g_object_get (group, "id", &id, NULL);
+	collapsed = rb_str_in_strv (id, (const char **)groups);
+	g_free (id);
+	g_strfreev (groups);
 
-
-	if (RB_IS_DISPLAY_PAGE_GROUP (page)) {
-		char *name;
-		g_object_get (page, "name", &name, NULL);
-		g_object_set (cell,
-			      "text", name,
-			      "visible", TRUE,
-			      NULL);
-		g_free (name);
-	} else {
-		g_object_set (cell,
-			      "visible", FALSE,
-			      NULL);
-	}
-
-	g_object_unref (page);
+	return (collapsed == FALSE);
 }
 
 static void
-padding_cell_data_func (GtkTreeViewColumn *tree_column,
-			GtkCellRenderer *cell,
-			GtkTreeModel *model,
-			GtkTreeIter *iter,
-			RBDisplayPageTree *display_page_tree)
+store_expander_state (RBDisplayPageTree *display_page_tree, RBDisplayPageGroup *group, gboolean expanded)
 {
-	RBDisplayPage *page;
+	char **newgroups = NULL;
+	char **groups;
+	char *id;
+	int num;
+	int i;
+	int p;
 
-	gtk_tree_model_get (GTK_TREE_MODEL (display_page_tree->priv->page_model), iter,
-			    RB_DISPLAY_PAGE_MODEL_COLUMN_PAGE, &page,
-			    -1);
-	if (RB_IS_DISPLAY_PAGE_GROUP (page)) {
-		g_object_set (cell,
-			      "visible", FALSE,
-			      "xpad", 0,
-			      "ypad", 0,
-			      NULL);
-	} else {
-		g_object_set (cell,
-			      "visible", TRUE,
-			      "xpad", 3,
-			      "ypad", 3,
-			      NULL);
+	groups = g_settings_get_strv (display_page_tree->priv->settings, "collapsed-groups");
+	g_object_get (group, "id", &id, NULL);
+
+	num = g_strv_length (groups);
+	p = 0;
+	if (rb_str_in_strv (id, (const char **)groups) && expanded) {
+		newgroups = g_new0(char *, num);
+		for (i = 0; i < num; i++) {
+			if (g_strcmp0 (groups[i], id) != 0) {
+				newgroups[p++] = g_strdup (groups[i]);
+			}
+		}
+	} else if (expanded == FALSE) {
+		newgroups = g_new0(char *, num + 2);
+		for (i = 0; i < num; i++) {
+			newgroups[i] = g_strdup (groups[i]);
+		}
+		newgroups[i] = g_strdup (id);
 	}
 
-	g_object_unref (page);
+	if (newgroups != NULL) {
+		g_settings_set_strv (display_page_tree->priv->settings, "collapsed-groups", (const char * const *)newgroups);
+		g_strfreev (newgroups);
+	}
+	g_strfreev (groups);
+	g_free (id);
 }
 
 static void
-padding2_cell_data_func (GtkTreeViewColumn *tree_column,
-			 GtkCellRenderer *cell,
-			 GtkTreeModel *model,
-			 GtkTreeIter *iter,
-			 RBDisplayPageTree *display_page_tree)
+set_cell_background (RBDisplayPageTree  *display_page_tree,
+		     GtkCellRenderer    *cell,
+		     gboolean            is_group,
+		     gboolean            is_active)
+{
+	GdkRGBA color;
+
+	g_return_if_fail (display_page_tree != NULL);
+	g_return_if_fail (cell != NULL);
+
+	gtk_style_context_get_color (gtk_widget_get_style_context (GTK_WIDGET (display_page_tree)),
+				     GTK_STATE_FLAG_SELECTED,
+				     &color);
+
+	if (!is_group) {
+		if (is_active) {
+			/* Here we take the current theme colour and add it to
+			 * the colour for white and average the two. This
+			 * gives a colour which is inline with the theme but
+			 * slightly whiter.
+			 */
+			color.red = (color.red + 1.0) / 2;
+			color.green = (color.green + 1.0) / 2;
+			color.blue = (color.blue + 1.0) / 2;
+
+			g_object_set (cell,
+				      "cell-background-rgba", &color,
+				      NULL);
+		} else {
+			g_object_set (cell,
+				      "cell-background-rgba", NULL,
+				      NULL);
+		}
+	} else {
+		/* don't set background for group heading */
+	}
+}
+
+static void
+indent_level1_cell_data_func (GtkTreeViewColumn *tree_column,
+			      GtkCellRenderer   *cell,
+			      GtkTreeModel      *model,
+			      GtkTreeIter       *iter,
+			      RBDisplayPageTree *display_page_tree)
 {
 	GtkTreePath *path;
+	int          depth;
 
 	path = gtk_tree_model_get_path (model, iter);
-	if (gtk_tree_path_get_depth (path) > 2) {
-		g_object_set (cell,
-			      "visible", TRUE,
-			      "xpad", 3,
-			      "ypad", 0,
-			      NULL);
-	} else {
-		g_object_set (cell,
-			      "visible", FALSE,
-			      "xpad", 0,
-			      "ypad", 0,
-			      NULL);
-	}
+	depth = gtk_tree_path_get_depth (path);
 	gtk_tree_path_free (path);
+	g_object_set (cell,
+		      "text", "  ",
+		      "visible", depth > 1,
+		      NULL);
+}
+
+static void
+indent_level2_cell_data_func (GtkTreeViewColumn *tree_column,
+			      GtkCellRenderer   *cell,
+			      GtkTreeModel      *model,
+			      GtkTreeIter       *iter,
+			      RBDisplayPageTree *display_page_tree)
+{
+	GtkTreePath *path;
+	int          depth;
+
+	path = gtk_tree_model_get_path (model, iter);
+	depth = gtk_tree_path_get_depth (path);
+	gtk_tree_path_free (path);
+	g_object_set (cell,
+		      "text", "  ",
+		      "visible", depth > 2,
+		      NULL);
 }
 
 static void
@@ -229,36 +276,27 @@ pixbuf_cell_data_func (GtkTreeViewColumn *tree_column,
 		       RBDisplayPageTree *display_page_tree)
 {
 	RBDisplayPage *page;
-	GtkTreePath *path;
-	GIcon *icon = NULL;
+	GdkPixbuf *pixbuf;
 
-	path = gtk_tree_model_get_path (model, iter);
 	gtk_tree_model_get (model, iter,
 			    RB_DISPLAY_PAGE_MODEL_COLUMN_PAGE, &page,
 			    -1);
+	g_object_get (page, "pixbuf", &pixbuf, NULL);
 
-	switch (gtk_tree_path_get_depth (path)) {
-	case 1:
-		g_object_set (cell, "visible", FALSE, NULL);
-		break;
-
-	case 2:
-	case 3:
-		g_object_get (page, "icon", &icon, NULL);
-		if (icon == NULL) {
-			g_object_set (cell, "visible", TRUE, "pixbuf", display_page_tree->priv->blank_pixbuf, NULL);
-		} else {
-			g_object_set (cell, "visible", TRUE, "gicon", icon, NULL);
-			g_object_unref (icon);
-		}
-		break;
-
-	default:
-		g_object_set (cell, "visible", TRUE, "pixbuf", display_page_tree->priv->blank_pixbuf, NULL);
-		break;
+	if (pixbuf == NULL) {
+		g_object_set (cell,
+			      "visible", FALSE,
+			      "pixbuf", NULL,
+			      NULL);
+	} else {
+		g_object_set (cell,
+			      "visible", TRUE,
+			      "pixbuf", pixbuf,
+			      NULL);
+		g_object_unref (pixbuf);
 	}
 
-	gtk_tree_path_free (path);
+	set_cell_background (display_page_tree, cell, RB_IS_DISPLAY_PAGE_GROUP (page), FALSE);
 	g_object_unref (page);
 }
 
@@ -270,6 +308,7 @@ title_cell_data_func (GtkTreeViewColumn *column,
 		      RBDisplayPageTree *display_page_tree)
 {
 	RBDisplayPage *page;
+	char    *name;
 	gboolean playing;
 
 	gtk_tree_model_get (GTK_TREE_MODEL (display_page_tree->priv->page_model), iter,
@@ -277,20 +316,16 @@ title_cell_data_func (GtkTreeViewColumn *column,
 			    RB_DISPLAY_PAGE_MODEL_COLUMN_PLAYING, &playing,
 			    -1);
 
-	if (RB_IS_DISPLAY_PAGE_GROUP (page)) {
-		g_object_set (renderer, "visible", FALSE, NULL);
-	} else {
-		char *name;
-		g_object_get (page, "name", &name, NULL);
+	g_object_get (page, "name", &name, NULL);
 
-		g_object_set (renderer,
-			      "visible", TRUE,
-			      "text", name,
-			      "weight", playing ? PANGO_WEIGHT_BOLD : PANGO_WEIGHT_NORMAL,
-			      NULL);
-		g_free (name);
-	}
+	g_object_set (renderer,
+		      "text", name,
+		      "weight", playing ? PANGO_WEIGHT_BOLD : PANGO_WEIGHT_NORMAL,
+		      NULL);
 
+	set_cell_background (display_page_tree, renderer, RB_IS_DISPLAY_PAGE_GROUP (page), FALSE);
+
+	g_free (name);
 	g_object_unref (page);
 }
 
@@ -303,13 +338,7 @@ expander_cell_data_func (GtkTreeViewColumn *column,
 {
 	RBDisplayPage *page;
 
-	gtk_tree_model_get (GTK_TREE_MODEL (display_page_tree->priv->page_model), iter,
-			    RB_DISPLAY_PAGE_MODEL_COLUMN_PAGE, &page,
-			    -1);
-
-	if (RB_IS_DISPLAY_PAGE_GROUP (page) || gtk_tree_model_iter_has_child (model, iter) == FALSE) {
-		g_object_set (cell, "visible", FALSE, NULL);
-	} else if (gtk_tree_model_iter_has_child (model, iter)) {
+	if (gtk_tree_model_iter_has_child (model, iter)) {
 		GtkTreePath *path;
 		gboolean     row_expanded;
 
@@ -322,8 +351,14 @@ expander_cell_data_func (GtkTreeViewColumn *column,
 			      "visible", TRUE,
 			      "expander-style", row_expanded ? GTK_EXPANDER_EXPANDED : GTK_EXPANDER_COLLAPSED,
 			      NULL);
+	} else {
+		g_object_set (cell, "visible", FALSE, NULL);
 	}
 
+	gtk_tree_model_get (GTK_TREE_MODEL (display_page_tree->priv->page_model), iter,
+			    RB_DISPLAY_PAGE_MODEL_COLUMN_PAGE, &page,
+			    -1);
+	set_cell_background (display_page_tree, cell, RB_IS_DISPLAY_PAGE_GROUP (page), FALSE);
 	g_object_unref (page);
 }
 
@@ -350,6 +385,41 @@ row_activated_cb (GtkTreeView       *treeview,
 		rb_display_page_activate (page);
 		g_object_unref (page);
 	}
+}
+
+static void
+update_expanded_state (RBDisplayPageTree *display_page_tree,
+		       GtkTreeIter *iter,
+		       gboolean expanded)
+{
+	GtkTreeModel *model;
+	RBDisplayPage *page;
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (display_page_tree->priv->treeview));
+	gtk_tree_model_get (model, iter,
+			    RB_DISPLAY_PAGE_MODEL_COLUMN_PAGE, &page,
+			    -1);
+	if (RB_IS_DISPLAY_PAGE_GROUP (page)) {
+		store_expander_state (display_page_tree, RB_DISPLAY_PAGE_GROUP (page), expanded);
+	}
+}
+
+static void
+row_expanded_cb (GtkTreeView *treeview,
+		 GtkTreeIter *iter,
+		 GtkTreePath *path,
+		 RBDisplayPageTree *display_page_tree)
+{
+	update_expanded_state (display_page_tree, iter, TRUE);
+}
+
+static void
+row_collapsed_cb (GtkTreeView *treeview,
+		  GtkTreeIter *iter,
+		  GtkTreePath *path,
+		  RBDisplayPageTree *display_page_tree)
+{
+	update_expanded_state (display_page_tree, iter, FALSE);
 }
 
 static void
@@ -400,10 +470,39 @@ model_row_inserted_cb (GtkTreeModel *model,
 		       GtkTreeIter *iter,
 		       RBDisplayPageTree *display_page_tree)
 {
-	display_page_tree->priv->expand_rows = g_list_append (display_page_tree->priv->expand_rows,
-							      gtk_tree_row_reference_new (model, path));
-	if (display_page_tree->priv->expand_rows_id == 0) {
-		display_page_tree->priv->expand_rows_id = g_idle_add ((GSourceFunc)expand_rows_cb, display_page_tree);
+	gboolean expand = FALSE;
+	if (gtk_tree_path_get_depth (path) == 2) {
+		GtkTreeIter group_iter;
+		expand = TRUE;
+		if (gtk_tree_model_iter_parent (model, &group_iter, iter)) {
+			gboolean loaded;
+			RBDisplayPage *page;
+			RBDisplayPageGroupCategory category;
+
+			gtk_tree_model_get (model, &group_iter,
+					    RB_DISPLAY_PAGE_MODEL_COLUMN_PAGE, &page,
+					    -1);
+			g_object_get (page, "loaded", &loaded, "category", &category, NULL);
+			if (category == RB_DISPLAY_PAGE_GROUP_CATEGORY_TRANSIENT || loaded == FALSE) {
+				expand = retrieve_expander_state (display_page_tree, RB_DISPLAY_PAGE_GROUP (page));
+			}
+			g_object_unref (page);
+		}
+	} else if (gtk_tree_path_get_depth (path) == 1) {
+		RBDisplayPage *page;
+
+		gtk_tree_model_get (model, iter,
+				    RB_DISPLAY_PAGE_MODEL_COLUMN_PAGE, &page,
+				    -1);
+		expand = retrieve_expander_state (display_page_tree, RB_DISPLAY_PAGE_GROUP (page));
+	}
+
+	if (expand) {
+		display_page_tree->priv->expand_rows = g_list_append (display_page_tree->priv->expand_rows,
+								      gtk_tree_row_reference_new (model, path));
+		if (display_page_tree->priv->expand_rows_id == 0) {
+			display_page_tree->priv->expand_rows_id = g_idle_add ((GSourceFunc)expand_rows_cb, display_page_tree);
+		}
 	}
 
 	gtk_tree_view_columns_autosize (GTK_TREE_VIEW (display_page_tree->priv->treeview));
@@ -640,7 +739,7 @@ remove_action_cb (GSimpleAction *action, GVariant *parameter, gpointer user_data
 {
 	RBDisplayPage *page = get_selected_page (RB_DISPLAY_PAGE_TREE (user_data));
 	if (page) {
-		rb_display_page_remove (page);
+		rb_display_page_delete_thyself (page);
 		g_object_unref (page);
 	}
 }
@@ -750,16 +849,6 @@ impl_get_property (GObject    *object,
 }
 
 static void
-impl_dispose (GObject *object)
-{
-	RBDisplayPageTree *display_page_tree = RB_DISPLAY_PAGE_TREE (object);
-
-	g_clear_object (&display_page_tree->priv->blank_pixbuf);
-
-	G_OBJECT_CLASS (rb_display_page_tree_parent_class)->dispose (object);
-}
-
-static void
 impl_finalize (GObject *object)
 {
 	RBDisplayPageTree *display_page_tree = RB_DISPLAY_PAGE_TREE (object);
@@ -783,16 +872,13 @@ impl_constructed (GObject *object)
 	GtkCellRenderer *renderer;
 	GtkWidget *scrolled;
 	GtkStyleContext *context;
-	GtkWidget *box;
-	GtkToolItem *tool_item;
-	GtkWidget *button;
+	GtkToolItem *button;
 	GtkWidget *image;
 	GIcon *icon;
 	GMenuModel *menu;
 	GtkBuilder *builder;
 	GApplication *app;
 	GtkAccelGroup *accel_group;
-	int pixbuf_width, pixbuf_height;
 
 	GActionEntry actions[] = {
 		{ "display-page-remove", remove_action_cb },
@@ -802,13 +888,14 @@ impl_constructed (GObject *object)
 	RB_CHAIN_GOBJECT_METHOD (rb_display_page_tree_parent_class, constructed, object);
 	display_page_tree = RB_DISPLAY_PAGE_TREE (object);
 
+	gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (object)),
+				     GTK_STYLE_CLASS_SIDEBAR);
 
 	scrolled = gtk_scrolled_window_new (NULL, NULL);
-	context = gtk_widget_get_style_context (scrolled);
-	gtk_style_context_set_junction_sides (context, GTK_JUNCTION_BOTTOM);
 	g_object_set (scrolled,
 		      "hscrollbar_policy", GTK_POLICY_AUTOMATIC,
 		      "vscrollbar_policy", GTK_POLICY_AUTOMATIC,
+		      "shadow_type", GTK_SHADOW_IN,
 		      "hexpand", TRUE,
 		      "vexpand", TRUE,
 		      NULL);
@@ -825,7 +912,6 @@ impl_constructed (GObject *object)
 				 display_page_tree, 0);
 
 	display_page_tree->priv->treeview = gtk_tree_view_new_with_model (GTK_TREE_MODEL (display_page_tree->priv->page_model));
-	gtk_style_context_add_class (gtk_widget_get_style_context (display_page_tree->priv->treeview), GTK_STYLE_CLASS_SIDEBAR);
 
 	g_object_set (display_page_tree->priv->treeview,
 		      "headers-visible", FALSE,
@@ -846,6 +932,14 @@ impl_constructed (GObject *object)
 				 G_CALLBACK (row_activated_cb),
 				 display_page_tree, 0);
 	g_signal_connect_object (display_page_tree->priv->treeview,
+				 "row-collapsed",
+				 G_CALLBACK (row_collapsed_cb),
+				 display_page_tree, 0);
+	g_signal_connect_object (display_page_tree->priv->treeview,
+				 "row-expanded",
+				 G_CALLBACK (row_expanded_cb),
+				 display_page_tree, 0);
+	g_signal_connect_object (display_page_tree->priv->treeview,
 				 "key_release_event",
 				 G_CALLBACK (key_release_cb),
 				 display_page_tree, 0);
@@ -856,47 +950,31 @@ impl_constructed (GObject *object)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (display_page_tree->priv->treeview),
 				     display_page_tree->priv->main_column);
 
-	gtk_icon_size_lookup (RB_DISPLAY_PAGE_ICON_SIZE, &pixbuf_width, &pixbuf_height);
-	display_page_tree->priv->blank_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, pixbuf_width, pixbuf_height);
-	gdk_pixbuf_fill (display_page_tree->priv->blank_pixbuf, 0);
-
-	/* initial padding */
-	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_column_pack_start (display_page_tree->priv->main_column, renderer, FALSE);
-	g_object_set (renderer, "xpad", 3, NULL);
-
-	/* headings */
+	/* Set up the indent level1 column */
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (display_page_tree->priv->main_column, renderer, FALSE);
 	gtk_tree_view_column_set_cell_data_func (display_page_tree->priv->main_column,
 						 renderer,
-						 (GtkTreeCellDataFunc) heading_cell_data_func,
+						 (GtkTreeCellDataFunc) indent_level1_cell_data_func,
 						 display_page_tree,
 						 NULL);
 	g_object_set (renderer,
-		      "weight", PANGO_WEIGHT_BOLD,
-		      "weight-set", TRUE,
-		      "ypad", 6,
 		      "xpad", 0,
+		      "visible", FALSE,
 		      NULL);
 
-	/* icon padding */
+	/* Set up the indent level2 column */
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (display_page_tree->priv->main_column, renderer, FALSE);
 	gtk_tree_view_column_set_cell_data_func (display_page_tree->priv->main_column,
 						 renderer,
-						 (GtkTreeCellDataFunc) padding_cell_data_func,
+						 (GtkTreeCellDataFunc) indent_level2_cell_data_func,
 						 display_page_tree,
 						 NULL);
-
-	/* padding for second level */
-	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_column_pack_start (display_page_tree->priv->main_column, renderer, FALSE);
-	gtk_tree_view_column_set_cell_data_func (display_page_tree->priv->main_column,
-						 renderer,
-						 (GtkTreeCellDataFunc) padding2_cell_data_func,
-						 display_page_tree,
-						 NULL);
+	g_object_set (renderer,
+		      "xpad", 0,
+		      "visible", FALSE,
+		      NULL);
 
 	/* Set up the pixbuf column */
 	renderer = gtk_cell_renderer_pixbuf_new ();
@@ -906,9 +984,13 @@ impl_constructed (GObject *object)
 						 (GtkTreeCellDataFunc) pixbuf_cell_data_func,
 						 display_page_tree,
 						 NULL);
-	if (gtk_check_version (3, 16, 0) != NULL) {
-		g_object_set (renderer, "follow-state", TRUE, NULL);
-	}
+
+	g_object_set (renderer,
+		      "xpad", 8,
+		      "ypad", 1,
+		      "visible", FALSE,
+		      NULL);
+
 
 	/* Set up the name column */
 	renderer = gtk_cell_renderer_text_new ();
@@ -950,22 +1032,18 @@ impl_constructed (GObject *object)
 	gtk_toolbar_set_icon_size (GTK_TOOLBAR (display_page_tree->priv->toolbar), GTK_ICON_SIZE_MENU);
 
 	context = gtk_widget_get_style_context (display_page_tree->priv->toolbar);
-	gtk_style_context_set_junction_sides (context, GTK_JUNCTION_TOP);
+	gtk_style_context_set_junction_sides (context, GTK_JUNCTION_BOTTOM);
 	gtk_style_context_add_class (context, GTK_STYLE_CLASS_INLINE_TOOLBAR);
-	gtk_style_context_add_class (context, "sidebar-toolbar");
 
 	gtk_grid_attach (GTK_GRID (display_page_tree), display_page_tree->priv->toolbar, 0, 1, 1, 1);
 
-	tool_item = gtk_tool_item_new ();
-	box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_container_add (GTK_CONTAINER (tool_item), box);
-	gtk_toolbar_insert (GTK_TOOLBAR (display_page_tree->priv->toolbar), tool_item, -1);
-
+	button = gtk_tool_item_new ();
 	display_page_tree->priv->add_menubutton = gtk_menu_button_new ();
 	icon = g_themed_icon_new_with_default_fallbacks ("list-add-symbolic");
-	image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
+	image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_SMALL_TOOLBAR);
 	gtk_button_set_image (GTK_BUTTON (display_page_tree->priv->add_menubutton), image);
-	gtk_box_pack_start (GTK_BOX (box), display_page_tree->priv->add_menubutton, FALSE, FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (button), display_page_tree->priv->add_menubutton);
+	gtk_toolbar_insert (GTK_TOOLBAR (display_page_tree->priv->toolbar), button, -1);
 	g_object_unref (icon);
 
 	g_object_get (display_page_tree->priv->shell, "accel-group", &accel_group, NULL);
@@ -983,21 +1061,21 @@ impl_constructed (GObject *object)
 	gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (display_page_tree->priv->add_menubutton), menu);
 	g_object_unref (builder);
 
-	button = gtk_button_new ();
+	button = gtk_tool_button_new (NULL, NULL);
 	icon = g_themed_icon_new_with_default_fallbacks ("list-remove-symbolic");
-	image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
-	gtk_button_set_image (GTK_BUTTON (button), image);
-	gtk_box_pack_start (GTK_BOX (box), button, FALSE, FALSE, 0);
+	image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_SMALL_TOOLBAR);
+	gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (button), image);
+	gtk_toolbar_insert (GTK_TOOLBAR (display_page_tree->priv->toolbar), button, -1);
 	g_object_unref (icon);
 
 	gtk_actionable_set_action_name (GTK_ACTIONABLE (button), "app.display-page-remove");
 
 	/* maybe this should be a column in the tree instead.. */
-	button = gtk_button_new ();
+	button = gtk_tool_button_new (NULL, NULL);
 	icon = g_themed_icon_new_with_default_fallbacks ("media-eject-symbolic");
-	image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
-	gtk_button_set_image (GTK_BUTTON (button), image);
-	gtk_box_pack_start (GTK_BOX (box), button, FALSE, FALSE, 0);
+	image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_SMALL_TOOLBAR);
+	gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (button), image);
+	gtk_toolbar_insert (GTK_TOOLBAR (display_page_tree->priv->toolbar), button, -1);
 	g_object_unref (icon);
 	
 	gtk_actionable_set_action_name (GTK_ACTIONABLE (button), "app.display-page-eject");
@@ -1014,6 +1092,8 @@ impl_constructed (GObject *object)
 						NULL);
 
 	gtk_container_add (GTK_CONTAINER (scrolled), display_page_tree->priv->treeview);
+
+	display_page_tree->priv->settings = g_settings_new ("org.gnome.rhythmbox.display-page-tree");
 }
 
 static void
@@ -1033,7 +1113,6 @@ rb_display_page_tree_class_init (RBDisplayPageTreeClass *class)
 	o_class = (GObjectClass *) class;
 
 	o_class->constructed = impl_constructed;
-	o_class->dispose = impl_dispose;
 	o_class->finalize = impl_finalize;
 	o_class->set_property = impl_set_property;
 	o_class->get_property = impl_get_property;
@@ -1076,7 +1155,7 @@ rb_display_page_tree_class_init (RBDisplayPageTreeClass *class)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBDisplayPageTreeClass, selected),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_OBJECT);
@@ -1095,7 +1174,7 @@ rb_display_page_tree_class_init (RBDisplayPageTreeClass *class)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBDisplayPageTreeClass, drop_received),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__POINTER_POINTER,
 			      G_TYPE_NONE,
 			      2,
 			      G_TYPE_POINTER, G_TYPE_POINTER);

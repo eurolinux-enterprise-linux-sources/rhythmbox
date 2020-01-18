@@ -43,8 +43,6 @@ char *		rb_find_user_data_file	(const char *name);
 char *		rb_find_user_cache_file	(const char *name);
 char *		rb_find_plugin_data_file (GObject *plugin,
 					 const char *name);
-char *		rb_find_plugin_resource (GObject *plugin,
-					 const char *name);
 
 char *		rb_canonicalise_uri	(const char *uri);
 
@@ -52,7 +50,6 @@ gboolean	rb_uri_mkstemp		(const char *prefix, char **uri_ret,
 					 GOutputStream **stream, GError **error);
 
 char *		rb_uri_resolve_symlink	(const char *uri, GError **error);
-GFile *		rb_file_resolve_symlink	(GFile *file, GError **error);
 gboolean	rb_uri_is_directory	(const char *uri);
 gboolean	rb_uri_exists		(const char *uri);
 gboolean	rb_uri_is_readable	(const char *uri);
@@ -67,7 +64,7 @@ char *		rb_uri_get_mount_point  (const char *uri);
 
 
 /* return TRUE to recurse further, FALSE to stop */
-typedef gboolean (*RBUriRecurseFunc) (GFile *file, GFileInfo *info, gpointer data);
+typedef gboolean (*RBUriRecurseFunc) (GFile *file, gboolean dir, gpointer data);
 
 void		rb_uri_handle_recursively(const char *uri,
 					  GCancellable *cancel,
@@ -97,7 +94,7 @@ void		rb_file_helpers_shutdown(void);
 
 char *		rb_uri_get_filesystem_type (const char *uri, char **mount_point);
 void		rb_sanitize_path_for_msdos_filesystem (char *path);
-char *		rb_sanitize_uri_for_filesystem(const char *uri, const char *filesystem);
+char *		rb_sanitize_uri_for_filesystem(const char *uri);
 
 G_END_DECLS
 

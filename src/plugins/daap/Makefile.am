@@ -5,7 +5,6 @@ plugindatadir = $(PLUGINDATADIR)/daap
 plugin_LTLIBRARIES = libdaap.la
 
 libdaap_la_SOURCES = \
-	daap-resources.c			  \
 	rb-daap-container-record.c		  \
 	rb-daap-container-record.h		  \
 	rb-daap-plugin.c			  \
@@ -39,7 +38,7 @@ libdaap_la_LIBADD = 					\
 	$(DMAPSHARING_LIBS)                             \
 	$(RHYTHMBOX_LIBS)
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -61,22 +60,16 @@ AM_CPPFLAGS = 						\
 	-DSHARE_DIR=\"$(pkgdatadir)\"                   \
 	-DDATADIR=\""$(datadir)"\"			\
 	$(DMAPSHARING_CFLAGS)				\
-	$(RHYTHMBOX_CFLAGS)
+	$(RHYTHMBOX_CFLAGS)				\
+	-D_BSD_SOURCE
 
 if USE_LIBSECRET
 libdaap_la_LIBADD += $(LIBSECRET_LIBS)
-AM_CPPFLAGS += $(LIBSECRET_CFLAGS)
+INCLUDES += $(LIBSECRET_CFLAGS)
 endif
 
-PLUGIN_RESOURCES = daap-prefs.ui daap-toolbar.ui
-
-plugin_resource_deps = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir) $(srcdir)/daap.gresource.xml)
-daap-resources.c: $(plugin_resource_deps) $(srcdir)/daap.gresource.xml
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES)		\
-		--target="$@"				\
-		--sourcedir="$(srcdir)"			\
-		--sourcedir="$(builddir)"		\
-		--generate-source "$(srcdir)/daap.gresource.xml"
+gtkbuilderdir = $(plugindatadir)
+gtkbuilder_DATA = daap-prefs.ui daap-toolbar.ui
 
 plugin_in_files = daap.plugin.in
 
@@ -84,14 +77,19 @@ plugin_in_files = daap.plugin.in
 
 plugin_files = $(plugin_in_files:.plugin.in=.plugin)
 
-BUILT_SOURCES = daap-resources.c $(plugin_files)
+BUILT_SOURCES = $(plugin_files)
 
 plugin_DATA = $(plugin_files)
 
+plugindata_DATA = 					\
+	$(top_srcdir)/plugins/daap/remote-icon.png	\
+	$(NULL)
+
 EXTRA_DIST = 						\
-	$(PLUGIN_RESOURCES)				\
+	$(gtkbuilder_DATA)				\
+	$(top_srcdir)/plugins/daap/remote-icon.png	\
+	$(uixml_DATA)		\
 	$(plugin_in_files)	\
-	daap.gresource.xml	\
 	$(NULL)
 
 CLEANFILES = 			\

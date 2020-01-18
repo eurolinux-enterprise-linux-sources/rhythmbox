@@ -43,9 +43,9 @@ class Coroutine:
 			self._executing = True
 			try:
 				try:
-					next(self._continuation)
+					self._continuation.next ()
 					while self._data:
-						next(self._continuation)
+						self._continuation.next ()
 				except StopIteration:
 					pass
 			finally:

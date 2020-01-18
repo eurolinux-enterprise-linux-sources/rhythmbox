@@ -75,7 +75,7 @@ static void rb_mtp_source_get_property (GObject *object,
 			                GValue *value,
 			                GParamSpec *pspec);
 
-static void impl_delete_selected (RBSource *asource);
+static void impl_delete (RBSource *asource);
 static RBTrackTransferBatch *impl_paste (RBSource *asource, GList *entries);
 static gboolean impl_uri_is_source (RBSource *asource, const char *uri);
 
@@ -106,8 +106,9 @@ static guint64		impl_get_capacity	(RBMediaPlayerSource *source);
 static guint64		impl_get_free_space	(RBMediaPlayerSource *source);
 static void		impl_delete_entries	(RBMediaPlayerSource *source,
 						 GList *entries,
-						 GAsyncReadyCallback callback,
-						 gpointer callback_data);
+						 RBMediaPlayerSourceDeleteCallback callback,
+						 gpointer callback_data,
+						 GDestroyNotify destroy_data);
 static void		impl_show_properties	(RBMediaPlayerSource *source, GtkWidget *info_box, GtkWidget *notebook);
 
 static void prepare_player_source_cb (RBPlayer *player,
@@ -188,20 +189,20 @@ rb_mtp_source_class_init (RBMtpSourceClass *klass)
 
 	page_class->selected = impl_selected;
 
-	source_class->can_delete = (RBSourceFeatureFunc) rb_true_function;
-	source_class->can_paste = (RBSourceFeatureFunc) rb_true_function;
-	source_class->can_move_to_trash = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_copy = (RBSourceFeatureFunc) rb_true_function;
-	source_class->can_cut = (RBSourceFeatureFunc) rb_false_function;
-	source_class->delete_selected = impl_delete_selected;
-	source_class->paste = impl_paste;
-	source_class->uri_is_source = impl_uri_is_source;
+	source_class->impl_can_delete = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_can_paste = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_can_move_to_trash = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_copy = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_can_cut = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_delete = impl_delete;
+	source_class->impl_paste = impl_paste;
+	source_class->impl_uri_is_source = impl_uri_is_source;
 
-	mps_class->get_entries = impl_get_entries;
-	mps_class->get_capacity = impl_get_capacity;
-	mps_class->get_free_space = impl_get_free_space;
-	mps_class->delete_entries = impl_delete_entries;
-	mps_class->show_properties = impl_show_properties;
+	mps_class->impl_get_entries = impl_get_entries;
+	mps_class->impl_get_capacity = impl_get_capacity;
+	mps_class->impl_get_free_space = impl_get_free_space;
+	mps_class->impl_delete_entries = impl_delete_entries;
+	mps_class->impl_show_properties = impl_show_properties;
 
 	g_object_class_install_property (object_class,
 					 PROP_RAW_DEVICE,
@@ -373,6 +374,10 @@ rb_mtp_source_constructed (GObject *object)
 	RBShell *shell;
 	RBShellPlayer *shell_player;
 	GObject *player_backend;
+	GtkIconTheme *theme;
+	GdkPixbuf *pixbuf;
+	gint size;
+
 
 	RB_CHAIN_GOBJECT_METHOD (rb_mtp_source_parent_class, constructed, object);
 	source = RB_MTP_SOURCE (object);
@@ -404,7 +409,14 @@ rb_mtp_source_constructed (GObject *object)
 				 G_CALLBACK (prepare_encoder_sink_cb),
 				 source, 0);
 
-	rb_display_page_set_icon_name (RB_DISPLAY_PAGE (source), "multimedia-player-symbolic");
+	/* icon */
+	theme = gtk_icon_theme_get_default ();
+	gtk_icon_size_lookup (GTK_ICON_SIZE_LARGE_TOOLBAR, &size, NULL);
+	pixbuf = gtk_icon_theme_load_icon (theme, "multimedia-player", size, 0, NULL);
+
+	g_object_set (source, "pixbuf", pixbuf, NULL);
+	g_object_unref (pixbuf);
+
 }
 
 static void
@@ -598,7 +610,6 @@ rb_mtp_source_new (RBShell *shell,
 #endif
 					      "load-status", RB_SOURCE_LOAD_STATUS_LOADING,
 					      "settings", g_settings_get_child (settings, "source"),
-					      "encoding-settings", g_settings_get_child (settings, "encoding"),
 					      "toolbar-menu", toolbar,
 					      "name", _("Media Player"),
 					      NULL));
@@ -619,7 +630,7 @@ update_free_space_cb (LIBMTP_mtpdevice_t *device, RBMtpSource *source)
 
 	ret = LIBMTP_Get_Storage (device, LIBMTP_STORAGE_SORTBY_NOTSORTED);
 	if (ret != 0) {
-		rb_mtp_thread_report_errors (priv->device_thread);
+		rb_mtp_thread_report_errors (priv->device_thread, FALSE);
 	}
 
 	/* probably need a lock for this.. */
@@ -955,7 +966,7 @@ mtp_device_open_cb (LIBMTP_mtpdevice_t *device, RBMtpSource *source)
 	 * MTP devices that aren't interesting to us.
 	 */
 	if (LIBMTP_Get_Supported_Filetypes (device, &data->types, &data->num_types) != 0) {
-		rb_mtp_thread_report_errors (priv->device_thread);
+		rb_mtp_thread_report_errors (priv->device_thread, FALSE);
 	} else {
 		int i;
 		for (i = 0; i < data->num_types; i++) {
@@ -981,12 +992,8 @@ mtp_device_open_cb (LIBMTP_mtpdevice_t *device, RBMtpSource *source)
 static gboolean
 device_loaded_idle (RBMtpSource *source)
 {
-	GSettings *settings;
-
 	g_object_set (source, "load-status", RB_SOURCE_LOAD_STATUS_LOADED, NULL);
-	g_object_get (source, "encoding-settings", &settings, NULL);
-	rb_transfer_target_transfer (RB_TRANSFER_TARGET (source), settings, NULL, FALSE);
-	g_object_unref (settings);
+	rb_transfer_target_transfer (RB_TRANSFER_TARGET (source), NULL, FALSE);
 	return FALSE;
 }
 
@@ -1048,15 +1055,15 @@ media_type_to_filetype (RBMtpSource *source, const char *media_type)
 }
 
 static void
-impl_delete_selected (RBSource *source)
+impl_delete (RBSource *source)
 {
 	GList *sel;
 	RBEntryView *songs;
 
 	songs = rb_source_get_entry_view (source);
 	sel = rb_entry_view_get_selected_entries (songs);
-	impl_delete_entries (RB_MEDIA_PLAYER_SOURCE (source), sel, NULL, NULL);
-	g_list_free_full (sel, (GDestroyNotify) rhythmdb_entry_unref);
+	impl_delete_entries (RB_MEDIA_PLAYER_SOURCE (source), sel, NULL, NULL, NULL);
+	rb_list_destroy_free (sel, (GDestroyNotify) rhythmdb_entry_unref);
 }
 
 static gboolean
@@ -1081,14 +1088,8 @@ static RBTrackTransferBatch *
 impl_paste (RBSource *source, GList *entries)
 {
 	gboolean defer;
-	RBTrackTransferBatch *batch;
-	GSettings *settings;
-
 	defer = (ensure_loaded (RB_MTP_SOURCE (source)) == FALSE);
-	g_object_get (source, "encoding-settings", &settings, NULL);
-	batch = rb_transfer_target_transfer (RB_TRANSFER_TARGET (source), settings, entries, defer);
-	g_object_unref (settings);
-	return batch;
+	return rb_transfer_target_transfer (RB_TRANSFER_TARGET (source), entries, defer);
 }
 
 static RhythmDB *
@@ -1105,7 +1106,7 @@ get_db_for_source (RBMtpSource *source)
 }
 
 static void
-art_request_cb (RBExtDBKey *key, RBExtDBKey *store_key, const char *filename, GValue *data, RBMtpSource *source)
+art_request_cb (RBExtDBKey *key, const char *filename, GValue *data, RBMtpSource *source)
 {
 	RBMtpSourcePrivate *priv = MTP_SOURCE_GET_PRIVATE (source);
 
@@ -1185,6 +1186,13 @@ impl_track_add_error (RBTransferTarget *target,
 }
 
 static void
+sanitize_for_mtp (char *str)
+{
+	rb_sanitize_path_for_msdos_filesystem (str);
+	g_strdelimit (str, "/", '_');
+}
+
+static void
 prepare_encoder_sink_cb (RBEncoderFactory *factory,
 			 const char *stream_uri,
 			 GObject *sink,
@@ -1255,9 +1263,9 @@ prepare_encoder_sink_cb (RBEncoderFactory *factory,
 	folder_path[1] = rhythmdb_entry_dup_string (entry, RHYTHMDB_PROP_ALBUM);
 
 	/* ensure the filename is safe for FAT filesystems and doesn't contain slashes */
-	rb_sanitize_path_for_msdos_filesystem (track->filename);
-	rb_sanitize_path_for_msdos_filesystem (folder_path[0]);
-	rb_sanitize_path_for_msdos_filesystem (folder_path[1]);
+	sanitize_for_mtp (track->filename);
+	sanitize_for_mtp (folder_path[0]);
+	sanitize_for_mtp (folder_path[1]);
 
 	if (rhythmdb_entry_get_ulong (entry, RHYTHMDB_PROP_DATE) > 0) {
 		g_date_set_julian (&d, rhythmdb_entry_get_ulong (entry, RHYTHMDB_PROP_DATE));
@@ -1361,22 +1369,50 @@ impl_get_free_space	(RBMediaPlayerSource *source)
 	return priv->free_space;
 }
 
+typedef struct {
+	gboolean actually_free;
+	GHashTable *check_folders;
+	RBMediaPlayerSource *source;
+	RBMediaPlayerSourceDeleteCallback callback;
+	gpointer callback_data;
+	GDestroyNotify destroy_data;
+} TracksDeletedCallbackData;
+
 static void
-delete_destroy_data (gpointer data)
+free_delete_data (TracksDeletedCallbackData *data)
 {
-	GTask *task = data;
-	g_task_return_boolean (task, FALSE);
-	g_object_unref (task);
+	if (data->actually_free == FALSE) {
+		return;
+	}
+
+	g_hash_table_destroy (data->check_folders);
+	g_object_unref (data->source);
+	if (data->destroy_data) {
+		data->destroy_data (data->callback_data);
+	}
+	g_free (data);
+}
+
+static gboolean
+delete_done_idle_cb (TracksDeletedCallbackData *data)
+{
+	if (data->callback) {
+		data->callback (data->source, data->callback_data);
+	}
+
+	data->actually_free = TRUE;
+	free_delete_data (data);
+	return FALSE;
 }
 
 static void
-delete_done_cb (LIBMTP_mtpdevice_t *device, GTask *task)
+delete_done_cb (LIBMTP_mtpdevice_t *device, TracksDeletedCallbackData *data)
 {
-	GHashTable *check_folders = g_task_get_task_data (task);
 	LIBMTP_folder_t *folders;
 	LIBMTP_file_t *files;
 
-	update_free_space_cb (device, RB_MTP_SOURCE (g_task_get_source_object (task)));
+	data->actually_free = FALSE;
+	update_free_space_cb (device, RB_MTP_SOURCE (data->source));
 
 	/* if any of the folders we just deleted from are now empty, delete them */
 	folders = LIBMTP_Get_Folder_List (device);
@@ -1384,7 +1420,7 @@ delete_done_cb (LIBMTP_mtpdevice_t *device, GTask *task)
 	if (folders != NULL) {
 		GHashTableIter iter;
 		gpointer key;
-		g_hash_table_iter_init (&iter, check_folders);
+		g_hash_table_iter_init (&iter, data->check_folders);
 		while (g_hash_table_iter_next (&iter, &key, NULL)) {
 			LIBMTP_folder_t *f;
 			LIBMTP_folder_t *c;
@@ -1401,7 +1437,7 @@ delete_done_cb (LIBMTP_mtpdevice_t *device, GTask *task)
 
 				/* don't delete folders with children that we didn't just delete */
 				for (c = f->child; c != NULL; c = c->sibling) {
-					if (g_hash_table_lookup (check_folders,
+					if (g_hash_table_lookup (data->check_folders,
 								 GUINT_TO_POINTER (c->folder_id)) == NULL) {
 						break;
 					}
@@ -1452,25 +1488,27 @@ delete_done_cb (LIBMTP_mtpdevice_t *device, GTask *task)
 		files = n;
 	}
 
-	g_task_return_boolean (task, TRUE);
-	g_object_unref (task);
+	g_idle_add ((GSourceFunc) delete_done_idle_cb, data);
 }
 
 static void
 impl_delete_entries	(RBMediaPlayerSource *source,
 			 GList *entries,
-			 GAsyncReadyCallback callback,
-			 gpointer user_data)
+			 RBMediaPlayerSourceDeleteCallback callback,
+			 gpointer user_data,
+			 GDestroyNotify destroy_data)
 {
 	RBMtpSourcePrivate *priv = MTP_SOURCE_GET_PRIVATE (source);
 	RhythmDB *db;
 	GList *i;
-	GHashTable *check_folders;
-	GTask *task;
+	TracksDeletedCallbackData *cb_data;
 
-	task = g_task_new (source, NULL, callback, user_data);
-	check_folders = g_hash_table_new (g_direct_hash, g_direct_equal);
-	g_task_set_task_data (task, check_folders, (GDestroyNotify) g_hash_table_destroy);
+	cb_data = g_new0 (TracksDeletedCallbackData, 1);
+	cb_data->source = g_object_ref (source);
+	cb_data->callback_data = user_data;
+	cb_data->callback = callback;
+	cb_data->destroy_data = destroy_data;
+	cb_data->check_folders = g_hash_table_new (g_direct_hash, g_direct_equal);
 
 	db = get_db_for_source (RB_MTP_SOURCE (source));
 	for (i = entries; i != NULL; i = i->next) {
@@ -1493,7 +1531,7 @@ impl_delete_entries	(RBMediaPlayerSource *source,
 		}
 		rb_mtp_thread_delete_track (priv->device_thread, track);
 
-		g_hash_table_insert (check_folders,
+		g_hash_table_insert (cb_data->check_folders,
 				     GUINT_TO_POINTER (track->parent_id),
 				     GINT_TO_POINTER (1));
 
@@ -1504,8 +1542,8 @@ impl_delete_entries	(RBMediaPlayerSource *source,
 	/* callback when all tracks have been deleted */
 	rb_mtp_thread_queue_callback (priv->device_thread,
 				      (RBMtpThreadCallback) delete_done_cb,
-				      task,
-				      delete_destroy_data);
+				      cb_data,
+				      (GDestroyNotify) free_delete_data);
 
 	rhythmdb_commit (db);
 }
@@ -1520,6 +1558,7 @@ impl_show_properties (RBMediaPlayerSource *source, GtkWidget *info_box, GtkWidge
 	gpointer key, value;
 	int num_podcasts;
 	char *device_name;
+	char *builder_file;
 	GObject *plugin;
 	char *text;
 	GList *output_formats;
@@ -1527,8 +1566,21 @@ impl_show_properties (RBMediaPlayerSource *source, GtkWidget *info_box, GtkWidge
 	GString *str;
 
 	g_object_get (source, "plugin", &plugin, NULL);
-	builder = rb_builder_load_plugin_file (G_OBJECT (plugin), "mtp-info.ui", NULL);
+	builder_file = rb_find_plugin_data_file (G_OBJECT (plugin), "mtp-info.ui");
 	g_object_unref (plugin);
+
+	if (builder_file == NULL) {
+		g_warning ("Couldn't find mtp-info.ui");
+		return;
+	}
+
+	builder = rb_builder_load (builder_file, NULL);
+	g_free (builder_file);
+
+	if (builder == NULL) {
+		rb_debug ("Couldn't load mtp-info.ui");
+		return;
+	}
 
 	/* 'basic' tab stuff */
 

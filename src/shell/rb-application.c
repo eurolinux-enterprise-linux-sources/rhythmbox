@@ -53,14 +53,6 @@
 static void rb_application_class_init (RBApplicationClass *klass);
 static void rb_application_init (RBApplication *app);
 
-typedef struct {
-	guint keyval;
-	GdkModifierType mods;
-	char *prefix;
-	char *action;
-	GVariant *parameter;
-} RBApplicationAccel;
-
 struct _RBApplicationPrivate
 {
 	RBShell *shell;
@@ -77,8 +69,6 @@ struct _RBApplicationPrivate
 	gboolean disable_plugins;
 	char *rhythmdb_file;
 	char *playlists_file;
-
-	GList *accelerators;
 };
 
 G_DEFINE_TYPE (RBApplication, rb_application, GTK_TYPE_APPLICATION);
@@ -87,17 +77,6 @@ enum {
 	PROP_0,
 	PROP_SHELL
 };
-
-G_GNUC_NORETURN static gboolean
-show_version_cb (const gchar *option_name,
-		 const gchar *value,
-		 gpointer     data,
-		 GError     **error)
-{
-	g_print ("%s %s\n", PACKAGE, VERSION);
-
-	exit (0);
-}
 
 static void
 load_uri_action_cb (GSimpleAction *action, GVariant *parameters, gpointer user_data)
@@ -162,7 +141,7 @@ plugins_action_cb (GSimpleAction *action, GVariant *parameters, gpointer user_da
 		app->priv->plugins = gtk_dialog_new_with_buttons (_("Configure Plugins"),
 								  window,
 								  GTK_DIALOG_DESTROY_WITH_PARENT,
-								  _("_Close"),
+								  GTK_STOCK_CLOSE,
 								  GTK_RESPONSE_CLOSE,
 								  NULL);
 		content_area = gtk_dialog_get_content_area (GTK_DIALOG (app->priv->plugins));
@@ -260,10 +239,10 @@ about_action_cb (GSimpleAction *action, GVariant *parameters, gpointer user_data
 	g_object_get (app->priv->shell, "window", &window, NULL);
 	gtk_show_about_dialog (GTK_WINDOW (window),
 			       "version", VERSION,
-			       "copyright", "Copyright \xc2\xa9 2005 - 2016 The Rhythmbox authors\nCopyright \xc2\xa9 2003 - 2005 Colin Walters\nCopyright \xc2\xa9 2002, 2003 Jorn Baayen",
+			       "copyright", "Copyright \xc2\xa9 2005 - 2012 The Rhythmbox authors\nCopyright \xc2\xa9 2003 - 2005 Colin Walters\nCopyright \xc2\xa9 2002, 2003 Jorn Baayen",
 			       "license", license_trans,
 			       "website-label", _("Rhythmbox Website"),
-			       "website", "https://wiki.gnome.org/Apps/Rhythmbox",
+			       "website", "http://www.gnome.org/projects/rhythmbox",
 			       "comments", comment->str,
 			       "authors", (const char **) authors,
 			       "documenters", (const char **) documenters,
@@ -355,7 +334,6 @@ impl_startup (GApplication *app)
 	gboolean shell_shows_app_menu;
 	GtkBuilder *builder;
 	GMenuModel *menu;
-	GtkCssProvider *provider;
 
 	GActionEntry app_actions[] = {
 
@@ -398,13 +376,6 @@ impl_startup (GApplication *app)
 	
 	g_object_unref (builder);
 
-	/* Use our own css provider */
-	provider = gtk_css_provider_new ();
-	gtk_css_provider_load_from_resource (provider, "/org/gnome/Rhythmbox/ui/style.css");
-	gtk_style_context_add_provider_for_screen (gdk_screen_get_default(),
-						  GTK_STYLE_PROVIDER (provider),
-						  600);
-
 	rb->priv->shell = RB_SHELL (g_object_new (RB_TYPE_SHELL,
 				    "application", rb,
 				    "autostarted", rb->priv->autostarted,
@@ -434,8 +405,9 @@ impl_local_command_line (GApplication *app, gchar ***args, int *exit_status)
 	if (rb->priv->no_registration) {
 		if (n_files > 0) {
 			g_warning ("Unable to open files on the commandline with --no-registration");
-			n_files = 0;
 		}
+		impl_startup (app);
+		return TRUE;
 	}
 
 	if (!g_application_register (app, NULL, &error)) {
@@ -605,7 +577,7 @@ rb_application_new (void)
 
 /**
  * rb_application_run:
- * @app: the application instance
+ * @rb: the application instance
  * @argc: arg count
  * @argv: arg values
  *
@@ -614,7 +586,7 @@ rb_application_new (void)
  * Return value: exit code
  */
 int
-rb_application_run (RBApplication *app, int argc, char **argv)
+rb_application_run (RBApplication *rb, int argc, char **argv)
 {
 	GOptionContext *context;
 	gboolean debug = FALSE;
@@ -624,19 +596,18 @@ rb_application_run (RBApplication *app, int argc, char **argv)
 
 	GError *error = NULL;
 
-	g_application_set_default (G_APPLICATION (app));
-	app->priv->autostarted = (g_getenv ("DESKTOP_AUTOSTART_ID") != NULL);
+	g_application_set_default (G_APPLICATION (rb));
+	rb->priv->autostarted = (g_getenv ("DESKTOP_AUTOSTART_ID") != NULL);
 
 	const GOptionEntry options []  = {
 		{ "debug",           'd', 0, G_OPTION_ARG_NONE,         &debug,           N_("Enable debug output"), NULL },
 		{ "debug-match",     'D', 0, G_OPTION_ARG_STRING,       &debug_match,     N_("Enable debug output matching a specified string"), NULL },
-		{ "no-update",	       0, 0, G_OPTION_ARG_NONE,         &app->priv->no_update, N_("Do not update the library with file changes"), NULL },
-		{ "no-registration", 'n', 0, G_OPTION_ARG_NONE,         &app->priv->no_registration, N_("Do not register the shell"), NULL },
-		{ "dry-run",	       0, 0, G_OPTION_ARG_NONE,         &app->priv->dry_run,         N_("Don't save any data permanently (implies --no-registration)"), NULL },
-		{ "disable-plugins",   0, 0, G_OPTION_ARG_NONE,		&app->priv->disable_plugins, N_("Disable loading of plugins"), NULL },
-		{ "rhythmdb-file",     0, 0, G_OPTION_ARG_STRING,       &app->priv->rhythmdb_file,   N_("Path for database file to use"), NULL },
-		{ "playlists-file",    0, 0, G_OPTION_ARG_STRING,       &app->priv->playlists_file,   N_("Path for playlists file to use"), NULL },
-		{ "version",           0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, show_version_cb, N_("Show the version of the program"), NULL },
+		{ "no-update",	       0, 0, G_OPTION_ARG_NONE,         &rb->priv->no_update, N_("Do not update the library with file changes"), NULL },
+		{ "no-registration", 'n', 0, G_OPTION_ARG_NONE,         &rb->priv->no_registration, N_("Do not register the shell"), NULL },
+		{ "dry-run",	       0, 0, G_OPTION_ARG_NONE,         &rb->priv->dry_run,         N_("Don't save any data permanently (implies --no-registration)"), NULL },
+		{ "disable-plugins",   0, 0, G_OPTION_ARG_NONE,		&rb->priv->disable_plugins, N_("Disable loading of plugins"), NULL },
+		{ "rhythmdb-file",     0, 0, G_OPTION_ARG_STRING,       &rb->priv->rhythmdb_file,   N_("Path for database file to use"), NULL },
+		{ "playlists-file",    0, 0, G_OPTION_ARG_STRING,       &rb->priv->playlists_file,   N_("Path for playlists file to use"), NULL },
 		{ NULL }
 	};
 
@@ -661,14 +632,9 @@ rb_application_run (RBApplication *app, int argc, char **argv)
 	else
 		rb_debug_init (debug);
 
-	if (app->priv->no_registration) {
-		GApplicationFlags flags;
-		g_object_get (app, "flags", &flags, NULL);
-		flags |= G_APPLICATION_NON_UNIQUE;
-		g_object_set (app, "flags", flags, NULL);
-	}
+	g_object_set (rb, "register-session", !rb->priv->no_registration, NULL);
 
-	return g_application_run (G_APPLICATION (app), nargc, nargv);
+	return g_application_run (G_APPLICATION (rb), nargc, nargv);
 }
 
 /**
@@ -705,7 +671,7 @@ rb_application_get_shared_menu (RBApplication *app, const char *name)
 /**
  * rb_application_get_plugin_menu:
  * @app: the application instance
- * @menu: name of plugin menu to return
+ * @name: name of plugin menu to return
  *
  * Returns a plugin menu instance.  Plugin menus are like shared menus except
  * they are created empty on first access, and they consist solely of entries
@@ -714,18 +680,18 @@ rb_application_get_shared_menu (RBApplication *app, const char *name)
  * Return value: (transfer none): plugin menu instance.
  */
 GMenuModel *
-rb_application_get_plugin_menu (RBApplication *app, const char *menu)
+rb_application_get_plugin_menu (RBApplication *app, const char *name)
 {
-	GMenuModel *pmenu;
+	GMenuModel *menu;
 
-	pmenu = g_hash_table_lookup (app->priv->plugin_menus, menu);
-	if (pmenu == NULL) {
-		pmenu = G_MENU_MODEL (g_menu_new ());
-		g_object_ref_sink (pmenu);
-		g_hash_table_insert (app->priv->plugin_menus, g_strdup (menu), pmenu);
+	menu = g_hash_table_lookup (app->priv->plugin_menus, name);
+	if (menu == NULL) {
+		menu = G_MENU_MODEL (g_menu_new ());
+		g_object_ref_sink (menu);
+		g_hash_table_insert (app->priv->plugin_menus, g_strdup (name), menu);
 	}
 
-	return pmenu;
+	return menu;
 }
 
 /**
@@ -800,8 +766,6 @@ rb_application_link_shared_menus (RBApplication *app, GMenu *menu)
 {
 	int i;
 
-	g_return_if_fail (menu != NULL);
-
 	for (i = 0; i < g_menu_model_get_n_items (G_MENU_MODEL (menu)); i++) {
 		GMenuModel *symlink_menu;
 		GMenuLinkIter *iter;
@@ -871,7 +835,6 @@ set_accelerator (RBApplication *app, GMenuModel *model, int item, gboolean enabl
 	const char *key;
 	const char *accel = NULL;
 	const char *action = NULL;
-	char *detailed_action;
 
 	iter = g_menu_model_iterate_item_attributes (model, item);
 	while (g_menu_attribute_iter_get_next (iter, &key, &value)) {
@@ -887,17 +850,10 @@ set_accelerator (RBApplication *app, GMenuModel *model, int item, gboolean enabl
 	g_object_unref (iter);
 
 	if (accel && action) {
-		const char *accels[2] = {
-			NULL,
-			NULL
-		};
-
 		if (enable)
-			accels[0] = accel;
-
-		detailed_action = g_action_print_detailed_name (action, target);
-		gtk_application_set_accels_for_action (GTK_APPLICATION (app), detailed_action, accels);
-		g_free (detailed_action);
+			gtk_application_add_accelerator (GTK_APPLICATION (app), accel, action, target);
+		else
+			gtk_application_remove_accelerator (GTK_APPLICATION (app), action, target);
 	}
 
 	if (target)
@@ -931,73 +887,4 @@ rb_application_set_menu_accelerators (RBApplication *app, GMenuModel *menu, gboo
 		}
 		g_object_unref (iter);
 	}
-}
-
-/**
- * rb_application_add_accelerator:
- * @app: the #RBApplication
- * @accel: accelerator string
- * @action: the name of the action to activate
- * @parameter: (nullable): parameter to pass when activating the action, or NULL if
- *   the action does not accept an activation parameter.
- *
- * Like #gtk_application_add_accelerator, except the accelerator only applies
- * if the key was not handled by the focused widget.
- */
-void
-rb_application_add_accelerator (RBApplication *app, const char *accel, const char *action, GVariant *parameter)
-{
-	RBApplicationAccel *a = g_new0 (RBApplicationAccel, 1);
-	char **bits;
-
-	gtk_accelerator_parse (accel, &a->keyval, &a->mods);
-	if (parameter != NULL)
-		a->parameter = g_variant_ref (parameter);
-
-	bits = g_strsplit (action, ".", 2);
-	a->prefix = bits[0];
-	a->action = bits[1];
-	g_free (bits);
-
-	app->priv->accelerators = g_list_append (app->priv->accelerators, a);
-}
-
-/**
- * rb_application_activate_key:
- * @app: the #RBApplication
- * @event: a #GdkEventKey
- *
- * Attempts to activate an accelerator registered using #rb_application_add_accelerator.
- *
- * Return value: %TRUE if an accelerator was activated
- */
-gboolean
-rb_application_activate_key (RBApplication *app, GdkEventKey *event)
-{
-	GList *l;
-	GtkWidget *window;
-	gboolean ret = FALSE;
-
-	g_object_get (app->priv->shell, "window", &window, NULL);
-
-	for (l = app->priv->accelerators; l != NULL; l = l->next) {
-		RBApplicationAccel *accel = l->data;
-		if (accel->keyval == event->keyval &&
-		    accel->mods == event->state) {
-			GActionGroup *group;
-
-			group = gtk_widget_get_action_group (window, accel->prefix);
-			if (group == NULL)
-				group = G_ACTION_GROUP (app);
-
-			g_action_group_activate_action (group,
-							accel->action,
-							accel->parameter);
-			ret = TRUE;
-			break;
-		}
-	}
-
-	g_object_unref (window);
-	return ret;
 }

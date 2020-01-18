@@ -8,7 +8,8 @@ Multimedia_in_files = rhythmbox.desktop.in rhythmbox-device.desktop.in
 Multimedia_DATA = $(Multimedia_in_files:.desktop.in=.desktop)
 
 playlists_in_files = playlists.xml.in
-noinst_DATA = playlists.xml
+playlists_DATA = playlists.xml
+playlistsdir = $(datadir)/rhythmbox
 
 man_MANS = rhythmbox.1 rhythmbox-client.1
 
@@ -31,10 +32,6 @@ all-local: gschemas.compiled
 servicedir = $(datadir)/dbus-1/services
 service_in_files = org.gnome.Rhythmbox3.service.in
 service_DATA = $(service_in_files:.service.in=.service)
-
-appdatadir = $(datadir)/appdata
-appdata_DATA = $(appdata_in_files:.xml.in=.xml)
-appdata_in_files = rhythmbox.appdata.xml.in
 
 # Rule to make the service file with bindir expanded
 $(service_DATA): $(service_in_files) Makefile
@@ -59,7 +56,6 @@ EXTRA_DIST = $(service_in_files)    \
 	     $(man_MANS)            \
 	     $(playlists_in_files)  \
 	     $(profiles_DATA)       \
-	     $(appdata_in_files)    \
 	     rhythmbox.desktop.in.in \
 	     rhythmbox-device.desktop.in.in
 
@@ -70,5 +66,4 @@ CLEANFILES = 					\
 	playlists.xml				\
 	rhythmbox.desktop.in			\
 	rhythmbox-device.desktop.in		\
-	gschemas.compiled			\
-	$(appdata_DATA)
+	gschemas.compiled

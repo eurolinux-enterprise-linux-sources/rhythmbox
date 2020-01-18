@@ -127,7 +127,7 @@ rb_uri_dialog_class_init (RBURIDialogClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBURIDialogClass, location_added),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__STRING,
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_STRING);
@@ -155,10 +155,10 @@ rb_uri_dialog_init (RBURIDialog *dialog)
 	gtk_box_set_spacing (GTK_BOX (content_area), 2);
 
 	dialog->priv->cancelbutton = gtk_dialog_add_button (GTK_DIALOG (dialog),
-							    _("_Cancel"),
+							    GTK_STOCK_CANCEL,
 							    GTK_RESPONSE_CANCEL);
 	dialog->priv->okbutton = gtk_dialog_add_button (GTK_DIALOG (dialog),
-							_("_Add"),
+							GTK_STOCK_ADD,
 							GTK_RESPONSE_OK);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 

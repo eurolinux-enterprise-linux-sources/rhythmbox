@@ -169,7 +169,7 @@ rhythmdb_query_parse_valist (RhythmDB *db, va_list args)
 /**
  * rhythmdb_query_parse:
  * @db: a #RhythmDB instance
- * @...: query criteria to parse
+ * @Varargs: query criteria to parse
  *
  * Creates a query from a list of criteria.
  *
@@ -228,7 +228,7 @@ rhythmdb_query_parse (RhythmDB *db, ...)
  * rhythmdb_query_append:
  * @db: a #RhythmDB instance
  * @query: a query.
- * @...: query criteria to append
+ * @Varargs: query criteria to append
  *
  * Appends new criteria to the query @query.
  *
@@ -297,7 +297,7 @@ rhythmdb_query_append_params (RhythmDB *db, GPtrArray *query,
 		data->propid = prop;
 		data->val = g_new0 (GValue, 1);
 		g_value_init (data->val, rhythmdb_get_property_type (db, data->propid));
-		g_value_transform (value, data->val);
+		g_value_copy (value, data->val);
 		break;
 	}
 
@@ -756,7 +756,6 @@ rhythmdb_query_preprocess (RhythmDB *db, GPtrArray *query)
 			case RHYTHMDB_PROP_TITLE_FOLDED:
 			case RHYTHMDB_PROP_GENRE_FOLDED:
 			case RHYTHMDB_PROP_ARTIST_FOLDED:
-			case RHYTHMDB_PROP_COMPOSER_FOLDED:
 			case RHYTHMDB_PROP_ALBUM_FOLDED:
 			{
 				/* as we are matching against a folded property, the string needs to also be folded */

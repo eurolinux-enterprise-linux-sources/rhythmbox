@@ -713,11 +713,7 @@
   </sect1>
   <sect1 id="podcast">
   	<title>Podcast ソース</title>
-    <para lang="en">
-		Podcasting is a new way to broadcast audio content over the web; when an
-		author publishes an episode, podcast subscribers are informed, through an
-		XML feed.
-	</para>
+    <para>ポッドキャスティングは、ウェブ上でオーディオ コンテンツを放送する新しい方法です; 配信する人がエピソードを発行すると、Podcast に登録した人に XMLフィードにより通知されます。</para>
     <para>Rhythmbox ミュージック・プレイヤーで Podcast の配信を購読することができるので、新しいエピソードが利用可能になったと通知されたときは、それをダウンロードして再生することができます。</para>
     <tip>
       	<para>Podcast やポッドキャスティングについてより多くの情報を得るには、<ulink url="http://en.wikipedia.org/">Wikipedia</ulink> の <ulink url="http://en.wikipedia.org/wiki/Podcast">Podcast</ulink> の定義を参照してください。</para>
@@ -1200,7 +1196,7 @@
               <entry lang="en">
                 <keycombo>
                   <keycap>Ctrl</keycap>
-                  <keycap>p</keycap>
+                  <keycap>Space</keycap>
                 </keycombo>
               </entry>
               <entry>
@@ -1210,7 +1206,7 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Ctrl</keycap>
+                  <keycap>Alt</keycap>
                   <keycap>Left</keycap>
                 </keycombo>
               </entry>
@@ -1221,34 +1217,12 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Ctrl</keycap>
+                  <keycap>Alt</keycap>
                   <keycap>Right</keycap>
                 </keycombo>
               </entry>
               <entry>
                 <para>次のトラックにジャンプ</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>Up</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para lang="en">Increase playback volume</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>Down</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para lang="en">Decrease playback volume</para>
               </entry>
             </row>
             <row>
@@ -1321,21 +1295,30 @@
               <entry>
                 <para>再生中の曲へジャンプ</para>
               </entry>
-	    </row>
-	    <!--
+            </row>
             <row>
-              <entry>
+              <entry lang="en">
                 <keycombo>
                   <keycap>Ctrl</keycap>
                   <keycap>Y</keycap>
                 </keycombo>
               </entry>
               <entry>
-                <para>Clear the search field text and remove all filters in the browser</para>
+                <para>検索フィールドのテキストのクリアとブラウザーのフィルターの削除</para>
               </entry>
-	    </row>
-            -->
+            </row>
             <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>N</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>新しいプレイリストの作成</para>
+              </entry>
+            </row>
+           <row>
               <entry lang="en">
                 <keycombo>
                   <keycap>Alt</keycap>
@@ -1344,6 +1327,17 @@
               </entry>
               <entry>
                 <para lang="en">Jump to search field</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>O</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>ライブラリへのフォルダーの追加</para>
               </entry>
             </row>
             <row>
@@ -1372,6 +1366,17 @@
             </row>
           </thead>
           <tbody>
+			<row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>W</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para><application>Rhythmbox ミュージック・プレイヤー</application> のウィンドウを閉じる</para>
+              </entry>
+            </row>
             <row>
               <entry lang="en">
                 <keycombo>
@@ -1397,6 +1402,17 @@
             <row>
               <entry lang="en">
                 <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>D</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>スマート ディスプレイ モードの オン / オフ</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
                   <keycap>F9</keycap>
                 </keycombo>
               </entry>
@@ -1413,6 +1429,17 @@
               </entry>
               <entry>
                 <para>キュー サイドバーの 表示 / 非表示</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>S</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>曲のポジション スライダーの 表示 / 非表示</para>
               </entry>
             </row>
             <row>

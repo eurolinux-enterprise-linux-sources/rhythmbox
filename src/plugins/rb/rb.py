@@ -30,8 +30,9 @@ import sys
 import os.path
 import os
 import time
+import thread
 
-from gi.repository import RB, Gtk
+from gi.repository import RB
 
 # rb classes
 from Loader import Loader
@@ -46,24 +47,16 @@ def try_load_icon(theme, icon, size, flags):
 	except:
 		return None
 
-def append_plugin_source_path(plugin, iconpath):
-	theme = Gtk.IconTheme.get_default()
-
-	# get plugin data dir
-	datadir = plugin.plugin_info.get_data_dir()
-	icondir = os.path.join(datadir, iconpath)
-	if os.path.exists(icondir):
-		theme.append_search_path(icondir)
-
-	# where was the caller loaded from?
+def append_plugin_source_path(theme, iconpath):
+	# check for a Makefile.am in the dir the file was loaded from
 	fr = sys._getframe(1)
 	co = fr.f_code
 	filename = co.co_filename
 
-	# if the calling plugin has an icons dir, add it to the search path
-	plugindir = filename[:filename.rfind(os.sep)]
-	icondir = os.path.join(plugindir, iconpath)
-	if os.path.exists(icondir):
+	# and if found, append the icon path
+	dir = filename[:filename.rfind(os.sep)]
+	if os.path.exists(dir + "/Makefile.am"):
+		icondir = dir + iconpath
 		theme.append_search_path(icondir)
 
 def entry_equal(a, b):
@@ -77,7 +70,7 @@ def find_plugin_file(plugin, filename):
 	info = plugin.plugin_info
 	data_dir = info.get_data_dir()
 	path = os.path.join(data_dir, filename)
-	print("looking for " + filename + " in " + data_dir)
+	print "looking for " + filename + " in " + data_dir
 	if os.path.exists(path):
 		return path
 
@@ -105,7 +98,7 @@ class _rbdebugfile:
 
 		# add the class name to the method, if 'self' exists
 		methodname = co.co_name
-		if 'self' in fr.f_locals:
+		if fr.f_locals.has_key('self'):
 			methodname = '%s.%s' % (fr.f_locals['self'].__class__.__name__, methodname)
 
 		ln = co.co_firstlineno + fr.f_lineno
@@ -119,8 +112,8 @@ class _rbdebugfile:
 	def readline(self):      return ''
 	def readlines(self):     return []
 	writelines = write
-	def seek(self, a):       raise IOError((29, 'Illegal seek'))
-	def tell(self):          raise IOError((29, 'Illegal seek'))
+	def seek(self, a):       raise IOError, (29, 'Illegal seek')
+	def tell(self):          raise IOError, (29, 'Illegal seek')
 	truncate = tell
 
 sys.stdout = _rbdebugfile(sys.stdout.fileno())

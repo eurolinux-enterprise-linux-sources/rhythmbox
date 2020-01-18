@@ -1,0 +1,56 @@
+<!-- ##### SECTION Title ##### -->
+RhythmDBQueryResultList
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT RhythmDBQueryResultList ##### -->
+<para>
+
+</para>
+
+@parent: 
+@priv: 
+
+<!-- ##### STRUCT RhythmDBQueryResultListClass ##### -->
+<para>
+
+</para>
+
+@parent: 
+@complete: 
+
+<!-- ##### FUNCTION rhythmdb_query_result_list_new ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rhythmdb_query_result_list_get_results ##### -->
+<para>
+
+</para>
+
+@list: 
+@Returns: 
+
+

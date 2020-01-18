@@ -1,0 +1,192 @@
+<!-- ##### SECTION Title ##### -->
+rb-ext-db-key
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### FUNCTION rb_ext_db_key_copy ##### -->
+<para>
+
+</para>
+
+@key: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_free ##### -->
+<para>
+
+</para>
+
+@key: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_create_lookup ##### -->
+<para>
+
+</para>
+
+@field: 
+@value: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_create_storage ##### -->
+<para>
+
+</para>
+
+@field: 
+@value: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_is_lookup ##### -->
+<para>
+
+</para>
+
+@key: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_add_field ##### -->
+<para>
+
+</para>
+
+@key: 
+@field: 
+@value: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_get_field_names ##### -->
+<para>
+
+</para>
+
+@key: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_get_field ##### -->
+<para>
+
+</para>
+
+@key: 
+@field: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_get_field_values ##### -->
+<para>
+
+</para>
+
+@key: 
+@field: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_field_matches ##### -->
+<para>
+
+</para>
+
+@key: 
+@field: 
+@value: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_add_info ##### -->
+<para>
+
+</para>
+
+@key: 
+@name: 
+@value: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_get_info_names ##### -->
+<para>
+
+</para>
+
+@key: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_get_info ##### -->
+<para>
+
+</para>
+
+@key: 
+@name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_matches ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION RBExtDBKeyLookupCallback ##### -->
+<para>
+
+</para>
+
+@data: 
+@user_data: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_lookups ##### -->
+<para>
+
+</para>
+
+@key: 
+@callback: 
+@user_data: 
+
+
+<!-- ##### FUNCTION rb_ext_db_key_to_store_key ##### -->
+<para>
+
+</para>
+
+@key: 
+@Returns: 
+
+
+<!-- ##### STRUCT RBExtDBKey ##### -->
+<para>
+
+</para>
+
+

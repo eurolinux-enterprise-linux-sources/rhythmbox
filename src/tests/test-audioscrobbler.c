@@ -95,7 +95,10 @@ main (int argc, char **argv)
 
 	rb_profile_start ("rb-audioscrobbler test suite");
 	rb_threads_init ();
+	g_type_init ();
 	rb_debug_init (TRUE);
+
+	GDK_THREADS_ENTER ();
 
 	/* setup tests */
 	s = rb_audioscrobbler_suite ();

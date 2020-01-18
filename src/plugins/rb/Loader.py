@@ -24,15 +24,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-from gi.repository import GObject, GLib, Gio
+from gi.repository import GObject, GLib, Gdk, Gio
 import sys
 
-def call_callback(callback, data, args):
+def callback_with_gdk_lock(callback, data, args):
+	Gdk.threads_enter()
 	try:
 		v = callback(data, *args)
+		Gdk.threads_leave()
 		return v
-	except Exception as e:
+	except Exception, e:
 		sys.excepthook(*sys.exc_info())
+		Gdk.threads_leave()
 
 
 class Loader(object):
@@ -43,12 +46,12 @@ class Loader(object):
 		try:
 			(ok, contents, etag) = file.load_contents_finish(result)
 			if ok:
-				call_callback(self.callback, contents, self.args)
+				callback_with_gdk_lock(self.callback, contents, self.args)
 			else:
-				call_callback(self.callback, None, self.args)
-		except Exception as e:
+				callback_with_gdk_lock(self.callback, None, self.args)
+		except Exception, e:
 			sys.excepthook(*sys.exc_info())
-			call_callback(self.callback, None, self.args)
+			callback_with_gdk_lock(self.callback, None, self.args)
 
 	def get_url (self, url, callback, *args):
 		self.url = url
@@ -57,7 +60,7 @@ class Loader(object):
 		try:
 			file = Gio.file_new_for_uri(url)
 			file.load_contents_async(self._cancel, self._contents_cb, None)
-		except Exception as e:
+		except Exception, e:
 			sys.excepthook(*sys.exc_info())
 			callback(None, *args)
 
@@ -74,10 +77,10 @@ class UpdateCheck(object):
 		try:
 			rfi = file.query_info_finish(result)
 			remote_mod = rfi.get_attribute_uint64(Gio.FILE_ATTRIBUTE_TIME_MODIFIED)
-			call_callback(self.callback, remote_mod != self.local_mod, self.args)
-		except Exception as e:
+			callback_with_gdk_lock(self.callback, remote_mod != self.local_mod, self.args)
+		except Exception, e:
 			sys.excepthook(*sys.exc_info())
-			call_callback(self.callback, False, self.args)
+			callback_with_gdk_lock(self.callback, False, self.args)
 
 	def check_for_update (self, local, remote, callback, *args):
 		self.local = local
@@ -92,7 +95,7 @@ class UpdateCheck(object):
 
 			rf = Gio.file_new_for_uri(remote)
 			rf.query_info_async(Gio.FILE_ATTRIBUTE_TIME_MODIFIED, Gio.FileQueryInfoFlags.NONE, GLib.PRIORITY_DEFAULT, self._cancel, self._file_info_cb, None)
-		except Exception as e:
+		except Exception, e:
 			sys.excepthook(*sys.exc_info())
 			self.callback(True, *self.args)
 

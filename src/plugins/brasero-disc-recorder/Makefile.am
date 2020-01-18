@@ -14,7 +14,7 @@ libcd_recorder_la_LIBADD = 				\
 	$(LIBBRASERO_MEDIA_LIBS)			\
 	$(NULL)
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -30,6 +30,7 @@ AM_CPPFLAGS = 						\
 	-DDATADIR=\""$(datadir)"\"			\
 	$(RHYTHMBOX_CFLAGS)				\
 	$(LIBBRASERO_MEDIA_CFLAGS)			\
+	-D_BSD_SOURCE			\
 	$(NULL)
 
 plugin_in_files = cd-recorder.plugin.in

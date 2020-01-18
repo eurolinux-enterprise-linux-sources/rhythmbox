@@ -30,6 +30,7 @@
 #include <gtk/gtk.h>
 
 #include "rb-cell-renderer-rating.h"
+#include "rb-marshal.h"
 #include "rb-rating-helper.h"
 
 static void rb_cell_renderer_rating_get_property (GObject *object,
@@ -104,12 +105,6 @@ static guint rb_cell_renderer_rating_signals[LAST_SIGNAL] = { 0 };
 static void
 rb_cell_renderer_rating_init (RBCellRendererRating *cellrating)
 {
-	RBCellRendererRatingClass *klass;
-
-	klass = RB_CELL_RENDERER_RATING_GET_CLASS (cellrating);
-	if (klass->priv->pixbufs == NULL) {
-		klass->priv->pixbufs = rb_rating_pixbufs_load ();
-	}
 
 	cellrating->priv = RB_CELL_RENDERER_RATING_GET_PRIVATE (cellrating);
 
@@ -118,6 +113,7 @@ rb_cell_renderer_rating_init (RBCellRendererRating *cellrating)
 		      "mode", GTK_CELL_RENDERER_MODE_ACTIVATABLE,
 		      NULL);
 
+	/* create the needed icons */
 }
 
 static void
@@ -134,6 +130,7 @@ rb_cell_renderer_rating_class_init (RBCellRendererRatingClass *class)
 	cell_class->activate = rb_cell_renderer_rating_activate;
 
 	class->priv = g_new0 (RBCellRendererRatingClassPrivate, 1);
+	class->priv->pixbufs = rb_rating_pixbufs_new ();
 
 	/**
 	 * RBCellRendererRating:rating:
@@ -157,7 +154,7 @@ rb_cell_renderer_rating_class_init (RBCellRendererRatingClass *class)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBCellRendererRatingClass, rated),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__STRING_DOUBLE,
 			      G_TYPE_NONE,
 			      2,
 			      G_TYPE_STRING,
@@ -231,25 +228,22 @@ rb_cell_renderer_rating_get_size (GtkCellRenderer *cell,
 {
 	gint icon_width;
 	gint xpad, ypad;
-	int h;
 	RBCellRendererRating *cellrating = (RBCellRendererRating *) cell;
 
 	gtk_icon_size_lookup (GTK_ICON_SIZE_MENU, &icon_width, NULL);
 	gtk_cell_renderer_get_padding (GTK_CELL_RENDERER (cellrating), &xpad, &ypad);
 
-	h = ypad * 2 + icon_width;
-
 	if (x_offset)
 		*x_offset = 0;
 
 	if (y_offset)
-		*y_offset = ((cell_area->height + 1) - h) / 2;
+		*y_offset = 0;
 
 	if (width)
 		*width = xpad * 2 + icon_width * RB_RATING_MAX_SCORE;
 
 	if (height)
-		*height = h;
+		*height = ypad * 2 + icon_width;
 }
 
 static void

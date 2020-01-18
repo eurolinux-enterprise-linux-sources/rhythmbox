@@ -471,6 +471,8 @@ scroll_row_timeout (gpointer data)
 	GdkWindow *window;
 	GdkDeviceManager *device_manager;
 
+	GDK_THREADS_ENTER ();
+
 	priv_data = g_object_get_data (G_OBJECT (tree_view), RB_TREE_DND_STRING);
 	g_return_val_if_fail(priv_data != NULL, TRUE);
 
@@ -485,6 +487,7 @@ scroll_row_timeout (gpointer data)
 	/* see if we are near the edge. */
 	if (x < visible_rect.x && x > visible_rect.x + visible_rect.width)
 	{
+		GDK_THREADS_LEAVE ();
 		priv_data->scroll_timeout = 0;
 		return FALSE;
 	}
@@ -495,6 +498,7 @@ scroll_row_timeout (gpointer data)
 		offset = y - (visible_rect.y + visible_rect.height - 2 * SCROLL_EDGE_SIZE);
 		if (offset < 0) 
 		{
+			GDK_THREADS_LEAVE ();
 			priv_data->scroll_timeout = 0;
 			return FALSE;
 		}
@@ -511,6 +515,8 @@ scroll_row_timeout (gpointer data)
 	if (ABS (vadj_value - value) > 0.0001)
 		remove_select_on_drag_timeout(tree_view);
 
+	GDK_THREADS_LEAVE ();
+
 	return TRUE;
 }
 
@@ -521,6 +527,8 @@ select_on_drag_timeout (gpointer data)
 	GtkTreeView *tree_view = data;
 	GtkTreeSelection *selection;
 	RbTreeDndData *priv_data;
+
+	GDK_THREADS_ENTER ();
 
 	priv_data = g_object_get_data (G_OBJECT (tree_view), RB_TREE_DND_STRING);
 	g_return_val_if_fail(priv_data != NULL, FALSE);
@@ -535,6 +543,8 @@ select_on_drag_timeout (gpointer data)
 	priv_data->select_on_drag_timeout = 0;
 	gtk_tree_path_free(priv_data->previous_dest_path);
 	priv_data->previous_dest_path = NULL;
+
+	GDK_THREADS_LEAVE ();
 	return FALSE;
 }
 
@@ -656,12 +666,11 @@ rb_tree_dnd_motion_notify_event_cb (GtkWidget      *widget,
 		if (rb_tree_drag_source_row_draggable (RB_TREE_DRAG_SOURCE (model), path_list))
 		{
 			rb_debug ("drag begin");
-			context = gtk_drag_begin_with_coordinates (widget,
-								   priv_data->source_target_list,
-								   priv_data->source_actions,
-								   priv_data->pressed_button,
-								   (GdkEvent*)event,
-								   -1, -1);
+			context = gtk_drag_begin (widget,
+						  priv_data->source_target_list,
+						  priv_data->source_actions,
+						  priv_data->pressed_button,
+						  (GdkEvent*)event);
 	  		set_context_data (context, path_list);
 	  		gtk_drag_set_icon_default (context);
 

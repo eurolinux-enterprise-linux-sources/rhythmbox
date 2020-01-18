@@ -37,8 +37,8 @@
 #include <gtk/gtk.h>
 
 #include "rb-statusbar.h"
+#include "rb-track-transfer-queue.h"
 #include "rb-debug.h"
-#include "rb-util.h"
 
 /**
  * SECTION:rb-statusbar
@@ -62,7 +62,6 @@
 
 static void rb_statusbar_class_init (RBStatusbarClass *klass);
 static void rb_statusbar_init (RBStatusbar *statusbar);
-static void rb_statusbar_constructed (GObject *object);
 static void rb_statusbar_dispose (GObject *object);
 static void rb_statusbar_finalize (GObject *object);
 static void rb_statusbar_set_property (GObject *object,
@@ -78,11 +77,22 @@ static gboolean poll_status (RBStatusbar *status);
 static void rb_statusbar_sync_status (RBStatusbar *status);
 static void rb_statusbar_page_status_changed_cb (RBDisplayPage *page,
 						   RBStatusbar *statusbar);
+static void rb_statusbar_transfer_progress_cb (RBTrackTransferQueue *queue,
+					       int done,
+					       int total,
+					       double fraction,
+					       int time_left,
+					       RBStatusbar *statusbar);
 
 struct RBStatusbarPrivate
 {
         RBDisplayPage *selected_page;
+	RBTrackTransferQueue *transfer_queue;
+
         RhythmDB *db;
+
+        GtkWidget *progress;
+
         guint status_poll_id;
 };
 
@@ -91,6 +101,7 @@ enum
         PROP_0,
         PROP_DB,
         PROP_PAGE,
+	PROP_TRANSFER_QUEUE
 };
 
 G_DEFINE_TYPE (RBStatusbar, rb_statusbar, GTK_TYPE_STATUSBAR)
@@ -102,7 +113,6 @@ rb_statusbar_class_init (RBStatusbarClass *klass)
 
         object_class->dispose = rb_statusbar_dispose;
         object_class->finalize = rb_statusbar_finalize;
-        object_class->constructed = rb_statusbar_constructed;
 
         object_class->set_property = rb_statusbar_set_property;
         object_class->get_property = rb_statusbar_get_property;
@@ -131,6 +141,19 @@ rb_statusbar_class_init (RBStatusbarClass *klass)
                                                               "RBDisplayPage object",
                                                               RB_TYPE_DISPLAY_PAGE,
                                                               G_PARAM_READWRITE));
+	/**
+	 * RBStatusbar::transfer-queue:
+	 *
+	 * The #RBTrackTransferQueue instance
+	 */
+	g_object_class_install_property (object_class,
+					 PROP_TRANSFER_QUEUE,
+					 g_param_spec_object ("transfer-queue",
+							      "RBTrackTransferQueue",
+							      "RBTrackTransferQueue instance",
+							      RB_TYPE_TRACK_TRANSFER_QUEUE,
+							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+
 	g_type_class_add_private (klass, sizeof (RBStatusbarPrivate));
 }
 
@@ -140,14 +163,15 @@ rb_statusbar_init (RBStatusbar *statusbar)
 	statusbar->priv = G_TYPE_INSTANCE_GET_PRIVATE (statusbar,
 						       RB_TYPE_STATUSBAR,
 						       RBStatusbarPrivate);
-}
 
-static void
-rb_statusbar_constructed (GObject *object)
-{
-	RB_CHAIN_GOBJECT_METHOD (rb_statusbar_parent_class, constructed, object);
+        statusbar->priv->progress = gtk_progress_bar_new ();
+	gtk_widget_set_size_request (statusbar->priv->progress, -1, 10);
 
-	gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (object)), "statusbar");
+        gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (statusbar->priv->progress), 1.0);
+        gtk_widget_hide (statusbar->priv->progress);
+
+        gtk_box_pack_start (GTK_BOX (statusbar),
+                            GTK_WIDGET (statusbar->priv->progress), FALSE, TRUE, 0);
 }
 
 static void
@@ -175,6 +199,11 @@ rb_statusbar_dispose (GObject *object)
 	if (statusbar->priv->selected_page != NULL) {
 		g_object_unref (statusbar->priv->selected_page);
 		statusbar->priv->selected_page = NULL;
+	}
+
+	if (statusbar->priv->transfer_queue != NULL) {
+		g_object_unref (statusbar->priv->transfer_queue);
+		statusbar->priv->transfer_queue = NULL;
 	}
 
         G_OBJECT_CLASS (rb_statusbar_parent_class)->dispose (object);
@@ -231,6 +260,14 @@ rb_statusbar_set_property (GObject *object,
 		rb_statusbar_sync_status (statusbar);
 
                 break;
+	case PROP_TRANSFER_QUEUE:
+		statusbar->priv->transfer_queue = g_value_dup_object (value);
+		g_signal_connect_object (G_OBJECT (statusbar->priv->transfer_queue),
+					 "transfer-progress",
+					 G_CALLBACK (rb_statusbar_transfer_progress_cb),
+					 statusbar,
+					 0);
+		break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                 break;
@@ -252,6 +289,9 @@ rb_statusbar_get_property (GObject *object,
                 break;
         case PROP_PAGE:
                 g_value_set_object (value, statusbar->priv->selected_page);
+                break;
+        case PROP_TRANSFER_QUEUE:
+                g_value_set_object (value, statusbar->priv->transfer_queue);
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -278,17 +318,41 @@ rb_statusbar_set_page (RBStatusbar *statusbar, RBDisplayPage *page)
 static gboolean
 poll_status (RBStatusbar *status)
 {
+        GDK_THREADS_ENTER ();
+
         status->priv->status_poll_id = 0;
         rb_statusbar_sync_status (status);
+
+        GDK_THREADS_LEAVE ();
+
         return FALSE;
 }
 
 static void
 rb_statusbar_sync_status (RBStatusbar *status)
 {
+        gboolean changed = FALSE;
         char *status_text = NULL;
 	char *progress_text = NULL;
 	float progress = 999;
+	int time_left = 0;
+
+        /*
+         * Behaviour of status bar:
+	 * - use page's status text
+	 * - use page's progress value and text, unless transfer queue provides something
+	 * - if no page progress value or transfer progress value and library is busy,
+	 *    pulse the progress bar
+         */
+        
+	/* library busy? */
+        if (rhythmdb_is_busy (status->priv->db)) {
+		progress = -1.0f;
+
+		/* see if it wants to provide more details */
+		rhythmdb_get_progress_info (status->priv->db, &progress_text, &progress);
+		changed = TRUE;
+        }
 
 	/* get page details */
         if (status->priv->selected_page) {
@@ -297,30 +361,59 @@ rb_statusbar_sync_status (RBStatusbar *status)
 			status_text ? status_text : "", progress_text ? progress_text : "", progress);
 	}
 
+	/* get transfer details */
+	rb_track_transfer_queue_get_status (status->priv->transfer_queue,
+					    &status_text,
+					    &progress_text,
+					    &progress,
+					    &time_left);
+
         /* set up the status text */
         if (status_text) {
                 gtk_statusbar_pop (GTK_STATUSBAR (status), 0);
                 gtk_statusbar_push (GTK_STATUSBAR (status), 0, status_text);
+		g_free (status_text);
         }
 
+        /* set up the progress bar */
+	if (progress > (1.0f - EPSILON)) {
+		gtk_widget_hide (status->priv->progress);
+	} else {
+                gtk_widget_show (status->priv->progress);
+
+                if (progress < EPSILON) {
+			gtk_progress_bar_pulse (GTK_PROGRESS_BAR (status->priv->progress));
+                        changed = TRUE;
+                } else {
+                        gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (status->priv->progress),
+                                                       progress);
+                }
+		gtk_progress_bar_set_text (GTK_PROGRESS_BAR (status->priv->progress),
+					   progress_text);
+	}
+
 	g_free (progress_text);
-	g_free (status_text);
+
+        if (status->priv->status_poll_id == 0 && changed)
+                status->priv->status_poll_id = g_timeout_add (250, (GSourceFunc) poll_status, status);
 }
 
 /**
  * rb_statusbar_new:
  * @db: the #RhythmDB instance
+ * @transfer_queue: the #RBTrackTransferQueue
  *
  * Creates the status bar widget.
  *
  * Return value: the status bar widget
  */
 RBStatusbar *
-rb_statusbar_new (RhythmDB *db)
+rb_statusbar_new (RhythmDB *db,
+		  RBTrackTransferQueue *queue)
 {
         RBStatusbar *statusbar = g_object_new (RB_TYPE_STATUSBAR,
                                                "db", db,
-                                               "margin", 0,
+					       "transfer-queue", queue,
                                                NULL);
 
         g_return_val_if_fail (statusbar->priv != NULL, NULL);
@@ -329,10 +422,28 @@ rb_statusbar_new (RhythmDB *db)
 }
 
 static void
-rb_statusbar_page_status_changed_cb (RBDisplayPage *page, RBStatusbar *statusbar)
+add_status_poll (RBStatusbar *statusbar)
 {
-	rb_debug ("source status changed");
         if (statusbar->priv->status_poll_id == 0)
                 statusbar->priv->status_poll_id =
                         g_idle_add ((GSourceFunc) poll_status, statusbar);
+}
+
+static void
+rb_statusbar_page_status_changed_cb (RBDisplayPage *page, RBStatusbar *statusbar)
+{
+	rb_debug ("source status changed");
+	add_status_poll (statusbar);
+}
+
+static void
+rb_statusbar_transfer_progress_cb (RBTrackTransferQueue *queue,
+				   int done,
+				   int total,
+				   double progress,
+				   int time_left,
+				   RBStatusbar *statusbar)
+{
+	rb_debug ("transfer progress changed");
+	add_status_poll (statusbar);
 }

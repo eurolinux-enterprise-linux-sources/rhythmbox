@@ -2,26 +2,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>rb-dialog: Rhythmbox Development Reference Manual</title>
-<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<title>rb-dialog</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch07.html" title="Widgets">
 <link rel="prev" href="RBCellRendererRating.html" title="RBCellRendererRating">
 <link rel="next" href="RBEntryView.html" title="RBEntryView">
-<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
-<td width="100%" align="left" class="shortcuts">
-<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
-                  <a href="#rhythmbox-rb-dialog.description" class="shortcut">Description</a></span>
-</td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
-<td><a accesskey="u" href="ch07.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
-<td><a accesskey="p" href="RBCellRendererRating.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
-<td><a accesskey="n" href="RBEntryView.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
-</tr></table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBCellRendererRating.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch07.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBEntryView.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#rhythmbox-rb-dialog.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#rhythmbox-rb-dialog.description" class="shortcut">Description</a>
+</td></tr>
+</table>
 <div class="refentry">
 <a name="rhythmbox-rb-dialog"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -29,147 +33,125 @@
 <h2><span class="refentrytitle"><a name="rhythmbox-rb-dialog.top_of_page"></a>rb-dialog</span></h2>
 <p>rb-dialog — helper functions for creating gtk+ dialog windows</p>
 </td>
-<td class="gallery_image" valign="top" align="right"></td>
+<td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsect1">
-<a name="rhythmbox-rb-dialog.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="functions_return">
-<col class="functions_name">
-</colgroup>
-<tbody>
-<tr>
-<td class="function_type">
-<span class="returnvalue">void</span>
-</td>
-<td class="function_name">
-<a class="link" href="rhythmbox-rb-dialog.html#rb-error-dialog" title="rb_error_dialog ()">rb_error_dialog</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct"><span class="returnvalue">GtkWidget</span></a> *
-</td>
-<td class="function_name">
-<a class="link" href="rhythmbox-rb-dialog.html#rb-file-chooser-new" title="rb_file_chooser_new ()">rb_file_chooser_new</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-</tbody>
-</table></div>
+<div class="refsynopsisdiv">
+<a name="rhythmbox-rb-dialog.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-dialog.html#rb-error-dialog" title="rb_error_dialog ()">rb_error_dialog</a>                     (<em class="parameter"><code><span class="type">GtkWindow</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *primary</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *secondary</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">GtkWidget</span> *         <a class="link" href="rhythmbox-rb-dialog.html#rb-file-chooser-new" title="rb_file_chooser_new ()">rb_file_chooser_new</a>                 (<em class="parameter"><code>const <span class="type">char</span> *title</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkWindow</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkFileChooserAction</span> action</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> local_only</code></em>);
+</pre>
 </div>
 <div class="refsect1">
 <a name="rhythmbox-rb-dialog.description"></a><h2>Description</h2>
-<p>This provides a couple of shortcuts for creating dialogs.  If you want
-to annoy the user by displaying an error message, this is the way to do it.</p>
+<p>
+This provides a couple of shortcuts for creating dialogs.  If you want
+to annoy the user by displaying an error message, this is the way to do it.
+</p>
 </div>
 <div class="refsect1">
-<a name="rhythmbox-rb-dialog.functions_details"></a><h2>Functions</h2>
+<a name="rhythmbox-rb-dialog.details"></a><h2>Details</h2>
 <div class="refsect2">
-<a name="rb-error-dialog"></a><h3>rb_error_dialog ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-rb_error_dialog (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkWindow.html#GtkWindow-struct"><span class="type">GtkWindow</span></a> *parent</code></em>,
-                 <em class="parameter"><code>const <span class="type">char</span> *primary</code></em>,
-                 <em class="parameter"><code>const <span class="type">char</span> *secondary</code></em>,
-                 <em class="parameter"><code>...</code></em>);</pre>
-<p>Creates and displays a simple error dialog box containing a primary
+<a name="rb-error-dialog"></a><h3>rb_error_dialog ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_error_dialog                     (<em class="parameter"><code><span class="type">GtkWindow</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *primary</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *secondary</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Creates and displays a simple error dialog box containing a primary
 message in bold, larger type and a secondary message in the regular
 font.  Both the primary and secondary message strings should be
-translated.</p>
-<p>Care should be taken to avoid opening multiple error dialog boxes
+translated.
+</p>
+<p>
+Care should be taken to avoid opening multiple error dialog boxes
 when a single error message (such as 'out of disk space') affects
-multiple items.</p>
-<div class="refsect3">
-<a name="rb-error-dialog.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
+multiple items.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
+<col align="left" valign="top">
+<col>
 </colgroup>
 <tbody>
 <tr>
-<td class="parameter_name"><p>parent</p></td>
-<td class="parameter_description"><p>parent <a href="/usr/share/gtk-doc/html/gtk3GtkWindow.html#GtkWindow-struct"><span class="type">GtkWindow</span></a> for the dialog</p></td>
-<td class="parameter_annotations"> </td>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent <span class="type">GtkWindow</span> for the dialog</td>
 </tr>
 <tr>
-<td class="parameter_name"><p>primary</p></td>
-<td class="parameter_description"><p>main error message</p></td>
-<td class="parameter_annotations"> </td>
+<td><p><span class="term"><em class="parameter"><code>primary</code></em> :</span></p></td>
+<td>main error message</td>
 </tr>
 <tr>
-<td class="parameter_name"><p>secondary</p></td>
-<td class="parameter_description"><p>secondary error message (printf-style format string)</p></td>
-<td class="parameter_annotations"> </td>
+<td><p><span class="term"><em class="parameter"><code>secondary</code></em> :</span></p></td>
+<td>secondary error message (printf-style format string)</td>
 </tr>
 <tr>
-<td class="parameter_name"><p>...</p></td>
-<td class="parameter_description"><p>any substitution values for the secondary message</p></td>
-<td class="parameter_annotations"> </td>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>any substitution values for the secondary message</td>
 </tr>
 </tbody>
 </table></div>
-</div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="rb-file-chooser-new"></a><h3>rb_file_chooser_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct"><span class="returnvalue">GtkWidget</span></a> *
-rb_file_chooser_new (<em class="parameter"><code>const <span class="type">char</span> *title</code></em>,
-                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkWindow.html#GtkWindow-struct"><span class="type">GtkWindow</span></a> *parent</code></em>,
-                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkFileChooser.html#GtkFileChooserAction"><span class="type">GtkFileChooserAction</span></a> action</code></em>,
-                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> local_only</code></em>);</pre>
-<p>Creates and shows a regular gtk+ file chooser dialog with
+<a name="rb-file-chooser-new"></a><h3>rb_file_chooser_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *         rb_file_chooser_new                 (<em class="parameter"><code>const <span class="type">char</span> *title</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkWindow</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkFileChooserAction</span> action</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> local_only</code></em>);</pre>
+<p>
+Creates and shows a regular gtk+ file chooser dialog with
 a given title.  The user's music directory (typically ~/Music) is
-added as a shortcut.</p>
-<p>For consistency, this should be used anywhere a file chooser is required.</p>
-<p>After creating the dialog, the caller should connect a handler to its 
-'response' signal to process the user's selected files or folders.</p>
-<div class="refsect3">
-<a name="rb-file-chooser-new.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
+added as a shortcut.
+</p>
+<p>
+For consistency, this should be used anywhere a file chooser is required.
+</p>
+<p>
+After creating the dialog, the caller should connect a handler to its 
+'response' signal to process the user's selected files or folders.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
+<col align="left" valign="top">
+<col>
 </colgroup>
 <tbody>
 <tr>
-<td class="parameter_name"><p>title</p></td>
-<td class="parameter_description"><p>title for the file chooser</p></td>
-<td class="parameter_annotations"> </td>
+<td><p><span class="term"><em class="parameter"><code>title</code></em> :</span></p></td>
+<td>title for the file chooser</td>
 </tr>
 <tr>
-<td class="parameter_name"><p>parent</p></td>
-<td class="parameter_description"><p>parent <a href="/usr/share/gtk-doc/html/gtk3GtkWindow.html#GtkWindow-struct"><span class="type">GtkWindow</span></a> for the file chooser</p></td>
-<td class="parameter_annotations"> </td>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent <span class="type">GtkWindow</span> for the file chooser</td>
 </tr>
 <tr>
-<td class="parameter_name"><p>action</p></td>
-<td class="parameter_description"><p>the <a href="/usr/share/gtk-doc/html/gtk3GtkFileChooser.html#GtkFileChooserAction"><span class="type">GtkFileChooserAction</span></a></p></td>
-<td class="parameter_annotations"> </td>
+<td><p><span class="term"><em class="parameter"><code>action</code></em> :</span></p></td>
+<td>the <span class="type">GtkFileChooserAction</span>
+</td>
 </tr>
 <tr>
-<td class="parameter_name"><p>local_only</p></td>
-<td class="parameter_description"><p>if TRUE, don't show network locations</p></td>
-<td class="parameter_annotations"> </td>
+<td><p><span class="term"><em class="parameter"><code>local_only</code></em> :</span></p></td>
+<td>if TRUE, don't show network locations</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the file chooser <span class="type">GtkWidget</span>. <span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span>
+</td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<div class="refsect3">
-<a name="rb-file-chooser-new.returns"></a><h4>Returns</h4>
-<p> the file chooser <a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct"><span class="type">GtkWidget</span></a>. </p>
-<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
-</div>
-</div>
-</div>
-<div class="refsect1">
-<a name="rhythmbox-rb-dialog.other_details"></a><h2>Types and Values</h2>
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.25</div>
+<hr>
+          Generated by GTK-Doc V1.18.1</div>
 </body>
 </html>

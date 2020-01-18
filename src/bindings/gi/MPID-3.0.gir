@@ -11,7 +11,7 @@ and/or use gtk-doc annotations.  -->
   <c:include name="rhythmbox.h"/>
   <namespace name="MPID"
              version="3.0"
-             shared-library="librhythmbox-core.so.10"
+             shared-library="librhythmbox-core.so.7"
              c:identifier-prefixes="MPID"
              c:symbol-prefixes="mpid_">
     <class name="Device"
@@ -21,69 +21,54 @@ and/or use gtk-doc annotations.  -->
            glib:type-name="MPIDDevice"
            glib:get-type="mpid_device_get_type"
            glib:type-struct="DeviceClass">
-      <doc xml:space="preserve">An #MPIDDevice stores a set of information for a particular attached device,
+      <doc xml:whitespace="preserve">An #MPIDDevice stores a set of information for a particular attached device,
 identified by either a mount point (e.g. /media/device) or a device node
 (e.g. /dev/sdb).</doc>
       <constructor name="new" c:identifier="mpid_device_new">
-        <doc xml:space="preserve">Creates a new #MPIDDevice and reads device information for the specified
+        <doc xml:whitespace="preserve">Creates a new #MPIDDevice and reads device information for the specified
 device node path or mount point path.</doc>
         <return-value transfer-ownership="full">
-          <doc xml:space="preserve">new #MPIDDevice instance</doc>
+          <doc xml:whitespace="preserve">new #MPIDDevice instance</doc>
           <type name="Device" c:type="MPIDDevice*"/>
         </return-value>
         <parameters>
           <parameter name="path" transfer-ownership="none">
-            <doc xml:space="preserve">the input path (either device node path or mount point)</doc>
-            <type name="utf8" c:type="const char*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <constructor name="new_from_mpi_file"
-                   c:identifier="mpid_device_new_from_mpi_file">
-        <doc xml:space="preserve">Creates a new #MPIDDevice populated with information read from the specified
-.mpi file</doc>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve">new #MPIDDevice instance</doc>
-          <type name="Device" c:type="MPIDDevice*"/>
-        </return-value>
-        <parameters>
-          <parameter name="path" transfer-ownership="none">
-            <doc xml:space="preserve">path to a .mpi file describing the device</doc>
+            <doc xml:whitespace="preserve">the input path (either device node path or mount point)</doc>
             <type name="utf8" c:type="const char*"/>
           </parameter>
         </parameters>
       </constructor>
       <property name="access-protocols" transfer-ownership="none">
-        <doc xml:space="preserve">Names of access protocols that can be used to access the device contents</doc>
+        <doc xml:whitespace="preserve">Names of access protocols that can be used to access the device contents</doc>
         <array>
           <type name="utf8"/>
         </array>
       </property>
       <property name="audio-folders" transfer-ownership="none">
-        <doc xml:space="preserve">A set of folders (relative to the root of the device) containing audio
+        <doc xml:whitespace="preserve">A set of folders (relative to the root of the device) containing audio
 folders.</doc>
         <array>
           <type name="utf8"/>
         </array>
       </property>
       <property name="drive-type" transfer-ownership="none">
-        <doc xml:space="preserve">The device drive type</doc>
+        <doc xml:whitespace="preserve">The device drive type</doc>
         <type name="utf8" c:type="gchar*"/>
       </property>
       <property name="error" transfer-ownership="none">
-        <doc xml:space="preserve">MPID error code resulting from device detection (see #MPIDError)</doc>
+        <doc xml:whitespace="preserve">MPID error code resulting from device detection (see #MPIDError)</doc>
         <type name="Error"/>
       </property>
       <property name="folder-depth" transfer-ownership="none">
-        <doc xml:space="preserve">The folder nesting level supported by the device.  -1 indicates there is no limit.</doc>
+        <doc xml:whitespace="preserve">The folder nesting level supported by the device.  -1 indicates there is no limit.</doc>
         <type name="gint" c:type="gint"/>
       </property>
       <property name="fs-uuid" transfer-ownership="none">
-        <doc xml:space="preserve">The device filesystem UUID</doc>
+        <doc xml:whitespace="preserve">The device filesystem UUID</doc>
         <type name="utf8" c:type="gchar*"/>
       </property>
       <property name="input-formats" transfer-ownership="none">
-        <doc xml:space="preserve">A set of MIME types that the device can record</doc>
+        <doc xml:whitespace="preserve">A set of MIME types that the device can record</doc>
         <array>
           <type name="utf8"/>
         </array>
@@ -92,60 +77,50 @@ folders.</doc>
                 writable="1"
                 construct-only="1"
                 transfer-ownership="none">
-        <doc xml:space="preserve">Either the device node path or the mount point path for the device.</doc>
+        <doc xml:whitespace="preserve">Either the device node path or the mount point path for the device.</doc>
         <type name="utf8" c:type="gchar*"/>
       </property>
       <property name="model" transfer-ownership="none">
-        <doc xml:space="preserve">The device model name</doc>
-        <type name="utf8" c:type="gchar*"/>
-      </property>
-      <property name="mpi-file"
-                writable="1"
-                construct-only="1"
-                transfer-ownership="none">
-        <doc xml:space="preserve">Path to a .mpi file describing the device</doc>
+        <doc xml:whitespace="preserve">The device model name</doc>
         <type name="utf8" c:type="gchar*"/>
       </property>
       <property name="output-formats" transfer-ownership="none">
-        <doc xml:space="preserve">A set of MIME types that the device can play</doc>
+        <doc xml:whitespace="preserve">A set of MIME types that the device can play</doc>
         <array>
           <type name="utf8"/>
         </array>
       </property>
       <property name="playlist-formats" transfer-ownership="none">
-        <doc xml:space="preserve">A set of playlist format MIME types suppored by the device</doc>
+        <doc xml:whitespace="preserve">A set of playlist format MIME types suppored by the device</doc>
         <array>
           <type name="utf8"/>
         </array>
       </property>
       <property name="playlist-path" transfer-ownership="none">
-        <doc xml:space="preserve">Path to playlist files on the device.  May include '%File' to indicate a directory
+        <doc xml:whitespace="preserve">Path to playlist files on the device.  May include '%File' to indicate a directory
 containing any number of playlist files.</doc>
         <type name="utf8" c:type="gchar*"/>
       </property>
       <property name="requires-eject" transfer-ownership="none">
-        <doc xml:space="preserve">If %TRUE, the device must be ejected rather than unmounted</doc>
+        <doc xml:whitespace="preserve">If %TRUE, the device must be ejected rather than unmounted</doc>
         <type name="gboolean" c:type="gboolean"/>
       </property>
       <property name="serial" transfer-ownership="none">
-        <doc xml:space="preserve">The device serial ID</doc>
+        <doc xml:whitespace="preserve">The device serial ID</doc>
         <type name="utf8" c:type="gchar*"/>
       </property>
       <property name="source" transfer-ownership="none">
-        <doc xml:space="preserve">The information source used to provide device information (see #MPIDSource)</doc>
+        <doc xml:whitespace="preserve">The information source used to provide device information (see #MPIDSource)</doc>
         <type name="SourceType"/>
       </property>
       <property name="vendor" transfer-ownership="none">
-        <doc xml:space="preserve">The device vendor name</doc>
+        <doc xml:whitespace="preserve">The device vendor name</doc>
         <type name="utf8" c:type="gchar*"/>
       </property>
       <field name="parent" readable="0" private="1">
         <type name="GObject.Object" c:type="GObject"/>
       </field>
       <field name="input_path" readable="0" private="1">
-        <type name="utf8" c:type="char*"/>
-      </field>
-      <field name="mpi_file" readable="0" private="1">
         <type name="utf8" c:type="char*"/>
       </field>
       <field name="error" readable="0" private="1">

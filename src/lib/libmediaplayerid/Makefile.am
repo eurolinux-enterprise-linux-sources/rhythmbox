@@ -12,7 +12,7 @@ libmediaplayerid_la_SOURCES =		\
 	mpid-files.c			\
 	mpid-util.c
 
-AM_CPPFLAGS =				\
+INCLUDES =				\
 	-I$(top_srcdir)			\
 	$(RHYTHMBOX_CFLAGS)
 
@@ -24,7 +24,7 @@ if USE_GUDEV
 libmediaplayerid_la_SOURCES += mpid-udev.c
 EXTRA_DIST = mpid-hal.c mpid-dummy.c
 
-AM_CPPFLAGS += $(GUDEV_CFLAGS)
+INCLUDES += $(GUDEV_CFLAGS)
 libmediaplayerid_la_LIBADD = $(GUDEV_LIBS)
 
 else
@@ -34,7 +34,7 @@ if HAVE_HAL
 libmediaplayerid_la_SOURCES += mpid-hal.c
 EXTRA_DIST = mpid-udev.c mpid-dummy.c
 
-AM_CPPFLAGS += $(HAL_CFLAGS)
+INCLUDES += $(HAL_CFLAGS)
 libmediaplayerid_la_LIBADD = $(HAL_LIBS)
 
 else

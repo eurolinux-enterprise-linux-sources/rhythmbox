@@ -4,7 +4,6 @@ plugindir = $(PLUGINDIR)/artsearch
 plugindatadir = $(PLUGINDATADIR)/artsearch
 plugin_PYTHON = 			\
 	artsearch.py			\
-	songinfo.py			\
 	embedded.py			\
 	lastfm.py			\
 	local.py			\

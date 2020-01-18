@@ -81,7 +81,7 @@ rb_debug_matches (const char *func,
 
 /**
  * rb_debug:
- * @...: printf-style format string followed by any substitution values
+ * @Varargs: printf-style format string followed by any substitution values
  *
  * If the call site function or file name matches the current debug output
  * settings, the message will be formatted and printed to standard error,
@@ -129,7 +129,7 @@ rb_debug_real (const char *func, const char *file, const int line, gboolean newl
  * @line: line number
  * @newline: if TRUE, add a newline to the output
  * @format: printf style format specifier
- * @...: substitution values for @format
+ * @Varargs: substitution values for @format
  *
  * If the debug output settings match the function or file names,
  * the debug message will be formatted and written to standard error.
@@ -307,7 +307,7 @@ struct RBProfiler
 };
 
 /**
- * rb_profiler_new: (skip)
+ * rb_profiler_new: (skip):
  * @name: profiler name
  *
  * Creates a new profiler instance.  This can be used to
@@ -333,7 +333,7 @@ rb_profiler_new (const char *name)
 }
 
 /**
- * rb_profiler_dump: (skip)
+ * rb_profiler_dump: (skip):
  * @profiler: profiler instance
  *
  * Produces debug output for the profiler instance,
@@ -357,7 +357,7 @@ rb_profiler_dump (RBProfiler *profiler)
 }
 
 /**
- * rb_profiler_reset: (skip)
+ * rb_profiler_reset: (skip):
  * @profiler: profiler instance
  *
  * Resets the elapsed time for the profiler
@@ -374,7 +374,7 @@ rb_profiler_reset (RBProfiler *profiler)
 }
 
 /**
- * rb_profiler_free: (skip)
+ * rb_profiler_free: (skip):
  * @profiler: profiler instance to destroy
  *
  * Frees the memory associated with a profiler instance.

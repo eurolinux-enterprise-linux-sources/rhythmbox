@@ -3,7 +3,6 @@ plugindatadir = $(PLUGINDATADIR)/ipod
 plugin_LTLIBRARIES = libipod.la
 
 libipod_la_SOURCES = \
-	ipod-resources.c			\
 	rb-ipod-db.c				\
 	rb-ipod-db.h				\
 	rb-ipod-helpers.c			\
@@ -20,7 +19,7 @@ libipod_la_LIBADD = 					\
 	$(top_builddir)/shell/librhythmbox-core.la	\
 	$(IPOD_LIBS)
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -38,7 +37,8 @@ AM_CPPFLAGS = 						\
 	-DSHARE_DIR=\"$(pkgdatadir)\"                   \
 	-DDATADIR=\""$(datadir)"\"			\
 	$(RHYTHMBOX_CFLAGS)				\
-	$(IPOD_CFLAGS)
+	$(IPOD_CFLAGS)					\
+	-D_BSD_SOURCE
 
 plugin_in_files = ipod.plugin.in
 
@@ -46,22 +46,13 @@ plugin_in_files = ipod.plugin.in
 
 plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
-PLUGIN_RESOURCES =					\
+gtkbuilderdir = $(plugindatadir)
+gtkbuilder_DATA = 					\
 	ipod-info.ui	 				\
 	ipod-init.ui					\
 	ipod-toolbar.ui
 
-plugin_resource_deps = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir) $(srcdir)/ipod.gresource.xml)
-ipod-resources.c: $(plugin_resource_deps) $(srcdir)/ipod.gresource.xml
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES)		\
-		--target="$@"				\
-		--sourcedir="$(srcdir)"			\
-		--sourcedir="$(builddir)"		\
-		--generate-source "$(srcdir)/ipod.gresource.xml"
+EXTRA_DIST = $(uixml_DATA) $(plugin_in_files) $(gtkbuilder_DATA)
 
-BUILT_SOURCES = ipod-resources.c $(plugin_DATA)
-
-EXTRA_DIST = $(PLUGIN_RESOURCES) $(plugin_in_files) ipod.gresource.xml
-
-CLEANFILES = $(BUILT_SOURCES)
-DISTCLEANFILES = $(BUILT_SOURCES)
+CLEANFILES = $(plugin_DATA)
+DISTCLEANFILES = $(plugin_DATA)

@@ -62,12 +62,11 @@ GType		rb_static_playlist_source_get_type 	(void);
 
 RBSource *	rb_static_playlist_source_new		(RBShell *shell,
 							 const char *name,
-							 GSettings *settings,
+							 const char *settings_name,
 							 gboolean local,
 							 RhythmDBEntryType *entry_type);
 
 RBSource *	rb_static_playlist_source_new_from_xml	(RBShell *shell,
-							 const char *name,
 							 xmlNodePtr node);
 void		rb_static_playlist_source_load_from_xml	(RBStaticPlaylistSource *source,
 							 xmlNodePtr node);

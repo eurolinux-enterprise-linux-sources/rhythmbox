@@ -54,16 +54,21 @@ typedef struct
 {
 	RBMediaPlayerSourceClass parent;
 
-	char *		(*get_mount_path) (RBGenericPlayerSource *source);
-	void		(*load_playlists) (RBGenericPlayerSource *source);
+	char *		(*impl_get_mount_path) (RBGenericPlayerSource *source);
+	void		(*impl_load_playlists) (RBGenericPlayerSource *source);
+	char **		(*impl_get_audio_folders) (RBGenericPlayerSource *source);
 
-	char *		(*uri_from_playlist_uri) (RBGenericPlayerSource *source, const char *uri);
-	char *		(*uri_to_playlist_uri) (RBGenericPlayerSource *source, const char *uri, TotemPlParserType playlist_type);
+	char *		(*impl_uri_from_playlist_uri) (RBGenericPlayerSource *source, const char *uri);
+	char *		(*impl_uri_to_playlist_uri) (RBGenericPlayerSource *source, const char *uri, TotemPlParserType playlist_type);
 
 	/* used for track transfer - returns the filename relative to the audio folder on the device */
-	char *		(*build_filename) (RBGenericPlayerSource *source, RhythmDBEntry *entry);
+	char *		(*impl_build_filename) (RBGenericPlayerSource *source, RhythmDBEntry *entry);
 } RBGenericPlayerSourceClass;
 
+RBSource *		rb_generic_player_source_new			(GObject *plugin,
+									 RBShell *shell,
+									 GMount *mount,
+									 MPIDDevice *device_info);
 GType			rb_generic_player_source_get_type		(void);
 
 char *			rb_generic_player_source_get_mount_path		(RBGenericPlayerSource *source);

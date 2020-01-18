@@ -31,6 +31,7 @@
 #include <glib/gi18n.h>
 
 #include <libsoup/soup.h>
+#include <libsoup/soup-gnome.h>
 #include <json-glib/json-glib.h>
 
 #include "rb-audioscrobbler-account.h"
@@ -179,7 +180,7 @@ rb_audioscrobbler_account_class_init (RBAudioscrobblerAccountClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBAudioscrobblerAccountClass, login_status_changed),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__ENUM,
 			      G_TYPE_NONE,
 			      1,
 			      RB_TYPE_AUDIOSCROBBLER_ACCOUNT_LOGIN_STATUS);
@@ -496,9 +497,9 @@ request_token (RBAudioscrobblerAccount *account)
 	/* create the soup session, if we haven't got one yet */
 	if (account->priv->soup_session == NULL) {
 		account->priv->soup_session =
-			soup_session_new_with_options (SOUP_SESSION_ADD_FEATURE_BY_TYPE,
-						       SOUP_TYPE_PROXY_RESOLVER_DEFAULT,
-						       NULL);
+			soup_session_async_new_with_options (SOUP_SESSION_ADD_FEATURE_BY_TYPE,
+		                                             SOUP_TYPE_GNOME_FEATURES_2_26,
+		                                             NULL);
 	}
 
 	/* create the request */

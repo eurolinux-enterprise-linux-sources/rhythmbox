@@ -14,7 +14,8 @@
 
    You should have received a copy of the GNU Library General Public
    License along with the Gnome Library; see the file COPYING.LIB.  If not,
-   see <http://www.gnu.org/licenses/>.
+   write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
 
 */
 
@@ -135,25 +136,21 @@ rb_alert_dialog_init (RBAlertDialog *dialog)
 	dialog->details->primary_label = gtk_label_new (NULL);
 	dialog->details->secondary_label = gtk_label_new (NULL);
 	dialog->details->details_label = gtk_label_new (NULL);
-	dialog->details->image = gtk_image_new_from_icon_name ("broken-image", GTK_ICON_SIZE_DIALOG);
-	gtk_widget_set_halign (dialog->details->image, GTK_ALIGN_CENTER);
-	gtk_widget_set_valign (dialog->details->image, GTK_ALIGN_START);
+	dialog->details->image = gtk_image_new_from_stock (NULL, GTK_ICON_SIZE_DIALOG);
+	gtk_misc_set_alignment (GTK_MISC (dialog->details->image), 0.5, 0.0);
 
 	gtk_label_set_line_wrap (GTK_LABEL (dialog->details->primary_label), TRUE);
 	gtk_label_set_selectable (GTK_LABEL (dialog->details->primary_label), TRUE);
 	gtk_label_set_use_markup (GTK_LABEL (dialog->details->primary_label), TRUE);
-	gtk_widget_set_halign (dialog->details->primary_label, GTK_ALIGN_START);
-	gtk_widget_set_valign (dialog->details->primary_label, GTK_ALIGN_CENTER);
+	gtk_misc_set_alignment (GTK_MISC (dialog->details->primary_label), 0.0, 0.5);
 
 	gtk_label_set_line_wrap (GTK_LABEL (dialog->details->secondary_label), TRUE);
 	gtk_label_set_selectable (GTK_LABEL (dialog->details->secondary_label), TRUE);
-	gtk_widget_set_halign (dialog->details->secondary_label, GTK_ALIGN_START);
-	gtk_widget_set_valign (dialog->details->secondary_label, GTK_ALIGN_CENTER);
+	gtk_misc_set_alignment (GTK_MISC (dialog->details->secondary_label), 0.0, 0.5);
 
 	gtk_label_set_line_wrap (GTK_LABEL (dialog->details->details_label), TRUE);
 	gtk_label_set_selectable (GTK_LABEL (dialog->details->details_label), TRUE);
-	gtk_widget_set_halign (dialog->details->details_label, GTK_ALIGN_START);
-	gtk_widget_set_valign (dialog->details->details_label, GTK_ALIGN_CENTER);
+	gtk_misc_set_alignment (GTK_MISC (dialog->details->details_label), 0.0, 0.5);
 
 	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
@@ -192,26 +189,37 @@ static void
 setup_type (RBAlertDialog *dialog,
 	    GtkMessageType  type)
 {
-	const char *icon_name = "dialog-information";
+	const gchar *stock_id = NULL;
+	GtkStockItem item;
+
 	switch (type) {
 		case GTK_MESSAGE_INFO:
-			icon_name = "dialog-information";
+			stock_id = GTK_STOCK_DIALOG_INFO;
 			break;
 		case GTK_MESSAGE_QUESTION:
-			icon_name = "dialog-question";
+			stock_id = GTK_STOCK_DIALOG_QUESTION;
 			break;
 		case GTK_MESSAGE_WARNING:
-			icon_name = "dialog-warning";
+			stock_id = GTK_STOCK_DIALOG_WARNING;
 			break;
 		case GTK_MESSAGE_ERROR:
-			icon_name = "dialog-error";
+			stock_id = GTK_STOCK_DIALOG_ERROR;
 			break;
 		default:
 			g_warning ("Unknown GtkMessageType %d", type);
 			break;
 	}
 
-	gtk_image_set_from_icon_name (GTK_IMAGE (dialog->details->image), icon_name, GTK_ICON_SIZE_DIALOG);
+	if (stock_id == NULL) {
+		stock_id = GTK_STOCK_DIALOG_INFO;
+	}
+
+	if (gtk_stock_lookup (stock_id, &item)) {
+		gtk_image_set_from_stock (GTK_IMAGE (dialog->details->image), stock_id,
+		                          GTK_ICON_SIZE_DIALOG);
+	} else {
+		g_warning ("Stock dialog ID doesn't exist?");
+	}
 }
 
 static void
@@ -367,41 +375,41 @@ rb_alert_dialog_add_buttons (RBAlertDialog* alert_dialog,
 			break;
 		case GTK_BUTTONS_OK:
 			gtk_dialog_add_button (dialog,
-		                               _("_OK"),
+		                               GTK_STOCK_OK,
 			                       GTK_RESPONSE_OK);
 			gtk_dialog_set_default_response (dialog,
 			                                GTK_RESPONSE_OK);
 			break;
 		case GTK_BUTTONS_CLOSE:
 			gtk_dialog_add_button (dialog,
-		                               _("_Close"),
-					       GTK_RESPONSE_CLOSE);
+		                               GTK_STOCK_CLOSE,
+			                      GTK_RESPONSE_CLOSE);
 			gtk_dialog_set_default_response (dialog,
 			                                 GTK_RESPONSE_CLOSE);
 			break;
 		case GTK_BUTTONS_CANCEL:
 			gtk_dialog_add_button (dialog,
-			                       _("_Cancel"),
+			                       GTK_STOCK_CANCEL,
 			                       GTK_RESPONSE_CANCEL);
 			gtk_dialog_set_default_response (dialog,
 			                                 GTK_RESPONSE_CANCEL);
 			break;
 		case GTK_BUTTONS_YES_NO:
 			gtk_dialog_add_button (dialog,
-			                       _("_No"),
+			                       GTK_STOCK_NO,
 			                       GTK_RESPONSE_NO);
 			gtk_dialog_add_button (dialog,
-			                       _("_Yes"),
+			                       GTK_STOCK_YES,
 			                       GTK_RESPONSE_YES);
 			gtk_dialog_set_default_response (dialog,
 			                                 GTK_RESPONSE_YES);
 			break;
 		case GTK_BUTTONS_OK_CANCEL:
 			gtk_dialog_add_button (dialog,
-			                       _("_Cancel"),
+			                       GTK_STOCK_CANCEL,
 			                       GTK_RESPONSE_CANCEL);
 			gtk_dialog_add_button (dialog,
-			                       _("_OK"),
+			                       GTK_STOCK_OK,
 			                       GTK_RESPONSE_OK);
 			gtk_dialog_set_default_response (dialog,
 			                                 GTK_RESPONSE_OK);

@@ -38,6 +38,7 @@
 
 #include <lib/rb-util.h>
 #include <lib/rb-debug.h>
+#include <lib/eggdesktopfile.h>
 #include <plugins/rb-plugin-macros.h>
 #include <shell/rb-shell.h>
 #include <shell/rb-shell-player.h>
@@ -78,7 +79,6 @@ typedef struct
 
 	GHashTable *player_property_changes;
 	GHashTable *playlist_property_changes;
-	gboolean emit_seeked;
 	guint property_emit_id;
 
 	gint64 last_elapsed;
@@ -163,22 +163,6 @@ emit_properties_idle (RBMprisPlugin *plugin)
 		plugin->playlist_property_changes = NULL;
 	}
 
-	if (plugin->emit_seeked) {
-		GError *error = NULL;
-		rb_debug ("emitting Seeked; new time %" G_GINT64_FORMAT, plugin->last_elapsed/1000);
-		g_dbus_connection_emit_signal (plugin->connection,
-					       NULL,
-					       MPRIS_OBJECT_NAME,
-					       MPRIS_PLAYER_INTERFACE,
-					       "Seeked",
-					       g_variant_new ("(x)", plugin->last_elapsed / 1000),
-					       &error);
-		if (error != NULL) {
-			g_warning ("Unable to set MPRIS Seeked signal: %s", error->message);
-			g_clear_error (&error);
-		}
-		plugin->emit_seeked = 0;
-	}
 	plugin->property_emit_id = 0;
 	return FALSE;
 }
@@ -285,16 +269,16 @@ get_root_property (GDBusConnection *connection,
 	} else if (g_strcmp0 (property_name, "HasTrackList") == 0) {
 		return g_variant_new_boolean (FALSE);
 	} else if (g_strcmp0 (property_name, "Identity") == 0) {
-		return g_variant_new_string ("Rhythmbox");
+		EggDesktopFile *desktop_file;
+		desktop_file = egg_get_desktop_file ();
+		return g_variant_new_string (egg_desktop_file_get_name (desktop_file));
 	} else if (g_strcmp0 (property_name, "DesktopEntry") == 0) {
+		EggDesktopFile *desktop_file;
 		GVariant *v = NULL;
 		char *path;
 
-#ifdef USE_UNINSTALLED_DIRS
-		path = g_build_filename (SHARE_UNINSTALLED_BUILDDIR, "rhythmbox.desktop", NULL);
-#else
-		path = g_build_filename (DATADIR, "applications", "rhythmbox.desktop", NULL);
-#endif
+		desktop_file = egg_get_desktop_file ();
+		path = g_filename_from_uri (egg_desktop_file_get_source (desktop_file), NULL, error);
 		if (path != NULL) {
 			char *basename;
 			char *ext;
@@ -594,7 +578,7 @@ build_track_metadata (RBMprisPlugin *plugin,
 
 	key = rhythmdb_entry_create_ext_db_key (entry, RHYTHMDB_PROP_ALBUM);
 
-	art_filename = rb_ext_db_lookup (plugin->art_store, key, NULL);
+	art_filename = rb_ext_db_lookup (plugin->art_store, key);
 	if (art_filename != NULL) {
 		char *uri;
 		uri = g_filename_to_uri (art_filename, NULL, NULL);
@@ -643,7 +627,7 @@ handle_player_method_call (GDBusConnection *connection,
 		ret = rb_shell_player_pause (plugin->player, &error);
 		handle_result (invocation, ret, error);
 	} else if (g_strcmp0 (method_name, "PlayPause") == 0) {
-		ret = rb_shell_player_playpause (plugin->player, &error);
+		ret = rb_shell_player_playpause (plugin->player, TRUE, &error);
 		handle_result (invocation, ret, error);
 	} else if (g_strcmp0 (method_name, "Stop") == 0) {
 		rb_shell_player_stop (plugin->player);
@@ -852,7 +836,7 @@ get_player_property (GDBusConnection *connection,
 		guint t;
 		ret = rb_shell_player_get_playing_time (plugin->player, &t, error);
 		if (ret) {
-			return g_variant_new_int64 ((gint64)t * G_USEC_PER_SEC);
+			return g_variant_new_int64 (t * G_USEC_PER_SEC);
 		} else {
 			return NULL;
 		}
@@ -1256,7 +1240,7 @@ art_added_cb (RBExtDB *store, RBExtDBKey *key, const char *filename, GValue *dat
 }
 
 static void
-entry_changed_cb (RhythmDB *db, RhythmDBEntry *entry, GPtrArray *changes, RBMprisPlugin *plugin)
+entry_changed_cb (RhythmDB *db, RhythmDBEntry *entry, GArray *changes, RBMprisPlugin *plugin)
 {
 	RhythmDBEntry *playing_entry = rb_shell_player_get_playing_entry (plugin->player);
 	if (playing_entry == NULL) {
@@ -1268,7 +1252,7 @@ entry_changed_cb (RhythmDB *db, RhythmDBEntry *entry, GPtrArray *changes, RBMpri
 
 		/* make sure there's an interesting property change in there */
 		for (i = 0; i < changes->len; i++) {
-			RhythmDBEntryChange *change = g_ptr_array_index (changes, i);
+			RhythmDBEntryChange *change = g_value_get_boxed (&g_array_index (changes, GValue, i));
 			switch (change->prop) {
 				/* probably not complete */
 				case RHYTHMDB_PROP_MOUNTPOINT:
@@ -1332,6 +1316,8 @@ player_has_prev_changed_cb (GObject *object, GParamSpec *pspec, RBMprisPlugin *p
 static void
 elapsed_nano_changed_cb (RBShellPlayer *player, gint64 elapsed, RBMprisPlugin *plugin)
 {
+	GError *error = NULL;
+
 	/* interpret any change in the elapsed time other than an
 	 * increase of less than one second as a seek.  this includes
 	 * the seek back that we do after pausing (with crossfading),
@@ -1344,10 +1330,18 @@ elapsed_nano_changed_cb (RBShellPlayer *player, gint64 elapsed, RBMprisPlugin *p
 		return;
 	}
 
-	if (plugin->property_emit_id == 0) {
-		plugin->property_emit_id = g_idle_add ((GSourceFunc)emit_properties_idle, plugin);
+	rb_debug ("emitting Seeked; new time %" G_GINT64_FORMAT, elapsed/1000);
+	g_dbus_connection_emit_signal (plugin->connection,
+				       NULL,
+				       MPRIS_OBJECT_NAME,
+				       MPRIS_PLAYER_INTERFACE,
+				       "Seeked",
+				       g_variant_new ("(x)", elapsed / 1000),
+				       &error);
+	if (error != NULL) {
+		g_warning ("Unable to set MPRIS Seeked signal: %s", error->message);
+		g_clear_error (&error);
 	}
-	plugin->emit_seeked = TRUE;
 	plugin->last_elapsed = elapsed;
 }
 

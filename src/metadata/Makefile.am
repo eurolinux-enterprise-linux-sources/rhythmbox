@@ -1,6 +1,6 @@
 SUBDIRS =
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"			\
 	-I$(top_srcdir) 				\
@@ -11,7 +11,7 @@ AM_CPPFLAGS = 						\
 
 INSTALLED_METADATA_HELPER=`echo rhythmbox-metadata | sed '$(transform)'`
 
-AM_CPPFLAGS +=						\
+INCLUDES +=						\
 	-DLIBEXEC_DIR=\"$(libexecdir)\"			\
 	-DINSTALLED_METADATA_HELPER=\"$(INSTALLED_METADATA_HELPER)\"
 

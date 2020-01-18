@@ -1,0 +1,74 @@
+<!-- ##### SECTION Title ##### -->
+RBSourceToolbar
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT RBSourceToolbar ##### -->
+<para>
+
+</para>
+
+@parent: 
+@priv: 
+
+<!-- ##### STRUCT RBSourceToolbarClass ##### -->
+<para>
+
+</para>
+
+@parent: 
+
+<!-- ##### FUNCTION rb_source_toolbar_new ##### -->
+<para>
+
+</para>
+
+@page: 
+@accel_group: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_source_toolbar_add_search_entry_menu ##### -->
+<para>
+
+</para>
+
+@toolbar: 
+@search_menu: 
+@search_action: 
+
+
+<!-- ##### FUNCTION rb_source_toolbar_add_search_entry ##### -->
+<para>
+
+</para>
+
+@toolbar: 
+@placeholder: 
+
+
+<!-- ##### FUNCTION rb_source_toolbar_clear_search_entry ##### -->
+<para>
+
+</para>
+
+@toolbar: 
+
+

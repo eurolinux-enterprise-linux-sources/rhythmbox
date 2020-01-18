@@ -30,7 +30,6 @@
 
 #include <glib-object.h>
 
-#include <stdbool.h> /* for tdb.h */
 #include <sys/types.h>
 #include <tdb.h>
 
@@ -77,15 +76,13 @@ const char *		rb_ext_db_key_get_info		(RBExtDBKey *key,
 gboolean		rb_ext_db_key_matches		(RBExtDBKey *a,
 							 RBExtDBKey *b);
 
-typedef gboolean	(*RBExtDBKeyLookupCallback)	(TDB_DATA data, RBExtDBKey *key, gpointer user_data);
+typedef gboolean	(*RBExtDBKeyLookupCallback)	(TDB_DATA data, gpointer user_data);
 
 void			rb_ext_db_key_lookups		(RBExtDBKey *key,
 							 RBExtDBKeyLookupCallback callback,
 							 gpointer user_data);
 
 TDB_DATA		rb_ext_db_key_to_store_key	(RBExtDBKey *key);
-
-char *			rb_ext_db_key_to_string		(RBExtDBKey *key);
 
 G_END_DECLS
 

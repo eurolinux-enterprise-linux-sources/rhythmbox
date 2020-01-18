@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="3.6"/>
+  <!-- interface-requires gtk+ 2.12 -->
   <object class="GtkScrolledWindow" id="magnatune_loading_scrolledwindow">
     <property name="visible">True</property>
     <property name="can_focus">True</property>
@@ -9,12 +8,12 @@
       <object class="GtkViewport" id="viewport1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="resize_mode">queue</property>
         <child>
-          <object class="GtkBox" id="magnatune_loading_vbox">
+          <object class="GtkVBox" id="magnatune_loading_vbox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="border_width">12</property>
-            <property name="orientation">vertical</property>
             <property name="spacing">6</property>
             <child>
               <object class="GtkImage" id="image1">
@@ -72,7 +71,7 @@
                   </object>
                   <packing>
                     <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"/>
+                    <property name="y_options"></property>
                   </packing>
                 </child>
                 <child>
@@ -86,7 +85,7 @@
                     <property name="top_attach">1</property>
                     <property name="bottom_attach">2</property>
                     <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"/>
+                    <property name="y_options"></property>
                   </packing>
                 </child>
                 <child>
@@ -100,7 +99,7 @@
                     <property name="top_attach">2</property>
                     <property name="bottom_attach">3</property>
                     <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"/>
+                    <property name="y_options"></property>
                   </packing>
                 </child>
                 <child>
@@ -114,7 +113,7 @@
                     <property name="top_attach">3</property>
                     <property name="bottom_attach">4</property>
                     <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"/>
+                    <property name="y_options"></property>
                   </packing>
                 </child>
                 <child>
@@ -128,7 +127,7 @@
                     <property name="top_attach">4</property>
                     <property name="bottom_attach">5</property>
                     <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"/>
+                    <property name="y_options"></property>
                   </packing>
                 </child>
               </object>
@@ -153,12 +152,12 @@
             <child>
               <object class="GtkLinkButton" id="linkbutton1">
                 <property name="label" translatable="yes">http://www.magnatune.com/</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="has_tooltip">True</property>
                 <property name="halign">center</property>
+                <property name="use_action_appearance">False</property>
                 <property name="relief">none</property>
                 <property name="uri">http://www.magnatune.com/?ref=rhythmbox</property>
               </object>

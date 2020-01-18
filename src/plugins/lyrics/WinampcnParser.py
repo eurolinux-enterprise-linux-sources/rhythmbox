@@ -25,10 +25,19 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 import sys
-import urllib.parse
+import urllib
 import re
 import rb
 from xml.dom import minidom
+
+def detect_charset(s):
+	charsets = ('iso-8859-1', 'gbk', 'utf-8')
+	for charset in charsets:
+		try:
+			return unicode(unicode(s, 'utf-8').encode(charset), 'gbk')
+		except:
+			continue
+	return s
 
 class WinampcnParser(object):
 	def __init__(self, artist, title):
@@ -38,8 +47,8 @@ class WinampcnParser(object):
 	def search(self, callback, *data):
 
 		# encode search string
-		title_encode = urllib.parse.quote(self.title.replace(' ', '').encode('gbk'))
-		artist_encode = urllib.parse.quote(self.artist.replace(' ', '').encode('gbk'))
+                title_encode = urllib.quote(detect_charset(self.title).encode('gbk').replace(' ', ''))
+		artist_encode = urllib.quote(detect_charset(self.artist).encode('gbk').replace(' ',''))
 		url = 'http://www.winampcn.com/lyrictransfer/get.aspx?song=%s&artist=%s&lsong=%s&Datetime=20060601' % (title_encode, artist_encode, title_encode)
 		
 		loader = rb.Loader()
@@ -48,25 +57,25 @@ class WinampcnParser(object):
 	def got_lyrics(self, xmltext, callback, *data):
 		# retrieve xml content
 		if xmltext is None:
-			print("no response")
+			print "no response"
 			callback (None, *data)
 			return
-		xmltext = xmltext.decode('gbk')
 
 		try:
+			xmltext = xmltext.decode('gbk').encode('UTF-8')
 			xmltext = xmltext.replace('encoding="gb2312"', 'encoding="UTF-8"')
 			xmldoc = minidom.parseString(xmltext)
 			root = xmldoc.documentElement
 
 			lrcurl = root.getElementsByTagName('LyricUrl')[0].childNodes[0].data
 			if lrcurl is None:
-				print("no lyric urls")
+				print "no lyric urls"
 				callback (xmltext, *data)
 				return
 
 			# download the lyrics file
 			lrcurl = lrcurl.replace('%3A', ':');
-			print("url: %s" % lrcurl)
+			print "url: %s" % lrcurl
 
 			loader = rb.Loader()
 			loader.get_url (lrcurl, self.parse_lyrics, callback, *data)
@@ -77,18 +86,21 @@ class WinampcnParser(object):
 	def parse_lyrics(self, lyrics, callback, *data):
 
 		if lyrics is None:
-			print("no lyrics")
+			print "no lyrics"
 			callback (None, *data)
 			return
 
 		# transform it into plain text
-		lrcplaintext = lyrics.decode('gbk')
+		lrcplaintext = lyrics
 		try:
 			lrcplaintext = re.sub('\[.*?\]', '', lrcplaintext)
+			lrcplaintext = lrcplaintext.decode('gbk').encode('UTF-8')
 		except:
-			print("unable to decode lyrics")
-			callback (None, *data)
+			print "unable to decode lyrics"
+			callback (lrcplaintext, *data)
 			return
 
+		# callback and show
 		lrcplaintext += "\n\nLyrics provided by winampcn.com"
 		callback(lrcplaintext, *data)
+

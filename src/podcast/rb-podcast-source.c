@@ -49,6 +49,7 @@
 #include "rhythmdb.h"
 #include "rhythmdb-query-model.h"
 #include "rb-shell-player.h"
+#include "rb-stock-icons.h"
 #include "rb-entry-view.h"
 #include "rb-property-view.h"
 #include "rb-util.h"
@@ -402,7 +403,10 @@ podcast_add_action_cb (GSimpleAction *action, GVariant *parameter, gpointer data
 void
 rb_podcast_source_add_feed (RBPodcastSource *source, const char *text)
 {
-	g_action_group_activate_action (G_ACTION_GROUP (g_application_get_default ()), "podcast-add", NULL);
+	GtkWidget *window;
+
+	window = gtk_widget_get_toplevel (GTK_WIDGET (source));
+	g_action_group_activate_action (G_ACTION_GROUP (window), "podcast-add", NULL);
 
 	rb_podcast_add_dialog_reset (RB_PODCAST_ADD_DIALOG (source->priv->add_dialog), text, TRUE);
 }
@@ -531,7 +535,7 @@ podcast_feed_delete_action_cb (GSimpleAction *action, GVariant *parameter, gpoin
 	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
 	                        _("Delete _Feed Only"),
 	                        GTK_RESPONSE_NO,
-	                        _("_Cancel"),
+	                        GTK_STOCK_CANCEL,
 	                        GTK_RESPONSE_CANCEL,
 	                        NULL);
 
@@ -880,10 +884,31 @@ podcast_post_status_sort_func (RhythmDBEntry *a,
 	return ret;
 }
 
+
+static void
+episode_activated_cb (RBEntryView *view,
+		      RhythmDBEntry *entry,
+		      RBPodcastSource *source)
+{
+	GValue val = {0,};
+
+	/* check to see if it has already been downloaded */
+	if (rb_podcast_manager_entry_downloaded (entry))
+		return;
+
+	g_value_init (&val, G_TYPE_ULONG);
+	g_value_set_ulong (&val, RHYTHMDB_PODCAST_STATUS_WAITING);
+	rhythmdb_entry_set (source->priv->db, entry, RHYTHMDB_PROP_STATUS, &val);
+	rhythmdb_commit (source->priv->db);
+	g_value_unset (&val);
+
+	rb_podcast_manager_download_entry (source->priv->podcast_mgr, entry);
+}
+
 static void
 podcast_entry_changed_cb (RhythmDB *db,
 			  RhythmDBEntry *entry,
-			  GPtrArray *changes,
+			  GArray *changes,
 			  RBPodcastSource *source)
 {
 	RhythmDBEntryType *entry_type;
@@ -896,7 +921,8 @@ podcast_entry_changed_cb (RhythmDB *db,
 
 	feed_changed = FALSE;
 	for (i = 0; i < changes->len; i++) {
-		RhythmDBEntryChange *change = g_ptr_array_index (changes, i);
+		GValue *v = &g_array_index (changes, GValue, i);
+		RhythmDBEntryChange *change = g_value_get_boxed (v);
 
 		switch (change->prop) {
 		case RHYTHMDB_PROP_PLAYBACK_ERROR:
@@ -1000,9 +1026,24 @@ rb_podcast_source_new (RBShell *shell,
 					  "settings", g_settings_get_child (settings, "source"),
 					  "toolbar-menu", toolbar,
 					  NULL));
-	rb_display_page_set_icon_name (RB_DISPLAY_PAGE (source), icon_name);
 	g_object_unref (settings);
 	g_object_unref (builder);
+
+	if (icon_name != NULL) {
+		GdkPixbuf *pixbuf;
+		gint size;
+
+		gtk_icon_size_lookup (RB_SOURCE_ICON_SIZE, &size, NULL);
+		pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
+						   icon_name,
+						   size,
+						   0, NULL);
+
+		if (pixbuf != NULL) {
+			g_object_set (source, "pixbuf", pixbuf, NULL);
+			g_object_unref (pixbuf);
+		}
+	}
 
 	return source;
 }
@@ -1030,6 +1071,34 @@ impl_add_to_queue (RBSource *source, RBSource *queue)
 
 	g_list_foreach (selection, (GFunc)rhythmdb_entry_unref, NULL);
 	g_list_free (selection);
+}
+
+static gboolean
+impl_can_add_to_queue (RBSource *source)
+{
+	RBEntryView *songs;
+	GList *selection;
+	GList *iter;
+	gboolean ok = FALSE;
+
+	songs = rb_source_get_entry_view (source);
+	selection = rb_entry_view_get_selected_entries (songs);
+
+	if (selection == NULL)
+		return FALSE;
+
+	/* If at least one entry has been downloaded, enable add to queue.
+	 * We'll filter out those that haven't when adding to the queue.
+	 */
+	for (iter = selection; iter && !ok; iter = iter->next) {
+		RhythmDBEntry *entry = (RhythmDBEntry *)iter->data;
+		ok |= rb_podcast_manager_entry_downloaded (entry);
+	}
+
+	g_list_foreach (selection, (GFunc)rhythmdb_entry_unref, NULL);
+	g_list_free (selection);
+
+	return ok;
 }
 
 static void
@@ -1070,7 +1139,7 @@ delete_response_cb (GtkDialog *dialog, int response, RBPodcastSource *source)
 }
 
 static void
-impl_delete_selected (RBSource *asource)
+impl_delete (RBSource *asource)
 {
 	RBPodcastSource *source = RB_PODCAST_SOURCE (asource);
 	GtkWidget *dialog;
@@ -1101,7 +1170,7 @@ impl_delete_selected (RBSource *asource)
 	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
 	                        _("Delete _Episode Only"),
 	                        GTK_RESPONSE_NO,
-	                        _("_Cancel"),
+	                        GTK_STOCK_CANCEL,
 	                        GTK_RESPONSE_CANCEL,
 	                        NULL);
 	button = gtk_dialog_add_button (GTK_DIALOG (dialog),
@@ -1119,13 +1188,6 @@ impl_get_entry_view (RBSource *asource)
 {
 	RBPodcastSource *source = RB_PODCAST_SOURCE (asource);
 	return source->priv->posts;
-}
-
-static GList *
-impl_get_property_views (RBSource *asource)
-{
-	RBPodcastSource *source = RB_PODCAST_SOURCE (asource);
-	return g_list_append (NULL, source->priv->feeds);
 }
 
 static RBSourceEOFType
@@ -1295,7 +1357,6 @@ impl_constructed (GObject *object)
 	GtkAccelGroup *accel_group;
 	GtkBuilder *builder;
 	GMenu *section;
-	GApplication *app;
 	GActionEntry actions[] = {
 		{ "podcast-add", podcast_add_action_cb },
 		{ "podcast-download", podcast_download_action_cb },
@@ -1306,7 +1367,6 @@ impl_constructed (GObject *object)
 		{ "podcast-feed-delete", podcast_feed_delete_action_cb }
 	};
 
-	app = g_application_get_default ();
 	RB_CHAIN_GOBJECT_METHOD (rb_podcast_source_parent_class, constructed, object);
 	source = RB_PODCAST_SOURCE (object);
 
@@ -1317,16 +1377,11 @@ impl_constructed (GObject *object)
 		      "accel-group", &accel_group,
 		      NULL);
 
-	_rb_add_display_page_actions (G_ACTION_MAP (app), G_OBJECT (shell), actions, G_N_ELEMENTS (actions));
+	_rb_add_display_page_actions (G_ACTION_MAP (g_application_get_default ()), G_OBJECT (shell), actions, G_N_ELEMENTS (actions));
 
 	builder = rb_builder_load ("podcast-popups.ui", NULL);
 	source->priv->feed_popup = G_MENU_MODEL (gtk_builder_get_object (builder, "podcast-feed-popup"));
 	source->priv->episode_popup = G_MENU_MODEL (gtk_builder_get_object (builder, "podcast-episode-popup"));
-	rb_application_link_shared_menus (RB_APPLICATION (app), G_MENU (source->priv->feed_popup));
-	rb_application_link_shared_menus (RB_APPLICATION (app), G_MENU (source->priv->episode_popup));
-
-	g_object_ref (source->priv->feed_popup);
-	g_object_ref (source->priv->episode_popup);
 	g_object_unref (builder);
 
 	source->priv->default_search = rb_source_search_basic_new (RHYTHMDB_PROP_SEARCH_MATCH, NULL);
@@ -1339,6 +1394,11 @@ impl_constructed (GObject *object)
 						 G_OBJECT (shell_player),
 						 TRUE, FALSE);
 	g_object_unref (shell_player);
+
+	g_signal_connect_object (source->priv->posts,
+				 "entry-activated",
+				 G_CALLBACK (episode_activated_cb),
+				 source, 0);
 
 	/* Podcast date column */
 	column = gtk_tree_view_column_new ();
@@ -1440,7 +1500,6 @@ impl_constructed (GObject *object)
 	source->priv->feeds = rb_property_view_new (source->priv->db,
 						    RHYTHMDB_PROP_SUBTITLE,
 						    _("Feed"));
-	rb_property_view_set_column_visible (RB_PROPERTY_VIEW (source->priv->feeds), FALSE);
 	rb_property_view_set_selection_mode (RB_PROPERTY_VIEW (source->priv->feeds),
 					     GTK_SELECTION_MULTIPLE);
 
@@ -1573,8 +1632,7 @@ impl_constructed (GObject *object)
 	rb_source_bind_settings (RB_SOURCE (source),
 				 GTK_WIDGET (source->priv->posts),
 				 source->priv->paned,
-				 GTK_WIDGET (source->priv->feeds),
-				 TRUE);
+				 GTK_WIDGET (source->priv->feeds));
 
 	g_object_unref (settings);
 	g_object_unref (accel_group);
@@ -1590,8 +1648,8 @@ impl_dispose (GObject *object)
 
 	source = RB_PODCAST_SOURCE (object);
 
-	g_clear_pointer (&source->priv->search_query, rhythmdb_query_free);
 	g_clear_object (&source->priv->db);
+	g_clear_object (&source->priv->search_query);
 	g_clear_object (&source->priv->podcast_mgr);
 	g_clear_object (&source->priv->error_pixbuf);
 	g_clear_object (&source->priv->refresh_pixbuf);
@@ -1661,18 +1719,17 @@ rb_podcast_source_class_init (RBPodcastSourceClass *klass)
 	page_class->receive_drag = impl_receive_drag;
 
 	source_class->reset_filters = impl_reset_filters;
-	source_class->add_to_queue = impl_add_to_queue;
-	source_class->can_add_to_queue = (RBSourceFeatureFunc) rb_true_function;
-	source_class->can_copy = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_cut = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_delete = (RBSourceFeatureFunc) rb_true_function;
-	source_class->delete_selected = impl_delete_selected;
-	source_class->get_entry_view = impl_get_entry_view;
-	source_class->get_property_views = impl_get_property_views;
-	source_class->handle_eos = impl_handle_eos;
-	source_class->search = impl_search;
-	source_class->song_properties = impl_song_properties;
-	source_class->get_delete_label = impl_get_delete_label;
+	source_class->impl_add_to_queue = impl_add_to_queue;
+	source_class->impl_can_add_to_queue = impl_can_add_to_queue;
+	source_class->impl_can_copy = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_cut = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_delete = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_delete = impl_delete;
+	source_class->impl_get_entry_view = impl_get_entry_view;
+	source_class->impl_handle_eos = impl_handle_eos;
+	source_class->impl_search = impl_search;
+	source_class->impl_song_properties = impl_song_properties;
+	source_class->impl_get_delete_label = impl_get_delete_label;
 
 	g_object_class_install_property (object_class,
 					 PROP_PODCAST_MANAGER,

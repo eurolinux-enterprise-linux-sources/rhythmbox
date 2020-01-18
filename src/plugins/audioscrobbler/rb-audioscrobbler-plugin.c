@@ -106,34 +106,17 @@ rb_audioscrobbler_plugin_init (RBAudioscrobblerPlugin *plugin)
 	rb_debug ("RBAudioscrobblerPlugin initialising");
 
 	plugin->lastfm_settings = g_settings_new_with_path (AUDIOSCROBBLER_SETTINGS_SCHEMA,
-							    AUDIOSCROBBLER_SETTINGS_PATH "/Last.fm/");
+							    AUDIOSCROBBLER_SETTINGS_PATH "/Last.fm");
 	plugin->librefm_settings = g_settings_new_with_path (AUDIOSCROBBLER_SETTINGS_SCHEMA,
-							     AUDIOSCROBBLER_SETTINGS_PATH "/Libre.fm/");
+							     AUDIOSCROBBLER_SETTINGS_PATH "/Libre.fm");
 }
 
 static void
 impl_activate (PeasActivatable *bplugin)
 {
 	RBAudioscrobblerPlugin *plugin;
-	PeasPluginInfo *plugin_info;
-	GtkIconTheme *theme;
-	char *icondir;
 
 	plugin = RB_AUDIOSCROBBLER_PLUGIN (bplugin);
-
-	g_object_get (plugin, "plugin-info", &plugin_info, NULL);
-	theme = gtk_icon_theme_get_default ();
-
-	/* installed icon dir */
-	icondir = g_build_filename (peas_plugin_info_get_data_dir (plugin_info), "icons", NULL);
-	gtk_icon_theme_append_search_path (theme, icondir);
-	g_free (icondir);
-
-#if defined(USE_UNINSTALLED_DIRS)
-	icondir = g_build_filename (peas_plugin_info_get_module_dir (plugin_info), "icons", NULL);
-	gtk_icon_theme_append_search_path (theme, icondir);
-	g_free (icondir);
-#endif
 
 	g_signal_connect_object (plugin->lastfm_settings,
 				 "changed",
@@ -240,7 +223,6 @@ lastfm_settings_changed_cb (GSettings *settings,
 		                                                          lastfm);
 		g_object_unref (shell);
 		g_object_unref (lastfm);
-		g_object_ref (plugin->lastfm_page);
 	} else if (enabled == FALSE && plugin->lastfm_page != NULL) {
 		rb_display_page_delete_thyself (plugin->lastfm_page);
 		g_object_unref (plugin->lastfm_page);
@@ -270,7 +252,6 @@ librefm_settings_changed_cb (GSettings *settings,
 		                                                           librefm);
 		g_object_unref (librefm);
 		g_object_unref (shell);
-		g_object_ref (plugin->librefm_page);
 	} else if (enabled == FALSE && plugin->librefm_page != NULL) {
 		rb_display_page_delete_thyself (plugin->librefm_page);
 		g_object_unref (plugin->librefm_page);

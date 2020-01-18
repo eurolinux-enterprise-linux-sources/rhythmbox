@@ -37,9 +37,6 @@
 #include <gtk/gtk.h>
 #include <totem-pl-parser.h>
 
-#define G_SETTINGS_ENABLE_BACKEND
-#include <gio/gsettingsbackend.h>
-
 #include "rb-entry-view.h"
 #include "rb-search-entry.h"
 #include "rb-file-helpers.h"
@@ -154,8 +151,6 @@ enum
 
 static const GtkTargetEntry target_uri [] = { { "text/uri-list", 0, 0 } };
 
-static GSettingsBackend *playlist_settings_backend = NULL;
-
 G_DEFINE_ABSTRACT_TYPE (RBPlaylistSource, rb_playlist_source, RB_TYPE_SOURCE);
 
 static void
@@ -171,21 +166,21 @@ rb_playlist_source_class_init (RBPlaylistSourceClass *klass)
 	object_class->set_property = rb_playlist_source_set_property;
 	object_class->get_property = rb_playlist_source_get_property;
 
-	source_class->get_entry_view = impl_get_entry_view;
-	source_class->can_rename = (RBSourceFeatureFunc) rb_true_function;
-	source_class->can_cut = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_copy = (RBSourceFeatureFunc) rb_true_function;
-	source_class->can_delete = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_add_to_queue = (RBSourceFeatureFunc) rb_true_function;
-	source_class->can_move_to_trash = (RBSourceFeatureFunc) rb_true_function;
-	source_class->song_properties = impl_song_properties;
-	source_class->get_delete_label = impl_get_delete_label;
+	source_class->impl_get_entry_view = impl_get_entry_view;
+	source_class->impl_can_rename = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_can_cut = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_copy = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_can_delete = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_add_to_queue = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_can_move_to_trash = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_song_properties = impl_song_properties;
+	source_class->impl_get_delete_label = impl_get_delete_label;
 
 	page_class->can_remove = impl_can_remove;
 	page_class->remove = impl_remove;
 
-	klass->show_entry_view_popup = default_show_entry_view_popup;
-	klass->mark_dirty = default_mark_dirty;
+	klass->impl_show_entry_view_popup = default_show_entry_view_popup;
+	klass->impl_mark_dirty = default_mark_dirty;
 
 	/**
 	 * RBPlaylistSource:db:
@@ -233,10 +228,6 @@ static void
 rb_playlist_source_init (RBPlaylistSource *source)
 {
 	source->priv = RB_PLAYLIST_SOURCE_GET_PRIVATE (source);
-	
-	if (playlist_settings_backend == NULL) {
-		playlist_settings_backend = g_memory_settings_backend_new ();
-	}
 }
 
 static void
@@ -263,12 +254,6 @@ rb_playlist_source_set_db (RBPlaylistSource *source,
 }
 
 static void
-playlist_settings_changed_cb (GSettings *settings, char *key, RBPlaylistSource *source)
-{
-	rb_playlist_source_mark_dirty (source);
-}
-
-static void
 rb_playlist_source_constructed (GObject *object)
 {
 	GObject *shell_player;
@@ -277,7 +262,6 @@ rb_playlist_source_constructed (GObject *object)
 	RhythmDB *db;
 	RhythmDBQueryModel *query_model;
 	GtkBuilder *builder;
-	GSettings *settings;
 
 	RB_CHAIN_GOBJECT_METHOD (rb_playlist_source_parent_class, constructed, object);
 	source = RB_PLAYLIST_SOURCE (object);
@@ -292,31 +276,9 @@ rb_playlist_source_constructed (GObject *object)
 
 	g_object_unref (shell);
 
-	/* store playlist settings using the memory backend
-	 * this means the settings path doesn't have to be consistent,
-	 * it just has to be unique, so the address of the source object works.
-	 * for local playlists, we write the settings into the playlist file on disk
-	 * to make them persistent.
-	 */
-	g_object_get (source, "settings", &settings, NULL);
-	if (settings == NULL) {
-		char *path;
-		path = g_strdup_printf ("/org/gnome/rhythmbox/playlist/%p/", source);
-		settings = g_settings_new_with_backend_and_path ("org.gnome.rhythmbox.source",
-								 playlist_settings_backend,
-								 path);
-		g_free (path);
-
-		g_object_set (source, "settings", settings, NULL);
-	}
-
-	g_signal_connect (settings, "changed", G_CALLBACK (playlist_settings_changed_cb), source);
-	g_object_unref (settings);
-
 	builder = rb_builder_load ("playlist-popup.ui", NULL);
 	source->priv->popup = G_MENU (gtk_builder_get_object (builder, "playlist-popup"));
 	rb_application_link_shared_menus (RB_APPLICATION (g_application_get_default ()), source->priv->popup);
-	g_object_ref (source->priv->popup);
 	g_object_unref (builder);
 
 	source->priv->entries = g_hash_table_new_full (rb_refstring_hash, rb_refstring_equal,
@@ -370,7 +332,6 @@ rb_playlist_source_constructed (GObject *object)
 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_TITLE, TRUE);
 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_GENRE, FALSE);
 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_ARTIST, FALSE);
-	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_COMPOSER, FALSE);
 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_ALBUM, FALSE);
 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_YEAR, FALSE);
 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_DURATION, FALSE);
@@ -515,8 +476,8 @@ rb_playlist_source_songs_show_popup_cb (RBEntryView *view,
 					RBPlaylistSource *source)
 {
 	RBPlaylistSourceClass *klass = RB_PLAYLIST_SOURCE_GET_CLASS (source);
-	if (klass->show_entry_view_popup)
-		klass->show_entry_view_popup (source, view, over_entry);
+	if (klass->impl_show_entry_view_popup)
+		klass->impl_show_entry_view_popup (source, view, over_entry);
 }
 
 static RBEntryView *
@@ -791,45 +752,6 @@ get_playlist_name_from_xml (xmlNodePtr node)
 	return name;
 }
 
-static void
-apply_source_settings (RBPlaylistSource *source, xmlNodePtr node)
-{
-	GSettings *settings;
-	xmlChar *value;
-
-	g_object_get (source, "settings", &settings, NULL);
-	if (settings == NULL)
-		return;
-
-	value = xmlGetProp (node, RB_PLAYLIST_SHOW_BROWSER);
-	if (value != NULL) {
-		g_settings_set_boolean (settings,
-					"show-browser",
-					(g_strcmp0 ((char *)value, "true") == 0));
-		xmlFree (value);
-	}
-	
-	value = xmlGetProp (node, RB_PLAYLIST_BROWSER_POSITION);
-	if (value != NULL) {
-		long position;
-		char *end;
-
-		position = strtol ((char *)value, &end, 10);
-		if (end != (char *)value) {
-			g_settings_set_int (settings, "paned-position", position);
-		}
-		xmlFree (value);
-	}
-
-	value = xmlGetProp (node, RB_PLAYLIST_SEARCH_TYPE);
-	if (value != NULL) {
-		g_settings_set_string (settings, "search-type", (char *)value);
-		xmlFree (value);
-	}
-
-	g_object_unref (settings);
-}
-
 /**
  * rb_playlist_source_new_from_xml:
  * @shell: the #RBShell instance
@@ -859,26 +781,26 @@ rb_playlist_source_new_from_xml	(RBShell *shell,
 	tmp = xmlGetProp (node, RB_PLAYLIST_TYPE);
 
 	if (!xmlStrcmp (tmp, RB_PLAYLIST_AUTOMATIC))
-		source = rb_auto_playlist_source_new_from_xml (shell, (const char *)name, node);
+		source = rb_auto_playlist_source_new_from_xml (shell, node);
 	else if (!xmlStrcmp (tmp, RB_PLAYLIST_STATIC))
-		source = rb_static_playlist_source_new_from_xml (shell, (const char *)name, node);
+		source = rb_static_playlist_source_new_from_xml (shell, node);
 	else if (!xmlStrcmp (tmp, RB_PLAYLIST_QUEUE)) {
 		RBStaticPlaylistSource *queue;
 
 		g_object_get (shell, "queue-source", &queue, NULL);
 		rb_static_playlist_source_load_from_xml (queue, node);
-		apply_source_settings (RB_PLAYLIST_SOURCE (queue), node);
 		g_object_unref (queue);
 	} else {
 		g_warning ("attempting to load playlist '%s' of unknown type '%s'", name, tmp);
 	}
 
+	if (source != NULL) {
+		g_object_set (G_OBJECT (source), "name", name, NULL);
+	}
+
 	xmlFree (name);
 	xmlFree (tmp);
 
-	if (source != NULL) {
-		apply_source_settings (RB_PLAYLIST_SOURCE (source), node);
-	}
 	return source;
 }
 
@@ -896,7 +818,6 @@ rb_playlist_source_save_to_xml (RBPlaylistSource *source,
 {
 	xmlNodePtr node;
 	xmlChar *name;
-	GSettings *settings;
 	RBPlaylistSourceClass *klass = RB_PLAYLIST_SOURCE_GET_CLASS (source);
 
 	g_return_if_fail (RB_IS_PLAYLIST_SOURCE (source));
@@ -906,23 +827,7 @@ rb_playlist_source_save_to_xml (RBPlaylistSource *source,
 	xmlSetProp (node, RB_PLAYLIST_NAME, name);
 	g_free (name);
 
-	g_object_get (source, "settings", &settings, NULL);
-	if (settings) {
-		char *p;
-		xmlSetProp (node,
-			    RB_PLAYLIST_SHOW_BROWSER,
-			    (xmlChar *)(g_settings_get_boolean (settings, "show-browser") ? "true" : "false"));
-
-		p = g_strdup_printf ("%d", g_settings_get_int (settings, "paned-position"));
-		xmlSetProp (node, RB_PLAYLIST_BROWSER_POSITION, (xmlChar *)p);
-		g_free (p);
-
-		xmlSetProp (node, RB_PLAYLIST_SEARCH_TYPE, (xmlChar *)g_settings_get_string (settings, "search-type"));
-		g_object_unref (settings);
-	}
-
-
-	klass->save_contents_to_xml (source, node);
+	klass->impl_save_contents_to_xml (source, node);
 
 	source->priv->dirty = FALSE;
 }
@@ -1111,7 +1016,7 @@ rb_playlist_source_mark_dirty (RBPlaylistSource *source)
 	g_return_if_fail (RB_IS_PLAYLIST_SOURCE (source));
 
 	klass = RB_PLAYLIST_SOURCE_GET_CLASS (source);
-	klass->mark_dirty (source);
+	klass->impl_mark_dirty (source);
 	g_object_notify (G_OBJECT (source), "dirty");
 }
 

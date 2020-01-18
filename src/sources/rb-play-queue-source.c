@@ -36,6 +36,7 @@
 #include "rb-play-queue-source.h"
 #include "rb-playlist-xml.h"
 #include "rb-song-info.h"
+#include "rb-stock-icons.h"
 #include "rb-util.h"
 #include "rb-debug.h"
 #include "rb-play-order-queue.h"
@@ -95,7 +96,6 @@ static void impl_show_entry_view_popup (RBPlaylistSource *source,
 					gboolean over_entry);
 static void impl_save_contents_to_xml (RBPlaylistSource *source,
 				       xmlNodePtr node);
-static gboolean impl_can_remove (RBDisplayPage *page);
 
 static void queue_clear_action_cb (GSimpleAction *action, GVariant *parameters, gpointer data);
 static void queue_shuffle_action_cb (GSimpleAction *action, GVariant *parameters, gpointer data);
@@ -126,8 +126,6 @@ struct _RBPlayQueueSourcePrivate
 
 	GMenuModel *popup;
 	GMenuModel *sidepane_popup;
-
-	guint update_count_idle_id;
 };
 
 enum
@@ -164,11 +162,6 @@ rb_play_queue_source_dispose (GObject *object)
 
 	g_clear_object (&priv->queue_play_order);
 
-	if (priv->update_count_idle_id) {
-		g_source_remove (priv->update_count_idle_id);
-		priv->update_count_idle_id = 0;
-	}
-
 	if (priv->bus != NULL) {
 		if (priv->dbus_object_id) {
 			g_dbus_connection_unregister_object (priv->bus, priv->dbus_object_id);
@@ -193,7 +186,6 @@ rb_play_queue_source_class_init (RBPlayQueueSourceClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	RBSourceClass *source_class = RB_SOURCE_CLASS (klass);
-	RBDisplayPageClass *page_class = RB_DISPLAY_PAGE_CLASS (klass);
 	RBPlaylistSourceClass *playlist_class = RB_PLAYLIST_SOURCE_CLASS (klass);
 
 	object_class->constructed = rb_play_queue_source_constructed;
@@ -201,13 +193,11 @@ rb_play_queue_source_class_init (RBPlayQueueSourceClass *klass)
 	object_class->finalize = rb_play_queue_source_finalize;
 	object_class->dispose  = rb_play_queue_source_dispose;
 
-	source_class->can_add_to_queue = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_rename = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_add_to_queue = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_rename = (RBSourceFeatureFunc) rb_false_function;
 
-	page_class->can_remove = impl_can_remove;
-
-	playlist_class->show_entry_view_popup = impl_show_entry_view_popup;
-	playlist_class->save_contents_to_xml = impl_save_contents_to_xml;
+	playlist_class->impl_show_entry_view_popup = impl_show_entry_view_popup;
+	playlist_class->impl_save_contents_to_xml = impl_save_contents_to_xml;
 
 	/**
 	 * RBPlayQueueSource:sidebar:
@@ -250,7 +240,6 @@ rb_play_queue_source_constructed (GObject *object)
 	GtkCellRenderer *renderer;
 	GtkBuilder *builder;
 	RhythmDBQueryModel *model;
-	GApplication *app;
 	GActionEntry actions[] = {
 		{ "queue-clear", queue_clear_action_cb },
 		{ "queue-shuffle", queue_shuffle_action_cb },
@@ -261,7 +250,6 @@ rb_play_queue_source_constructed (GObject *object)
 
 	RB_CHAIN_GOBJECT_METHOD (rb_play_queue_source_parent_class, constructed, object);
 
-	app = g_application_get_default ();
 	source = RB_PLAY_QUEUE_SOURCE (object);
 	priv = RB_PLAY_QUEUE_SOURCE_GET_PRIVATE (source);
 	db = rb_playlist_source_get_db (RB_PLAYLIST_SOURCE (source));
@@ -272,7 +260,7 @@ rb_play_queue_source_constructed (GObject *object)
 
 	priv->queue_play_order = rb_queue_play_order_new (RB_SHELL_PLAYER (shell_player));
 
-	g_action_map_add_action_entries (G_ACTION_MAP (app),
+	g_action_map_add_action_entries (G_ACTION_MAP (g_application_get_default ()),
 					 actions,
 					 G_N_ELEMENTS (actions),
 					 source);
@@ -280,12 +268,7 @@ rb_play_queue_source_constructed (GObject *object)
 	priv->sidebar = rb_entry_view_new (db, shell_player, TRUE, TRUE);
 	g_object_unref (shell_player);
 
-	g_object_set (priv->sidebar,
-		      "vscrollbar-policy", GTK_POLICY_AUTOMATIC,
-		      "shadow-type", GTK_SHADOW_NONE,
-		      NULL);
-	gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (priv->sidebar)),
-				     "sidebar-queue");
+	g_object_set (G_OBJECT (priv->sidebar), "vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
 
 	priv->sidebar_column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
@@ -325,8 +308,6 @@ rb_play_queue_source_constructed (GObject *object)
 	builder = rb_builder_load ("queue-popups.ui", NULL);
 	priv->popup = G_MENU_MODEL (gtk_builder_get_object (builder, "queue-source-popup"));
 	priv->sidepane_popup = G_MENU_MODEL (gtk_builder_get_object (builder, "queue-sidepane-popup"));
-	rb_application_link_shared_menus (RB_APPLICATION (app), G_MENU (priv->popup));
-	rb_application_link_shared_menus (RB_APPLICATION (app), G_MENU (priv->sidepane_popup));
 	g_object_ref (priv->popup);
 	g_object_ref (priv->sidepane_popup);
 	g_object_unref (builder);
@@ -477,9 +458,9 @@ rb_play_queue_source_track_info_cell_data_func (GtkTreeViewColumn *column,
 	artist = rhythmdb_entry_get_string (entry, RHYTHMDB_PROP_ARTIST);
 	album = rhythmdb_entry_get_string (entry, RHYTHMDB_PROP_ALBUM);
 
+	/* Translators: format is "<title> from <album> by <artist>" */
 	markup = g_markup_printf_escaped ("%s\n<span size=\"smaller\">%s <i>%s</i>\n%s <i>%s</i></span>",
-					  /* Translators: format is "<title> by <artist> from <album>" */
-					  title, _("by"), artist, _("from"), album);
+					  title, _("from"), album, _("by"), artist);
 
 	g_object_set (G_OBJECT (renderer), "markup", markup, NULL);
 
@@ -504,16 +485,15 @@ rb_play_queue_source_row_deleted_cb (GtkTreeModel *model,
 	rb_play_queue_source_update_count (source, model, -1);
 }
 
-static gboolean
-update_count_idle (RBPlayQueueSource *source)
+static void
+rb_play_queue_source_update_count (RBPlayQueueSource *source,
+				   GtkTreeModel *model,
+				   gint offset)
 {
+	GAction *action;
+	gint count = gtk_tree_model_iter_n_children (model, NULL) + offset;
 	RBPlayQueueSourcePrivate *priv = RB_PLAY_QUEUE_SOURCE_GET_PRIVATE (source);
-	RhythmDBQueryModel *model;
 	char *name = _("Play Queue");
-	int count;
-       
-	model = rb_playlist_source_get_query_model (RB_PLAYLIST_SOURCE (source));
-	count = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (model), NULL);
 
 	/* update source name */
 	if (count > 0)
@@ -525,24 +505,6 @@ update_count_idle (RBPlayQueueSource *source)
 	if (count > 0)
 		g_free (name);
 
-	priv->update_count_idle_id = 0;
-	return FALSE;
-}
-
-static void
-rb_play_queue_source_update_count (RBPlayQueueSource *source,
-				   GtkTreeModel *model,
-				   gint offset)
-{
-	RBPlayQueueSourcePrivate *priv = RB_PLAY_QUEUE_SOURCE_GET_PRIVATE (source);
-	GAction *action;
-	int count;
-
-	if (priv->update_count_idle_id == 0) {
-		priv->update_count_idle_id = g_idle_add ((GSourceFunc) update_count_idle, source);
-	}
-
-	count = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (model), NULL) + offset;
 	/* make 'clear queue' and 'shuffle queue' actions sensitive when there are entries in the queue */
 	action = g_action_map_lookup_action (G_ACTION_MAP (g_application_get_default ()),
 					     "queue-clear");
@@ -557,7 +519,7 @@ static void
 impl_save_contents_to_xml (RBPlaylistSource *source,
 			   xmlNodePtr node)
 {
-	((RBPlaylistSourceClass*)rb_play_queue_source_parent_class)->save_contents_to_xml (source, node);
+	((RBPlaylistSourceClass*)rb_play_queue_source_parent_class)->impl_save_contents_to_xml (source, node);
 	xmlSetProp (node, RB_PLAYLIST_TYPE, RB_PLAYLIST_QUEUE);
 }
 
@@ -693,10 +655,4 @@ rb_play_queue_dbus_method_call (GDBusConnection *connection,
 						       interface_name,
 						       method_name);
 	}
-}
-
-static gboolean
-impl_can_remove (RBDisplayPage *page)
-{
-	return FALSE;
 }

@@ -130,7 +130,7 @@
     </othercredit>
     <copyright>
       
-        <year>2012 - 2016</year>
+        <year>2012</year>
       
       <holder>Miguel Rodríguez</holder>
     </copyright>
@@ -143,7 +143,7 @@
     </othercredit>
     <copyright>
       
-        <year>2012 - 2016</year>
+        <year>2012</year>
       
       <holder>Daniel Mustieles</holder>
     </copyright>
@@ -303,7 +303,7 @@
 				  <listitem><para>La fuente de iRadio, con todas las emisoras de radio de Internet.</para></listitem>
 				  <listitem><para>Podcasts.</para></listitem>
 				  <listitem><para>Todas las listas de reproducción (normales e inteligentes).</para></listitem>
-				  <listitem><para>CD de sonido introducidos en las unidades lectoras de CD del equipo.</para></listitem>
+				  <listitem><para>Audio CD introducidos en las unidades lectoras de CD del equipo.</para></listitem>
 				  <listitem><para>Reproductores portátiles, como el iPod, conectados al equipo.</para></listitem>
 				  <listitem><para>Las comparticiones DAAP descubiertas en la red local.</para></listitem>
 				  <listitem><para>Almacenes de música como Jamendo y Magnatune.</para></listitem>
@@ -433,7 +433,7 @@
   </sect1>
   <sect1 id="radio">
   	<title>Fuente: Emisoras de radio</title>
-    <para>El sintonizador de emisoras de radio se puede usar para escuchar archivos de sonido en streaming sobre una red, local o Internet.</para>
+    <para>El sintonizador de emisoras de radio se puede usar para escuchar archivos de audio en streaming sobre una red, local o Internet.</para>
     <figure id="fig-iradio">
       <title>Emisoras de radio de Internet en el <application>Reproductor de música Rhythmbox</application></title>
       <screenshot>
@@ -461,7 +461,7 @@
   </sect1>
   <sect1 id="podcast">
   	<title>Fuente: Podcasts</title>
-    <para>El podcasting es una nueva forma de emitir los archivos de sonido por toda la red; cuando un autor publica un episodio se informa a los suscriptores a través de una fuente XML.</para>
+    <para>El podcasting es una nueva forma de emitir contenido audio por toda la red; cuando un autor publica un episodio se informa a los suscriptores a través de una fuente XML.</para>
     <para>Rhythmbox le permite suscribirse a los proveedores de podcast, de tal forma que será informado cuando un nuevo episodio esté disponible, el episodio se descagará y reproducirá.</para>
     <tip>
       	<para>Puede encontrar más información acerca de podcast y podcasting leyendo la definición de <ulink url="http://es.wikipedia.org/wiki/Podcast">Podcast</ulink> en la <ulink url="http://es.wikipedia.org/">Wikipedia</ulink>.</para>
@@ -751,7 +751,7 @@
         <title>Música</title>
         <itemizedlist>
           <listitem>
-            <para>La <guilabel>Lugar de la fonoteca</guilabel> es una carpeta que el <application>Reproductor de música Rhythmbox</application> monitorizará para buscar nuevas canciones. Cuando añada nuevos archivos de sonido en ésta carpeta o alguna de sus subcarpetas con el administrador de archivos (como Nautilus) el <application>Reproductor de música Rhythmbox</application>.</para>
+            <para>La <guilabel>Lugar de la fonoteca</guilabel> es una carpeta que el <application>Reproductor de música Rhythmbox</application> monitorizará para buscar nuevas canciones. Cuando añada nuevos archivos de audio en ésta carpeta o alguna de sus subcarpetas con el administrador de archivos (como Nautilus) el <application>Reproductor de música Rhythmbox</application>.</para>
             <warning>
             	<para>Evite establecer su <filename class="directory">carpeta personal</filename> como el lugar de la biblioteca porque esta característica consume muchos recursos de la CPU.</para>
             </warning>
@@ -820,33 +820,21 @@
           </thead>
           <tbody>
             <row>
-              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>p</keycap> </keycombo></entry>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>Espacio</keycap> </keycombo></entry>
               <entry>
                 <para>Reproducir / Pausar</para>
               </entry>
             </row>
             <row>
-              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>Izquierda</keycap> </keycombo></entry>
+              <entry><keycombo> <keycap>Alt</keycap> <keycap>Izquierda</keycap> </keycombo></entry>
               <entry>
                 <para>Saltar a la pista anterior / Volver al principio de la canción</para>
               </entry>
             </row>
             <row>
-              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>Derecha</keycap> </keycombo></entry>
+              <entry><keycombo> <keycap>Alt</keycap> <keycap>Derecha</keycap> </keycombo></entry>
               <entry>
                 <para>Saltar a la pista siguiente</para>
-              </entry>
-            </row>
-            <row>
-              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>Arriba</keycap> </keycombo></entry>
-              <entry>
-                <para>Incrementar el volumen de reproducción</para>
-              </entry>
-            </row>
-            <row>
-              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>Abajo</keycap> </keycombo></entry>
-              <entry>
-                <para>Decrementar el volumen de reproducción</para>
               </entry>
             </row>
             <row>
@@ -893,24 +881,29 @@
               <entry>
                 <para>Saltar a la canción en reproducción</para>
               </entry>
-	    </row>
-	    <!--
+            </row>
             <row>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>Y</keycap> </keycombo></entry>
               <entry>
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>Y</keycap>
-                </keycombo>
+                <para>Limpiar el campo de búsquedas y eliminar todos los filtros del examinador</para>
               </entry>
-              <entry>
-                <para>Clear the search field text and remove all filters in the browser</para>
-              </entry>
-	    </row>
-            -->
+            </row>
             <row>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>N</keycap> </keycombo></entry>
+              <entry>
+                <para>Crear una lista de reproducción nueva</para>
+              </entry>
+            </row>
+           <row>
               <entry><keycombo> <keycap>Alt</keycap> <keycap>S</keycap> </keycombo></entry>
               <entry>
                 <para>Saltar al campo de búsqueda</para>
+              </entry>
+            </row>
+            <row>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>O</keycap> </keycombo></entry>
+              <entry>
+                <para>Importar una carpeta en la fonoteca</para>
               </entry>
             </row>
             <row>
@@ -934,6 +927,12 @@
             </row>
           </thead>
           <tbody>
+			<row>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>W</keycap> </keycombo></entry>
+              <entry>
+                <para>Cerrar la ventana del <application>Reproductor de música Rhythmbox</application></para>
+              </entry>
+            </row>
             <row>
               <entry><keycombo> <keycap>Ctrl</keycap> <keycap>Q</keycap> </keycombo></entry>
               <entry>
@@ -947,6 +946,12 @@
               </entry>
             </row>
             <row>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>D</keycap> </keycombo></entry>
+              <entry>
+                <para>Mostrar / Ocultar el visor pequeño</para>
+              </entry>
+            </row>
+            <row>
               <entry><keycombo> <keycap>F9</keycap> </keycombo></entry>
               <entry>
                 <para>Mostrar / Ocultar el panel lateral</para>
@@ -956,6 +961,12 @@
               <entry><keycombo> <keycap>Ctrl</keycap> <keycap>K</keycap> </keycombo></entry>
               <entry>
                 <para>Mostrar / Ocultar la cola de reproducción como panel lateral</para>
+              </entry>
+            </row>
+            <row>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>S</keycap> </keycombo></entry>
+              <entry>
+                <para>Mostrar / Ocultar el deslizador de posición de la canción</para>
               </entry>
             </row>
             <row>

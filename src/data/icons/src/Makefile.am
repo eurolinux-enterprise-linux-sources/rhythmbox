@@ -1,1 +1,1 @@
-EXTRA_DIST = rhythmbox.svg
+EXTRA_DIST = music-library.svg rhythmbox.svg

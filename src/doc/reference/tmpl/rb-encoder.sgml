@@ -1,0 +1,114 @@
+<!-- ##### SECTION Title ##### -->
+RBEncoder
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### ENUM RBEncoderError ##### -->
+<para>
+
+</para>
+
+@RB_ENCODER_ERROR_FORMAT_UNSUPPORTED: 
+@RB_ENCODER_ERROR_INTERNAL: 
+@RB_ENCODER_ERROR_FILE_ACCESS: 
+@RB_ENCODER_ERROR_OUT_OF_SPACE: 
+@RB_ENCODER_ERROR_DEST_READ_ONLY: 
+@RB_ENCODER_ERROR_DEST_EXISTS: 
+
+<!-- ##### FUNCTION rb_encoder_error_quark ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### STRUCT RBEncoderIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@encode: 
+@cancel: 
+@get_missing_plugins: 
+@progress: 
+@completed: 
+
+<!-- ##### STRUCT RBEncoderFactoryClass ##### -->
+<para>
+
+</para>
+
+@obj_class: 
+@prepare_source: 
+@prepare_sink: 
+
+<!-- ##### FUNCTION rb_encoder_factory_get ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_encoder_new ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_encoder_encode ##### -->
+<para>
+
+</para>
+
+@encoder: 
+@entry: 
+@dest: 
+@overwrite: 
+@profile: 
+
+
+<!-- ##### FUNCTION rb_encoder_cancel ##### -->
+<para>
+
+</para>
+
+@encoder: 
+
+
+<!-- ##### FUNCTION rb_encoder_get_missing_plugins ##### -->
+<para>
+
+</para>
+
+@encoder: 
+@profile: 
+@details: 
+@descriptions: 
+@Returns: 
+
+

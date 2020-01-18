@@ -138,7 +138,7 @@ static void init_actions (RBAudioscrobblerProfilePage *page);
 static void login_bar_response_cb (GtkInfoBar *info_bar,
                                    gint response_id,
                                    RBAudioscrobblerProfilePage *page);
-static void logout_button_clicked_cb (GtkButton *button, RBAudioscrobblerProfilePage *page);
+void logout_button_clicked_cb (GtkButton *button, RBAudioscrobblerProfilePage *page);
 static void login_status_change_cb (RBAudioscrobblerAccount *account,
                                     RBAudioscrobblerAccountLoginStatus status,
                                     RBAudioscrobblerProfilePage *page);
@@ -172,7 +172,7 @@ static void refresh_profile_action_cb (GSimpleAction *, GVariant *, gpointer);
 static void download_track_batch_complete_cb (RBTrackTransferBatch *batch, RBAudioscrobblerProfilePage *page);
 
 /* radio station creation/deletion */
-static void station_creator_button_clicked_cb (GtkButton *button, RBAudioscrobblerProfilePage *page);
+void station_creator_button_clicked_cb (GtkButton *button, RBAudioscrobblerProfilePage *page);
 static void load_radio_stations (RBAudioscrobblerProfilePage *page);
 static void save_radio_stations (RBAudioscrobblerProfilePage *page);
 static RBSource *add_radio_station (RBAudioscrobblerProfilePage *page,
@@ -244,29 +244,31 @@ rb_audioscrobbler_profile_page_new (RBShell *shell, GObject *plugin, RBAudioscro
 	RhythmDB *db;
 	char *name;
 	gchar *icon_name;
-	GIcon *icon;
+	gchar *icon_path;
+	gint icon_size;
+	GdkPixbuf *icon_pixbuf;
 
 	g_object_get (shell, "db", &db, NULL);
 	g_object_get (service, "name", &name, NULL);
 
-	icon_name = g_strconcat (rb_audioscrobbler_service_get_name (service), "-symbolic", NULL);
-	if (gtk_icon_theme_has_icon (gtk_icon_theme_get_default (), icon_name))
-		icon = g_themed_icon_new (icon_name);
-	else
-		icon = g_themed_icon_new ("network-server-symbolic");
+	icon_name = g_strconcat (rb_audioscrobbler_service_get_name (service), "-icon.png", NULL);
+	icon_path = rb_find_plugin_data_file (plugin, icon_name);
+	gtk_icon_size_lookup (GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_size, NULL);
+	icon_pixbuf = gdk_pixbuf_new_from_file_at_size (icon_path, icon_size, icon_size, NULL);
 
 	page = RB_DISPLAY_PAGE (g_object_new (RB_TYPE_AUDIOSCROBBLER_PROFILE_PAGE,
 					      "shell", shell,
 					      "plugin", plugin,
 					      "name", name,
-					      "icon", icon,
+					      "pixbuf", icon_pixbuf,
 					      "service", service,
 					      NULL));
 
 	g_object_unref (db);
 	g_free (name);
 	g_free (icon_name);
-	g_object_unref (icon);
+	g_free (icon_path);
+	g_object_unref (icon_pixbuf);
 
 	return page;
 }
@@ -390,7 +392,6 @@ rb_audioscrobbler_profile_page_constructed (GObject *object)
 	/* scrobbler settings */
 	scrobbler_settings = g_strconcat (AUDIOSCROBBLER_SETTINGS_PATH "/",
 					  rb_audioscrobbler_service_get_name (page->priv->service),
-					  "/",
 					  NULL);
 	page->priv->settings = g_settings_new_with_path (AUDIOSCROBBLER_SETTINGS_SCHEMA,
 							 scrobbler_settings);
@@ -529,7 +530,6 @@ init_profile_ui (RBAudioscrobblerProfilePage *page)
 	char *builder_file;
 	GtkBuilder *builder;
 	GtkWidget *combo_container;
-	GtkWidget *w;
 	int i;
 
 	g_object_get (page, "plugin", &plugin, NULL);
@@ -545,11 +545,7 @@ init_profile_ui (RBAudioscrobblerProfilePage *page)
 	page->priv->username_label = GTK_WIDGET (gtk_builder_get_object (builder, "username_label"));
 	page->priv->playcount_label = GTK_WIDGET (gtk_builder_get_object (builder, "playcount_label"));
 	page->priv->scrobbling_enabled_check = GTK_WIDGET (gtk_builder_get_object (builder, "scrobbling_enabled_check"));
-	g_signal_connect (page->priv->scrobbling_enabled_check, "toggled", G_CALLBACK (scrobbling_enabled_check_toggled_cb), page);
 	page->priv->view_profile_link = GTK_WIDGET (gtk_builder_get_object (builder, "view_profile_link"));
-
-	w = GTK_WIDGET (gtk_builder_get_object (builder, "logout_button"));
-	g_signal_connect (w, "clicked", G_CALLBACK (logout_button_clicked_cb), page);
 
 	/* scrobbler statistics */
 	page->priv->scrobbler_status_msg_label = GTK_WIDGET (gtk_builder_get_object (builder, "scrobbler_status_msg_label"));
@@ -558,8 +554,6 @@ init_profile_ui (RBAudioscrobblerProfilePage *page)
 	page->priv->scrobbler_submit_time_label = GTK_WIDGET (gtk_builder_get_object (builder, "scrobbler_submit_time_label"));
 
 	/* station creator */
-	w = GTK_WIDGET (gtk_builder_get_object (builder, "station_creator_button"));
-	g_signal_connect (w, "clicked", G_CALLBACK (station_creator_button_clicked_cb), page);
 	page->priv->station_creator_arg_entry = GTK_WIDGET (gtk_builder_get_object (builder, "station_creator_arg_entry"));
 	combo_container = GTK_WIDGET (gtk_builder_get_object (builder, "station_creator_combo_container"));
 	page->priv->station_creator_type_combo = gtk_combo_box_text_new ();
@@ -726,7 +720,7 @@ login_bar_response_cb (GtkInfoBar *info_bar,
 	}
 }
 
-static void
+void
 logout_button_clicked_cb (GtkButton *button,
                           RBAudioscrobblerProfilePage *page)
 {
@@ -1130,7 +1124,7 @@ refresh_profile_action_cb (GSimpleAction *action, GVariant *parameters, gpointer
 	rb_audioscrobbler_user_force_update (page->priv->user);
 }
 
-static void
+void
 station_creator_button_clicked_cb (GtkButton *button,
                                    RBAudioscrobblerProfilePage *page)
 {

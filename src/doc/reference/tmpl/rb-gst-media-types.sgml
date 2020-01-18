@@ -1,0 +1,197 @@
+<!-- ##### SECTION Title ##### -->
+rb-gst-media-types
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO RB_GST_MEDIA_TYPE_MP3 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO RB_GST_MEDIA_TYPE_OGG_VORBIS ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO RB_GST_MEDIA_TYPE_FLAC ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO RB_GST_MEDIA_TYPE_AAC ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### ENUM RBGstMediaType ##### -->
+<para>
+
+</para>
+
+@MEDIA_TYPE_NONE: 
+@MEDIA_TYPE_CONTAINER: 
+@MEDIA_TYPE_AUDIO: 
+@MEDIA_TYPE_VIDEO: 
+@MEDIA_TYPE_OTHER: 
+
+<!-- ##### FUNCTION rb_gst_caps_to_media_type ##### -->
+<para>
+
+</para>
+
+@caps: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_gst_media_type_to_caps ##### -->
+<para>
+
+</para>
+
+@media_type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_gst_media_type_to_extension ##### -->
+<para>
+
+</para>
+
+@media_type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_gst_mime_type_to_media_type ##### -->
+<para>
+
+</para>
+
+@mime_type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_gst_media_type_to_mime_type ##### -->
+<para>
+
+</para>
+
+@media_type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_gst_get_missing_plugin_type ##### -->
+<para>
+
+</para>
+
+@structure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_gst_get_default_encoding_target ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_gst_get_encoding_profile ##### -->
+<para>
+
+</para>
+
+@media_type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_gst_media_type_matches_profile ##### -->
+<para>
+
+</para>
+
+@profile: 
+@media_type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_gst_encoding_profile_get_media_type ##### -->
+<para>
+
+</para>
+
+@profile: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_gst_media_type_is_lossless ##### -->
+<para>
+
+</para>
+
+@media_type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_gst_encoding_profile_get_settings ##### -->
+<para>
+
+</para>
+
+@profile: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_gst_encoding_profile_get_presets ##### -->
+<para>
+
+</para>
+
+@profile: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_gst_encoding_profile_set_preset ##### -->
+<para>
+
+</para>
+
+@profile: 
+@preset: 
+
+
+<!-- ##### FUNCTION rb_gst_encoding_profile_get_encoder ##### -->
+<para>
+
+</para>
+
+@profile: 
+@Returns: 
+
+

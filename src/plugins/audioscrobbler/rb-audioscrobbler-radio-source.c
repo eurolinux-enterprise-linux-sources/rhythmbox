@@ -30,6 +30,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <libsoup/soup.h>
+#include <libsoup/soup-gnome.h>
 #include <json-glib/json-glib.h>
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
@@ -114,11 +115,11 @@ rb_audioscrobbler_radio_type_get_url (RBAudioscrobblerRadioType type)
 	return radio_urls[type];
 }
 
+/* Translators: I have chosen these names for the radio stations based upon
+ * what last.fm's website uses or what I thought to be sensible.
+ */
 static const char* radio_names[] = {
 
-	/* Translators: I have chosen these names for the radio stations based upon
-	 * what last.fm's website uses or what I thought to be sensible.
-	 */
 	/* Translators: station is built from artists similar to the artist %s */
 	N_("%s Radio"),
 	/* Translators: station is built from the artist %s's top fans */
@@ -137,7 +138,7 @@ static const char* radio_names[] = {
 	N_("%s's Mix Radio"),
 	/* Translators: station is built from the tracks which have been "tagged" with %s.
 	 * Last.fm lets users "tag" songs with any string they wish. Tags are usually genres,
-	 * but nationalities, record labels, decades and very random words are also common */
+	 * but nationalities, record labels, decades and very random words are also commmon */
 	N_("%s Tag Radio"),
 	/* Translators: station is built from the library of the group %s */
 	N_("%s Group Radio"),
@@ -304,14 +305,14 @@ rb_audioscrobbler_radio_source_class_init (RBAudioscrobblerRadioSourceClass *kla
 	page_class->remove = impl_remove;
 
 	source_class = RB_SOURCE_CLASS (klass);
-	source_class->can_rename = (RBSourceFeatureFunc) rb_true_function;
-	source_class->can_copy = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_delete = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_pause = (RBSourceFeatureFunc) rb_false_function;
-	source_class->try_playlist = (RBSourceFeatureFunc) rb_false_function;
-	source_class->get_entry_view = impl_get_entry_view;
-	source_class->handle_eos = impl_handle_eos;
-	source_class->get_playback_status = impl_get_playback_status;
+	source_class->impl_can_rename = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_can_copy = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_delete = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_pause = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_try_playlist = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_get_entry_view = impl_get_entry_view;
+	source_class->impl_handle_eos = impl_handle_eos;
+	source_class->impl_get_playback_status = impl_get_playback_status;
 
 	g_object_class_install_property (object_class,
 	                                 PROP_PARENT,
@@ -371,9 +372,9 @@ rb_audioscrobbler_radio_source_init (RBAudioscrobblerRadioSource *source)
 	source->priv = RB_AUDIOSCROBBLER_RADIO_SOURCE_GET_PRIVATE (source);
 
 	source->priv->soup_session =
-		soup_session_new_with_options (SOUP_SESSION_ADD_FEATURE_BY_TYPE,
-					       SOUP_TYPE_PROXY_RESOLVER_DEFAULT,
-					       NULL);
+		soup_session_async_new_with_options (SOUP_SESSION_ADD_FEATURE_BY_TYPE,
+		                                     SOUP_TYPE_GNOME_FEATURES_2_26,
+		                                     NULL);
 }
 
 static void
@@ -427,7 +428,7 @@ rb_audioscrobbler_radio_source_constructed (GObject *object)
 
 	gtk_box_pack_start (GTK_BOX (main_vbox), GTK_WIDGET (source->priv->track_view), TRUE, TRUE, 0);
 
-	rb_source_bind_settings (RB_SOURCE (source), GTK_WIDGET (source->priv->track_view), NULL, NULL, TRUE);
+	rb_source_bind_settings (RB_SOURCE (source), GTK_WIDGET (source->priv->track_view), NULL, NULL);
 
 	/* query model */
 	source->priv->track_model = rhythmdb_query_model_new_empty (db);

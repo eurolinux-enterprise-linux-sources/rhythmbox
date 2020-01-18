@@ -30,6 +30,7 @@
 
 #include "rb-track-transfer-queue.h"
 #include "rb-encoder.h"
+#include "rb-marshal.h"
 #include "rb-library-source.h"
 #include "rb-debug.h"
 #include "rb-dialog.h"
@@ -274,7 +275,7 @@ actually_start_batch (RBTrackTransferQueue *queue)
 				 "track-progress",
 				 G_CALLBACK (batch_progress),
 				 queue, 0);
-	_rb_track_transfer_batch_start (queue->priv->current);
+	_rb_track_transfer_batch_start (queue->priv->current, G_OBJECT (queue));
 }
 
 static GPtrArray *
@@ -551,6 +552,60 @@ rb_track_transfer_queue_cancel_batch (RBTrackTransferQueue *queue,
 	}
 }
 
+/**
+ * rb_track_transfer_queue_get_status:
+ * @queue: the #RBTrackTransferQueue
+ * @text: returns the status bar text
+ * @progress_text: returns the progress bar text
+ * @progress: returns the progress fraction
+ * @time_left: returns the estimated number of seconds remaining
+ *
+ * Retrieves transfer status information.  Works similarly to
+ * #rb_source_get_status.
+ *
+ * Return value: TRUE if transfer status information is returned
+ */
+gboolean
+rb_track_transfer_queue_get_status (RBTrackTransferQueue *queue,
+				    char **text,
+				    char **progress_text,
+				    float *progress,
+				    int *time_left)
+{
+	int total;
+	int done;
+	double transfer_progress;
+
+	if (queue->priv->current == NULL) {
+		return FALSE;
+	}
+
+	g_object_get (queue->priv->current,
+		      "total-entries", &total,
+		      "done-entries", &done,
+		      "progress", &transfer_progress,
+		      NULL);
+	if (total > 0) {
+		char *s;
+
+		if (transfer_progress >= 0) {
+			s = g_strdup_printf (_("Transferring track %d out of %d (%.0f%%)"),
+					     done + 1, total, transfer_progress * 100);
+		} else {
+			s = g_strdup_printf (_("Transferring track %d out of %d"),
+					     done + 1, total);
+		}
+
+		g_free (*progress_text);
+		*progress_text = s;
+		*progress = transfer_progress;
+
+		*time_left = estimate_time_left (queue, transfer_progress);
+
+		return TRUE;
+	}
+	return FALSE;
+}
 
 struct FindBatchData
 {
@@ -593,32 +648,9 @@ rb_track_transfer_queue_find_batch_by_source (RBTrackTransferQueue *queue, RBSou
 	data.source = source;
 
 	/* check the current batch */
-	if (queue->priv->current != NULL) {
-		find_batches (queue->priv->current, &data);
-	}
-
+	find_batches (queue->priv->current, &data);
 	g_queue_foreach (queue->priv->batch_queue, (GFunc) find_batches, &data);
 	return data.results;
-}
-
-/**
- * rb_track_transfer_queue_cancel_for_source:
- * @queue: the #RBTrackTransferQueue
- * @source: the #RBSource to cancel transfers to/from
- *
- * Cancels all transfers to or from a specified source.
- */
-void
-rb_track_transfer_queue_cancel_for_source (RBTrackTransferQueue *queue, RBSource *source)
-{
-	GList *batches;
-	GList *l;
-
-	batches = rb_track_transfer_queue_find_batch_by_source (queue, source);
-	for (l = batches; l != NULL; l = l->next) {
-		rb_track_transfer_queue_cancel_batch (queue, l->data);
-	}
-	g_list_free (batches);
 }
 
 static void
@@ -747,7 +779,7 @@ rb_track_transfer_queue_class_init (RBTrackTransferQueueClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBTrackTransferQueueClass, transfer_progress),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__INT_INT_DOUBLE_INT,
 			      G_TYPE_NONE,
 			      4, G_TYPE_INT, G_TYPE_INT, G_TYPE_DOUBLE, G_TYPE_INT);
 	/**
@@ -767,7 +799,7 @@ rb_track_transfer_queue_class_init (RBTrackTransferQueueClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      0,
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_BOOLEAN__POINTER_POINTER_POINTER,
 			      G_TYPE_BOOLEAN,
 			      3,
 			      G_TYPE_STRV, G_TYPE_STRV, G_TYPE_CLOSURE);

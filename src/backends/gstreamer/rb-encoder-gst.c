@@ -53,9 +53,6 @@ struct _RBEncoderGstPrivate {
 
 	GstElement *encodebin;
 	GstElement *pipeline;
-	GstElement *output;
-	GstElement *sink;
-	guint bus_watch_id;
 
 	gboolean transcoding;
 	gint decoded_pads;
@@ -68,13 +65,8 @@ struct _RBEncoderGstPrivate {
 	guint progress_id;
 	char *dest_uri;
 	char *dest_media_type;
-	gboolean overwrite;
-	gint64 dest_size;
 
 	GOutputStream *outstream;
-	GCancellable *open_cancel;
-	GTask *open_task;
-
 
 	GError *error;
 };
@@ -107,6 +99,9 @@ static void
 rb_encoder_gst_emit_completed (RBEncoderGst *encoder)
 {
 	GError *error = NULL;
+	guint64 dest_size;
+	GFile *file;
+	GFileInfo *file_info;
 
 	g_return_if_fail (encoder->priv->completion_emitted == FALSE);
 
@@ -132,8 +127,24 @@ rb_encoder_gst_emit_completed (RBEncoderGst *encoder)
 		error = NULL;
 	}
 
+	/* find the size of the output file, assuming we can get at it with gio */
+	dest_size = 0;
+	file = g_file_new_for_uri (encoder->priv->dest_uri);
+	file_info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE, G_FILE_QUERY_INFO_NONE, NULL, &error);
+	if (error != NULL) {
+		rb_debug ("couldn't get size of destination %s: %s",
+			  encoder->priv->dest_uri,
+			  error->message);
+		g_clear_error (&error);
+	} else {
+		dest_size = g_file_info_get_attribute_uint64 (file_info, G_FILE_ATTRIBUTE_STANDARD_SIZE);
+		rb_debug ("destination file size: %" G_GUINT64_FORMAT, dest_size);
+		g_object_unref (file_info);
+	}
+	g_object_unref (file);
+
 	encoder->priv->completion_emitted = TRUE;
-	_rb_encoder_emit_completed (RB_ENCODER (encoder), encoder->priv->dest_size, encoder->priv->dest_media_type, encoder->priv->error);
+	_rb_encoder_emit_completed (RB_ENCODER (encoder), dest_size, encoder->priv->dest_media_type, encoder->priv->error);
 }
 
 static void
@@ -184,7 +195,6 @@ bus_watch_cb (GstBus *bus, GstMessage *message, gpointer data)
 		break;
 
 	case GST_MESSAGE_EOS:
-		gst_element_query_position (encoder->priv->pipeline, GST_FORMAT_BYTES, &encoder->priv->dest_size);
 
 		gst_element_set_state (encoder->priv->pipeline, GST_STATE_NULL);
 		if (encoder->priv->outstream != NULL) {
@@ -226,10 +236,8 @@ progress_timeout_cb (RBEncoderGst *encoder)
 	format = encoder->priv->position_format;
 
 	gst_element_get_state (encoder->priv->pipeline, &state, NULL, GST_CLOCK_TIME_NONE);
-	if (state != GST_STATE_PLAYING) {
-		encoder->priv->progress_id = 0;
+	if (state != GST_STATE_PLAYING)
 		return FALSE;
-	}
 
 	if (!gst_element_query_position (encoder->priv->pipeline, format, &position)) {
 		g_warning ("Could not get current track position");
@@ -257,6 +265,29 @@ progress_timeout_cb (RBEncoderGst *encoder)
 }
 
 static void
+start_pipeline (RBEncoderGst *encoder)
+{
+	GstStateChangeReturn result;
+	GstBus *bus;
+
+	g_assert (encoder->priv->pipeline != NULL);
+
+	bus = gst_pipeline_get_bus (GST_PIPELINE (encoder->priv->pipeline));
+	gst_bus_add_watch (bus, bus_watch_cb, encoder);
+
+	result = gst_element_set_state (encoder->priv->pipeline, GST_STATE_PLAYING);
+	if (result != GST_STATE_CHANGE_FAILURE) {
+		/* start reporting progress */
+		if (encoder->priv->total_length > 0) {
+			_rb_encoder_emit_progress (RB_ENCODER (encoder), 0.0);
+			encoder->priv->progress_id = g_timeout_add (250, (GSourceFunc)progress_timeout_cb, encoder);
+		} else {
+			_rb_encoder_emit_progress (RB_ENCODER (encoder), -1);
+		}
+	}
+}
+
+static void
 add_string_tag (GstTagList *tags, GstTagMergeMode mode, const char *tag, RhythmDBEntry *entry, RhythmDBPropType property)
 {
 	const char *v;
@@ -266,8 +297,10 @@ add_string_tag (GstTagList *tags, GstTagMergeMode mode, const char *tag, RhythmD
 	}
 }
 
-static void
-add_tags_from_entry (RBEncoderGst *encoder, RhythmDBEntry *entry)
+static gboolean
+add_tags_from_entry (RBEncoderGst *encoder,
+		     RhythmDBEntry *entry,
+		     GError **error)
 {
 	GstTagList *tags;
 	GValue obj = {0,};
@@ -293,21 +326,11 @@ add_tags_from_entry (RBEncoderGst *encoder, RhythmDBEntry *entry)
 
 	if (day > 0) {
 		GDate *date;
-		GstDateTime *datetime;
 
 		date = g_date_new_julian (day);
 		gst_tag_list_add (tags, GST_TAG_MERGE_APPEND,
 				  GST_TAG_DATE, date,
 				  NULL);
-
-		datetime = gst_date_time_new_ymd (g_date_get_year (date),
-						  g_date_get_month (date),
-						  g_date_get_day (date));
-		gst_tag_list_add (tags, GST_TAG_MERGE_APPEND,
-				  GST_TAG_DATE_TIME, datetime,
-				  NULL);
-
-		gst_date_time_unref (datetime);
 		g_date_free (date);
 	}
 	add_string_tag (tags, GST_TAG_MERGE_APPEND, GST_TAG_MUSICBRAINZ_TRACKID, entry, RHYTHMDB_PROP_MUSICBRAINZ_TRACKID);
@@ -349,7 +372,8 @@ add_tags_from_entry (RBEncoderGst *encoder, RhythmDBEntry *entry)
 		}
 	}
 
-	gst_tag_list_unref (tags);
+	gst_tag_list_free (tags);
+	return TRUE;
 }
 
 static void
@@ -413,6 +437,86 @@ add_decoding_pipeline (RBEncoderGst *encoder,
 	return decodebin;
 }
 
+static gboolean
+attach_output_pipeline (RBEncoderGst *encoder,
+			GstElement *end,
+			const char *dest,
+			gboolean overwrite,
+			GError **error)
+{
+	GFile *file;
+	GFileOutputStream *stream;
+	GstElement *sink;
+	GError *local_error = NULL;
+
+	/* if we can get to the location with gio, open the file here
+	 * (prompting for overwrite if it already exists) and use giostreamsink.
+	 * otherwise, create whatever sink element we can.
+	 */
+	rb_debug ("attempting to open output file %s", dest);
+	file = g_file_new_for_uri (dest);
+
+	sink = gst_element_factory_make ("giostreamsink", NULL);
+	if (sink != NULL) {
+		stream = g_file_create (file, G_FILE_CREATE_NONE, NULL, &local_error);
+		if (local_error != NULL) {
+			if (g_error_matches (local_error,
+					     G_IO_ERROR,
+					     G_IO_ERROR_NOT_SUPPORTED)) {
+				rb_debug ("gio can't write to %s, so using whatever sink will work", dest);
+				g_object_unref (sink);
+				sink = NULL;
+				g_error_free (local_error);
+			} else if (g_error_matches (local_error,
+						    G_IO_ERROR,
+						    G_IO_ERROR_EXISTS)) {
+				if (overwrite) {
+					g_error_free (local_error);
+					stream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, error);
+					if (stream == NULL) {
+						return FALSE;
+					}
+				} else {
+					g_set_error_literal (error,
+							     RB_ENCODER_ERROR,
+							     RB_ENCODER_ERROR_DEST_EXISTS,
+							     local_error->message);
+					g_error_free (local_error);
+					return FALSE;
+				}
+			} else {
+				g_propagate_error (error, local_error);
+				return FALSE;
+			}
+		}
+
+		if (stream != NULL) {
+			g_object_set (sink, "stream", stream, NULL);
+			encoder->priv->outstream = G_OUTPUT_STREAM (stream);
+		}
+	} else {
+		rb_debug ("unable to create giostreamsink, falling back to default sink for %s", dest);
+	}
+
+	if (sink == NULL) {
+		sink = gst_element_make_from_uri (GST_URI_SINK, dest, "sink", NULL);
+		if (sink == NULL) {
+			g_set_error (error, RB_ENCODER_ERROR, RB_ENCODER_ERROR_FILE_ACCESS,
+				     _("Could not create a GStreamer sink element to write to %s"),
+				     dest);
+			return FALSE;
+		}
+	}
+
+	/* provide a hook for setting sink properties */
+	_rb_encoder_emit_prepare_sink (RB_ENCODER (encoder), dest, G_OBJECT (sink));
+
+	gst_bin_add (GST_BIN (encoder->priv->pipeline), sink);
+	gst_element_link (end, sink);
+
+	return TRUE;
+}
+
 static GstElement *
 create_pipeline_and_source (RBEncoderGst *encoder,
 			    RhythmDBEntry *entry,
@@ -449,9 +553,34 @@ create_pipeline_and_source (RBEncoderGst *encoder,
 	return src;
 }
 
-static GstElement *
+static gboolean
+copy_track (RBEncoderGst *encoder,
+	    RhythmDBEntry *entry,
+	    const char *dest,
+	    gboolean overwrite,
+	    GError **error)
+{
+	/* source ! sink */
+	GstElement *src;
+
+	g_assert (encoder->priv->pipeline == NULL);
+
+	src = create_pipeline_and_source (encoder, entry, error);
+	if (src == NULL)
+		return FALSE;
+
+	if (!attach_output_pipeline (encoder, src, dest, overwrite, error))
+		return FALSE;
+
+	start_pipeline (encoder);
+	return TRUE;
+}
+
+static gboolean
 transcode_track (RBEncoderGst *encoder,
 	 	 RhythmDBEntry *entry,
+		 const char *dest,
+		 gboolean overwrite,
 		 GError **error)
 {
 	/* src ! decodebin ! encodebin ! sink */
@@ -461,17 +590,15 @@ transcode_track (RBEncoderGst *encoder,
 	g_assert (encoder->priv->pipeline == NULL);
 	g_assert (encoder->priv->profile != NULL);
 
-	rb_debug ("transcoding to profile %s", gst_encoding_profile_get_name (encoder->priv->profile));
+	rb_debug ("transcoding to %s, profile %s", dest, gst_encoding_profile_get_name (encoder->priv->profile));
 
 	src = create_pipeline_and_source (encoder, entry, error);
-	if (src == NULL) {
-		return NULL;
-	}
+	if (src == NULL)
+		goto error;
 
 	decoder = add_decoding_pipeline (encoder, error);
-	if (decoder == NULL) {
-		return NULL;
-	}
+	if (decoder == NULL)
+		goto error;
 
 	if (gst_element_link (src, decoder) == FALSE) {
 		rb_debug ("unable to link source element to decodebin");
@@ -479,7 +606,7 @@ transcode_track (RBEncoderGst *encoder,
 			     RB_ENCODER_ERROR,
 			     RB_ENCODER_ERROR_INTERNAL,
 			     "Unable to link source element to decodebin");
-		return NULL;
+		goto error;
 	}
 
 	encoder->priv->encodebin = gst_element_factory_make ("encodebin", NULL);
@@ -489,7 +616,7 @@ transcode_track (RBEncoderGst *encoder,
 				RB_ENCODER_ERROR,
 				RB_ENCODER_ERROR_INTERNAL,
 				"Could not create encodebin");
-		return NULL;
+		goto error;
 	}
 	g_object_set (encoder->priv->encodebin,
 		      "profile", encoder->priv->profile,
@@ -499,17 +626,21 @@ transcode_track (RBEncoderGst *encoder,
 		      NULL);
 	gst_bin_add (GST_BIN (encoder->priv->pipeline), encoder->priv->encodebin);
 
-	return encoder->priv->encodebin;
+	if (!attach_output_pipeline (encoder, encoder->priv->encodebin, dest, overwrite, error))
+		goto error;
+	if (!add_tags_from_entry (encoder, entry, error))
+		goto error;
+
+	start_pipeline (encoder);
+	return TRUE;
+error:
+	return FALSE;
 }
 
 static void
 impl_cancel (RBEncoder *bencoder)
 {
 	RBEncoderGst *encoder = RB_ENCODER_GST (bencoder);
-
-	if (encoder->priv->open_cancel != NULL) {
-		g_cancellable_cancel (encoder->priv->open_cancel);
-	}
 
 	if (encoder->priv->pipeline != NULL) {
 		gst_element_set_state (encoder->priv->pipeline, GST_STATE_NULL);
@@ -556,118 +687,6 @@ cancel_idle (RBEncoder *encoder)
 }
 
 static void
-sink_open_cb (GObject *source_object, GAsyncResult *result, gpointer data)
-{
-	RBEncoderGst *encoder = RB_ENCODER_GST (source_object);
-	GstStateChangeReturn state_change;
-	GstBus *bus;
-	GError *error = NULL;
-
-	if (g_task_propagate_boolean (G_TASK (result), &error) == FALSE) {
-		set_error (encoder, error);
-		g_error_free (error);
-		rb_encoder_gst_emit_completed (encoder);
-	} else {
-		g_object_set (encoder->priv->sink, "stream", encoder->priv->outstream, NULL);
-		_rb_encoder_emit_prepare_sink (RB_ENCODER (encoder), encoder->priv->dest_uri, G_OBJECT (encoder->priv->sink));
-
-		gst_bin_add (GST_BIN (encoder->priv->pipeline), encoder->priv->sink);
-		gst_element_link (encoder->priv->output, encoder->priv->sink);
-
-		bus = gst_pipeline_get_bus (GST_PIPELINE (encoder->priv->pipeline));
-		encoder->priv->bus_watch_id = gst_bus_add_watch (bus, bus_watch_cb, encoder);
-		g_object_unref (bus);
-
-		state_change = gst_element_set_state (encoder->priv->pipeline, GST_STATE_PLAYING);
-		if (state_change != GST_STATE_CHANGE_FAILURE) {
-			if (encoder->priv->total_length > 0) {
-				_rb_encoder_emit_progress (RB_ENCODER (encoder), 0.0);
-				encoder->priv->progress_id = g_timeout_add (250, (GSourceFunc)progress_timeout_cb, encoder);
-			} else {
-				_rb_encoder_emit_progress (RB_ENCODER (encoder), -1);
-			}
-		}
-	}
-
-	g_object_unref (encoder);
-}
-
-static GOutputStream *
-stream_open (RBEncoderGst *encoder, GFile *file, GCancellable *cancellable, GError **error)
-{
-	GFileOutputStream *stream;
-
-	if (encoder->priv->overwrite) {
-		stream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, cancellable, error);
-	} else {
-		stream = g_file_create (file, G_FILE_CREATE_NONE, cancellable, error);
-	}
-
-	if (*error != NULL && g_error_matches (*error, G_IO_ERROR, G_IO_ERROR_EXISTS)) {
-		char *msg = g_strdup ((*error)->message);
-
-		g_clear_error (error);
-		g_set_error_literal (error,
-				     RB_ENCODER_ERROR,
-				     RB_ENCODER_ERROR_DEST_EXISTS,
-				     msg);
-		g_free (msg);
-	}
-
-	return G_OUTPUT_STREAM (stream);
-}
-
-static void
-sink_open (GTask *task, gpointer source_object, gpointer task_data, GCancellable *cancellable)
-{
-	RBEncoderGst *encoder = RB_ENCODER_GST (source_object);
-	GError *error = NULL;
-
-	encoder->priv->sink = gst_element_factory_make ("giostreamsink", NULL);
-	if (encoder->priv->sink != NULL) {
-		GFile *file;
-
-		file = g_file_new_for_uri (encoder->priv->dest_uri);
-
-		encoder->priv->outstream = stream_open (encoder, file, cancellable, &error);
-		if (encoder->priv->outstream != NULL) {
-			rb_debug ("opened output stream for %s", encoder->priv->dest_uri);
-		} else if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED)) {
-			rb_debug ("using default sink for %s as gio can't do it", encoder->priv->dest_uri);
-			g_clear_error (&error);
-			g_clear_object (&encoder->priv->sink);
-		} else if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_INVALID_FILENAME)) {
-			char *dest;
-
-			g_clear_error (&error);
-
-			dest = rb_sanitize_uri_for_filesystem (encoder->priv->dest_uri, "msdos");
-			g_free (encoder->priv->dest_uri);
-			encoder->priv->dest_uri = dest;
-			rb_debug ("sanitized destination uri to %s", dest);
-
-			file = g_file_new_for_uri (encoder->priv->dest_uri);
-			encoder->priv->outstream = stream_open (encoder, file, cancellable, &error);
-		}
-	}
-
-	if (encoder->priv->sink == NULL) {
-		rb_debug ("unable to create giostreamsink, using default sink for %s", encoder->priv->dest_uri);
-		encoder->priv->sink = gst_element_make_from_uri (GST_URI_SINK, encoder->priv->dest_uri, "sink", NULL);
-		if (encoder->priv->sink == NULL) {
-			g_set_error (&error, RB_ENCODER_ERROR, RB_ENCODER_ERROR_FILE_ACCESS,
-				     _("Could not create a GStreamer sink element to write to %s"),
-				     encoder->priv->dest_uri);
-			g_task_return_error (task, error);
-		}
-		g_task_return_boolean (task, TRUE);
-	} else {
-		g_task_return_boolean (task, TRUE);
-	}
-	g_object_unref (task);
-}
-
-static void
 impl_encode (RBEncoder *bencoder,
 	     RhythmDBEntry *entry,
 	     const char *dest,
@@ -675,17 +694,25 @@ impl_encode (RBEncoder *bencoder,
 	     GstEncodingProfile *profile)
 {
 	RBEncoderGst *encoder = RB_ENCODER_GST (bencoder);
+	gboolean result;
 	GError *error = NULL;
-	GTask *task;
 
 	g_return_if_fail (encoder->priv->pipeline == NULL);
 
-	g_clear_object (&encoder->priv->profile);
+	if (rb_uri_create_parent_dirs (dest, &error) == FALSE) {
+		error = g_error_new_literal (RB_ENCODER_ERROR,
+					     RB_ENCODER_ERROR_FILE_ACCESS,
+					     error->message);		/* I guess */
+
+		set_error (encoder, error);
+		g_error_free (error);
+		g_idle_add ((GSourceFunc) cancel_idle, g_object_ref (encoder));
+		return;
+	}
+
 	g_free (encoder->priv->dest_media_type);
 	g_free (encoder->priv->dest_uri);
 	encoder->priv->dest_uri = g_strdup (dest);
-	encoder->priv->overwrite = overwrite;
-	encoder->priv->dest_size = 0;
 
 	/* keep ourselves alive in case we get cancelled by a signal handler */
 	g_object_ref (encoder);
@@ -695,30 +722,28 @@ impl_encode (RBEncoder *bencoder,
 		encoder->priv->total_length = rhythmdb_entry_get_uint64 (entry, RHYTHMDB_PROP_FILE_SIZE);
 		encoder->priv->position_format = GST_FORMAT_BYTES;
 		encoder->priv->dest_media_type = rhythmdb_entry_dup_string (entry, RHYTHMDB_PROP_MEDIA_TYPE);
-		encoder->priv->output = create_pipeline_and_source (encoder, entry, &error);
+
+		result = copy_track (encoder, entry, dest, overwrite, &error);
 	} else {
 		gst_encoding_profile_ref (profile);
 		encoder->priv->profile = profile;
 		encoder->priv->total_length = rhythmdb_entry_get_ulong (entry, RHYTHMDB_PROP_DURATION);
 		encoder->priv->position_format = GST_FORMAT_TIME;
 		encoder->priv->dest_media_type = rb_gst_encoding_profile_get_media_type (profile);
-		encoder->priv->output = transcode_track (encoder, entry, &error);
 
-		add_tags_from_entry (encoder, entry);
+		result = transcode_track (encoder, entry, dest, overwrite, &error);
+	}
+
+	if (result == FALSE && encoder->priv->cancelled == FALSE) {
+		set_error (encoder, error);
+		g_idle_add ((GSourceFunc) cancel_idle, g_object_ref (encoder));
 	}
 
 	if (error != NULL) {
-		if (encoder->priv->cancelled == FALSE) {
-			set_error (encoder, error);
-			g_idle_add ((GSourceFunc) cancel_idle, encoder);
-		}
 		g_error_free (error);
-	} else {
-		encoder->priv->open_cancel = g_cancellable_new ();
-
-		task = g_task_new (encoder, encoder->priv->open_cancel, sink_open_cb, NULL);
-		g_task_run_in_thread (task, sink_open);
 	}
+
+	g_object_unref (encoder);
 }
 
 static gboolean
@@ -727,10 +752,7 @@ impl_get_missing_plugins (RBEncoder *encoder,
 			  char ***details,
 			  char ***descriptions)
 {
-	GList *messages = NULL;
 	GstElement *encodebin;
-	GstElement *enc;
-	GstMessage *message;
 	GstBus *bus;
 	GstPad *pad;
 	gboolean ret;
@@ -748,10 +770,14 @@ impl_get_missing_plugins (RBEncoder *encoder,
 	gst_element_set_bus (encodebin, bus);
 	gst_bus_set_flushing (bus, FALSE);		/* necessary? */
 
-	/* encodebin only checks the muxer and other required elements */
 	g_object_set (encodebin, "profile", profile, NULL);
 	pad = gst_element_get_static_pad (encodebin, "audio_0");
 	if (pad == NULL) {
+		GstMessage *message;
+		GList *messages = NULL;
+		GList *m;
+		int i;
+
 		rb_debug ("didn't get request pad, profile %s doesn't work", gst_encoding_profile_get_name (profile));
 		message = gst_bus_pop (bus);
 		while (message != NULL) {
@@ -762,54 +788,39 @@ impl_get_missing_plugins (RBEncoder *encoder,
 			}
 			message = gst_bus_pop (bus);
 		}
+
+		if (messages != NULL) {
+			if (details != NULL) {
+				*details = g_new0(char *, g_list_length (messages)+1);
+			}
+			if (descriptions != NULL) {
+				*descriptions = g_new0(char *, g_list_length (messages)+1);
+			}
+			i = 0;
+			for (m = messages; m != NULL; m = m->next) {
+				char *str;
+				if (details != NULL) {
+					str = gst_missing_plugin_message_get_installer_detail (m->data);
+					rb_debug ("missing plugin for profile %s: %s",
+						  gst_encoding_profile_get_name (profile),
+						  str);
+					(*details)[i] = str;
+				}
+				if (descriptions != NULL) {
+					str = gst_missing_plugin_message_get_description (m->data);
+					(*descriptions)[i] = str;
+				}
+				i++;
+			}
+
+			ret = TRUE;
+			rb_list_destroy_free (messages, (GDestroyNotify)gst_message_unref);
+		}
+
 	} else {
 		rb_debug ("got request pad, profile %s works", gst_encoding_profile_get_name (profile));
 		gst_element_release_request_pad (encodebin, pad);
 		gst_object_unref (pad);
-	}
-
-	/* make sure there's an encoder too */
-	enc = rb_gst_encoding_profile_get_encoder (profile);
-	if (enc == NULL) {
-		GstCaps *caps;
-		rb_debug ("couldn't find an encoder, profile %s doesn't work", gst_encoding_profile_get_name (profile));
-
-		caps = rb_gst_encoding_profile_get_encoder_caps (profile);
-		messages = g_list_append (messages, gst_missing_encoder_message_new (encodebin, caps));
-	} else {
-		rb_debug ("encoder found, profile %s works", gst_encoding_profile_get_name (profile));
-		gst_object_unref (enc);
-	}
-
-	if (messages != NULL) {
-		GList *m;
-		int i;
-
-		if (details != NULL) {
-			*details = g_new0(char *, g_list_length (messages)+1);
-		}
-		if (descriptions != NULL) {
-			*descriptions = g_new0(char *, g_list_length (messages)+1);
-		}
-		i = 0;
-		for (m = messages; m != NULL; m = m->next) {
-			char *str;
-			if (details != NULL) {
-				str = gst_missing_plugin_message_get_installer_detail (m->data);
-				rb_debug ("missing plugin for profile %s: %s",
-					  gst_encoding_profile_get_name (profile),
-					  str);
-				(*details)[i] = str;
-			}
-			if (descriptions != NULL) {
-				str = gst_missing_plugin_message_get_description (m->data);
-				(*descriptions)[i] = str;
-			}
-			i++;
-		}
-
-		ret = TRUE;
-		rb_list_destroy_free (messages, (GDestroyNotify)gst_message_unref);
 	}
 
 	gst_object_unref (encodebin);
@@ -824,11 +835,6 @@ impl_finalize (GObject *object)
 
 	if (encoder->priv->progress_id != 0)
 		g_source_remove (encoder->priv->progress_id);
-
-	if (encoder->priv->bus_watch_id != 0) {
-		g_source_remove (encoder->priv->bus_watch_id);
-		encoder->priv->bus_watch_id = 0;
-	}
 
 	if (encoder->priv->pipeline) {
 		gst_element_set_state (encoder->priv->pipeline, GST_STATE_NULL);

@@ -2,29 +2,36 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RBPlayOrder: Rhythmbox Development Reference Manual</title>
-<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<title>RBPlayOrder</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch05.html" title="Shell">
 <link rel="prev" href="RBHistory.html" title="RBHistory">
 <link rel="next" href="RBRandomPlayOrder.html" title="RBRandomPlayOrder">
-<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
-<td width="100%" align="left" class="shortcuts">
-<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
-                  <a href="#RBPlayOrder.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
-                  <a href="#RBPlayOrder.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
-                  <a href="#RBPlayOrder.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
-                  <a href="#RBPlayOrder.signals" class="shortcut">Signals</a></span>
-</td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
-<td><a accesskey="u" href="ch05.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
-<td><a accesskey="p" href="RBHistory.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
-<td><a accesskey="n" href="RBRandomPlayOrder.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
-</tr></table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBHistory.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch05.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBRandomPlayOrder.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBPlayOrder.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBPlayOrder.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBPlayOrder.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBPlayOrder.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#RBPlayOrder.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
 <div class="refentry">
 <a name="RBPlayOrder"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -32,660 +39,78 @@
 <h2><span class="refentrytitle"><a name="RBPlayOrder.top_of_page"></a>RBPlayOrder</span></h2>
 <p>RBPlayOrder — base class for play order implementations</p>
 </td>
-<td class="gallery_image" valign="top" align="right"></td>
+<td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsect1">
-<a name="RBPlayOrder.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="functions_return">
-<col class="functions_name">
-</colgroup>
-<tbody>
-<tr>
-<td class="function_type">
-<span class="returnvalue">void</span>
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-playing-source-changed" title="rb_play_order_playing_source_changed ()">rb_play_order_playing_source_changed</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<span class="returnvalue">void</span>
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-query-model-changed" title="rb_play_order_query_model_changed ()">rb_play_order_query_model_changed</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-has-next" title="rb_play_order_has_next ()">rb_play_order_has_next</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<span class="returnvalue">RhythmDBEntry</span> *
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-get-next" title="rb_play_order_get_next ()">rb_play_order_get_next</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<span class="returnvalue">void</span>
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-go-next" title="rb_play_order_go_next ()">rb_play_order_go_next</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-has-previous" title="rb_play_order_has_previous ()">rb_play_order_has_previous</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<span class="returnvalue">RhythmDBEntry</span> *
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-get-previous" title="rb_play_order_get_previous ()">rb_play_order_get_previous</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<span class="returnvalue">void</span>
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-go-previous" title="rb_play_order_go_previous ()">rb_play_order_go_previous</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<span class="returnvalue">void</span>
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-set-playing-entry" title="rb_play_order_set_playing_entry ()">rb_play_order_set_playing_entry</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<span class="returnvalue">RhythmDBEntry</span> *
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-get-playing-entry" title="rb_play_order_get_playing_entry ()">rb_play_order_get_playing_entry</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="returnvalue">RBShellPlayer</span></a> *
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-get-player" title="rb_play_order_get_player ()">rb_play_order_get_player</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-get-source" title="rb_play_order_get_source ()">rb_play_order_get_source</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="returnvalue">RhythmDB</span></a> *
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-get-db" title="rb_play_order_get_db ()">rb_play_order_get_db</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="returnvalue">RhythmDBQueryModel</span></a> *
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-get-query-model" title="rb_play_order_get_query_model ()">rb_play_order_get_query_model</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-model-not-empty" title="rb_play_order_model_not_empty ()">rb_play_order_model_not_empty</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
-</td>
-<td class="function_name">
-<a class="link" href="RBPlayOrder.html#rb-play-order-player-is-playing" title="rb_play_order_player_is_playing ()">rb_play_order_player_is_playing</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="refsect1">
-<a name="RBPlayOrder.properties"></a><h2>Properties</h2>
-<div class="informaltable"><table class="informaltable" border="0">
-<colgroup>
-<col width="150px" class="properties_type">
-<col width="300px" class="properties_name">
-<col width="200px" class="properties_flags">
-</colgroup>
-<tbody>
-<tr>
-<td class="property_type">
-<a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> *</td>
-<td class="property_name"><a class="link" href="RBPlayOrder.html#RBPlayOrder--player" title="The “player” property">player</a></td>
-<td class="property_flags">Read / Write / Construct Only</td>
-</tr>
-<tr>
-<td class="property_type">
-<span class="type">RhythmDBEntry</span> *</td>
-<td class="property_name"><a class="link" href="RBPlayOrder.html#RBPlayOrder--playing-entry" title="The “playing-entry” property">playing-entry</a></td>
-<td class="property_flags">Read / Write</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="refsect1">
-<a name="RBPlayOrder.signals"></a><h2>Signals</h2>
-<div class="informaltable"><table class="informaltable" border="0">
-<colgroup>
-<col width="150px" class="signals_return">
-<col width="300px" class="signals_name">
-<col width="200px" class="signals_flags">
-</colgroup>
-<tbody><tr>
-<td class="signal_type"><span class="returnvalue">void</span></td>
-<td class="signal_name"><a class="link" href="RBPlayOrder.html#RBPlayOrder-have-next-previous-changed" title="The “have-next-previous-changed” signal">have-next-previous-changed</a></td>
-<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect1">
-<a name="RBPlayOrder.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="name">
-<col class="description">
-</colgroup>
-<tbody>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="RBPlayOrder.html#RBPlayOrder-struct" title="struct RBPlayOrder">RBPlayOrder</a></td>
-</tr>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="RBPlayOrder.html#RBPlayOrderClass" title="struct RBPlayOrderClass">RBPlayOrderClass</a></td>
-</tr>
-</tbody>
-</table></div>
+<div class="refsynopsisdiv">
+<a name="RBPlayOrder.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">struct              <a class="link" href="RBPlayOrder.html#RBPlayOrder-struct" title="struct RBPlayOrder">RBPlayOrder</a>;
+struct              <a class="link" href="RBPlayOrder.html#RBPlayOrderClass" title="struct RBPlayOrderClass">RBPlayOrderClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="RBPlayOrder.html#rb-play-order-playing-source-changed" title="rb_play_order_playing_source_changed ()">rb_play_order_playing_source_changed</a>
+                                                        (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="RBPlayOrder.html#rb-play-order-query-model-changed" title="rb_play_order_query_model_changed ()">rb_play_order_query_model_changed</a>   (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlayOrder.html#rb-play-order-has-next" title="rb_play_order_has_next ()">rb_play_order_has_next</a>              (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+<span class="returnvalue">RhythmDBEntry</span> *     <a class="link" href="RBPlayOrder.html#rb-play-order-get-next" title="rb_play_order_get_next ()">rb_play_order_get_next</a>              (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="RBPlayOrder.html#rb-play-order-go-next" title="rb_play_order_go_next ()">rb_play_order_go_next</a>               (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlayOrder.html#rb-play-order-has-previous" title="rb_play_order_has_previous ()">rb_play_order_has_previous</a>          (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+<span class="returnvalue">RhythmDBEntry</span> *     <a class="link" href="RBPlayOrder.html#rb-play-order-get-previous" title="rb_play_order_get_previous ()">rb_play_order_get_previous</a>          (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="RBPlayOrder.html#rb-play-order-go-previous" title="rb_play_order_go_previous ()">rb_play_order_go_previous</a>           (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="RBPlayOrder.html#rb-play-order-set-playing-entry" title="rb_play_order_set_playing_entry ()">rb_play_order_set_playing_entry</a>     (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>,
+                                                         <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);
+<span class="returnvalue">RhythmDBEntry</span> *     <a class="link" href="RBPlayOrder.html#rb-play-order-get-playing-entry" title="rb_play_order_get_playing_entry ()">rb_play_order_get_playing_entry</a>     (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+<a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="returnvalue">RBShellPlayer</span></a> *     <a class="link" href="RBPlayOrder.html#rb-play-order-get-player" title="rb_play_order_get_player ()">rb_play_order_get_player</a>            (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          <a class="link" href="RBPlayOrder.html#rb-play-order-get-source" title="rb_play_order_get_source ()">rb_play_order_get_source</a>            (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="returnvalue">RhythmDB</span></a> *          <a class="link" href="RBPlayOrder.html#rb-play-order-get-db" title="rb_play_order_get_db ()">rb_play_order_get_db</a>                (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="returnvalue">RhythmDBQueryModel</span></a> * <a class="link" href="RBPlayOrder.html#rb-play-order-get-query-model" title="rb_play_order_get_query_model ()">rb_play_order_get_query_model</a>      (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlayOrder.html#rb-play-order-model-not-empty" title="rb_play_order_model_not_empty ()">rb_play_order_model_not_empty</a>       (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlayOrder.html#rb-play-order-player-is-playing" title="rb_play_order_player_is_playing ()">rb_play_order_player_is_playing</a>     (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);
+</pre>
 </div>
 <div class="refsect1">
 <a name="RBPlayOrder.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
-    <span class="lineart">╰──</span> RBPlayOrder
-        <span class="lineart">╰──</span> <a class="link" href="RBRandomPlayOrder.html" title="RBRandomPlayOrder">RBRandomPlayOrder</a>
+<pre class="synopsis">
+  GObject
+   +----RBPlayOrder
+         +----<a class="link" href="RBRandomPlayOrder.html" title="RBRandomPlayOrder">RBRandomPlayOrder</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="RBPlayOrder.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBPlayOrder.html#RBPlayOrder--player" title='The "player" property'>player</a>"                   <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a>*        : Read / Write / Construct Only
+  "<a class="link" href="RBPlayOrder.html#RBPlayOrder--playing-entry" title='The "playing-entry" property'>playing-entry</a>"            <span class="type">RhythmDBEntry</span>*        : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="RBPlayOrder.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBPlayOrder.html#RBPlayOrder-have-next-previous-changed" title='The "have-next-previous-changed" signal'>have-next-previous-changed</a>"                     : <code class="literal">Run Last</code>
 </pre>
 </div>
 <div class="refsect1">
 <a name="RBPlayOrder.description"></a><h2>Description</h2>
-<p>A play order defines an ordering of the entries from a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> that
-the <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> uses to get the next or previous entry to play.</p>
-<p>Play order methods are invoked when changes are made to the query model, when
+<p>
+A play order defines an ordering of the entries from a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> that
+the <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> uses to get the next or previous entry to play.
+</p>
+<p>
+Play order methods are invoked when changes are made to the query model, when
 the query model is replaced, the playing source is changed, or a new playing
-entry is selected.</p>
-<p>The play order must implement methods to check for, retrieve, and move to the
+entry is selected.
+</p>
+<p>
+The play order must implement methods to check for, retrieve, and move to the
 next and previous entries in the play order.  Only the go_next and go_previous
-methods actually change anything.</p>
-<p>The play order should also emit the have-next-previous-changed signal to hint that
+methods actually change anything.
+</p>
+<p>
+The play order should also emit the have-next-previous-changed signal to hint that
 the availability of either a next or previous entry in the order may have changed.
-This information is used to update the sensitivity of the next and previous buttons.</p>
+This information is used to update the sensitivity of the next and previous buttons.
+</p>
 </div>
 <div class="refsect1">
-<a name="RBPlayOrder.functions_details"></a><h2>Functions</h2>
-<div class="refsect2">
-<a name="rb-play-order-playing-source-changed"></a><h3>rb_play_order_playing_source_changed ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-rb_play_order_playing_source_changed (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>,
-                                      <em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>);</pre>
-<p>Sets the playing <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> for the play order.  Should be called
-by <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> when the active source changes.  Subclasses
-should implement <code class="function">playing_source_changed()</code> to make any necessary
-changes.</p>
-<div class="refsect3">
-<a name="rb-play-order-playing-source-changed.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody>
-<tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-<tr>
-<td class="parameter_name"><p>source</p></td>
-<td class="parameter_description"><p>New playing <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a></p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-</tbody>
-</table></div>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-query-model-changed"></a><h3>rb_play_order_query_model_changed ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-rb_play_order_query_model_changed (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>Updates the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> instance for the play order.
-Called from the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> notify signal handler, and also from
-<span class="type">rb_play_order_source_changed</span>.  Subclasses should implement
-<code class="function">query_model_changed()</code> to make any necessary adjustments if they
-store any state based on the contents of the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>.</p>
-<div class="refsect3">
-<a name="rb-play-order-query-model-changed.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p>RBPlayOrder instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-has-next"></a><h3>rb_play_order_has_next ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
-rb_play_order_has_next (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>If there is no current playing entry, returns true if the play order is non-empty.</p>
-<div class="refsect3">
-<a name="rb-play-order-has-next.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p>RBPlayOrder instance.</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-play-order-has-next.returns"></a><h4>Returns</h4>
-<p> true if there is an entry after the current playing entry in the play order.</p>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-get-next"></a><h3>rb_play_order_get_next ()</h3>
-<pre class="programlisting"><span class="returnvalue">RhythmDBEntry</span> *
-rb_play_order_get_next (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>Returns the next entry in the play order, or the first if not currently playing.</p>
-<div class="refsect3">
-<a name="rb-play-order-get-next.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p>RBPlayOrder instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-play-order-get-next.returns"></a><h4>Returns</h4>
-<p> next entry to play. </p>
-<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-go-next"></a><h3>rb_play_order_go_next ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-rb_play_order_go_next (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>Moves to the next entry in the play order.  If not currently playing, sets the
-first entry in the play order as the playing entry.</p>
-<div class="refsect3">
-<a name="rb-play-order-go-next.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p>RBPlayOrder instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-has-previous"></a><h3>rb_play_order_has_previous ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
-rb_play_order_has_previous (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>Returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if there is an entry before the current entry in the play order.
-If not currently playing, returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
-<div class="refsect3">
-<a name="rb-play-order-has-previous.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p>RBPlayOrder instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-play-order-has-previous.returns"></a><h4>Returns</h4>
-<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if previous entry exists</p>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-get-previous"></a><h3>rb_play_order_get_previous ()</h3>
-<pre class="programlisting"><span class="returnvalue">RhythmDBEntry</span> *
-rb_play_order_get_previous (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>Returns the previous entry in the play order, or NULL if not currently playing.</p>
-<div class="refsect3">
-<a name="rb-play-order-get-previous.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p>RBPlayOrder instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-play-order-get-previous.returns"></a><h4>Returns</h4>
-<p> previous entry. </p>
-<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-go-previous"></a><h3>rb_play_order_go_previous ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-rb_play_order_go_previous (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>Moves to the previous entry in the play order.  If not currently playing, does nothing.</p>
-<div class="refsect3">
-<a name="rb-play-order-go-previous.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p>RBPlayOrder instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-set-playing-entry"></a><h3>rb_play_order_set_playing_entry ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-rb_play_order_set_playing_entry (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>,
-                                 <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
-<p>Sets the playing entry in the play order.</p>
-<div class="refsect3">
-<a name="rb-play-order-set-playing-entry.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody>
-<tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-<tr>
-<td class="parameter_name"><p>entry</p></td>
-<td class="parameter_description"><p> The new playing entry (or NULL for none). </p></td>
-<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>][<a href="http://foldoc.org/allow-none"><span class="acronym">allow-none</span></a>]</span></td>
-</tr>
-</tbody>
-</table></div>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-get-playing-entry"></a><h3>rb_play_order_get_playing_entry ()</h3>
-<pre class="programlisting"><span class="returnvalue">RhythmDBEntry</span> *
-rb_play_order_get_playing_entry (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>Returns the current playing entry in the play order.</p>
-<div class="refsect3">
-<a name="rb-play-order-get-playing-entry.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-play-order-get-playing-entry.returns"></a><h4>Returns</h4>
-<p> playing entry. </p>
-<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-get-player"></a><h3>rb_play_order_get_player ()</h3>
-<pre class="programlisting"><a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="returnvalue">RBShellPlayer</span></a> *
-rb_play_order_get_player (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>Only for use by <a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> subclasses.</p>
-<div class="refsect3">
-<a name="rb-play-order-get-player.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-play-order-get-player.returns"></a><h4>Returns</h4>
-<p> <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> instance. </p>
-<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-get-source"></a><h3>rb_play_order_get_source ()</h3>
-<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *
-rb_play_order_get_source (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>Only for use by <a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> subclasses.</p>
-<div class="refsect3">
-<a name="rb-play-order-get-source.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-play-order-get-source.returns"></a><h4>Returns</h4>
-<p> the playing <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> instance. </p>
-<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-get-db"></a><h3>rb_play_order_get_db ()</h3>
-<pre class="programlisting"><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="returnvalue">RhythmDB</span></a> *
-rb_play_order_get_db (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>Only for use by <a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> subclasses.</p>
-<div class="refsect3">
-<a name="rb-play-order-get-db.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-play-order-get-db.returns"></a><h4>Returns</h4>
-<p> the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance. </p>
-<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-get-query-model"></a><h3>rb_play_order_get_query_model ()</h3>
-<pre class="programlisting"><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="returnvalue">RhythmDBQueryModel</span></a> *
-rb_play_order_get_query_model (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>Only for use by <a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> subclasses.</p>
-<div class="refsect3">
-<a name="rb-play-order-get-query-model.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-play-order-get-query-model.returns"></a><h4>Returns</h4>
-<p> the active <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> for the playing source. </p>
-<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-model-not-empty"></a><h3>rb_play_order_model_not_empty ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
-rb_play_order_model_not_empty (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>Returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> is not empty.
-Can be used to implement has_next and has_previous for play orders
-that have no beginning or end.</p>
-<div class="refsect3">
-<a name="rb-play-order-model-not-empty.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p>RBPlayOrder instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-play-order-model-not-empty.returns"></a><h4>Returns</h4>
-<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if not empty</p>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-play-order-player-is-playing"></a><h3>rb_play_order_player_is_playing ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
-rb_play_order_player_is_playing (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
-<p>Returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if there is a current playing entry in the play order.</p>
-<div class="refsect3">
-<a name="rb-play-order-player-is-playing.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-play-order-player-is-playing.returns"></a><h4>Returns</h4>
-<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if playing</p>
-</div>
-</div>
-</div>
-<div class="refsect1">
-<a name="RBPlayOrder.other_details"></a><h2>Types and Values</h2>
+<a name="RBPlayOrder.details"></a><h2>Details</h2>
 <div class="refsect2">
 <a name="RBPlayOrder-struct"></a><h3>struct RBPlayOrder</h3>
 <pre class="programlisting">struct RBPlayOrder;</pre>
@@ -765,72 +190,468 @@ rb_play_order_player_is_playing (<em class="parameter"><code><a class="link" hre
 <p>
 </p>
 </div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-playing-source-changed"></a><h3>rb_play_order_playing_source_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_play_order_playing_source_changed
+                                                        (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>);</pre>
+<p>
+Sets the playing <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> for the play order.  Should be called
+by <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> when the active source changes.  Subclasses
+should implement <code class="function">playing_source_changed()</code> to make any necessary
+changes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>
+<a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>New playing <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-query-model-changed"></a><h3>rb_play_order_query_model_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_play_order_query_model_changed   (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+Updates the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> instance for the play order.
+Called from the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> notify signal handler, and also from
+<span class="type">rb_play_order_source_changed</span>.  Subclasses should implement
+<code class="function">query_model_changed()</code> to make any necessary adjustments if they
+store any state based on the contents of the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>RBPlayOrder instance</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-has-next"></a><h3>rb_play_order_has_next ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_play_order_has_next              (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+If there is no current playing entry, returns true if the play order is non-empty.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>RBPlayOrder instance.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>true if there is an entry after the current playing entry in the play order.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-get-next"></a><h3>rb_play_order_get_next ()</h3>
+<pre class="programlisting"><span class="returnvalue">RhythmDBEntry</span> *     rb_play_order_get_next              (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+Returns the next entry in the play order, or the first if not currently playing.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>RBPlayOrder instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>next entry to play. <span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-go-next"></a><h3>rb_play_order_go_next ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_play_order_go_next               (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+Moves to the next entry in the play order.  If not currently playing, sets the
+first entry in the play order as the playing entry.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>RBPlayOrder instance</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-has-previous"></a><h3>rb_play_order_has_previous ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_play_order_has_previous          (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+Returns <code class="literal">TRUE</code> if there is an entry before the current entry in the play order.
+If not currently playing, returns <code class="literal">FALSE</code>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>RBPlayOrder instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if previous entry exists</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-get-previous"></a><h3>rb_play_order_get_previous ()</h3>
+<pre class="programlisting"><span class="returnvalue">RhythmDBEntry</span> *     rb_play_order_get_previous          (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+Returns the previous entry in the play order, or NULL if not currently playing.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>RBPlayOrder instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>previous entry. <span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-go-previous"></a><h3>rb_play_order_go_previous ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_play_order_go_previous           (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+Moves to the previous entry in the play order.  If not currently playing, does nothing.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>RBPlayOrder instance</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-set-playing-entry"></a><h3>rb_play_order_set_playing_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                rb_play_order_set_playing_entry     (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>,
+                                                         <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>
+Sets the playing entry in the play order.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>
+<a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>The new playing entry (or NULL for none). <span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>][<a href="http://foldoc.org/allow-none"><span class="acronym">allow-none</span></a>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-get-playing-entry"></a><h3>rb_play_order_get_playing_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">RhythmDBEntry</span> *     rb_play_order_get_playing_entry     (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+Returns the current playing entry in the play order.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>
+<a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>(transfer full) playing entry</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-get-player"></a><h3>rb_play_order_get_player ()</h3>
+<pre class="programlisting"><a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="returnvalue">RBShellPlayer</span></a> *     rb_play_order_get_player            (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+Only for use by <a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> subclasses.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>
+<a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> instance. <span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-get-source"></a><h3>rb_play_order_get_source ()</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          rb_play_order_get_source            (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+Only for use by <a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> subclasses.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>
+<a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the playing <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> instance. <span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-get-db"></a><h3>rb_play_order_get_db ()</h3>
+<pre class="programlisting"><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="returnvalue">RhythmDB</span></a> *          rb_play_order_get_db                (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+Only for use by <a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> subclasses.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>
+<a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance. <span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-get-query-model"></a><h3>rb_play_order_get_query_model ()</h3>
+<pre class="programlisting"><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="returnvalue">RhythmDBQueryModel</span></a> * rb_play_order_get_query_model      (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+Only for use by <a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> subclasses.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>
+<a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the active <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> for the playing source. <span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-model-not-empty"></a><h3>rb_play_order_model_not_empty ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_play_order_model_not_empty       (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+Returns <code class="literal">TRUE</code> if the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> is not empty.
+Can be used to implement has_next and has_previous for play orders
+that have no beginning or end.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>RBPlayOrder instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if not empty</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-play-order-player-is-playing"></a><h3>rb_play_order_player_is_playing ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_play_order_player_is_playing     (<em class="parameter"><code><a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder</code></em>);</pre>
+<p>
+Returns <code class="literal">TRUE</code> if there is a current playing entry in the play order.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>
+<a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if playing</td>
+</tr>
+</tbody>
+</table></div>
+</div>
 </div>
 <div class="refsect1">
 <a name="RBPlayOrder.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
-<a name="RBPlayOrder--player"></a><h3>The <code class="literal">“player”</code> property</h3>
-<pre class="programlisting">  “player”                   <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> *</pre>
-<p>The <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> instance</p>
-<p>Flags: Read / Write / Construct Only</p>
+<a name="RBPlayOrder--player"></a><h3>The <code class="literal">"player"</code> property</h3>
+<pre class="programlisting">  "player"                   <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a>*        : Read / Write / Construct Only</pre>
+<p>
+The <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> instance
+</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RBPlayOrder--playing-entry"></a><h3>The <code class="literal">“playing-entry”</code> property</h3>
-<pre class="programlisting">  “playing-entry”            <span class="type">RhythmDBEntry</span> *</pre>
-<p>The current playing <span class="type">RhythmDBEntry</span></p>
-<p>Flags: Read / Write</p>
+<a name="RBPlayOrder--playing-entry"></a><h3>The <code class="literal">"playing-entry"</code> property</h3>
+<pre class="programlisting">  "playing-entry"            <span class="type">RhythmDBEntry</span>*        : Read / Write</pre>
+<p>
+The current playing <span class="type">RhythmDBEntry</span>
+</p>
 </div>
 </div>
 <div class="refsect1">
 <a name="RBPlayOrder.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
-<a name="RBPlayOrder-have-next-previous-changed"></a><h3>The <code class="literal">“have-next-previous-changed”</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-user_function (<a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder,
-               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>     have_next,
-               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>     have_previous,
-               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)</pre>
-<p>Emitted as a hint to suggest that the sensitivity of next/previous
-buttons may need to be updated.</p>
-<div class="refsect3">
-<a name="RBPlayOrder-have-next-previous-changed.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<a name="RBPlayOrder-have-next-previous-changed"></a><h3>The <code class="literal">"have-next-previous-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a> *porder,
+                                                        <span class="type">gboolean</span>     have_next,
+                                                        <span class="type">gboolean</span>     have_previous,
+                                                        <span class="type">gpointer</span>     user_data)          : <code class="literal">Run Last</code></pre>
+<p>
+Emitted as a hint to suggest that the sensitivity of next/previous
+buttons may need to be updated.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
+<col align="left" valign="top">
+<col>
 </colgroup>
 <tbody>
 <tr>
-<td class="parameter_name"><p>porder</p></td>
-<td class="parameter_description"><p>the <a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a></p></td>
-<td class="parameter_annotations"> </td>
+<td><p><span class="term"><em class="parameter"><code>porder</code></em> :</span></p></td>
+<td>the <a class="link" href="RBPlayOrder.html" title="RBPlayOrder"><span class="type">RBPlayOrder</span></a>
+</td>
 </tr>
 <tr>
-<td class="parameter_name"><p>have_next</p></td>
-<td class="parameter_description"><p>if <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the play order has at least one more entry</p></td>
-<td class="parameter_annotations"> </td>
+<td><p><span class="term"><em class="parameter"><code>have_next</code></em> :</span></p></td>
+<td>if <code class="literal">TRUE</code>, the play order has at least one more entry</td>
 </tr>
 <tr>
-<td class="parameter_name"><p>have_previous</p></td>
-<td class="parameter_description"><p>if <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the play order has at least one entry
-before the current entry</p></td>
-<td class="parameter_annotations"> </td>
+<td><p><span class="term"><em class="parameter"><code>have_previous</code></em> :</span></p></td>
+<td>if <code class="literal">TRUE</code>, the play order has at least one entry
+before the current entry</td>
 </tr>
 <tr>
-<td class="parameter_name"><p>user_data</p></td>
-<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
-<td class="parameter_annotations"> </td>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.25</div>
+<hr>
+          Generated by GTK-Doc V1.18.1</div>
 </body>
 </html>

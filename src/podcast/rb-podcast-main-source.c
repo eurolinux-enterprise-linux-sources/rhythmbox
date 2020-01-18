@@ -38,6 +38,7 @@
 #include "rb-builder-helpers.h"
 #include "rb-file-helpers.h"
 #include "rb-util.h"
+#include "rb-stock-icons.h"
 #include "rb-application.h"
 
 struct _RBPodcastMainSourcePrivate
@@ -123,7 +124,7 @@ rb_podcast_main_source_add_subsources (RBPodcastMainSource *source)
 						   podcast_mgr,
 						   query,
 						   _("New Episodes"),
-						   "document-open-recent-symbolic");
+						   RB_STOCK_AUTO_PLAYLIST);
 	rhythmdb_query_free (query);
 	rb_source_set_hidden_when_empty (podcast_subsource, TRUE);
 	rb_shell_append_display_page (shell, RB_DISPLAY_PAGE (podcast_subsource), RB_DISPLAY_PAGE (source));
@@ -141,7 +142,7 @@ rb_podcast_main_source_add_subsources (RBPodcastMainSource *source)
 						   podcast_mgr,
 						   query,
 						   _("New Downloads"),		/* better name? */
-						   "folder-download-symbolic");
+						   RB_STOCK_AUTO_PLAYLIST);
 	rhythmdb_query_free (query);
 	rb_source_set_hidden_when_empty (podcast_subsource, TRUE);
 	rb_shell_append_display_page (shell, RB_DISPLAY_PAGE (podcast_subsource), RB_DISPLAY_PAGE (source));
@@ -358,6 +359,8 @@ impl_constructed (GObject *object)
 {
 	RBPodcastMainSource *source;
 	RBPodcastManager *podcast_mgr;
+	GdkPixbuf *pixbuf;
+	gint size;
 
 	RB_CHAIN_GOBJECT_METHOD (rb_podcast_main_source_parent_class, constructed, object);
 	source = RB_PODCAST_MAIN_SOURCE (object);
@@ -384,7 +387,16 @@ impl_constructed (GObject *object)
 				 G_CALLBACK (feed_error_cb),
 				 source, 0);
 
-	rb_display_page_set_icon_name (RB_DISPLAY_PAGE (source), "application-rss+xml-symbolic");
+	gtk_icon_size_lookup (RB_SOURCE_ICON_SIZE, &size, NULL);
+	pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
+					   RB_STOCK_PODCAST,
+					   size,
+					   0, NULL);
+
+	if (pixbuf != NULL) {
+		g_object_set (source, "pixbuf", pixbuf, NULL);
+		g_object_unref (pixbuf);
+	}
 }
 
 static void
@@ -421,8 +433,8 @@ rb_podcast_main_source_class_init (RBPodcastMainSourceClass *klass)
 
 	page_class->get_config_widget = impl_get_config_widget;
 
-	source_class->want_uri = impl_want_uri;
-	source_class->add_uri = impl_add_uri;
+	source_class->impl_want_uri = impl_want_uri;
+	source_class->impl_add_uri = impl_add_uri;
 
 	g_type_class_add_private (klass, sizeof (RBPodcastMainSourcePrivate));
 }

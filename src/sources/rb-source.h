@@ -37,6 +37,7 @@
 #include <widgets/rb-search-entry.h>
 #include <shell/rb-shell-preferences.h>
 #include <shell/rb-track-transfer-batch.h>
+#include <rhythmdb/rhythmdb-import-job.h>
 
 G_BEGIN_DECLS
 
@@ -71,6 +72,8 @@ GType rb_source_load_status_get_type (void);
 #define RB_IS_SOURCE_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), RB_TYPE_SOURCE))
 #define RB_SOURCE_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), RB_TYPE_SOURCE, RBSourceClass))
 
+#define RB_SOURCE_ICON_SIZE	GTK_ICON_SIZE_LARGE_TOOLBAR
+
 typedef gboolean (*RBSourceFeatureFunc) (RBSource *source);
 typedef const char * (*RBSourceStringFunc) (RBSource *source);
 typedef void (*RBSourceAddCallback) (RBSource *source, const char *uri, gpointer data);
@@ -91,45 +94,45 @@ struct _RBSourceClass
 
 	/* methods */
 
-	RBEntryView *	(*get_entry_view)	(RBSource *source);
-	GList *		(*get_property_views)	(RBSource *source);
+	RBEntryView *	(*impl_get_entry_view)	(RBSource *source);
+	GList *		(*impl_get_property_views)	(RBSource *source);
 
-	gboolean	(*can_rename)		(RBSource *source);
+	gboolean	(*impl_can_rename)	(RBSource *source);
 
-	void		(*search)		(RBSource *source, RBSourceSearch *search, const char *cur_text, const char *new_text);
+	void		(*impl_search)		(RBSource *source, RBSourceSearch *search, const char *cur_text, const char *new_text);
 
-	gboolean	(*can_cut)		(RBSource *source);
-	gboolean	(*can_delete)		(RBSource *source);
-	gboolean	(*can_move_to_trash) 	(RBSource *source);
-	gboolean	(*can_copy)		(RBSource *source);
-	gboolean	(*can_paste)		(RBSource *source);
-	gboolean	(*can_add_to_queue)	(RBSource *source);
+	gboolean	(*impl_can_cut)		(RBSource *source);
+	gboolean	(*impl_can_delete)	(RBSource *source);
+	gboolean	(*impl_can_move_to_trash) (RBSource *source);
+	gboolean	(*impl_can_copy)	(RBSource *source);
+	gboolean	(*impl_can_paste)	(RBSource *source);
+	gboolean	(*impl_can_add_to_queue)(RBSource *source);
 
-	GList *		(*cut)			(RBSource *source);
-	GList *		(*copy)			(RBSource *source);
-	RBTrackTransferBatch *(*paste)		(RBSource *source, GList *entries);
-	void		(*delete_selected)	(RBSource *source);
-	void		(*add_to_queue)		(RBSource *source, RBSource *queue);
-	void		(*move_to_trash)	(RBSource *source);
+	GList *		(*impl_cut)		(RBSource *source);
+	GList *		(*impl_copy)		(RBSource *source);
+	RBTrackTransferBatch *(*impl_paste)	(RBSource *source, GList *entries);
+	void		(*impl_delete)		(RBSource *source);
+	void		(*impl_add_to_queue)	(RBSource *source, RBSource *queue);
+	void		(*impl_move_to_trash)	(RBSource *source);
 
-	void		(*song_properties)	(RBSource *source);
+	void		(*impl_song_properties)	(RBSource *source);
 
-	gboolean	(*try_playlist)		(RBSource *source);
-	guint		(*want_uri)		(RBSource *source, const char *uri);
-	void		(*add_uri)		(RBSource *source,
+	gboolean	(*impl_try_playlist)	(RBSource *source);
+	guint		(*impl_want_uri)	(RBSource *source, const char *uri);
+	void		(*impl_add_uri)		(RBSource *source,
 						 const char *uri,
 						 const char *title,
 						 const char *genre,
 						 RBSourceAddCallback callback,
 						 gpointer data,
 						 GDestroyNotify destroy_data);
-	gboolean	(*uri_is_source)	(RBSource *source, const char *uri);
+	gboolean	(*impl_uri_is_source)	(RBSource *source, const char *uri);
 
-	gboolean	(*can_pause)		(RBSource *source);
-	RBSourceEOFType	(*handle_eos)		(RBSource *source);
-	void		(*get_playback_status) 	(RBSource *source, char **text, float *progress);
+	gboolean	(*impl_can_pause)	(RBSource *source);
+	RBSourceEOFType	(*impl_handle_eos)	(RBSource *source);
+	void		(*impl_get_playback_status) (RBSource *source, char **text, float *progress);
 
-	char *		(*get_delete_label) 	(RBSource *source);
+	char *		(*impl_get_delete_label) (RBSource *source);
 };
 
 GType		rb_source_get_type		(void);
@@ -162,8 +165,8 @@ gboolean	rb_source_can_show_properties	(RBSource *source);
 
 GList *		rb_source_cut			(RBSource *source);
 GList *		rb_source_copy			(RBSource *source);
-RBTrackTransferBatch *rb_source_paste		(RBSource *source, GList *entries);
-void		rb_source_delete_selected	(RBSource *source);
+RBTrackTransferBatch *rb_source_paste			(RBSource *source, GList *entries);
+void		rb_source_delete		(RBSource *source);
 void		rb_source_add_to_queue		(RBSource *source, RBSource *queue);
 void		rb_source_move_to_trash		(RBSource *source);
 
@@ -198,11 +201,14 @@ void		rb_source_get_playback_status	(RBSource *source,
 gboolean	_rb_source_check_entry_type	(RBSource *source,
 						 RhythmDBEntry *entry);
 
+void		_rb_source_set_import_status	(RBSource *source,
+						 RhythmDBImportJob *job,
+						 char **progress_text,
+						 float *progress);
 void		rb_source_bind_settings		(RBSource *source,
 						 GtkWidget *entry_view,
 						 GtkWidget *paned,
-						 GtkWidget *browser,
-						 gboolean sort_order);
+						 GtkWidget *browser);
 void		rb_source_notify_playback_status_changed (RBSource *source);
 
 G_END_DECLS

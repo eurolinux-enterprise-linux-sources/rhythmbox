@@ -149,8 +149,11 @@ main (int argc, char **argv)
 	query_func qfunc;
 
 	gtk_init (&argc, &argv);
+	gdk_threads_init ();
 	rb_thread_helpers_init ();
 	rb_debug_init (TRUE);
+
+	GDK_THREADS_ENTER ();
 
 	qfunc = rhythmdb_do_full_query;
 
@@ -547,6 +550,7 @@ begin:
 	 */
 	rhythmdb_shutdown (db);
 	g_object_unref (G_OBJECT (db));
+	GDK_THREADS_LEAVE ();
 	
 	exit (0);
 }

@@ -35,14 +35,12 @@
 static void rb_button_bar_class_init (RBButtonBarClass *klass);
 static void rb_button_bar_init (RBButtonBar *bar);
 
-static void build_button_bar (RBButtonBar *bar);
-
 struct _RBButtonBarPrivate
 {
 	GObject *target;
 	GtkSizeGroup *size_group;
 	GMenuModel *model;
-	GHashTable *handlers;
+	guint item_change_id;
 
 	int position;
 };
@@ -56,29 +54,13 @@ enum {
 };
 
 static void
-clear_handlers (RBButtonBar *bar)
-{
-	GHashTableIter iter;
-	gpointer key, value;
-
-	g_hash_table_iter_init (&iter, bar->priv->handlers);
-	while (g_hash_table_iter_next (&iter, &key, &value)) {
-		gulong id = (gulong)key;
-		g_signal_handler_disconnect (value, id);
-	}
-
-	g_hash_table_remove_all (bar->priv->handlers);
-}
-
-static void
 clear_button_bar (RBButtonBar *bar)
 {
 	GList *c, *l;
 
 	c = gtk_container_get_children (GTK_CONTAINER (bar));
 	for (l = c; l != NULL; l = l->next) {
-		if (!GTK_IS_LABEL (l->data))
-			gtk_size_group_remove_widget (bar->priv->size_group, l->data);
+		gtk_size_group_remove_widget (bar->priv->size_group, l->data);
 		gtk_container_remove (GTK_CONTAINER (bar), l->data);
 	}
 	g_list_free (c);
@@ -94,22 +76,10 @@ signal_button_clicked_cb (GtkButton *button, RBButtonBar *bar)
 	g_signal_emit (bar->priv->target, signal_id, 0);
 }
 
-static void
-items_changed_cb (GMenuModel *model, int position, int added, int removed, RBButtonBar *bar)
-{
-	clear_handlers (bar);
-	clear_button_bar (bar);
-	build_button_bar (bar);
-}
-
 static gboolean
 append_menu (RBButtonBar *bar, GMenuModel *menu, gboolean need_separator)
 {
 	int i;
-	gulong id;
-
-	id = g_signal_connect (menu, "items-changed", G_CALLBACK (items_changed_cb), bar);
-	g_hash_table_insert (bar->priv->handlers, (gpointer)id, g_object_ref (menu));
 
 	for (i = 0; i < g_menu_model_get_n_items (menu); i++) {
 		char *label_text;
@@ -131,12 +101,8 @@ append_menu (RBButtonBar *bar, GMenuModel *menu, gboolean need_separator)
 		if (need_separator) {
 			GtkWidget *sep;
 
-			if (bar->priv->position > 0) {
-				sep = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
-				gtk_widget_show (sep);
-				g_object_set (sep, "margin-start", 6, "margin-end", 6, NULL);
-				gtk_grid_attach (GTK_GRID (bar), sep, bar->priv->position++, 0, 1, 1);
-			}
+			sep = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
+			gtk_grid_attach (GTK_GRID (bar), sep, bar->priv->position++, 0, 1, 1);
 
 			need_separator = FALSE;
 		}
@@ -207,14 +173,13 @@ append_menu (RBButtonBar *bar, GMenuModel *menu, gboolean need_separator)
 		label_text = NULL;
 		g_menu_model_get_item_attribute (menu, i, "label", "s", &label_text);
 		label = gtk_label_new (g_dgettext (NULL, label_text));
-		g_object_set (label, "margin-start", 6, "margin-end", 6, NULL);
+		g_object_set (label, "xpad", 6, NULL);
 		gtk_container_add (GTK_CONTAINER (button), label);
 
 		if (g_menu_model_get_item_attribute (menu, i, "accel", "s", &accel)) {
 			g_object_set_data_full (G_OBJECT (button), "rb-accel", accel, (GDestroyNotify) g_free);
 		}
 
-		gtk_widget_show_all (button);
 		gtk_size_group_add_widget (bar->priv->size_group, button);
 		gtk_grid_attach (GTK_GRID (bar), button, bar->priv->position++, 0, 1, 1);
 
@@ -233,10 +198,15 @@ build_button_bar (RBButtonBar *bar)
 
 	waste = gtk_label_new ("");
 	gtk_widget_set_hexpand (waste, TRUE);
-	gtk_widget_show (waste);
 	gtk_grid_attach (GTK_GRID (bar), waste, bar->priv->position++, 0, 1, 1);
 }
 
+static void
+items_changed_cb (GMenuModel *model, int position, int added, int removed, RBButtonBar *bar)
+{
+	clear_button_bar (bar);
+	build_button_bar (bar);
+}
 
 static void
 impl_constructed (GObject *object)
@@ -247,10 +217,12 @@ impl_constructed (GObject *object)
 
 	bar = RB_BUTTON_BAR (object);
 
+	gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (bar)),
+				     GTK_STYLE_CLASS_TOOLBAR);
+
 	bar->priv->size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
-	bar->priv->handlers = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_object_unref);
-
+	bar->priv->item_change_id = g_signal_connect (bar->priv->model, "items-changed", G_CALLBACK (items_changed_cb), bar);
 	build_button_bar (bar);
 }
 
@@ -258,9 +230,11 @@ static void
 impl_dispose (GObject *object)
 {
 	RBButtonBar *bar = RB_BUTTON_BAR (object);
-
-	clear_handlers (bar);
-	g_clear_object (&bar->priv->model);
+	
+	if (bar->priv->model != NULL) {
+		g_signal_handler_disconnect (bar->priv->model, bar->priv->item_change_id);
+		g_clear_object (&bar->priv->model);
+	}
 	G_OBJECT_CLASS (rb_button_bar_parent_class)->dispose (object);
 }
 
@@ -359,7 +333,7 @@ rb_button_bar_new (GMenuModel *model, GObject *target)
 					 "target", target,
 					 "column-homogeneous", FALSE,
 					 "hexpand", FALSE,
-					 "column-spacing", 3,
+					 /* column-spacing? */
 					 NULL));
 }
 

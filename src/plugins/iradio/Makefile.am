@@ -5,7 +5,6 @@ plugindatadir = $(PLUGINDATADIR)/iradio
 plugin_LTLIBRARIES = libiradio.la
 
 libiradio_la_SOURCES = 					\
-	iradio-resources.c				\
 	rb-iradio-plugin.c				\
 	rb-iradio-source.c				\
 	rb-iradio-source.h				\
@@ -21,7 +20,7 @@ libiradio_la_LIBADD = 					\
 	$(TOTEM_PLPARSER_LIBS)				\
 	$(NULL)
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -37,35 +36,35 @@ AM_CPPFLAGS = 						\
 	-DSHARE_DIR=\"$(pkgdatadir)\"                   \
 	-DDATADIR=\""$(datadir)"\"			\
 	$(RHYTHMBOX_CFLAGS)				\
-	$(TOTEM_PLPARSER_CFLAGS)
+	$(TOTEM_PLPARSER_CFLAGS)			\
+	-D_BSD_SOURCE
 
-PLUGIN_RESOURCES = 					\
-	iradio-initial.xspf				\
+gtkbuilderdir = $(plugindatadir)
+gtkbuilder_DATA = 					\
 	iradio-popup.ui					\
 	iradio-toolbar.ui				\
 	station-properties.ui
 
-plugin_resource_deps = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir) $(srcdir)/iradio.gresource.xml)
-iradio-resources.c: $(plugin_resource_deps) $(srcdir)/iradio.gresource.xml
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES)		\
-		--target="$@"				\
-		--sourcedir="$(srcdir)"			\
-		--sourcedir="$(builddir)"		\
-		--generate-source "$(srcdir)/iradio.gresource.xml"
-
-BUILT_SOURCES = iradio-resources.c
+xspfdir = $(plugindatadir)
+xspf_DATA = iradio-initial.xspf
 
 plugin_in_files = iradio.plugin.in
 
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
-plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
-BUILT_SOURCES += $(plugin_DATA)
+BUILT_SOURCES =							\
+	$(plugin_in_files:.plugin.in=.plugin) 	\
+	$(NULL)
+
+plugin_DATA = 			\
+	$(BUILT_SOURCES)	\
+	$(NULL)
 
 EXTRA_DIST = 			\
-	$(PLUGIN_RESOURCES)	\
+	$(gtkbuilder_DATA)	\
+	$(uixml_DATA)		\
 	$(plugin_in_files)	\
-	iradio.gresource.xml	\
+	$(xspf_DATA)		\
 	$(NULL)
 
 CLEANFILES = 			\

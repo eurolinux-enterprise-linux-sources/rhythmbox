@@ -1,0 +1,122 @@
+<!-- ##### SECTION Title ##### -->
+RBDisplayPageModel
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### ENUM RBDisplayPageModelColumn ##### -->
+<para>
+
+</para>
+
+@RB_DISPLAY_PAGE_MODEL_COLUMN_PLAYING: 
+@RB_DISPLAY_PAGE_MODEL_COLUMN_PAGE: 
+@RB_DISPLAY_PAGE_MODEL_N_COLUMNS: 
+
+<!-- ##### STRUCT RBDisplayPageModel ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL RBDisplayPageModel::drop-received ##### -->
+<para>
+
+</para>
+
+@rbdisplaypagemodel: the object which received the signal.
+@arg1: 
+@arg2: 
+@arg3: 
+
+<!-- ##### SIGNAL RBDisplayPageModel::page-inserted ##### -->
+<para>
+
+</para>
+
+@rbdisplaypagemodel: the object which received the signal.
+@arg1: 
+@arg2: 
+
+<!-- ##### STRUCT RBDisplayPageModelClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+@drop_received: 
+@page_inserted: 
+
+<!-- ##### FUNCTION rb_display_page_model_new ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_display_page_model_set_playing_source ##### -->
+<para>
+
+</para>
+
+@page_model: 
+@source: 
+
+
+<!-- ##### FUNCTION rb_display_page_model_add_page ##### -->
+<para>
+
+</para>
+
+@page_model: 
+@page: 
+@parent: 
+
+
+<!-- ##### FUNCTION rb_display_page_model_remove_page ##### -->
+<para>
+
+</para>
+
+@page_model: 
+@page: 
+
+
+<!-- ##### FUNCTION rb_display_page_model_find_page ##### -->
+<para>
+
+</para>
+
+@page_model: 
+@page: 
+@iter: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_display_page_model_set_dnd_targets ##### -->
+<para>
+
+</para>
+
+@page_model: 
+@treeview: 
+
+

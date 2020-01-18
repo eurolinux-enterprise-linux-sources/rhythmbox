@@ -21,13 +21,15 @@
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  */
 
 #include <config.h>
 
 #include "rb-player-gst-tee.h"
+#include "rb-marshal.h"
 
 /**
  * SECTION:rb-player-gst-tee
@@ -63,7 +65,7 @@ rb_player_gst_tee_interface_init (RBPlayerGstTeeIface *iface)
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE,
 			      G_STRUCT_OFFSET (RBPlayerGstTeeIface, tee_inserted),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE,
 			      1, G_TYPE_OBJECT);
 
@@ -81,7 +83,7 @@ rb_player_gst_tee_interface_init (RBPlayerGstTeeIface *iface)
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE,
 			      G_STRUCT_OFFSET (RBPlayerGstTeeIface, tee_pre_remove),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE,
 			      1, G_TYPE_OBJECT);
 }

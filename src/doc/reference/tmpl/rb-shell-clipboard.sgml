@@ -1,0 +1,68 @@
+<!-- ##### SECTION Title ##### -->
+RBShellClipboard
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT RBShellClipboard ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ARG RBShellClipboard:db ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBShellClipboard:queue-source ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBShellClipboard:source ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT RBShellClipboardClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+
+<!-- ##### FUNCTION rb_shell_clipboard_new ##### -->
+<para>
+
+</para>
+
+@db: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_shell_clipboard_set_source ##### -->
+<para>
+
+</para>
+
+@clipboard: 
+@source: 
+
+

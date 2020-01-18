@@ -45,18 +45,18 @@ typedef struct _RBDisplayPagePrivate	RBDisplayPagePrivate;
 #define RB_IS_DISPLAY_PAGE_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), RB_TYPE_DISPLAY_PAGE))
 #define RB_DISPLAY_PAGE_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), RB_TYPE_DISPLAY_PAGE, RBDisplayPageClass))
 
-#define RB_DISPLAY_PAGE_ICON_SIZE	GTK_ICON_SIZE_MENU
+#define RB_DISPLAY_PAGE_ICON_SIZE	GTK_ICON_SIZE_LARGE_TOOLBAR
 
 struct _RBDisplayPage
 {
-	GtkBox parent;
+	GtkHBox parent;
 
 	RBDisplayPagePrivate *priv;
 };
 
 struct _RBDisplayPageClass
 {
-	GtkBoxClass parent_class;
+	GtkHBoxClass parent_class;
 
 	/* signals */
 	void	(*status_changed)	(RBDisplayPage *page);
@@ -94,8 +94,6 @@ void		rb_display_page_delete_thyself		(RBDisplayPage *page);
 
 gboolean	rb_display_page_can_remove		(RBDisplayPage *page);
 void		rb_display_page_remove			(RBDisplayPage *page);
-
-void		rb_display_page_set_icon_name		(RBDisplayPage *page, const char *icon_name);
 
 /* things for display page implementations */
 

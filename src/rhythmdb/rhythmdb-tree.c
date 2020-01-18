@@ -83,9 +83,9 @@ static void rhythmdb_tree_entry_delete_by_type (RhythmDB *adb, RhythmDBEntryType
 
 static RhythmDBEntry * rhythmdb_tree_entry_lookup_by_location (RhythmDB *db, RBRefString *uri);
 static RhythmDBEntry * rhythmdb_tree_entry_lookup_by_id (RhythmDB *db, gint id);
-static void rhythmdb_tree_entry_foreach (RhythmDB *adb, RhythmDBEntryForeachFunc func, gpointer user_data);
+static void rhythmdb_tree_entry_foreach (RhythmDB *adb, GFunc func, gpointer user_data);
 static gint64 rhythmdb_tree_entry_count (RhythmDB *adb);
-static void rhythmdb_tree_entry_foreach_by_type (RhythmDB *adb, RhythmDBEntryType *type, RhythmDBEntryForeachFunc func, gpointer user_data);
+static void rhythmdb_tree_entry_foreach_by_type (RhythmDB *adb, RhythmDBEntryType *type, GFunc func, gpointer user_data);
 static gint64 rhythmdb_tree_entry_count_by_type (RhythmDB *adb, RhythmDBEntryType *type);
 static gboolean rhythmdb_tree_entry_keyword_add (RhythmDB *adb, RhythmDBEntry *entry, RBRefString *keyword);
 static gboolean rhythmdb_tree_entry_keyword_remove (RhythmDB *adb, RhythmDBEntry *entry, RBRefString *keyword);
@@ -115,8 +115,8 @@ static void rhythmdb_hash_tree_foreach (RhythmDB *adb,
 					gpointer data);
 
 /* Update both of those! */
-#define RHYTHMDB_TREE_XML_VERSION "2.0"
-#define RHYTHMDB_TREE_XML_VERSION_INT 200
+#define RHYTHMDB_TREE_XML_VERSION "1.8"
+#define RHYTHMDB_TREE_XML_VERSION_INT 180
 
 static void destroy_tree_property (RhythmDBTreeProperty *prop);
 static RhythmDBTreeProperty *get_or_create_album (RhythmDBTree *db, RhythmDBTreeProperty *artist,
@@ -396,12 +396,6 @@ rhythmdb_tree_parser_start_element (struct RhythmDBTreeLoadContext *ctx,
 						ctx->update_local_mountpoints = TRUE;
 					case 170:
 						rb_debug ("reloading all file metadata to get new media types");
-						ctx->reload_all_metadata = TRUE;
-					case 180:
-						rb_debug ("reloading all file metadata to get composer tag");
-						ctx->reload_all_metadata = TRUE;
-					case 190:
-						rb_debug ("reloading all files metadata to get total tracks and discs");
 						ctx->reload_all_metadata = TRUE;
 					case RHYTHMDB_TREE_XML_VERSION_INT:
 						/* current version */
@@ -1003,9 +997,6 @@ save_entry (RhythmDBTree *db,
 		case RHYTHMDB_PROP_ARTIST:
 			save_entry_string(ctx, elt_name, rb_refstring_get (entry->artist));
 			break;
-		case RHYTHMDB_PROP_COMPOSER:
-			save_entry_string_if_set(ctx, elt_name, rb_refstring_get (entry->composer));
-			break;
 		case RHYTHMDB_PROP_ALBUM_ARTIST:
 			save_entry_string_if_set(ctx, elt_name, rb_refstring_get (entry->album_artist));
 			break;
@@ -1030,9 +1021,6 @@ save_entry (RhythmDBTree *db,
 		case RHYTHMDB_PROP_ARTIST_SORTNAME:
 			save_entry_string_if_set (ctx, elt_name, rb_refstring_get (entry->artist_sortname));
 			break;
-		case RHYTHMDB_PROP_COMPOSER_SORTNAME:
-			save_entry_string_if_set (ctx, elt_name, rb_refstring_get (entry->composer_sortname));
-			break;
 		case RHYTHMDB_PROP_ALBUM_SORTNAME:
 			save_entry_string_if_set (ctx, elt_name, rb_refstring_get (entry->album_sortname));
 			break;
@@ -1042,14 +1030,8 @@ save_entry (RhythmDBTree *db,
 		case RHYTHMDB_PROP_TRACK_NUMBER:
 			save_entry_ulong (ctx, elt_name, entry->tracknum, FALSE);
 			break;
-		case RHYTHMDB_PROP_TRACK_TOTAL:
-			save_entry_ulong (ctx, elt_name, entry->tracktotal, FALSE);
-			break;
 		case RHYTHMDB_PROP_DISC_NUMBER:
 			save_entry_ulong (ctx, elt_name, entry->discnum, FALSE);
-			break;
-		case RHYTHMDB_PROP_DISC_TOTAL:
-			save_entry_ulong (ctx, elt_name, entry->disctotal, FALSE);
 			break;
 		case RHYTHMDB_PROP_DATE:
 			if (g_date_valid (&entry->date))
@@ -1154,21 +1136,17 @@ save_entry (RhythmDBTree *db,
 		case RHYTHMDB_PROP_TITLE_SORT_KEY:
 		case RHYTHMDB_PROP_GENRE_SORT_KEY:
 		case RHYTHMDB_PROP_ARTIST_SORT_KEY:
-		case RHYTHMDB_PROP_COMPOSER_SORT_KEY:
 		case RHYTHMDB_PROP_ALBUM_SORT_KEY:
 		case RHYTHMDB_PROP_ALBUM_ARTIST_SORT_KEY:
 		case RHYTHMDB_PROP_ARTIST_SORTNAME_SORT_KEY:
-		case RHYTHMDB_PROP_COMPOSER_SORTNAME_SORT_KEY:
 		case RHYTHMDB_PROP_ALBUM_SORTNAME_SORT_KEY:
 		case RHYTHMDB_PROP_ALBUM_ARTIST_SORTNAME_SORT_KEY:
 		case RHYTHMDB_PROP_TITLE_FOLDED:
 		case RHYTHMDB_PROP_GENRE_FOLDED:
 		case RHYTHMDB_PROP_ARTIST_FOLDED:
-		case RHYTHMDB_PROP_COMPOSER_FOLDED:
 		case RHYTHMDB_PROP_ALBUM_FOLDED:
 		case RHYTHMDB_PROP_ALBUM_ARTIST_FOLDED:
 		case RHYTHMDB_PROP_ARTIST_SORTNAME_FOLDED:
-		case RHYTHMDB_PROP_COMPOSER_SORTNAME_FOLDED:
 		case RHYTHMDB_PROP_ALBUM_SORTNAME_FOLDED:
 		case RHYTHMDB_PROP_ALBUM_ARTIST_SORTNAME_FOLDED:
 		case RHYTHMDB_PROP_LAST_PLAYED_STR:
@@ -1877,7 +1855,6 @@ search_match_properties (RhythmDB *db,
 		RHYTHMDB_PROP_TITLE_FOLDED,
 		RHYTHMDB_PROP_ALBUM_FOLDED,
 		RHYTHMDB_PROP_ARTIST_FOLDED,
-		RHYTHMDB_PROP_COMPOSER_FOLDED,
 		RHYTHMDB_PROP_GENRE_FOLDED
 	};
 	gboolean islike = TRUE;
@@ -2439,7 +2416,7 @@ rhythmdb_tree_entry_foreach_func (gpointer key, RhythmDBEntry *val, GPtrArray *l
 }
 
 static void
-rhythmdb_tree_entry_foreach (RhythmDB *rdb, RhythmDBEntryForeachFunc foreach_func, gpointer user_data)
+rhythmdb_tree_entry_foreach (RhythmDB *rdb, GFunc foreach_func, gpointer user_data)
 {
 	RhythmDBTree *db = RHYTHMDB_TREE (rdb);
 	GPtrArray *list;
@@ -2468,7 +2445,7 @@ rhythmdb_tree_entry_count (RhythmDB *rdb)
 }
 
 typedef struct {
-	RhythmDBEntryForeachFunc foreach_func;
+	GFunc foreach_func;
 	gpointer data;
 } ForeachTypeData;
 
@@ -2481,7 +2458,7 @@ _foreach_by_type_cb (RhythmDB *db, RhythmDBEntry *entry, ForeachTypeData *data)
 static void
 rhythmdb_tree_entry_foreach_by_type (RhythmDB *db,
 				     RhythmDBEntryType *type,
-				     RhythmDBEntryForeachFunc foreach_func,
+				     GFunc foreach_func,
 				     gpointer data)
 {
 	ForeachTypeData ftdata = {foreach_func, data};

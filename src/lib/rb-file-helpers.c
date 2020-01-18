@@ -51,12 +51,6 @@
 #include "rb-debug.h"
 #include "rb-util.h"
 
-typedef struct _RBUriHandleRecursivelyAsyncData RBUriHandleRecursivelyAsyncData;
-
-static void _uri_handle_recursively_free (RBUriHandleRecursivelyAsyncData *data);
-static void _uri_handle_recursively_next_dir (RBUriHandleRecursivelyAsyncData *data);
-static void _uri_handle_recursively_next_files (RBUriHandleRecursivelyAsyncData *data);
-
 static GHashTable *files = NULL;
 
 static char *dot_dir = NULL;
@@ -66,26 +60,22 @@ static char *user_cache_dir = NULL;
 static char *uninstalled_paths[] = {
 	SHARE_UNINSTALLED_DIR "/",
 	SHARE_UNINSTALLED_DIR "/ui/",
+	SHARE_UNINSTALLED_DIR "/art/",
 	SHARE_UNINSTALLED_BUILDDIR "/",
 	SHARE_UNINSTALLED_BUILDDIR "/ui/",
+	SHARE_UNINSTALLED_BUILDDIR "/art/",
 	SHARE_DIR "/",
+	SHARE_DIR "/art/",
 	NULL
 };
 
 static char *installed_paths[] = {
 	SHARE_DIR "/",
+	SHARE_DIR "/art/",
 	NULL
 };
 
 static char **search_paths;
-
-static const char *recurse_attributes =
-		G_FILE_ATTRIBUTE_STANDARD_NAME ","
-		G_FILE_ATTRIBUTE_STANDARD_TYPE ","
-		G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN ","
-		G_FILE_ATTRIBUTE_ID_FILE ","
-		G_FILE_ATTRIBUTE_ACCESS_CAN_READ ","
-		G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK;
 
 /**
  * rb_locale_dir:
@@ -291,30 +281,6 @@ rb_find_plugin_data_file (GObject *object, const char *name)
 }
 
 /**
- * rb_find_plugin_resource:
- * @plugin: the plugin object
- * @name: name of the file to find
- *
- * Constructs a resource path for a plugin data file.
- *
- * Returns: allocated string containing the resource path
- */
-char *
-rb_find_plugin_resource (GObject *object, const char *name)
-{
-	PeasPluginInfo *info;
-	const char *plugin_name;
-
-	g_object_get (object, "plugin-info", &info, NULL);
-	if (info == NULL)
-		return NULL;
-
-	plugin_name = peas_plugin_info_get_module_name (info);
-	return g_strdup_printf ("/org/gnome/Rhythmbox/%s/%s", plugin_name, name);
-}
-
-
-/**
  * rb_file_helpers_init:
  * @uninstalled: if %TRUE, search in source and build directories
  * as well as installed locations
@@ -367,76 +333,44 @@ rb_file_helpers_shutdown (void)
 char *
 rb_uri_resolve_symlink (const char *uri, GError **error)
 {
-	GFile *file;
-	GFile *rfile;
-	char *result = NULL;
-
-	file = g_file_new_for_uri (uri);
-	rfile = rb_file_resolve_symlink (file, error);
-	g_object_unref (file);
-
-	if (rfile != NULL) {
-		result = g_file_get_uri (rfile);
-		g_object_unref (rfile);
-	}
-	return result;
-}
-
-/**
- * rb_file_resolve_symlink:
- * @file: the file to process
- * @error: returns error information
- *
- * Attempts to resolve symlinks leading to @file and return a canonical location.
- *
- * Return value: (transfer full): a #GFile representing the canonical location, or NULL on error
- */
-GFile *
-rb_file_resolve_symlink (GFile *file, GError **error)
-{
+	GFile *file = NULL;
 	GFileInfo *file_info = NULL;
 	int link_count = 0;
-	GFile *result = NULL;
-	GFile *current;
-	char *furi;
-	char *ruri;
+	char *result = NULL;
 	const char *attr = G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET;
 	GError *l_error = NULL;
+	
+	file = g_file_new_for_uri (uri);
 
-	current = g_object_ref (file);
 	while (link_count < MAX_LINK_LEVEL) {
 		GFile *parent;
 		GFile *new_file;
 		const char *target;
 
 		/* look for a symlink target */
-		file_info = g_file_query_info (current,
+		file_info = g_file_query_info (file,
 					       attr,
 					       G_FILE_QUERY_INFO_NONE,
 					       NULL, &l_error);
 		if (l_error != NULL) {
 			/* argh */
-			ruri = g_file_get_uri (current);
-			rb_debug ("error querying %s: %s", ruri, l_error->message);
-			g_free (ruri);
+			result = g_file_get_uri (file);
+			rb_debug ("error querying %s: %s", result, l_error->message);
+			g_free (result);
 			result = NULL;
 			break;
 		} else if (g_file_info_has_attribute (file_info, attr) == FALSE) {
 			/* no symlink, so return the path */
-			result = g_object_ref (current);
+			result = g_file_get_uri (file);
 			if (link_count > 0) {
-				furi = g_file_get_uri (file);
-				ruri = g_file_get_uri (result);
-				rb_debug ("resolved symlinks: %s -> %s", furi, ruri);
-				g_free (furi);
-				g_free (ruri);
+				rb_debug ("resolved symlinks: %s -> %s", uri, result);
 			}
 			break;
 		}
 
 		/* resolve it and try again */
 		new_file = NULL;
-		parent = g_file_get_parent (current);
+		parent = g_file_get_parent (file);
 		if (parent == NULL) {
 			/* dang */
 			break;
@@ -449,10 +383,10 @@ rb_file_resolve_symlink (GFile *file, GError **error)
 		g_object_unref (file_info);
 		file_info = NULL;
 
-		g_object_unref (current);
-		current = new_file;
+		g_object_unref (file);
+		file = new_file;
 
-		if (current == NULL) {
+		if (file == NULL) {
 			/* dang */
 			break;
 		}
@@ -460,12 +394,14 @@ rb_file_resolve_symlink (GFile *file, GError **error)
 		link_count++;
 	}
 
-	g_clear_object (&current);
-	g_clear_object (&file_info);
+	if (file != NULL) {
+		g_object_unref (file);
+	}
+	if (file_info != NULL) {
+		g_object_unref (file_info);
+	}
 	if (result == NULL && error == NULL) {
-		furi = g_file_get_uri (file);
-		rb_debug ("too many symlinks while resolving %s", furi);
-		g_free (furi);
+		rb_debug ("too many symlinks while resolving %s", uri);
 		l_error = g_error_new (G_IO_ERROR,
 				       G_IO_ERROR_TOO_MANY_LINKS,
 				       _("Too many symlinks"));
@@ -636,8 +572,7 @@ rb_uri_could_be_podcast (const char *uri, gboolean *is_opml)
 	/* Check the scheme is a possible one first */
 	if (g_str_has_prefix (uri, "http") == FALSE &&
 	    g_str_has_prefix (uri, "itpc:") == FALSE &&
-	    g_str_has_prefix (uri, "itms:") == FALSE &&
-	    g_str_has_prefix (uri, "itmss:") == FALSE) {
+	    g_str_has_prefix (uri, "itms:") == FALSE) {
 	    	rb_debug ("'%s' can't be a Podcast or OPML file, not the right scheme", uri);
 	    	return FALSE;
 	}
@@ -647,12 +582,6 @@ rb_uri_could_be_podcast (const char *uri, gboolean *is_opml)
 	if (g_str_has_prefix (uri, "itms:") != FALSE
 	    && strstr (uri, "phobos.apple.com") != NULL
 	    && strstr (uri, "viewPodcast") != NULL)
-		return TRUE;
-
-	/* Check for new itmss stype iTunes Music Store link
-	 * to a podcast */
-	if (g_str_has_prefix (uri, "itmss:") != FALSE
-	    && strstr (uri, "podcast") != NULL)
 		return TRUE;
 
 	query_string = strchr (uri, '?');
@@ -743,6 +672,19 @@ rb_uri_make_hidden (const char *uri)
 	return ret;
 }
 
+typedef struct {
+	char *uri;
+	GCancellable *cancel;
+	RBUriRecurseFunc func;
+	gpointer user_data;
+	GDestroyNotify data_destroy;
+
+	GMutex results_lock;
+	guint results_idle_id;
+	GList *file_results;
+	GList *dir_results;
+} RBUriHandleRecursivelyAsyncData;
+
 static gboolean
 _should_process (GFileInfo *info)
 {
@@ -760,54 +702,6 @@ _should_process (GFileInfo *info)
 	return TRUE;
 }
 
-
-static gboolean
-_uri_handle_file (GFile *dir, GFileInfo *fileinfo, GHashTable *handled, RBUriRecurseFunc func, gpointer user_data, GFile **descend)
-{
-	const char *file_id;
-	gboolean is_dir;
-	gboolean ret;
-	GFileType file_type;
-	GFile *child;
-
-	*descend = NULL;
-	if (_should_process (fileinfo) == FALSE) {
-		rb_debug ("ignoring %s", g_file_info_get_name (fileinfo));
-		return TRUE;
-	}
-
-	/* already handled? */
-	file_id = g_file_info_get_attribute_string (fileinfo, G_FILE_ATTRIBUTE_ID_FILE);
-	if (file_id == NULL) {
-		/* have to hope for the best, I guess */
-	} else if (g_hash_table_lookup (handled, file_id) != NULL) {
-		return TRUE;
-	} else {
-		g_hash_table_insert (handled, g_strdup (file_id), GINT_TO_POINTER (1));
-	}
-
-	/* type? */
-	file_type = g_file_info_get_attribute_uint32 (fileinfo, G_FILE_ATTRIBUTE_STANDARD_TYPE);
-	switch (file_type) {
-	case G_FILE_TYPE_DIRECTORY:
-	case G_FILE_TYPE_MOUNTABLE:
-		is_dir = TRUE;
-		break;
-	default:
-		is_dir = FALSE;
-		break;
-	}
-
-	child = g_file_get_child (dir, g_file_info_get_name (fileinfo));
-	ret = (func) (child, fileinfo, user_data);
-	if (is_dir && ret) {
-		*descend = child;
-	} else {
-		g_object_unref (child);
-	}
-	return ret;
-}
-
 static void
 _uri_handle_recurse (GFile *dir,
 		     GCancellable *cancel,
@@ -818,19 +712,27 @@ _uri_handle_recurse (GFile *dir,
 	GFileEnumerator *files;
 	GFileInfo *info;
 	GError *error = NULL;
-	GFile *descend;
+	GFileType file_type;
+	const char *file_id;
+	gboolean file_handled;
+	const char *attributes = 
+		G_FILE_ATTRIBUTE_STANDARD_NAME ","
+		G_FILE_ATTRIBUTE_STANDARD_TYPE ","
+		G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN ","
+		G_FILE_ATTRIBUTE_ID_FILE ","
+		G_FILE_ATTRIBUTE_ACCESS_CAN_READ;
 
-	files = g_file_enumerate_children (dir, recurse_attributes, G_FILE_QUERY_INFO_NONE, cancel, &error);
+	files = g_file_enumerate_children (dir, attributes, G_FILE_QUERY_INFO_NONE, cancel, &error);
 	if (error != NULL) {
 		char *where;
 
 		/* handle the case where we're given a single file to process */
 		if (error->code == G_IO_ERROR_NOT_DIRECTORY) {
 			g_clear_error (&error);
-			info = g_file_query_info (dir, recurse_attributes, G_FILE_QUERY_INFO_NONE, cancel, &error);
+			info = g_file_query_info (dir, attributes, G_FILE_QUERY_INFO_NONE, cancel, &error);
 			if (error == NULL) {
 				if (_should_process (info)) {
-					(func) (dir, info, user_data);
+					(func) (dir, FALSE, user_data);
 				}
 				g_object_unref (info);
 				return;
@@ -845,6 +747,11 @@ _uri_handle_recurse (GFile *dir,
 	}
 
 	while (1) {
+		GFile *child;
+		gboolean is_dir;
+		gboolean ret;
+
+		ret = TRUE;
 		info = g_file_enumerator_next_file (files, cancel, &error);
 		if (error != NULL) {
 			rb_debug ("error enumerating files: %s", error->message);
@@ -853,13 +760,50 @@ _uri_handle_recurse (GFile *dir,
 			break;
 		}
 
-		if (_uri_handle_file (dir, info, handled, func, user_data, &descend) == FALSE)
-			break;
-
-		if (descend) {
-			_uri_handle_recurse (descend, cancel, handled, func, user_data);
-			g_object_unref (descend);
+		if (_should_process (info) == FALSE) {
+			g_object_unref (info);
+			continue;
 		}
+
+		/* already handled? */
+		file_id = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_ID_FILE);
+		if (file_id == NULL) {
+			/* have to hope for the best, I guess */
+			file_handled = FALSE;
+		} else if (g_hash_table_lookup (handled, file_id) != NULL) {
+			file_handled = TRUE;
+		} else {
+			file_handled = FALSE;
+			g_hash_table_insert (handled, g_strdup (file_id), GINT_TO_POINTER (1));
+		}
+
+		/* type? */
+		file_type = g_file_info_get_attribute_uint32 (info, G_FILE_ATTRIBUTE_STANDARD_TYPE);
+		switch (file_type) {
+		case G_FILE_TYPE_DIRECTORY:
+		case G_FILE_TYPE_MOUNTABLE:
+			is_dir = TRUE;
+			break;
+		
+		default:
+			is_dir = FALSE;
+			break;
+		}
+
+		if (file_handled == FALSE) {
+			child = g_file_get_child (dir, g_file_info_get_name (info));
+			ret = (func) (child, is_dir, user_data);
+
+			if (is_dir) {
+				_uri_handle_recurse (child, cancel, handled, func, user_data);
+			}
+			g_object_unref (child);
+		}
+	
+		g_object_unref (info);
+
+		if (ret == FALSE)
+			break;
 	}
 
 	g_object_unref (files);
@@ -893,134 +837,94 @@ rb_uri_handle_recursively (const char *uri,
 	g_object_unref (file);
 }
 
-struct _RBUriHandleRecursivelyAsyncData {
-	GCancellable *cancel;
-	RBUriRecurseFunc func;
-	gpointer user_data;
-	GDestroyNotify data_destroy;
 
-	GHashTable *handled;
-
-	GQueue *dirs_left;
-	GFile *current;
-	GFileEnumerator *enumerator;
-};
-
-
-static void
-_uri_handle_recursively_free (RBUriHandleRecursivelyAsyncData *data)
+/* runs in main thread */
+static gboolean
+_recurse_async_idle_cb (RBUriHandleRecursivelyAsyncData *data)
 {
-	if (data->data_destroy)
-		data->data_destroy (data->user_data);
-	g_clear_object (&data->current);
-	g_clear_object (&data->enumerator);
-	g_clear_object (&data->cancel);
-	g_hash_table_destroy (data->handled);
-	g_queue_free_full (data->dirs_left, g_object_unref);
-	g_free (data);
+	GList *ul, *dl;
+
+	g_mutex_lock (&data->results_lock);
+
+	for (ul = data->file_results, dl = data->dir_results;
+	     ul != NULL;
+	     ul = g_list_next (ul), dl = g_list_next (dl)) {
+		g_assert (dl != NULL);
+
+		data->func (G_FILE (ul->data), (GPOINTER_TO_INT (dl->data) == 1), data->user_data);
+		g_object_unref (ul->data);
+	}
+	g_assert (dl == NULL);
+
+	g_list_free (data->file_results);
+	data->file_results = NULL;
+	g_list_free (data->dir_results);
+	data->dir_results = NULL;
+
+	data->results_idle_id = 0;
+	g_mutex_unlock (&data->results_lock);
+	return FALSE;
 }
 
-static void
-_uri_handle_recursively_process_files (GObject *src, GAsyncResult *result, gpointer ptr)
+/* runs in main thread */
+static gboolean
+_recurse_async_data_free (RBUriHandleRecursivelyAsyncData *data)
 {
-	GList *files;
-	GList *l;
-	GFile *descend;
-	GError *error = NULL;
-	RBUriHandleRecursivelyAsyncData *data = ptr;
+	GList *i;
 
-	files = g_file_enumerator_next_files_finish (G_FILE_ENUMERATOR (src), result, &error);
-	if (error != NULL) {
-		rb_debug ("error enumerating files: %s", error->message);
-		_uri_handle_recursively_next_dir (data);
-		g_clear_error (&error);
-		return;
+	if (data->results_idle_id) {
+		g_source_remove (data->results_idle_id);
+		_recurse_async_idle_cb (data); /* process last results */
 	}
 
-	if (files == NULL) {
-		_uri_handle_recursively_next_dir (data);
-		return;
+	for (i = data->file_results; i != NULL; i = i->next) {
+		GFile *file = G_FILE (i->data);
+		g_object_unref (file);
 	}
 
-	rb_debug ("got %d file(s)", g_list_length (files));
-	for (l = files; l != NULL; l = l->next) {
-		descend = NULL;
-		if (_uri_handle_file (data->current, l->data, data->handled, data->func, data->user_data, &descend) == FALSE) {
-			rb_debug ("callback returned false");
-			g_cancellable_cancel (data->cancel);
-			break;
-		} else if (descend) {
-			char *uri = g_file_get_uri (descend);
-			rb_debug ("adding dir %s to processing list", uri);
-			g_free (uri);
-			g_queue_push_tail (data->dirs_left, descend);
-		}
+	g_list_free (data->file_results);
+	data->file_results = NULL;
+	g_list_free (data->dir_results);
+	data->dir_results = NULL;
+
+	if (data->data_destroy != NULL) {
+		(data->data_destroy) (data->user_data);
+	}
+	if (data->cancel != NULL) {
+		g_object_unref (data->cancel);
 	}
 
-	g_list_free_full (files, g_object_unref);
-	_uri_handle_recursively_next_files (data);
+	g_free (data->uri);
+	return FALSE;
 }
 
-static void
-_uri_handle_recursively_next_files (RBUriHandleRecursivelyAsyncData *data)
+/* runs in worker thread */
+static gboolean
+_recurse_async_cb (GFile *file, gboolean dir, RBUriHandleRecursivelyAsyncData *data)
 {
-	g_file_enumerator_next_files_async (data->enumerator,
-					    16,		/* or something */
-					    G_PRIORITY_DEFAULT,
-					    data->cancel,
-					    _uri_handle_recursively_process_files,
-					    data);
-}
+	g_mutex_lock (&data->results_lock);
 
-static void
-_uri_handle_recursively_enum_files (GObject *src, GAsyncResult *result, gpointer ptr)
-{
-	GError *error = NULL;
-	RBUriHandleRecursivelyAsyncData *data = ptr;
-
-	data->enumerator = g_file_enumerate_children_finish (G_FILE (src), result, &error);
-	if (error != NULL) {
-		if (error->code == G_IO_ERROR_NOT_DIRECTORY) {
-			GFileInfo *info;
-
-			g_clear_error (&error);
-			info = g_file_query_info (G_FILE (src), recurse_attributes, G_FILE_QUERY_INFO_NONE, data->cancel, &error);
-			if (error == NULL) {
-				if (_should_process (info)) {
-					(data->func) (G_FILE (src), info, data->user_data);
-				}
-				g_object_unref (info);
-			}
-		} else {
-			rb_debug ("error enumerating folder: %s", error->message);
-		}
-		g_clear_error (&error);
-		_uri_handle_recursively_next_dir (data);
-	} else {
-		_uri_handle_recursively_next_files (data);
+	data->file_results = g_list_prepend (data->file_results, g_object_ref (file));
+	data->dir_results = g_list_prepend (data->dir_results, GINT_TO_POINTER (dir ? 1 : 0));
+	if (data->results_idle_id == 0) {
+		g_idle_add ((GSourceFunc)_recurse_async_idle_cb, data);
 	}
+
+	g_mutex_unlock (&data->results_lock);
+	return TRUE;
 }
 
-static void
-_uri_handle_recursively_next_dir (RBUriHandleRecursivelyAsyncData *data)
+static gpointer
+_recurse_async_func (RBUriHandleRecursivelyAsyncData *data)
 {
-	g_clear_object (&data->current);
-	g_clear_object (&data->enumerator);
-	data->current = g_queue_pop_head (data->dirs_left);
-	if (data->current != NULL) {
-		g_file_enumerate_children_async (data->current,
-						 recurse_attributes,
-						 G_FILE_QUERY_INFO_NONE,
-						 G_PRIORITY_DEFAULT,
-						 data->cancel,
-						 _uri_handle_recursively_enum_files,
-						 data);
-	} else {
-		rb_debug ("nothing more to do");
-		_uri_handle_recursively_free (data);
-	}
-}
+	rb_uri_handle_recursively (data->uri,
+				   data->cancel,
+				   (RBUriRecurseFunc) _recurse_async_cb,
+				   data);
 
+	g_idle_add ((GSourceFunc)_recurse_async_data_free, data);
+	return NULL;
+}
 
 /**
  * rb_uri_handle_recursively_async:
@@ -1034,6 +938,9 @@ _uri_handle_recursively_next_dir (RBUriHandleRecursivelyAsyncData *data)
  * by @uri, or if @uri identifies a file, calls it once
  * with that.
  *
+ * Directory recursion happens on a separate thread, but the callbacks
+ * are called on the main thread.
+ *
  * If non-NULL, @destroy_data will be called once all files have been
  * processed, or when the operation is cancelled.
  */
@@ -1046,21 +953,18 @@ rb_uri_handle_recursively_async (const char *uri,
 {
 	RBUriHandleRecursivelyAsyncData *data = g_new0 (RBUriHandleRecursivelyAsyncData, 1);
 	
-	rb_debug ("processing %s", uri);
+	data->uri = g_strdup (uri);
+	data->user_data = user_data;
 	if (cancel != NULL) {
 		data->cancel = g_object_ref (cancel);
-	} else {
-		data->cancel = g_cancellable_new ();
 	}
+	data->data_destroy = data_destroy;
 
+	g_mutex_init (&data->results_lock);
 	data->func = func;
 	data->user_data = user_data;
-	data->data_destroy = data_destroy;
-	data->handled = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
-	data->dirs_left = g_queue_new ();
-	g_queue_push_tail (data->dirs_left, g_file_new_for_uri (uri));
-	_uri_handle_recursively_next_dir (data);
+	g_thread_new ("rb-uri-recurse", (GThreadFunc)_recurse_async_func, data);
 }
 
 /**
@@ -1538,54 +1442,40 @@ rb_uri_get_filesystem_type (const char *uri, char **mount_point)
 	return fstype;
 }
 
-static void
-sanitize_msdos_path (char *path)
+/**
+ * rb_sanitize_path_for_msdos_filesystem:
+ * @path: a path to sanitize (modified in place)
+ *
+ * Modifies @path such that it represents a legal path for MS DOS
+ * filesystems.
+ */
+void
+rb_sanitize_path_for_msdos_filesystem (char *path)
 {
 	g_strdelimit (path, "\"", '\'');
 	g_strdelimit (path, ":|<>*?\\", '_');
 }
 
 /**
- * rb_sanitize_path_for_msdos_filesystem:
- * @path: a path segment to sanitize (modified in place)
- *
- * Modifies @path such that it represents a legal path for MS DOS
- * filesystems.  Note that it replaces forward slash characters,
- * so it's only appropriate for use with individual path segments
- * rather than entire paths.
- */
-void
-rb_sanitize_path_for_msdos_filesystem (char *path)
-{
-	sanitize_msdos_path (path);
-	g_strdelimit (path, "/", '-');
-}
-
-/**
  * rb_sanitize_uri_for_filesystem:
  * @uri: a URI to sanitize
- * @filesystem: (allow-none): a specific filesystem to sanitize for
  *
  * Removes characters from @uri that are not allowed by the filesystem
- * on which it would be stored, or a specific type of filesystem if specified.
- * At present, this only supports MS DOS filesystems.
+ * on which it would be stored.  At present, this only supports MS DOS
+ * filesystems.
  *
  * Return value: sanitized copy of @uri, must be freed by caller.
  */
 char *
-rb_sanitize_uri_for_filesystem (const char *uri, const char *filesystem)
+rb_sanitize_uri_for_filesystem (const char *uri)
 {
-	char *free_fs = NULL;
 	char *mountpoint = NULL;
+	char *filesystem;
 	char *sane_uri = NULL;
 
-	if (filesystem == NULL) {
-		free_fs = rb_uri_get_filesystem_type (uri, &mountpoint);
-		if (!free_fs)
-			return g_strdup (uri);
-
-		filesystem = free_fs;
-	}
+	filesystem = rb_uri_get_filesystem_type (uri, &mountpoint);
+	if (!filesystem)
+		return g_strdup (uri);
 
 	if (!strcmp (filesystem, "fat") ||
 	    !strcmp (filesystem, "vfat") ||
@@ -1599,7 +1489,7 @@ rb_sanitize_uri_for_filesystem (const char *uri, const char *filesystem)
 
 		if (error) {
 			g_error_free (error);
-			g_free (free_fs);
+			g_free (filesystem);
 			g_free (full_path);
 			g_free (mountpoint);
 			return g_strdup (uri);
@@ -1629,7 +1519,7 @@ rb_sanitize_uri_for_filesystem (const char *uri, const char *filesystem)
 		}
 
 		rb_debug ("sanitizing path %s", fat_path);
-		sanitize_msdos_path (fat_path);
+		rb_sanitize_path_for_msdos_filesystem (fat_path);
 
 		/* create a new uri from this */
 		sane_uri = g_filename_to_uri (full_path, hostname, &error);
@@ -1640,7 +1530,7 @@ rb_sanitize_uri_for_filesystem (const char *uri, const char *filesystem)
 
 		if (error) {
 			g_error_free (error);
-			g_free (free_fs);
+			g_free (filesystem);
 			g_free (mountpoint);
 			return g_strdup (uri);
 		}
@@ -1648,7 +1538,7 @@ rb_sanitize_uri_for_filesystem (const char *uri, const char *filesystem)
 
 	/* add workarounds for other filesystems limitations here */
 
-	g_free (free_fs);
+	g_free (filesystem);
 	g_free (mountpoint);
 	return sane_uri ? sane_uri : g_strdup (uri);
 }

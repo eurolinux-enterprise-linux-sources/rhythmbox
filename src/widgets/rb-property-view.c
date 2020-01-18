@@ -40,6 +40,7 @@
 #include "rb-debug.h"
 #include "rhythmdb.h"
 #include "rhythmdb-property-model.h"
+#include "rb-stock-icons.h"
 #include "rb-util.h"
 
 static void rb_property_view_class_init (RBPropertyViewClass *klass);
@@ -83,7 +84,6 @@ struct RBPropertyViewPrivate
 	char *title;
 
 	GtkWidget *treeview;
-	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
 
 	gboolean draggable;
@@ -220,7 +220,7 @@ rb_property_view_class_init (RBPropertyViewClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPropertyViewClass, property_activated),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__STRING,
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_STRING);
@@ -240,7 +240,7 @@ rb_property_view_class_init (RBPropertyViewClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPropertyViewClass, property_selected),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__STRING,
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_STRING);
@@ -248,7 +248,7 @@ rb_property_view_class_init (RBPropertyViewClass *klass)
 	/**
 	 * RBPropertyView::properties-selected:
 	 * @view: the #RBPropertyView
-	 * @properties: (element-type utf8): a list containing the selected property values
+	 * @properties: a list containing the selected property values
 	 *
 	 * Emitted when the set of selected property values changes.  This is only
 	 * emitted for multiple selection property views.  For single-selection views,
@@ -260,7 +260,7 @@ rb_property_view_class_init (RBPropertyViewClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPropertyViewClass, properties_selected),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__POINTER,
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_POINTER);
@@ -278,7 +278,7 @@ rb_property_view_class_init (RBPropertyViewClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPropertyViewClass, selection_reset),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE,
 			      0);
 
@@ -296,7 +296,7 @@ rb_property_view_class_init (RBPropertyViewClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPropertyViewClass, show_popup),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE,
 			      0);
 
@@ -478,7 +478,7 @@ rb_property_view_new (RhythmDB *db,
 					       "vscrollbar_policy", GTK_POLICY_AUTOMATIC,
 					       "hexpand", TRUE,
 					       "vexpand", TRUE,
-					       "shadow_type", GTK_SHADOW_NONE,
+					       "shadow_type", GTK_SHADOW_IN,
 					       "db", db,
 					       "prop", propid,
 					       "title", title,
@@ -678,7 +678,6 @@ rb_property_view_cell_data_func (GtkTreeViewColumn *column,
 
 	g_object_set (G_OBJECT (renderer), "text", str,
 		      "weight", G_UNLIKELY (is_all) ? PANGO_WEIGHT_BOLD : PANGO_WEIGHT_NORMAL,
-		      "ellipsize", PANGO_ELLIPSIZE_MIDDLE,
 		      NULL);
 	g_free (str);
 	g_free (title);
@@ -687,6 +686,7 @@ rb_property_view_cell_data_func (GtkTreeViewColumn *column,
 static void
 rb_property_view_constructed (GObject *object)
 {
+	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 	RBPropertyView *view;
 
@@ -731,16 +731,16 @@ rb_property_view_constructed (GObject *object)
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (view->priv->treeview), TRUE);
 	gtk_tree_selection_set_mode (view->priv->selection, GTK_SELECTION_SINGLE);
 
-	view->priv->column = gtk_tree_view_column_new ();
+	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_column_pack_start (view->priv->column, renderer, TRUE);
-	gtk_tree_view_column_set_cell_data_func (view->priv->column, renderer,
+	gtk_tree_view_column_pack_start (column, renderer, TRUE);
+	gtk_tree_view_column_set_cell_data_func (column, renderer,
 						 (GtkTreeCellDataFunc) rb_property_view_cell_data_func,
 						 view, NULL);
-	gtk_tree_view_column_set_title (view->priv->column, view->priv->title);
-	gtk_tree_view_column_set_sizing (view->priv->column, GTK_TREE_VIEW_COLUMN_FIXED);
+	gtk_tree_view_column_set_title (column, view->priv->title);
+	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_FIXED);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (view->priv->treeview),
-				     view->priv->column);
+				     column);
 }
 
 static void
@@ -851,22 +851,6 @@ rb_property_view_get_selection (RBPropertyView *view)
 }
 
 static void
-select_all (RBPropertyView *view, GtkTreeSelection *selection, GtkTreeModel *model)
-{
-	GtkTreeIter iter;
-
-	g_signal_handlers_block_by_func (selection,
-					 G_CALLBACK (rb_property_view_selection_changed_cb),
-					 view);
-	gtk_tree_selection_unselect_all (selection);
-	if (gtk_tree_model_get_iter_first (model, &iter))
-		gtk_tree_selection_select_iter (selection, &iter);
-	g_signal_handlers_unblock_by_func (selection,
-					   G_CALLBACK (rb_property_view_selection_changed_cb),
-					   view);
-}
-
-static void
 rb_property_view_selection_changed_cb (GtkTreeSelection *selection,
 				       RBPropertyView *view)
 {
@@ -901,10 +885,18 @@ rb_property_view_selection_changed_cb (GtkTreeSelection *selection,
 		g_list_foreach (selected_rows, (GFunc) gtk_tree_path_free, NULL);
 		g_list_free (selected_rows);
 
-		if (is_all)
-			select_all (view, selection, model);
-
-		g_signal_emit (view, rb_property_view_signals[PROPERTIES_SELECTED], 0,
+		if (is_all) {
+			g_signal_handlers_block_by_func (G_OBJECT (view->priv->selection),
+							 G_CALLBACK (rb_property_view_selection_changed_cb),
+							 view);
+			gtk_tree_selection_unselect_all (selection);
+			if (gtk_tree_model_get_iter_first (model, &iter))
+				gtk_tree_selection_select_iter (selection, &iter);
+			g_signal_handlers_unblock_by_func (G_OBJECT (view->priv->selection),
+							   G_CALLBACK (rb_property_view_selection_changed_cb),
+							   view);
+		}
+		g_signal_emit (G_OBJECT (view), rb_property_view_signals[PROPERTIES_SELECTED], 0,
 			       selected_properties);
 		rb_list_deep_free (selected_properties);
 	} else {
@@ -912,11 +904,8 @@ rb_property_view_selection_changed_cb (GtkTreeSelection *selection,
 			gtk_tree_model_get (model, &iter,
 					    RHYTHMDB_PROPERTY_MODEL_COLUMN_TITLE, &selected_prop,
 					    RHYTHMDB_PROPERTY_MODEL_COLUMN_PRIORITY, &is_all, -1);
-			g_signal_emit (view, rb_property_view_signals[PROPERTY_SELECTED], 0,
+			g_signal_emit (G_OBJECT (view), rb_property_view_signals[PROPERTY_SELECTED], 0,
 				       is_all ? NULL : selected_prop);
-		} else {
-			select_all (view, selection, model);
-			g_signal_emit (view, rb_property_view_signals[PROPERTY_SELECTED], 0, NULL);
 		}
 	}
 
@@ -945,20 +934,6 @@ rb_property_view_append_column_custom (RBPropertyView *view,
 	g_return_if_fail (RB_IS_PROPERTY_VIEW (view));
 
 	gtk_tree_view_append_column (GTK_TREE_VIEW (view->priv->treeview), column);
-}
-
-/**
- * rb_property_view_set_column_visible:
- * @view: a #RBPropertyView
- * @visible: whether the property column should be visible
- *
- * Sets the visibility of the property column.
- */
-void
-rb_property_view_set_column_visible (RBPropertyView *view, gboolean visible)
-{
-	g_return_if_fail (RB_IS_PROPERTY_VIEW (view));
-	gtk_tree_view_column_set_visible (view->priv->column, visible);
 }
 
 static gboolean

@@ -1,16 +1,16 @@
-<%page args="error, albums, artist, stylesheet, datasource" />
+<%page args="error, list, artist, stylesheet, datasource" />
 <html> <head> <meta http-equiv="content-type" content="text-html; charset=utf-8">
 <%!
     import re
     import cgi
-    import email.utils
+    import rfc822
     from gettext import ngettext
 
     def cleanup(text):
         return re.sub(r'\([^\)]*\)', '', text)
 
     def sec2hms(time):
-        hr = int(time / 3600)
+        hr = time / 3600
         if hr > 0:
             time %= 3600
         mn = time / 60
@@ -22,8 +22,8 @@
 
     def format_year(date):
         try:
-            parsed = email.utils.parsedate(date)
-        except Exception as e:
+            parsed = rfc822.parsedate(date)
+        except Exception, e:
             return ""
         if parsed is None:
             return ""
@@ -52,13 +52,15 @@
 <body>
 %if error is None:
 <%  
-    num_albums = len(albums)
+    num_albums = min(8, len(list))
 %>
     <h1>${ _("Top albums by %s") % ("<em>" + cgi.escape(artist, True) + "</em>") }</h1>
-%for i, entry in enumerate(albums) :
+%for i, entry in enumerate(list) :
     <%
     if 'tracklist' not in entry or len(entry['tracklist']) == 0:
         continue
+    if i == num_albums:
+        break
     %>
     <div id="album${entry['id'] | h}" class="album">
     <img width="64" src="${entry['images'][1] | h}" alt="${entry['images'] | h}"/>
@@ -71,9 +73,9 @@
     <% 
         album_time = sec2hms(entry['duration'])
 	tracks = len(entry['tracklist'])
-	s = ngettext("%s (%d track)", "%s (%d tracks)", tracks)
+	str = ngettext("%s (%d track)", "%s (%d tracks)", tracks)
     %>
-    <p class="duration">${ s % (album_time, tracks) }</p>
+    <p class="duration">${ str % (album_time, tracks) }</p>
     %endif
     %if 'tracklist' in entry:
     <button id="btn_${entry['id'] | h}" onclick="toggle_vis(${entry['id'] | h})">

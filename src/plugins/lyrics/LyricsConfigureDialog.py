@@ -41,7 +41,7 @@ class LyricsConfigureDialog (GObject.Object, PeasGtk.Configurable):
 
 	def __init__(self):
 		GObject.Object.__init__(self)
-		self.settings = Gio.Settings.new("org.gnome.rhythmbox.plugins.lyrics")
+		self.settings = Gio.Settings("org.gnome.rhythmbox.plugins.lyrics")
 
 	def do_create_configure_widget(self):
 		builder = Gtk.Builder()
@@ -84,7 +84,7 @@ class LyricsConfigureDialog (GObject.Object, PeasGtk.Configurable):
 			if check.get_active():
 				sites.append(s['id'])
 
-		print("setting lyrics sites: " + str(sites))
+		print "setting lyrics sites: " + str(sites)
 		self.settings['sites'] = sites
 
 
@@ -112,11 +112,11 @@ class LyricsConfigureDialog (GObject.Object, PeasGtk.Configurable):
 	def get_prefs (self):
 		try:
 			sites = self.settings['sites']
-		except GLib.GError as e:
-			print(e)
+		except GObject.GError, e:
+			print e
 			engines = []
 		folder = self.settings['folder']
 
-		print("lyric sites: " + str (sites))
-		print("lyric folder: " + folder)
+		print "lyric sites: " + str (sites)
+		print "lyric folder: " + folder
 		return (sites, folder)

@@ -1,0 +1,200 @@
+<!-- ##### SECTION Title ##### -->
+RBDisplayPage
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO RB_DISPLAY_PAGE_ICON_SIZE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT RBDisplayPage ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL RBDisplayPage::deleted ##### -->
+<para>
+
+</para>
+
+@rbdisplaypage: the object which received the signal.
+
+<!-- ##### SIGNAL RBDisplayPage::status-changed ##### -->
+<para>
+
+</para>
+
+@rbdisplaypage: the object which received the signal.
+
+<!-- ##### ARG RBDisplayPage:name ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBDisplayPage:parent ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBDisplayPage:pixbuf ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBDisplayPage:plugin ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBDisplayPage:selected ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBDisplayPage:shell ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG RBDisplayPage:visibility ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT RBDisplayPageClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+@status_changed: 
+@deleted: 
+@selectable: 
+@selected: 
+@deselected: 
+@activate: 
+@get_config_widget: 
+@get_status: 
+@receive_drag: 
+@delete_thyself: 
+@can_remove: 
+@remove: 
+
+<!-- ##### FUNCTION rb_display_page_receive_drag ##### -->
+<para>
+
+</para>
+
+@page: 
+@data: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_display_page_selectable ##### -->
+<para>
+
+</para>
+
+@page: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_display_page_selected ##### -->
+<para>
+
+</para>
+
+@page: 
+
+
+<!-- ##### FUNCTION rb_display_page_deselected ##### -->
+<para>
+
+</para>
+
+@page: 
+
+
+<!-- ##### FUNCTION rb_display_page_activate ##### -->
+<para>
+
+</para>
+
+@page: 
+
+
+<!-- ##### FUNCTION rb_display_page_get_config_widget ##### -->
+<para>
+
+</para>
+
+@page: 
+@prefs: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_display_page_get_status ##### -->
+<para>
+
+</para>
+
+@page: 
+@text: 
+@progress_text: 
+@progress: 
+
+
+<!-- ##### FUNCTION rb_display_page_delete_thyself ##### -->
+<para>
+
+</para>
+
+@page: 
+
+
+<!-- ##### FUNCTION rb_display_page_can_remove ##### -->
+<para>
+
+</para>
+
+@page: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_display_page_remove ##### -->
+<para>
+
+</para>
+
+@page: 
+
+
+<!-- ##### FUNCTION rb_display_page_notify_status_changed ##### -->
+<para>
+
+</para>
+
+@page: 
+
+

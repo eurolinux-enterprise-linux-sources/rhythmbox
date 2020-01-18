@@ -158,6 +158,7 @@ rb_station_properties_dialog_constructed (GObject *object)
 	RBStationPropertiesDialog *dialog;
 	GtkWidget *content_area;
 	GtkBuilder *builder;
+	char *builder_file;
 	AtkObject *lobj, *robj;
 
 	RB_CHAIN_GOBJECT_METHOD (rb_station_properties_dialog_parent_class, constructed, object);
@@ -173,13 +174,16 @@ rb_station_properties_dialog_constructed (GObject *object)
 	gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
 	gtk_box_set_spacing (GTK_BOX (content_area), 2);
 
-	builder = rb_builder_load_plugin_file (dialog->priv->plugin, "station-properties.ui", dialog);
+	builder_file = rb_find_plugin_data_file (dialog->priv->plugin, "station-properties.ui");
+	g_assert (builder_file != NULL);
+	builder = rb_builder_load (builder_file, dialog);
+	g_free (builder_file);
 
 	gtk_container_add (GTK_CONTAINER (content_area),
 			   GTK_WIDGET (gtk_builder_get_object (builder, "stationproperties")));
 
 	dialog->priv->close_button = gtk_dialog_add_button (GTK_DIALOG (dialog),
-							    _("_Close"),
+							    GTK_STOCK_CLOSE,
 							    GTK_RESPONSE_CLOSE);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
 

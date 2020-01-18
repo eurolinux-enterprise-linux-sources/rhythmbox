@@ -62,7 +62,8 @@ struct _RBStatusbarClass
 
 GType			rb_statusbar_get_type	(void);
 
-RBStatusbar *		rb_statusbar_new	(RhythmDB *db);
+RBStatusbar *		rb_statusbar_new	(RhythmDB *db,
+						 RBTrackTransferQueue *transfer_queue);
 
 void			rb_statusbar_set_page	(RBStatusbar *statusbar,
 						 RBDisplayPage *page);

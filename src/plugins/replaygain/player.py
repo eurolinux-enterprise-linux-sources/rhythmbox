@@ -55,12 +55,13 @@ class ReplayGainPlayer(object):
 
 		self.shell_player = shell.props.shell_player
 		self.player = self.shell_player.props.player
-		self.settings = Gio.Settings.new("org.gnome.rhythmbox.plugins.replaygain")
+		self.settings = Gio.Settings("org.gnome.rhythmbox.plugins.replaygain")
 
 		self.settings.connect("changed::limiter", self.limiter_changed_cb)
 
 		self.previous_gain = []
 		self.fallback_gain = 0.0
+		self.resetting_rgvolume = False
 
 		# we use different means to hook into the playback pipeline depending on
 		# the playback backend in use
@@ -96,18 +97,18 @@ class ReplayGainPlayer(object):
 		# set calculated fallback gain
 		rgvolume.props.fallback_gain = self.fallback_gain
 
-		print("updated rgvolume settings: preamp %f, album-mode %s, fallback gain %f" % (
-			rgvolume.props.pre_amp, str(rgvolume.props.album_mode), rgvolume.props.fallback_gain))
+		print "updated rgvolume settings: preamp %f, album-mode %s, fallback gain %f" % (
+			rgvolume.props.pre_amp, str(rgvolume.props.album_mode), rgvolume.props.fallback_gain)
 
 
 	def update_fallback_gain(self, rgvolume):
 		gain = rgvolume.props.target_gain - rgvolume.props.pre_amp
 		# filter out bogus notifications
 		if abs(gain - self.fallback_gain) < EPSILON:
-			print("ignoring gain %f (current fallback gain)" % gain)
+			print "ignoring gain %f (current fallback gain)" % gain
 			return False
 		if abs(gain) < EPSILON:
-			print("ignoring zero gain (pretty unlikely)")
+			print "ignoring zero gain (pretty unlikely)"
 			return False
 
 		# update the running average
@@ -115,18 +116,56 @@ class ReplayGainPlayer(object):
 			self.previous_gain.pop(0)
 		self.previous_gain.append(gain)
 		self.fallback_gain = sum(self.previous_gain) / len(self.previous_gain)
-		print("got target gain %f; running average of previous gain values is %f" % (gain, self.fallback_gain))
+		print "got target gain %f; running average of previous gain values is %f" % (gain, self.fallback_gain)
 		return True
 
 
 
 	### playbin mode (rgvolume ! rglimiter as global filter)
 
+	def playbin_uri_notify_cb(self, playbin, pspec):
+		self.got_replaygain = False
+
+	def playbin_notify_cb(self, player, pspec):
+		playbin = player.props.playbin
+		playbin.connect("notify::uri", self.playbin_uri_notify_cb)
+
+
 	def playbin_target_gain_cb(self, rgvolume, pspec):
-		self.update_fallback_gain(rgvolume)
+		#if self.resetting_rgvolume is True:
+		#	return
+
+		if self.update_fallback_gain(rgvolume) == True:
+			self.got_replaygain = True
+		# do something clever probably
+
+	def rgvolume_blocked(self, pad, info, rgvolume):
+		print "bouncing rgvolume state to reset tags"
+		# somehow need to decide whether we've already got a gain value for the new track
+		#self.resetting_rgvolume = True
+		rgvolume.set_state(Gst.State.READY)
+		rgvolume.set_state(Gst.State.PLAYING)
+		#self.resetting_rgvolume = False
+		pad.remove_probe(info.id)
+		self.set_rgvolume(rgvolume)
+		return Gst.PadProbeReturn.OK
+
+	def playing_entry_changed(self, player, entry):
+		if entry is None:
+			return
+		if self.first_entry:
+			self.first_entry = False
+			return
+
+		if self.got_replaygain is False:
+			print "blocking rgvolume to reset it"
+			pad = self.rgvolume.get_static_pad("sink").get_peer()
+			pad.add_probe(Gst.PadProbeType.IDLE, self.rgvolume_blocked, self.rgvolume)
+		else:
+			print "no need to reset rgvolume"
 
 	def setup_playbin_mode(self):
-		print("using output filter for rgvolume and rglimiter")
+		print "using output filter for rgvolume and rglimiter"
 		self.rgfilter = Gst.Bin()
 
 		self.rgvolume = Gst.ElementFactory.make("rgvolume", None)
@@ -140,11 +179,27 @@ class ReplayGainPlayer(object):
 		self.rgfilter.add_pad(Gst.GhostPad.new("src", self.rglimiter.get_static_pad("src")))
 		self.rgvolume.link(self.rglimiter)
 
+		# on track changes, we need to reset the rgvolume state, otherwise it
+		# carries over the tags from the previous track
+		self.first_entry = True
+		self.pec_id = self.shell_player.connect('playing-song-changed', self.playing_entry_changed)
+
+		# watch playbin's uri property to see when a new track is opened
+		playbin = self.player.props.playbin
+		if playbin is None:
+			self.player.connect("notify::playbin", self.playbin_notify_cb)
+		else:
+			playbin.connect("notify::uri", self.playbin_uri_notify_cb)
+
 		self.player.add_filter(self.rgfilter)
 
 	def deactivate_playbin_mode(self):
 		self.player.remove_filter(self.rgfilter)
 		self.rgfilter = None
+
+		self.shell_player.disconnect(self.pec_id)
+		self.pec_id = None
+
 
 
 	### xfade mode (rgvolume as stream filter, rglimiter as global filter)
@@ -155,7 +210,7 @@ class ReplayGainPlayer(object):
 			rgvolume.disconnect_by_func(self.xfade_target_gain_cb)
 
 	def create_stream_filter_cb(self, player, uri):
-		print("creating rgvolume instance for stream %s" % uri)
+		print "creating rgvolume instance for stream %s" % uri
 		rgvolume = Gst.ElementFactory.make("rgvolume", None)
 		rgvolume.connect("notify::target-gain", self.xfade_target_gain_cb)
 		self.set_rgvolume(rgvolume)
@@ -164,11 +219,11 @@ class ReplayGainPlayer(object):
 	def limiter_changed_cb(self, settings, key):
 		if self.rglimiter is not None:
 			limiter = settings['limiter']
-			print("limiter setting is now %s" % str(limiter))
+			print "limiter setting is now %s" % str(limiter)
 			self.rglimiter.props.enabled = limiter
 
 	def setup_xfade_mode(self):
-		print("using per-stream filter for rgvolume")
+		print "using per-stream filter for rgvolume"
 		self.stream_filter_id = self.player.connect("get-stream-filters", self.create_stream_filter_cb)
 
 		# and add rglimiter as an output filter

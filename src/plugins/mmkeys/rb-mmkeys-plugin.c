@@ -45,6 +45,7 @@
 #include "rb-debug.h"
 #include "rb-shell.h"
 #include "rb-shell-player.h"
+#include "rb-marshal.h"
 
 #ifdef HAVE_MMKEYS
 #include <X11/Xlib.h>
@@ -114,7 +115,7 @@ media_player_key_pressed (GDBusProxy *proxy,
 	}
 
 	if (strcmp (key, "Play") == 0) {
-		rb_shell_player_playpause (plugin->shell_player, NULL);
+		rb_shell_player_playpause (plugin->shell_player, FALSE, NULL);
 	} else if (strcmp (key, "Pause") == 0) {
 		rb_shell_player_pause (plugin->shell_player, NULL);
 	} else if (strcmp (key, "Stop") == 0) {
@@ -271,7 +272,7 @@ filter_mmkeys (GdkXEvent *xevent,
 	display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
 
 	if (XKeysymToKeycode (display, XF86XK_AudioPlay) == key->keycode) {
-		rb_shell_player_playpause (player, NULL);
+		rb_shell_player_playpause (player, FALSE, NULL);
 		return GDK_FILTER_REMOVE;
 	} else if (XKeysymToKeycode (display, XF86XK_AudioPause) == key->keycode) {
 		rb_shell_player_pause (player, NULL);
@@ -297,7 +298,7 @@ mmkeys_grab (RBMMKeysPlugin *plugin, gboolean grab)
 	GdkDisplay *display;
 	GdkScreen *screen;
 	GdkWindow *root;
-	guint j;
+	guint i, j;
 
 	display = gdk_display_get_default ();
 	keycodes[0] = XKeysymToKeycode (GDK_DISPLAY_XDISPLAY (display), XF86XK_AudioPlay);
@@ -306,26 +307,28 @@ mmkeys_grab (RBMMKeysPlugin *plugin, gboolean grab)
 	keycodes[3] = XKeysymToKeycode (GDK_DISPLAY_XDISPLAY (display), XF86XK_AudioNext);
 	keycodes[4] = XKeysymToKeycode (GDK_DISPLAY_XDISPLAY (display), XF86XK_AudioPause);
 
-	screen = gdk_display_get_default_screen (display);
+	for (i = 0; i < gdk_display_get_n_screens (display); i++) {
+		screen = gdk_display_get_screen (display, i);
 
-	if (screen != NULL) {
-		root = gdk_screen_get_root_window (screen);
+		if (screen != NULL) {
+			root = gdk_screen_get_root_window (screen);
 
-		for (j = 0; j < G_N_ELEMENTS (keycodes) ; j++) {
-			if (keycodes[j] != 0) {
-				if (grab)
-					grab_mmkey (keycodes[j], root);
-				else
-					ungrab_mmkey (keycodes[j], root);
+			for (j = 0; j < G_N_ELEMENTS (keycodes) ; j++) {
+				if (keycodes[j] != 0) {
+					if (grab)
+						grab_mmkey (keycodes[j], root);
+					else
+						ungrab_mmkey (keycodes[j], root);
+				}
 			}
-		}
 
-		if (grab)
-			gdk_window_add_filter (root, filter_mmkeys,
-					       (gpointer) plugin->shell_player);
-		else
-			gdk_window_remove_filter (root, filter_mmkeys,
-						  (gpointer) plugin->shell_player);
+			if (grab)
+				gdk_window_add_filter (root, filter_mmkeys,
+						       (gpointer) plugin->shell_player);
+			else
+				gdk_window_remove_filter (root, filter_mmkeys,
+							  (gpointer) plugin->shell_player);
+		}
 	}
 }
 
@@ -343,10 +346,8 @@ first_call_complete (GObject *proxy, GAsyncResult *res, RBMMKeysPlugin *plugin)
 		g_warning ("Unable to grab media player keys: %s", error->message);
 		g_clear_error (&error);
 #ifdef HAVE_MMKEYS
-		if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
-			mmkeys_grab (plugin, TRUE);
-			plugin->grab_type = X_KEY_GRAB;
-		}
+		mmkeys_grab (plugin, TRUE);
+		plugin->grab_type = X_KEY_GRAB;
 #endif
 		return;
 	}
@@ -410,7 +411,7 @@ impl_activate (PeasActivatable *pplugin)
 	}
 
 #ifdef HAVE_MMKEYS
-	if (plugin->grab_type == NONE && GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+	if (plugin->grab_type == NONE) {
 		rb_debug ("attempting old-style key grabs");
 		mmkeys_grab (plugin, TRUE);
 		plugin->grab_type = X_KEY_GRAB;

@@ -25,10 +25,12 @@
 #include "rb-import-errors-source.h"
 #include "rb-library-browser.h"
 #include "rb-library-source.h"
+#include "rb-marshal.h"
 #include "rb-media-player-source.h"
 #include "rb-metadata.h"
 #include "rb-missing-files-source.h"
 #include "rb-player.h"
+#include "rb-player-gst-data-tee.h"
 #include "rb-player-gst-filter.h"
 #include "rb-player-gst-tee.h"
 #include "rb-playlist-manager.h"
@@ -94,6 +96,7 @@ rb_metadata_get_type
 rb_missing_files_source_get_type
 rb_player_error_get_type
 rb_player_get_type
+rb_player_gst_data_tee_get_type
 rb_player_gst_filter_get_type
 rb_player_gst_tee_get_type
 rb_playlist_manager_get_type

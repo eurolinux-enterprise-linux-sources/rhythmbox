@@ -14,7 +14,7 @@ libgrilo_la_LIBADD = \
 	$(top_builddir)/shell/librhythmbox-core.la	\
 	$(GRILO_LIBS)
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -29,7 +29,8 @@ AM_CPPFLAGS = 						\
 	-DSHARE_DIR=\"$(pkgdatadir)\"                   \
 	-DDATADIR=\""$(datadir)"\"			\
 	$(RHYTHMBOX_CFLAGS)				\
-	$(GRILO_CFLAGS)
+	$(GRILO_CFLAGS)					\
+	-D_BSD_SOURCE
 
 libgrilo_la_LIBADD += $(NULL)
 

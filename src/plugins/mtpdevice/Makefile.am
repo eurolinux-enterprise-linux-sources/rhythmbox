@@ -5,7 +5,6 @@ plugindatadir = $(PLUGINDATADIR)/mtpdevice
 plugin_LTLIBRARIES = libmtpdevice.la
 
 libmtpdevice_la_SOURCES = \
-	mtpdevice-resources.c \
 	rb-mtp-plugin.c	\
 	rb-mtp-gst.c \
 	rb-mtp-gst.h \
@@ -24,7 +23,7 @@ libmtpdevice_la_LIBADD = 				\
 	$(HAL_LIBS)					\
 	$(MTP_LIBS)
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -45,7 +44,8 @@ AM_CPPFLAGS = 						\
 	$(RHYTHMBOX_CFLAGS)				\
 	$(GUDEV_CFLAGS)					\
 	$(HAL_CFLAGS)					\
-	$(MTP_CFLAGS)
+	$(MTP_CFLAGS)					\
+	-D_BSD_SOURCE
 
 plugin_in_files = mtpdevice.plugin.in
 
@@ -53,21 +53,12 @@ plugin_in_files = mtpdevice.plugin.in
 
 plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
-PLUGIN_RESOURCES = 					\
+gtkbuilderdir = $(plugindatadir)
+gtkbuilder_DATA = 					\
 	mtp-info.ui					\
 	mtp-toolbar.ui
 
-plugin_resource_deps = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir) $(srcdir)/mtpdevice.gresource.xml)
-mtpdevice-resources.c: $(plugin_resource_deps) $(srcdir)/mtpdevice.gresource.xml
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES)		\
-		--target="$@"				\
-		--sourcedir="$(srcdir)"			\
-		--sourcedir="$(builddir)"		\
-		--generate-source "$(srcdir)/mtpdevice.gresource.xml"
+EXTRA_DIST = $(plugin_in_files) $(gtkbuilder_DATA)
 
-BUILT_SOURCES = $(plugin_DATA) mtpdevice-resources.c
-
-EXTRA_DIST = $(plugin_in_files) $(PLUGIN_RESOURCES) mtpdevice.gresource.xml
-
-CLEANFILES = $(BUILT_SOURCES)
-DISTCLEANFILES = $(BUILT_SOURCES)
+CLEANFILES = $(plugin_DATA)
+DISTCLEANFILES = $(plugin_DATA)

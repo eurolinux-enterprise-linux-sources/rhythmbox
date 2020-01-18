@@ -73,9 +73,6 @@ GType			rb_removable_media_manager_get_type	(void);
 
 void			rb_removable_media_manager_scan (RBRemovableMediaManager *manager);
 
-GObject *		rb_removable_media_manager_get_gudev_device (RBRemovableMediaManager *manager, GVolume *volume);
-gboolean		rb_removable_media_manager_device_is_android (RBRemovableMediaManager *manager, GObject *device);
-
 G_END_DECLS
 
 #endif /* __RB_REMOVABLE_MEDIA_MANAGER_H */

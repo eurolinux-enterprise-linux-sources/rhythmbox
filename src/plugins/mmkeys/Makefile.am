@@ -14,7 +14,7 @@ libmmkeys_la_LIBADD =					\
 	$(top_builddir)/shell/librhythmbox-core.la	\
 	$(NULL)
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -30,6 +30,7 @@ AM_CPPFLAGS = 						\
 	-DSHARE_DIR=\"$(pkgdatadir)\"                   \
 	-DDATADIR=\""$(datadir)"\"			\
 	$(RHYTHMBOX_CFLAGS)				\
+	-D_BSD_SOURCE			\
 	$(NULL)
 
 plugin_in_files = mmkeys.plugin.in

@@ -3,7 +3,6 @@ plugindatadir = $(PLUGINDATADIR)/generic-player
 plugin_LTLIBRARIES = libgeneric-player.la
 
 libgeneric_player_la_SOURCES =				\
-	generic-player-resources.c			\
 	rb-generic-player-plugin.c			\
 	rb-generic-player-source.c 			\
 	rb-generic-player-source.h	 		\
@@ -20,7 +19,7 @@ libgeneric_player_la_LDFLAGS = 				\
 	$(TOTEM_PLPARSER_LIBS)				\
 	$(PLUGIN_LIBTOOL_FLAGS)
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -38,19 +37,11 @@ AM_CPPFLAGS = 						\
 	-DSHARE_DIR=\"$(pkgdatadir)\"                   \
 	-DDATADIR=\""$(datadir)"\"			\
 	$(TOTEM_PLPARSER_CFLAGS)			\
-	$(RHYTHMBOX_CFLAGS)
+	$(RHYTHMBOX_CFLAGS)				\
+	-D_BSD_SOURCE
 
-PLUGIN_RESOURCES = generic-player-info.ui generic-player-toolbar.ui
-
-plugin_resource_deps = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir) $(srcdir)/generic-player.gresource.xml)
-generic-player-resources.c: $(plugin_resource_deps) $(srcdir)/generic-player.gresource.xml
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES)		\
-		--target="$@"				\
-		--sourcedir="$(srcdir)"			\
-		--sourcedir="$(builddir)"		\
-		--generate-source "$(srcdir)/generic-player.gresource.xml"
-
-BUILT_SOURCES = generic-player-resources.c
+gtkbuilderdir = $(plugindatadir)
+gtkbuilder_DATA = generic-player-info.ui generic-player-toolbar.ui
 
 plugin_in_files = generic-player.plugin.in
 
@@ -58,7 +49,7 @@ plugin_in_files = generic-player.plugin.in
 
 plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
-EXTRA_DIST = $(PLUGIN_RESOURCES) $(plugin_in_files) generic-player.gresource.xml
+EXTRA_DIST = $(gtkbuilder_DATA) $(plugin_in_files)
 
 CLEANFILES = $(plugin_DATA)
 DISTCLEANFILES = $(plugin_DATA)

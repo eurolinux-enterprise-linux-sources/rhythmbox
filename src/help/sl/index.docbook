@@ -720,11 +720,7 @@
   </sect1>
   <sect1 id="podcast">
   	<title>Vir podcasti</title>
-    <para lang="en">
-		Podcasting is a new way to broadcast audio content over the web; when an
-		author publishes an episode, podcast subscribers are informed, through an
-		XML feed.
-	</para>
+    <para>Podcasting je nov način vsesmernega oddajanja zvočnih vsebin preko mreže; ko avtor objavi epizodo, so naročniki podcasta obveščeni preko XML vira.</para>
     <para>Rhythmbox predvajalnik glasbe vam omogoča naročanje na vire podcastov, da boste ob razpoložljivosti nove epizode obveščeni, lahko jo boste prejeli in predvajali.</para>
     <tip>
       	<para>Več podrobnosti o podcastih in podcastanju lahko najdete z obiskom definicije <ulink url="http://en.wikipedia.org/wiki/Podcast">Podcast</ulink> na strani <ulink url="http://en.wikipedia.org/">Wikipedia</ulink>.</para>
@@ -1207,7 +1203,7 @@
               <entry lang="en">
                 <keycombo>
                   <keycap>Ctrl</keycap>
-                  <keycap>p</keycap>
+                  <keycap>Space</keycap>
                 </keycombo>
               </entry>
               <entry>
@@ -1217,7 +1213,7 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Ctrl</keycap>
+                  <keycap>Alt</keycap>
                   <keycap>Left</keycap>
                 </keycombo>
               </entry>
@@ -1228,34 +1224,12 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Ctrl</keycap>
+                  <keycap>Alt</keycap>
                   <keycap>Right</keycap>
                 </keycombo>
               </entry>
               <entry>
                 <para>Skok na naslednjo skladbo</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>Up</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para lang="en">Increase playback volume</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>Down</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para lang="en">Decrease playback volume</para>
               </entry>
             </row>
             <row>
@@ -1328,21 +1302,30 @@
               <entry>
                 <para>Skoči na predvajano pesem</para>
               </entry>
-	    </row>
-	    <!--
+            </row>
             <row>
-              <entry>
+              <entry lang="en">
                 <keycombo>
                   <keycap>Ctrl</keycap>
                   <keycap>Y</keycap>
                 </keycombo>
               </entry>
               <entry>
-                <para>Clear the search field text and remove all filters in the browser</para>
+                <para>Počisti besedilo iskalnega polja in odstrani vse filtre v brskalniku</para>
               </entry>
-	    </row>
-            -->
+            </row>
             <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>N</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>Ustvari nov seznam predvajanja</para>
+              </entry>
+            </row>
+           <row>
               <entry lang="en">
                 <keycombo>
                   <keycap>Alt</keycap>
@@ -1351,6 +1334,17 @@
               </entry>
               <entry>
                 <para lang="en">Jump to search field</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>O</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>Doda mapo v knjižnico</para>
               </entry>
             </row>
             <row>
@@ -1379,6 +1373,17 @@
             </row>
           </thead>
           <tbody>
+			<row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>W</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>Zapre okno <application>Rhythmbox predvajalnika glasbe</application></para>
+              </entry>
+            </row>
             <row>
               <entry lang="en">
                 <keycombo>
@@ -1404,6 +1409,17 @@
             <row>
               <entry lang="en">
                 <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>D</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>Preklopi način majhnega zaslona</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
                   <keycap>F9</keycap>
                 </keycombo>
               </entry>
@@ -1420,6 +1436,17 @@
               </entry>
               <entry>
                 <para>Pokaže ali skrije stransko vrstico vrste</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>S</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>Pokaže ali skrije drsnik položaja skladbe</para>
               </entry>
             </row>
             <row>

@@ -3,7 +3,6 @@ plugindatadir = $(PLUGINDATADIR)/audiocd
 plugin_LTLIBRARIES = libaudiocd.la
 
 libaudiocd_la_SOURCES =					\
-	audiocd-resources.c				\
 	rb-audiocd-info.c				\
 	rb-audiocd-info.h				\
 	rb-audiocd-plugin.c				\
@@ -19,7 +18,7 @@ libaudiocd_la_LIBADD = \
 	$(top_builddir)/shell/librhythmbox-core.la	\
 	$(TOTEM_PLPARSER_LIBS)
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -38,21 +37,17 @@ AM_CPPFLAGS = 						\
 	-DSHARE_DIR=\"$(pkgdatadir)\"                   \
 	-DDATADIR=\""$(datadir)"\"			\
 	$(TOTEM_PLPARSER_CFLAGS)			\
-	$(RHYTHMBOX_CFLAGS)
+	$(RHYTHMBOX_CFLAGS)				\
+	-DUSE_TOTEM_PL_PARSER				\
+	-D_BSD_SOURCE
 
 libaudiocd_la_LIBADD += $(NULL)
 
-PLUGIN_RESOURCES = album-info.ui audiocd-toolbar.ui
 
-plugin_resource_deps = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir) $(srcdir)/audiocd.gresource.xml)
-audiocd-resources.c: $(plugin_resource_deps) $(srcdir)/audiocd.gresource.xml
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES)		\
-		--target="$@"				\
-		--sourcedir="$(srcdir)"			\
-		--sourcedir="$(builddir)"		\
-		--generate-source "$(srcdir)/audiocd.gresource.xml"
-
-BUILT_SOURCES = audiocd-resources.c
+gtkbuilderdir = $(plugindatadir)
+gtkbuilder_DATA = 					\
+	album-info.ui					\
+	audiocd-toolbar.ui
 
 noinst_PROGRAMS = test-cd
 
@@ -70,7 +65,7 @@ plugin_in_files = audiocd.plugin.in
 
 plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
-EXTRA_DIST = $(PLUGIN_RESOURCES) $(plugin_in_files) audiocd.gresource.xml
+EXTRA_DIST = $(gtkbuilder_DATA) $(plugin_in_files)
 
 CLEANFILES = $(plugin_DATA)
 DISTCLEANFILES = $(plugin_DATA)

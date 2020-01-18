@@ -146,7 +146,6 @@
 #include <gst/controller/gstdirectcontrolbinding.h>
 #include <gst/base/gstbasetransform.h>
 #include <gst/audio/streamvolume.h>
-#include <gst/audio/gstaudiodecoder.h>
 #include <gst/pbutils/pbutils.h>
 
 #include "rb-player.h"
@@ -154,6 +153,7 @@
 #include "rb-debug.h"
 #include "rb-file-helpers.h"
 #include "rb-util.h"
+#include "rb-marshal.h"
 #include "rb-player-gst-tee.h"
 #include "rb-player-gst-filter.h"
 #include "rb-player-gst-helper.h"
@@ -189,8 +189,6 @@ static gboolean start_sink (RBPlayerGstXFade *player, GError **error);
 static gboolean stop_sink (RBPlayerGstXFade *player);
 static void maybe_stop_sink (RBPlayerGstXFade *player);
 
-static gboolean silencesrc_push (RBPlayerGstXFade *player);
-
 GType rb_xfade_stream_get_type (void);
 GType rb_xfade_stream_bin_get_type (void);
 
@@ -211,7 +209,6 @@ G_DEFINE_TYPE_WITH_CODE(RBPlayerGstXFade, rb_player_gst_xfade, G_TYPE_OBJECT,
 #define FADE_OUT_DONE_MESSAGE	"rb-fade-out-done"
 #define FADE_IN_DONE_MESSAGE	"rb-fade-in-done"
 #define STREAM_EOS_MESSAGE	"rb-stream-eos"
-#define STREAM_TAGS_MESSAGE	"rb-stream-tags"
 
 #define PAUSE_FADE_LENGTH	(GST_SECOND / 2)
 
@@ -243,7 +240,6 @@ struct _RBPlayerGstXFadePrivate
 	/* probably don't need to store pointers to these either */
 	GstElement *pipeline;
 	GstElement *outputbin;
-	GstElement *silencesrc;
 	GstElement *silencebin;
 	GstElement *adder;
 	GstElement *capsfilter;
@@ -277,12 +273,6 @@ struct _RBPlayerGstXFadePrivate
 	guint stream_reap_id;
 	guint stop_sink_id;
 	guint bus_watch_id;
-
-	guint bus_idle_id;
-	GList *idle_messages;
-
-	char silence_buffer[1024];
-	guint silence_idle_id;
 };
 
 
@@ -341,7 +331,6 @@ typedef struct
 	GstElement *identity;
 	gboolean decoder_linked;
 	gboolean emitted_playing;
-	gboolean emitted_image;
 	gboolean emitted_fake_playing;
 
 	GstPad *decoder_pad;
@@ -593,13 +582,25 @@ static RBXFadeStream *
 find_stream_for_message (RBPlayerGstXFade *player, GstMessage *message)
 {
 	GstObject *message_src;
+	RBXFadeStream *stream;
 
 	/* first see if the message comes from an element in the stream bin */
 	message_src = GST_MESSAGE_SRC (message);
 	if (GST_IS_PAD (message_src)) {
 		message_src = GST_OBJECT_PARENT (message_src);
 	}
-	return find_stream_by_element (player, GST_ELEMENT (message_src));
+	stream = find_stream_by_element (player, GST_ELEMENT (message_src));
+	if (stream != NULL)
+		return stream;
+
+	/* tag messages are emitted by the sink, so we can't find the message
+	 * source in a stream bin.  attribute them to the first playing stream.
+	 */
+	if (GST_MESSAGE_TYPE (message) == GST_MESSAGE_TAG) {
+		return find_stream_by_state (player, FADING_IN | PLAYING | FADING_OUT_PAUSED | PAUSED | PENDING_REMOVE | REUSING);
+	}
+
+	return NULL;
 }
 
 static void
@@ -664,7 +665,7 @@ rb_player_gst_xfade_class_init (RBPlayerGstXFadeClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlayerGstXFadeClass, prepare_source),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__STRING_OBJECT,
 			      G_TYPE_NONE,
 			      2,
 			      G_TYPE_STRING, GST_TYPE_ELEMENT);
@@ -674,7 +675,7 @@ rb_player_gst_xfade_class_init (RBPlayerGstXFadeClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlayerGstXFadeClass, can_reuse_stream),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_BOOLEAN__STRING_STRING_OBJECT,
 			      G_TYPE_BOOLEAN,
 			      3,
 			      G_TYPE_STRING, G_TYPE_STRING, GST_TYPE_ELEMENT);
@@ -684,7 +685,7 @@ rb_player_gst_xfade_class_init (RBPlayerGstXFadeClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlayerGstXFadeClass, reuse_stream),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__STRING_STRING_OBJECT,
 			      G_TYPE_NONE,
 			      3,
 			      G_TYPE_STRING, G_TYPE_STRING, GST_TYPE_ELEMENT);
@@ -694,7 +695,7 @@ rb_player_gst_xfade_class_init (RBPlayerGstXFadeClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      0,	/* no point handling this internally */
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__POINTER_POINTER_POINTER,
 			      G_TYPE_NONE,
 			      3,
 			      G_TYPE_POINTER, G_TYPE_STRV, G_TYPE_STRV);
@@ -704,7 +705,7 @@ rb_player_gst_xfade_class_init (RBPlayerGstXFadeClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      0,
 			      rb_signal_accumulator_value_array, NULL,
-			      NULL,
+			      rb_marshal_BOXED__STRING,
 			      G_TYPE_ARRAY,
 			      1,
 			      G_TYPE_STRING);
@@ -784,14 +785,6 @@ rb_player_gst_xfade_dispose (GObject *object)
 
 	g_rec_mutex_lock (&player->priv->sink_lock);
 	stop_sink (player);
-
-	if (player->priv->bus_idle_id != 0) {
-		g_source_remove (player->priv->bus_idle_id);
-		player->priv->bus_idle_id = 0;
-
-		rb_list_destroy_free (player->priv->idle_messages, (GDestroyNotify) gst_mini_object_unref);
-		player->priv->idle_messages = NULL;
-	}
 	g_rec_mutex_unlock (&player->priv->sink_lock);
 
 	if (player->priv->pipeline != NULL) {
@@ -1131,10 +1124,8 @@ link_and_unblock_stream (RBXFadeStream *stream, GError **error)
 	if (stream->src_blocked) {
 		GstStateChangeReturn state_ret;
 
-		if (stream->block_probe_id != 0) {
-			gst_pad_remove_probe (stream->src_pad, stream->block_probe_id);
-			stream->block_probe_id = 0;
-		}
+		gst_pad_remove_probe (stream->src_pad, stream->block_probe_id);
+		stream->block_probe_id = 0;
 
 		rb_debug ("stream %s is unblocked -> FADING_IN | PLAYING", stream->uri);
 		stream->src_blocked = FALSE;
@@ -1196,7 +1187,6 @@ reuse_stream (RBXFadeStream *stream)
 	stream->new_stream_data_destroy = NULL;
 
 	stream->emitted_playing = FALSE;
-	stream->emitted_image = FALSE;
 }
 
 
@@ -1303,7 +1293,6 @@ unlink_reuse_relink (RBPlayerGstXFade *player, RBXFadeStream *stream)
 
 	stream->needs_unlink = FALSE;
 	stream->emitted_playing = FALSE;
-	stream->emitted_image = FALSE;
 
 	g_mutex_unlock (&stream->lock);
 
@@ -1353,7 +1342,6 @@ unlink_blocked_cb (GstPad *pad, GstPadProbeInfo *info, RBXFadeStream *stream)
 
 	stream->src_blocked = TRUE;
 	stream->emitted_playing = FALSE;
-	stream->emitted_image = FALSE;
 
 	stream_state = stream->state;
 	player = stream->player;
@@ -1543,17 +1531,13 @@ process_tag (const GstTagList *list, const gchar *tag, RBXFadeStream *stream)
 
 	/* process embedded images */
 	if (!g_strcmp0 (tag, GST_TAG_IMAGE) || !g_strcmp0 (tag, GST_TAG_PREVIEW_IMAGE)) {
-		if (stream->emitted_playing == FALSE || stream->emitted_image == FALSE) {
-			GdkPixbuf *pixbuf;
-			pixbuf = rb_gst_process_embedded_image (list, tag);
-			if (pixbuf != NULL) {
-				_rb_player_emit_image (RB_PLAYER (stream->player),
-						       stream->stream_data,
-						       pixbuf);
-				g_object_unref (pixbuf);
-				stream->emitted_image = TRUE;
-				rb_debug ("emitting tag %s (p %d)", tag, stream->emitted_playing);
-			}
+		GdkPixbuf *pixbuf;
+		pixbuf = rb_gst_process_embedded_image (list, tag);
+		if (pixbuf != NULL) {
+			_rb_player_emit_image (RB_PLAYER (stream->player),
+					       stream->stream_data,
+					       pixbuf);
+			g_object_unref (pixbuf);
 		}
 	} else if (rb_gst_process_tag_string (list, tag, &field, &value)) {
 		rb_debug ("emitting info field %d", field);
@@ -1729,6 +1713,24 @@ rb_player_gst_xfade_bus_cb (GstBus *bus, GstMessage *message, RBPlayerGstXFade *
 		g_free (debug);
 		break;
 	}
+	case GST_MESSAGE_TAG:
+		if (stream == NULL) {
+			rb_debug ("got tag message for unknown stream");
+		} else {
+			GstTagList *tags;
+			gst_message_parse_tag (message, &tags);
+
+			g_mutex_lock (&stream->lock);
+			if (stream->emitted_playing) {
+				gst_tag_list_foreach (tags, (GstTagForeachFunc) process_tag, stream);
+				gst_tag_list_free (tags);
+			} else {
+				stream->tags = g_list_append (stream->tags, tags);
+			}
+			g_mutex_unlock (&stream->lock);
+		}
+		break;
+
 	case GST_MESSAGE_DURATION:
 		if (stream == NULL) {
 			rb_debug ("got duration message for unknown stream");
@@ -1837,23 +1839,6 @@ rb_player_gst_xfade_bus_cb (GstBus *bus, GstMessage *message, RBPlayerGstXFade *
 
 				unlink_reuse_relink (player, stream);
 			}
-		} else if (strcmp (name, STREAM_TAGS_MESSAGE) == 0) {
-			GstTagList *tags;
-			const GValue *value;
-
-			if (stream != NULL) {
-				value = gst_structure_get_value (structure, "tags");
-				tags = GST_TAG_LIST (g_value_get_boxed (value));
-
-				g_mutex_lock (&stream->lock);
-				if (stream->emitted_playing) {
-					gst_tag_list_foreach (tags, (GstTagForeachFunc) process_tag, stream);
-					gst_tag_list_free (tags);
-				} else {
-					stream->tags = g_list_append (stream->tags, tags);
-				}
-				g_mutex_unlock (&stream->lock);
-			}
 
 		} else {
 			_rb_player_emit_event (RB_PLAYER (player), stream->stream_data, name, NULL);
@@ -1895,20 +1880,7 @@ rb_player_gst_xfade_bus_cb (GstBus *bus, GstMessage *message, RBPlayerGstXFade *
 				}
 				break;
 
-			case PAUSED:
-				rb_debug ("stream %s is buffered, leaving paused", stream->uri);
-				break;
-
 			default:
-				/* make sure we're not going to remove it */
-				g_mutex_lock (&stream->lock);
-				if (stream->block_probe_id != 0) {
-					gst_pad_remove_probe (stream->src_pad, stream->block_probe_id);
-					stream->block_probe_id = 0;
-					stream->needs_unlink = FALSE;
-				}
-				g_mutex_unlock (&stream->lock);
-
 				rb_debug ("stream %s is buffered, resuming", stream->uri);
 				link_and_unblock_stream (stream, &error);
 				if (error) {
@@ -1995,26 +1967,6 @@ rb_player_gst_xfade_bus_cb (GstBus *bus, GstMessage *message, RBPlayerGstXFade *
 	return TRUE;
 }
 
-static gboolean
-bus_idle_cb (RBPlayerGstXFade *player)
-{
-	GList *messages, *l;
-	GstBus *bus;
-
-	g_rec_mutex_lock (&player->priv->sink_lock);
-	messages = player->priv->idle_messages;
-	player->priv->idle_messages = NULL;
-	player->priv->bus_idle_id = 0;
-	g_rec_mutex_unlock (&player->priv->sink_lock);
-
-	bus = gst_element_get_bus (GST_ELEMENT (player->priv->pipeline));
-	for (l = messages; l != NULL; l = l->next)
-		rb_player_gst_xfade_bus_cb (bus, l->data, player);
-
-	rb_list_destroy_free (messages, (GDestroyNotify) gst_mini_object_unref);
-	return FALSE;
-}
-
 static void
 stream_source_setup_cb (GstElement *decoder, GstElement *source, RBXFadeStream *stream)
 {
@@ -2094,8 +2046,6 @@ stream_src_event_cb (GstPad *pad, GstPadProbeInfo *info, RBXFadeStream *stream)
 	GstMessage *msg;
 	GstEvent *event;
 	GstStructure *s;
-	GstTagList *tags;
-	GValue v = {0,};
 
 	event = GST_EVENT (info->data);
 
@@ -2123,19 +2073,6 @@ stream_src_event_cb (GstPad *pad, GstPadProbeInfo *info, RBXFadeStream *stream)
 	case GST_EVENT_FLUSH_START:
 		rb_debug ("dropping %s event for stream %s", GST_EVENT_TYPE_NAME (event), stream->uri);
 		return GST_PAD_PROBE_DROP;
-
-	case GST_EVENT_TAG:
-		rb_debug ("got tags from stream %s", stream->uri);
-		gst_event_parse_tag (event, &tags);
-
-		s = gst_structure_new_empty (STREAM_TAGS_MESSAGE);
-		g_value_init (&v, GST_TYPE_TAG_LIST);
-		g_value_set_boxed (&v, gst_tag_list_ref (tags));
-		gst_structure_take_value (s, "tags", &v);
-
-		msg = gst_message_new_application (GST_OBJECT (stream), s);
-		gst_element_post_message (GST_ELEMENT (stream), msg);
-		break;
 
 	default:
 		rb_debug ("got %s event for stream %s", GST_EVENT_TYPE_NAME (event), stream->uri);
@@ -2303,7 +2240,7 @@ create_stream (RBPlayerGstXFade *player, const char *uri, gpointer stream_data, 
 			       stream->volume,
 			       NULL);
 
-	if (rb_debug_matches ("check-imperfect", "check-imperfect")) {
+	if (rb_debug_matches ("check-imperfect", __FILE__)) {
 
 		if (rb_debug_matches ("check-imperfect-timestamp", __FILE__)) {
 			g_object_set (stream->identity, "check-imperfect-timestamp", TRUE, NULL);
@@ -2547,8 +2484,6 @@ stream_src_blocked_cb (GstPad *pad, GstPadProbeInfo *info, RBXFadeStream *stream
 {
 	GError *error = NULL;
 	gboolean start_stream = FALSE;
-	GstElement *src;
-	GstQuery *query;
 
 	g_mutex_lock (&stream->lock);
 	if (stream->src_blocked) {
@@ -2562,18 +2497,6 @@ stream_src_blocked_cb (GstPad *pad, GstPadProbeInfo *info, RBXFadeStream *stream
 		      "min-threshold-time", G_GINT64_CONSTANT (0),
 		      "max-size-buffers", 200,		/* back to normal value */
 		      NULL);
-
-	g_object_get (stream->decoder, "source", &src, NULL);
-	query = gst_query_new_scheduling ();
-	if (gst_element_query (src, query)) {
-		GstSchedulingFlags flags;
-		gst_query_parse_scheduling (query, &flags, NULL, NULL, NULL);
-
-		/* this matches how uridecodebin decides whether to do buffering */
-		stream->use_buffering = (flags & GST_SCHEDULING_FLAG_BANDWIDTH_LIMITED);
-	}
-	gst_query_unref (query);
-	g_object_unref (src);
 
 	if (stream->use_buffering) {
 		rb_debug ("stream %s requires buffering", stream->uri);
@@ -2629,7 +2552,6 @@ preroll_stream (RBPlayerGstXFade *player, RBXFadeStream *stream)
 {
 	GstStateChangeReturn state;
 	GstMessage *message;
-	GList *messages;
 	GstBus *bus;
 
 	stream->block_probe_id =
@@ -2646,21 +2568,15 @@ preroll_stream (RBPlayerGstXFade *player, RBXFadeStream *stream)
 	case GST_STATE_CHANGE_FAILURE:
 		rb_debug ("preroll for stream %s failed (state change failed)", stream->uri);
 
-		/* process messages in an idle handler in case we got a redirect */
+		/* process bus messages in case we got a redirect for this stream */
 		bus = gst_element_get_bus (GST_ELEMENT (player->priv->pipeline));
-		messages = NULL;
 		message = gst_bus_pop (bus);
 		while (message != NULL) {
-			messages = g_list_prepend (messages, message);
+			rb_player_gst_xfade_bus_cb (bus, message, player);
+			gst_message_unref (message);
 			message = gst_bus_pop (bus);
 		}
 		g_object_unref (bus);
-
-		g_rec_mutex_lock (&player->priv->sink_lock);
-		player->priv->idle_messages = g_list_concat (player->priv->idle_messages, g_list_reverse (messages));
-		if (player->priv->bus_idle_id == 0)
-			player->priv->bus_idle_id = g_idle_add ((GSourceFunc) bus_idle_cb, player);
-		g_rec_mutex_unlock (&player->priv->sink_lock);
 		break;
 
 	case GST_STATE_CHANGE_NO_PREROLL:
@@ -2806,7 +2722,7 @@ stream_volume_changed (GObject *element, GParamSpec *pspec, RBPlayerGstXFade *pl
  *
  * outputcaps = audio/x-raw,channels=2,rate=44100,format=S16LE
  * outputbin = outputcaps ! volume ! filterbin ! audioconvert ! audioresample ! tee ! queue ! audiosink
- * silencebin = appsrc ! outputcaps
+ * silencebin = audiotestsrc wave=silence ! outputcaps
  *
  * pipeline = silencebin ! adder ! outputbin
  *
@@ -2870,9 +2786,6 @@ start_sink_locked (RBPlayerGstXFade *player, GList **messages, GError **error)
 		return FALSE;
 	}
 
-	/* give the silence bin some data so it can preroll */
-	silencesrc_push (player);
-
 	/* now wait for everything to finish */
 	waiting = TRUE;
 	bus = gst_element_get_bus (GST_ELEMENT (player->priv->pipeline));
@@ -2881,17 +2794,6 @@ start_sink_locked (RBPlayerGstXFade *player, GList **messages, GError **error)
 		GstState oldstate;
 		GstState newstate;
 		GstState pending;
-
-		/*
-		 * when a second message is posted immediately after the first,
-		 * this loop finishes processing the first at roughly the time the
-		 * second is posted, so occasionally we'll hit this bug:
-		 * https://bugzilla.gnome.org/show_bug.cgi?id=750397
-		 * sleeping for 10us makes the read loop slow enough to avoid the
-		 * race with state-changed and async-done messages, but hopefully
-		 * not so much slower that we run into it in other conditions.
-		 */
-		g_usleep (10);
 
 		message = gst_bus_timed_pop (bus, GST_SECOND * 5);
 		if (message == NULL) {
@@ -2923,10 +2825,10 @@ start_sink_locked (RBPlayerGstXFade *player, GList **messages, GError **error)
 					g_free (debug);
 
 					if (error != NULL && *error == NULL) {
+						/* Translators: the parameter here is an error message */
 						g_set_error (error,
 							     RB_PLAYER_ERROR,
 							     RB_PLAYER_ERROR_INTERNAL,		/* ? */
-							     /* Translators: the parameter here is an error message */
 							     _("Failed to open output device: %s"),
 							     gst_error->message);
 					}
@@ -3041,6 +2943,8 @@ static gboolean
 start_sink (RBPlayerGstXFade *player, GError **error)
 {
 	GList *messages = NULL;
+	GList *t;
+	GstBus *bus;
 	gboolean ret;
 
 	g_rec_mutex_lock (&player->priv->sink_lock);
@@ -3053,10 +2957,6 @@ start_sink (RBPlayerGstXFade *player, GError **error)
 		/* prevent messages from being processed by the main thread while we're starting the sink */
 		g_source_remove (player->priv->bus_watch_id);
 		ret = start_sink_locked (player, &messages, error);
-
-		player->priv->idle_messages = g_list_concat (player->priv->idle_messages, messages);
-		if (player->priv->bus_idle_id == 0)
-			player->priv->bus_idle_id = g_idle_add ((GSourceFunc) bus_idle_cb, player);
 		add_bus_watch (player);
 		break;
 
@@ -3069,6 +2969,13 @@ start_sink (RBPlayerGstXFade *player, GError **error)
 	}
 	g_rec_mutex_unlock (&player->priv->sink_lock);
 
+	bus = gst_element_get_bus (GST_ELEMENT (player->priv->pipeline));
+	for (t = messages; t != NULL; t = t->next) {
+		rb_player_gst_xfade_bus_cb (bus, t->data, player);
+	}
+	gst_object_unref (bus);
+
+	rb_list_destroy_free (messages, (GDestroyNotify) gst_mini_object_unref);
 	return ret;
 }
 
@@ -3135,39 +3042,12 @@ stop_sink (RBPlayerGstXFade *player)
 	return TRUE;
 }
 
-static void
-silencesrc_free_buffer(gpointer d)
-{
-}
-
-static gboolean
-silencesrc_push (RBPlayerGstXFade *player)
-{
-	GstBuffer *buffer;
-	GstFlowReturn ret;
-
-	buffer = gst_buffer_new_wrapped_full (GST_MEMORY_FLAG_READONLY,
-					      player->priv->silence_buffer,
-					      sizeof(player->priv->silence_buffer),
-					      0,
-					      sizeof(player->priv->silence_buffer),
-					      silencesrc_free_buffer,
-					      NULL);
-	g_signal_emit_by_name (player->priv->silencesrc, "push-buffer", buffer, &ret);
-	gst_buffer_unref (buffer);
-
-	return (ret == GST_FLOW_OK);
-}
-
-static void
-silencesrc_need_data_cb (GstElement *appsrc, guint size, RBPlayerGstXFade *player)
-{
-	silencesrc_push (player);
-}
 
 static gboolean
 create_sink (RBPlayerGstXFade *player, GError **error)
 {
+	const char *try_sinks[] = { "gsettingsaudiosink", "gconfaudiosink", "autoaudiosink" };
+	GstElement *audiotestsrc;
 	GstElement *audioconvert;
 	GstElement *audioresample;
 	GstElement *capsfilter;
@@ -3180,6 +3060,7 @@ create_sink (RBPlayerGstXFade *player, GError **error)
 	GstPad *addersrcpad;
 	GstPadLinkReturn plr;
 	GList *l;
+	int i;
 
 	if (player->priv->sink_state != SINK_NULL)
 		return TRUE;
@@ -3233,7 +3114,12 @@ create_sink (RBPlayerGstXFade *player, GError **error)
 		return FALSE;
 	}
 
-	player->priv->sink = rb_player_gst_try_audio_sink ("autoaudiosink", NULL);
+	for (i = 0; i < G_N_ELEMENTS (try_sinks); i++) {
+		player->priv->sink = rb_player_gst_try_audio_sink (try_sinks[i], NULL);
+		if (player->priv->sink != NULL) {
+			break;
+		}
+	}
 	if (player->priv->sink == NULL) {
 		g_set_error (error,
 			     RB_PLAYER_ERROR,
@@ -3283,18 +3169,8 @@ create_sink (RBPlayerGstXFade *player, GError **error)
 
 	/* create silence bin */
 	player->priv->silencebin = gst_bin_new ("silencebin");
-
-	/*
-	 * audiotestsrc is the sensible thing to use here, except that with the
-	 * silent waveform it produces buffers with the GAP flag set, which currently
-	 * cause pulsesink to screw up.
-	 *
-	 * to get around this, for now we produce silence using an appsrc instead.
-	 */
-	player->priv->silencesrc = gst_element_factory_make ("appsrc", "silencesrc");
-	g_object_set (player->priv->silencesrc, "caps", caps, "format", GST_FORMAT_TIME, NULL);
-
-	g_signal_connect (player->priv->silencesrc, "need-data", G_CALLBACK (silencesrc_need_data_cb), player);
+	audiotestsrc = gst_element_factory_make ("audiotestsrc", "silence");
+	g_object_set (audiotestsrc, "wave", 4, NULL);
 
 	audioconvert = gst_element_factory_make ("audioconvert", "silenceconvert");
 
@@ -3302,7 +3178,7 @@ create_sink (RBPlayerGstXFade *player, GError **error)
 	g_object_set (capsfilter, "caps", caps, NULL);
 	gst_caps_unref (caps);
 
-	if (player->priv->silencesrc == NULL ||
+	if (audiotestsrc == NULL ||
 	    audioconvert == NULL ||
 	    capsfilter == NULL) {
 		g_set_error (error,
@@ -3313,11 +3189,11 @@ create_sink (RBPlayerGstXFade *player, GError **error)
 	}
 
 	gst_bin_add_many (GST_BIN (player->priv->silencebin),
-			  player->priv->silencesrc,
+			  audiotestsrc,
 			  audioconvert,
 			  capsfilter,
 			  NULL);
-	if (gst_element_link_many (player->priv->silencesrc,
+	if (gst_element_link_many (audiotestsrc,
 				   audioconvert,
 				   capsfilter,
 				   NULL) == FALSE) {

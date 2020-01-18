@@ -36,6 +36,7 @@
 
 #include "rb-shell-player.h"
 #include "rb-debug.h"
+#include "rb-marshal.h"
 
 /**
  * SECTION:rb-play-order
@@ -172,7 +173,7 @@ rb_play_order_class_init (RBPlayOrderClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlayOrderClass, have_next_previous_changed),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__BOOLEAN_BOOLEAN,
 			      G_TYPE_NONE,
 			      2, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
 
@@ -394,7 +395,7 @@ rb_play_order_set_playing_entry (RBPlayOrder *porder,
  *
  * Returns the current playing entry in the play order.
  *
- * Returns: (transfer full): playing entry
+ * Returns: (transfer full) playing entry
  */
 RhythmDBEntry *
 rb_play_order_get_playing_entry (RBPlayOrder *porder)
@@ -634,6 +635,8 @@ sync_playing_entry_cb (RBPlayOrder *porder)
 {
 	RBShellPlayer *player;
 
+	GDK_THREADS_ENTER ();
+	
 	player = rb_play_order_get_player (porder);
 
 	if (porder->priv->playing_entry) {
@@ -652,6 +655,8 @@ sync_playing_entry_cb (RBPlayOrder *porder)
 		}
 	}
 	porder->priv->sync_playing_entry_id = 0;
+
+	GDK_THREADS_LEAVE ();
 	return FALSE;
 }
 
@@ -875,3 +880,19 @@ rb_play_order_update_have_next_previous (RBPlayOrder *porder)
 		porder->priv->have_previous = have_previous;
 	}
 }
+
+/* annotations for methods */
+
+/**
+ * get_next:
+ * @porder: the play order
+ *
+ * Return value: (transfer full): the next entry
+ */
+
+/**
+ * get_previous:
+ * @porder: the play order
+ *
+ * Return value: (transfer full): the previous entry
+ */

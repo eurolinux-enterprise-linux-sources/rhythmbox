@@ -60,6 +60,9 @@ struct _RBTrackTransferBatchClass
 	void	(*cancelled)		(RBTrackTransferBatch *batch);
 	void	(*complete)		(RBTrackTransferBatch *batch);
 
+	char *	(*configure_profile)	(RBTrackTransferBatch *batch,
+					 const char *mediatype,
+					 GstEncodingProfile *profile);
 	char *  (*get_dest_uri)		(RBTrackTransferBatch *batch,
 					 RhythmDBEntry *entry,
 					 const char *mediatype,
@@ -86,10 +89,8 @@ struct _RBTrackTransferBatchClass
 GType			rb_track_transfer_batch_get_type	(void);
 
 RBTrackTransferBatch *	rb_track_transfer_batch_new		(GstEncodingTarget *target,
-								 GSettings *settings,
 								 GObject *source,
-								 GObject *destination,
-								 GObject *queue);
+								 GObject *destination);
 void			rb_track_transfer_batch_add		(RBTrackTransferBatch *batch,
 								 RhythmDBEntry *entry);
 
@@ -100,8 +101,8 @@ gboolean		rb_track_transfer_batch_check_profiles  (RBTrackTransferBatch *batch,
 void			rb_track_transfer_batch_cancel		(RBTrackTransferBatch *batch);
 
 /* called by the transfer queue */
-void			_rb_track_transfer_batch_start		(RBTrackTransferBatch *batch);
-
+void			_rb_track_transfer_batch_start		(RBTrackTransferBatch *batch,
+								 GObject *queue);	/* eh */
 void			_rb_track_transfer_batch_cancel		(RBTrackTransferBatch *batch);
 
 void			_rb_track_transfer_batch_continue	(RBTrackTransferBatch *batch,

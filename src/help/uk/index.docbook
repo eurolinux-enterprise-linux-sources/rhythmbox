@@ -710,11 +710,7 @@
   </sect1>
   <sect1 id="podcast">
   	<title>Подкасти</title>
-    <para lang="en">
-		Podcasting is a new way to broadcast audio content over the web; when an
-		author publishes an episode, podcast subscribers are informed, through an
-		XML feed.
-	</para>
+    <para>Подкастинг - це новий спосіб трансляції аудіо-контента через Інтернет. Якщо автор публікує черговий епізод, він інформує передплатників подкаста через канал XML.</para>
     <para>Rhythmbox Music Player дозволяє Вам підписуватись на подкаст-канали, і якщо новий епізод доступний, Вас буде поінформовано, а Rhythmbox завантажить цей епізод, і відтворить його.</para>
     <tip>
       	<para>Ви можете знайти більш детальну інформацію про подкасти та подкастинг, відвідавши сторінку <ulink url="http://en.wikipedia.org/wiki/Podcast">Podcast</ulink> на веб-сайті <ulink url="http://en.wikipedia.org/">Wikipedia</ulink>.</para>
@@ -1197,7 +1193,7 @@
               <entry lang="en">
                 <keycombo>
                   <keycap>Ctrl</keycap>
-                  <keycap>p</keycap>
+                  <keycap>Space</keycap>
                 </keycombo>
               </entry>
               <entry>
@@ -1207,7 +1203,7 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Ctrl</keycap>
+                  <keycap>Alt</keycap>
                   <keycap>Left</keycap>
                 </keycombo>
               </entry>
@@ -1218,34 +1214,12 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Ctrl</keycap>
+                  <keycap>Alt</keycap>
                   <keycap>Right</keycap>
                 </keycombo>
               </entry>
               <entry>
                 <para>Перейти до наступної доріжки</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>Up</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para lang="en">Increase playback volume</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>Down</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para lang="en">Decrease playback volume</para>
               </entry>
             </row>
             <row>
@@ -1318,21 +1292,30 @@
               <entry>
                 <para>Перейти до відтворюваної пісні</para>
               </entry>
-	    </row>
-	    <!--
+            </row>
             <row>
-              <entry>
+              <entry lang="en">
                 <keycombo>
                   <keycap>Ctrl</keycap>
                   <keycap>Y</keycap>
                 </keycombo>
               </entry>
               <entry>
-                <para>Clear the search field text and remove all filters in the browser</para>
+                <para>Очистити текстове поле пошуку та вилучити всі фільтри з переглядача</para>
               </entry>
-	    </row>
-            -->
+            </row>
             <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>N</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>Створити новий список компзицій</para>
+              </entry>
+            </row>
+           <row>
               <entry lang="en">
                 <keycombo>
                   <keycap>Alt</keycap>
@@ -1341,6 +1324,17 @@
               </entry>
               <entry>
                 <para lang="en">Jump to search field</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>O</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>Додати теку до фонотеки</para>
               </entry>
             </row>
             <row>
@@ -1369,6 +1363,17 @@
             </row>
           </thead>
           <tbody>
+			<row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>W</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>Закрити вікно <application>Rhythmbox Music Player</application></para>
+              </entry>
+            </row>
             <row>
               <entry lang="en">
                 <keycombo>
@@ -1394,6 +1399,17 @@
             <row>
               <entry lang="en">
                 <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>D</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>Ввімкнути / вимкнути мінімізований режим</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
                   <keycap>F9</keycap>
                 </keycombo>
               </entry>
@@ -1410,6 +1426,17 @@
               </entry>
               <entry>
                 <para>Показати / сховати чергу в бічній панелі</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>S</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para>Показати / сховати повзунок позиції відтворення</para>
               </entry>
             </row>
             <row>

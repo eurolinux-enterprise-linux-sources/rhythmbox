@@ -42,6 +42,7 @@
 #include "rhythmdb.h"
 #include "rb-shell.h"
 #include "rb-daap-source.h"
+#include "rb-stock-icons.h"
 #include "rb-debug.h"
 #include "rb-util.h"
 #include "rb-file-helpers.h"
@@ -52,8 +53,6 @@
 #include "rb-display-page.h"
 #include "rb-builder-helpers.h"
 #include "rb-application.h"
-#include "rb-task-list.h"
-#include "rb-task-progress-simple.h"
 
 #include "rb-daap-plugin.h"
 
@@ -76,6 +75,7 @@ static void rb_daap_source_get_property  (GObject *object,
 				 	  GParamSpec *pspec);
 
 static void rb_daap_source_selected (RBDisplayPage *page);
+static void rb_daap_source_get_status (RBDisplayPage *page, char **text, char **progress_text, float *progress);
 static void disconnect_action_cb (GSimpleAction *, GVariant *, gpointer);
 
 static void rb_daap_entry_type_class_init (RBDAAPEntryTypeClass *klass);
@@ -93,7 +93,8 @@ struct RBDAAPSourcePrivate
 
 	GSList *playlist_sources;
 
-	RBTaskProgress *connection_status;
+	const char *connection_status;
+	float connection_progress;
 
 	gboolean tried_password;
 	gboolean disconnecting;
@@ -148,7 +149,6 @@ rb_daap_source_dispose (GObject *object)
 
 	/* we should already have been disconnected */
 	g_assert (source->priv->connection == NULL);
-	g_clear_object (&source->priv->connection_status);
 
 	G_OBJECT_CLASS (rb_daap_source_parent_class)->dispose (object);
 }
@@ -179,10 +179,11 @@ rb_daap_source_class_init (RBDAAPSourceClass *klass)
 	object_class->set_property = rb_daap_source_set_property;
 
 	page_class->selected = rb_daap_source_selected;
+	page_class->get_status = rb_daap_source_get_status;
 
-	source_class->can_cut = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_copy = (RBSourceFeatureFunc) rb_true_function;
-	source_class->can_delete = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_cut = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_copy = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_can_delete = (RBSourceFeatureFunc) rb_false_function;
 
 	browser_source_class->has_drop_support = (RBBrowserSourceFeatureFunc) rb_false_function;
 
@@ -324,7 +325,7 @@ rb_daap_source_new (RBShell *shell,
 {
 	RBSource *source;
 	RhythmDBEntryType *entry_type;
-	GIcon *icon;
+	GdkPixbuf *icon;
 	RhythmDB *db;
 	char *entry_type_name;
 	GSettings *settings;
@@ -357,7 +358,7 @@ rb_daap_source_new (RBShell *shell,
 					  "host", host,
 					  "port", port,
 					  "entry-type", entry_type,
-					  "icon", icon,
+					  "pixbuf", icon,
 					  "shell", shell,
 					  "visibility", TRUE,
 					  "password-protected", password_protected,
@@ -368,7 +369,10 @@ rb_daap_source_new (RBShell *shell,
 					  NULL));
 	g_object_unref (settings);
 	g_object_unref (builder);
-	g_object_unref (icon);
+
+	if (icon != NULL) {
+		g_object_unref (icon);
+	}
 
 	rb_shell_register_entry_type_for_source (shell, source, entry_type);
 
@@ -487,8 +491,8 @@ connection_auth_cb (DMAPConnection *connection,
                     gboolean        retrying,
 		    RBDAAPSource   *source)
 {
-#ifdef WITH_LIBSECRET
 	gchar *password = NULL;
+#ifdef WITH_LIBSECRET
 	GError *error = NULL;
 
 	if (!source->priv->tried_password) {
@@ -522,8 +526,8 @@ connection_connecting_cb (DMAPConnection       *connection,
 			  float		        progress,
 			  RBDAAPSource         *source)
 {
-	GIcon *icon;
-	gboolean is_connected;
+	GdkPixbuf *icon;
+	gboolean   is_connected;
 	GObject *plugin;
 
 	rb_debug ("DAAP connection status: %d/%f", state, progress);
@@ -531,6 +535,7 @@ connection_connecting_cb (DMAPConnection       *connection,
 	switch (state) {
 	case DMAP_GET_INFO:
 	case DMAP_LOGIN:
+		source->priv->connection_status = _("Connecting to music share");
 		break;
 	case DMAP_GET_REVISION_NUMBER:
 		g_object_set (source, "load-status", RB_SOURCE_LOAD_STATUS_LOADING, NULL);
@@ -538,17 +543,16 @@ connection_connecting_cb (DMAPConnection       *connection,
 	case DMAP_GET_SONGS:
 	case DMAP_GET_PLAYLISTS:
 	case DMAP_GET_PLAYLIST_ENTRIES:
-		g_object_set (source->priv->connection_status,
-			      "task-label", _("Retrieving songs from music share"),
-			      "task-progress", progress,
-			      NULL);
+		source->priv->connection_status = _("Retrieving songs from music share");
 		break;
 	case DMAP_DONE:
 		g_object_set (source, "load-status", RB_SOURCE_LOAD_STATUS_LOADED, NULL);
-		g_object_set (source->priv->connection_status, "task-outcome", RB_TASK_OUTCOME_COMPLETE, NULL);
 	case DMAP_LOGOUT:
+		source->priv->connection_status = NULL;
 		break;
 	}
+
+	source->priv->connection_progress = progress;
 
 	rb_display_page_notify_status_changed (RB_DISPLAY_PAGE (source));
 
@@ -560,8 +564,11 @@ connection_connecting_cb (DMAPConnection       *connection,
 	icon = rb_daap_plugin_get_icon (RB_DAAP_PLUGIN (plugin),
 					source->priv->password_protected,
 					is_connected);
-	g_object_set (source, "icon", icon, NULL);
-	g_clear_object (&icon);
+	g_object_set (source, "pixbuf", icon, NULL);
+	if (icon != NULL) {
+		g_object_unref (icon);
+	}
+
 	g_object_unref (plugin);
 }
 
@@ -569,8 +576,8 @@ static void
 connection_disconnected_cb (DMAPConnection   *connection,
 			    RBDAAPSource     *source)
 {
-	GIcon *icon;
-	GObject *plugin;
+	GdkPixbuf *icon;
+	GObject   *plugin;
 
 	rb_debug ("DAAP connection disconnected");
 
@@ -582,8 +589,10 @@ connection_disconnected_cb (DMAPConnection   *connection,
 		icon = rb_daap_plugin_get_icon (RB_DAAP_PLUGIN (plugin),
 						source->priv->password_protected,
 						FALSE);
-		g_object_set (source, "icon", icon, NULL);
-		g_clear_object (&icon);
+		g_object_set (source, "pixbuf", icon, NULL);
+		if (icon != NULL) {
+			g_object_unref (icon);
+		}
 	}
 
 	g_object_unref (plugin);
@@ -612,7 +621,6 @@ rb_daap_source_connection_cb (DMAPConnection   *connection,
 {
 	RBDAAPSource *daap_source = RB_DAAP_SOURCE (source);
 	RBShell *shell = NULL;
-	GSettings *settings;
 	GSList *playlists;
 	GSList *l;
 	RhythmDBEntryType *entry_type;
@@ -636,14 +644,21 @@ rb_daap_source_connection_cb (DMAPConnection   *connection,
 	g_object_get (daap_source,
 		      "shell", &shell,
 		      "entry-type", &entry_type,
-		      "settings", &settings,
 		      NULL);
 	playlists = dmap_connection_get_playlists (DMAP_CONNECTION (daap_source->priv->connection));
 	for (l = playlists; l != NULL; l = g_slist_next (l)) {
 		DMAPPlaylist *playlist = l->data;
 		RBSource *playlist_source;
+		char *settings_name;
 
-		playlist_source = rb_static_playlist_source_new (shell, playlist->name, settings, FALSE, entry_type);
+		/* Construct a unique settings name for this playlist, as <Share Name>_<Playlist> */
+		/* XXX disabled for now, not sure it's a good idea */
+		/*settings_name = g_strjoin (NULL, daap_source->priv->service_name, "_", playlist->name, NULL); */
+
+		settings_name = "/org/gnome/rhythmbox/plugins/daap/source";
+
+		playlist_source = rb_static_playlist_source_new (shell, playlist->name, settings_name, FALSE, entry_type);
+		/*g_free (settings_name);*/
 
 		g_list_foreach (playlist->uris, (GFunc)_add_location_to_playlist, playlist_source);
 
@@ -651,7 +666,6 @@ rb_daap_source_connection_cb (DMAPConnection   *connection,
 		daap_source->priv->playlist_sources = g_slist_prepend (daap_source->priv->playlist_sources, playlist_source);
 	}
 
-	g_object_unref (settings);
 	g_object_unref (shell);
 	g_object_unref (entry_type);
 }
@@ -666,7 +680,6 @@ rb_daap_source_selected (RBDisplayPage *page)
 	DMAPDb *db = NULL;
 	char *name = NULL;
 	RhythmDBEntryType *entry_type;
-	RBTaskList *tasklist;
 
 	RB_DISPLAY_PAGE_CLASS (rb_daap_source_parent_class)->selected (page);
 
@@ -679,21 +692,10 @@ rb_daap_source_selected (RBDisplayPage *page)
 		      "name", &name,
 		      "entry-type", &entry_type,
 		      NULL);
-	g_object_get (shell,
-		      "db", &rdb,
-		      "task-list", &tasklist,
-		      NULL);
+	g_object_get (shell, "db", &rdb, NULL);
 	db = DMAP_DB (rb_rhythmdb_dmap_db_adapter_new (rdb, entry_type));
 
 	factory = DMAP_RECORD_FACTORY (rb_daap_record_factory_new ());
-
-	daap_source->priv->connection_status = rb_task_progress_simple_new ();
-	g_object_set (daap_source->priv->connection_status,
-		      "task-label", _("Connecting to music share"),
-		      "task-progress", -0.5,
-		      NULL);
-	rb_task_list_add_task (tasklist, RB_TASK_PROGRESS (daap_source->priv->connection_status));
-	g_object_unref (tasklist);
 
 	daap_source->priv->connection = daap_connection_new (name,
 							     daap_source->priv->host,
@@ -800,7 +802,9 @@ rb_daap_source_disconnect (RBDAAPSource *daap_source)
 	rb_debug ("Waiting for DAAP connection to finish");
 	while (daap_source->priv->connection != NULL) {
 		rb_debug ("Waiting for DAAP connection to finish...");
+		GDK_THREADS_ENTER ();
 		gtk_main_iteration ();
+		GDK_THREADS_LEAVE ();
 	}
 
 	daap_source->priv->disconnecting = FALSE;
@@ -812,8 +816,6 @@ disconnect_action_cb (GSimpleAction *action, GVariant *parameter, gpointer data)
 {
 	RBDAAPSource *source = RB_DAAP_SOURCE (data);
 	rb_daap_source_disconnect (source);
-
-	g_signal_emit_by_name (source, "reset-filters");
 }
 
 SoupMessageHeaders *
@@ -826,6 +828,29 @@ rb_daap_source_get_headers (RBDAAPSource *source,
 	}
 
 	return dmap_connection_get_headers (source->priv->connection, uri);
+}
+
+static void
+rb_daap_source_get_status (RBDisplayPage *page,
+			   char **text,
+			   char **progress_text,
+			   float *progress)
+{
+	RBDAAPSource *daap_source = RB_DAAP_SOURCE (page);
+
+	if (daap_source->priv->connection_status != NULL) {
+		if (text != NULL) {
+			*text = g_strdup (daap_source->priv->connection_status);
+		}
+
+		if (progress != NULL) {
+			*progress = daap_source->priv->connection_progress;
+		}
+
+		return;
+	}
+
+	RB_DISPLAY_PAGE_CLASS (rb_daap_source_parent_class)->get_status (page, text, progress_text, progress);
 }
 
 void

@@ -90,7 +90,7 @@ static void rb_browser_source_browser_changed_cb (RBLibraryBrowser *entry,
 /* source methods */
 static RBEntryView *impl_get_entry_view (RBSource *source);
 static GList *impl_get_property_views (RBSource *source);
-static void impl_delete_selected (RBSource *source);
+static void impl_delete (RBSource *source);
 static void impl_search (RBSource *source, RBSourceSearch *search, const char *cur_text, const char *new_text);
 static void impl_reset_filters (RBSource *source);
 static void impl_song_properties (RBSource *source);
@@ -161,16 +161,16 @@ rb_browser_source_class_init (RBBrowserSourceClass *klass)
 	object_class->get_property = rb_browser_source_get_property;
 
 	source_class->reset_filters = impl_reset_filters;
-	source_class->search = impl_search;
-	source_class->get_entry_view = impl_get_entry_view;
-	source_class->get_property_views = impl_get_property_views;
-	source_class->song_properties = impl_song_properties;
-	source_class->can_cut = (RBSourceFeatureFunc) rb_false_function;
-	source_class->can_copy = (RBSourceFeatureFunc) rb_true_function;
-	source_class->can_delete = (RBSourceFeatureFunc) rb_true_function;
-	source_class->can_add_to_queue = (RBSourceFeatureFunc) rb_true_function;
-	source_class->can_move_to_trash = (RBSourceFeatureFunc) rb_true_function;
-	source_class->delete_selected = impl_delete_selected;
+	source_class->impl_search = impl_search;
+	source_class->impl_get_entry_view = impl_get_entry_view;
+	source_class->impl_get_property_views = impl_get_property_views;
+	source_class->impl_song_properties = impl_song_properties;
+	source_class->impl_can_cut = (RBSourceFeatureFunc) rb_false_function;
+	source_class->impl_can_copy = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_can_delete = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_can_add_to_queue = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_can_move_to_trash = (RBSourceFeatureFunc) rb_true_function;
+	source_class->impl_delete = impl_delete;
 
 	klass->pack_content = default_pack_content;
 	klass->has_drop_support = (RBBrowserSourceFeatureFunc) rb_false_function;
@@ -207,8 +207,8 @@ rb_browser_source_dispose (GObject *object)
 	RBBrowserSource *source;
 	source = RB_BROWSER_SOURCE (object);
 
-	g_clear_pointer (&source->priv->search_query, rhythmdb_query_free);
 	g_clear_object (&source->priv->db);
+	g_clear_object (&source->priv->search_query);
 	g_clear_object (&source->priv->cached_all_query);
 	g_clear_object (&source->priv->default_search);
 	g_clear_object (&source->priv->popup);
@@ -254,7 +254,7 @@ default_show_entry_popup (RBBrowserSource *source)
 	/* update add to playlist menu links */
 	g_object_get (source, "playlist-menu", &playlist_menu, NULL);
 	rb_menu_update_link (source->priv->popup, "rb-playlist-menu-link", playlist_menu);
-	g_clear_object (&playlist_menu);
+	g_object_unref (playlist_menu);
 
 	menu = gtk_menu_new_from_model (G_MENU_MODEL (source->priv->popup));
 	gtk_menu_attach_to_widget (GTK_MENU (menu), GTK_WIDGET (source), NULL);
@@ -313,16 +313,12 @@ rb_browser_source_constructed (GObject *object)
 	/* ensure search instances exist */
 	rb_source_search_basic_register (RHYTHMDB_PROP_SEARCH_MATCH, "search-match", _("Search all fields"));
 	rb_source_search_basic_register (RHYTHMDB_PROP_ARTIST_FOLDED, "artist", _("Search artists"));
-	rb_source_search_basic_register (RHYTHMDB_PROP_COMPOSER_FOLDED, "composer", _("Search composers"));
 	rb_source_search_basic_register (RHYTHMDB_PROP_ALBUM_FOLDED, "album", _("Search albums"));
 	rb_source_search_basic_register (RHYTHMDB_PROP_TITLE_FOLDED, "title", _("Search titles"));
-	rb_source_search_basic_register (RHYTHMDB_PROP_GENRE_FOLDED, "genre", _("Search genres"));
 	
 	section = g_menu_new ();
 	rb_source_search_add_to_menu (section, "app", source->priv->search_action, "search-match");
-	rb_source_search_add_to_menu (section, "app", source->priv->search_action, "genre");
 	rb_source_search_add_to_menu (section, "app", source->priv->search_action, "artist");
-	rb_source_search_add_to_menu (section, "app", source->priv->search_action, "composer");
 	rb_source_search_add_to_menu (section, "app", source->priv->search_action, "album");
 	rb_source_search_add_to_menu (section, "app", source->priv->search_action, "title");
 
@@ -353,7 +349,6 @@ rb_browser_source_constructed (GObject *object)
 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_GENRE, FALSE);
 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_ARTIST, FALSE);
 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_ALBUM, FALSE);
-	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_COMPOSER, FALSE);
 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_YEAR, FALSE);
 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_DURATION, FALSE);
  	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_QUALITY, FALSE);
@@ -372,8 +367,7 @@ rb_browser_source_constructed (GObject *object)
 	rb_source_bind_settings (RB_SOURCE (source),
 				 GTK_WIDGET (source->priv->songs),
 				 paned,
-				 GTK_WIDGET (source->priv->browser),
-				 TRUE);
+				 GTK_WIDGET (source->priv->browser));
 
 	if (rb_browser_source_has_drop_support (source)) {
 		gtk_drag_dest_set (GTK_WIDGET (source->priv->songs),
@@ -424,7 +418,6 @@ rb_browser_source_constructed (GObject *object)
 	source->priv->popup = G_MENU (gtk_builder_get_object (builder, "browser-popup"));
 	rb_application_link_shared_menus (RB_APPLICATION (g_application_get_default ()),
 					  source->priv->popup);
-	g_object_ref (source->priv->popup);
 	g_object_unref (builder);
 
 	g_object_unref (entry_type);
@@ -643,7 +636,7 @@ impl_reset_filters (RBSource *asource)
 }
 
 static void
-impl_delete_selected (RBSource *asource)
+impl_delete (RBSource *asource)
 {
 	RBBrowserSource *source = RB_BROWSER_SOURCE (asource);
 	GList *sel, *tem;

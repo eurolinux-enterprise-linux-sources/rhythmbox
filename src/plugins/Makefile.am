@@ -21,11 +21,11 @@ SUBDIRS +=						\
 	rbzeitgeist					\
 	replaygain					\
 	sendto						\
-	soundcloud					\
-	webremote					\
 	rb
 
+if WITH_WEBKIT
 SUBDIRS += context
+endif
 
 endif # ENABLE_PYTHON
 
@@ -53,14 +53,14 @@ if ENABLE_FM_RADIO
 SUBDIRS += fmradio
 endif
 
+if USE_CLUTTER
+SUBDIRS += visualizer
+endif
+
 if USE_NOTIFY
 SUBDIRS += notification
 endif
 
 if ENABLE_GRILO
 SUBDIRS += grilo
-endif
-
-if USE_GUDEV
-SUBDIRS += android
 endif

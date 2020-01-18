@@ -58,6 +58,7 @@
 #include "rb-file-helpers.h"
 #include "rb-util.h"
 #include "rb-shell.h"
+#include "rb-stock-icons.h"
 #include "rb-removable-media-manager.h"
 #include "rb-mtp-gst.h"
 
@@ -258,13 +259,6 @@ create_source_device_cb (RBRemovableMediaManager *rmm, GObject *device_obj, RBMt
 	/* check that it's not an iPhone or iPod Touch */
 	if (g_udev_device_get_property_as_boolean (device, "USBMUX_SUPPORTED")) {
 		rb_debug ("device %s is supported through AFC, ignore", g_udev_device_get_name (device));
-		return NULL;
-	}
-
-	/* check that it's not an android device */
-	if (rb_removable_media_manager_device_is_android (rmm, device_obj)) {
-		rb_debug ("device %s is android based, android plugin should handle it",
-			  g_udev_device_get_name (device));
 		return NULL;
 	}
 

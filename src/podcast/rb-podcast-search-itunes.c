@@ -32,6 +32,7 @@
 #include "rb-debug.h"
 
 #include <libsoup/soup.h>
+#include <libsoup/soup-gnome.h>
 #include <json-glib/json-glib.h>
 
 #define RB_TYPE_PODCAST_SEARCH_ITUNES         (rb_podcast_search_itunes_get_type ())
@@ -141,9 +142,9 @@ impl_start (RBPodcastSearch *bsearch, const char *text, int max_results)
 	char *limit;
 	RBPodcastSearchITunes *search = RB_PODCAST_SEARCH_ITUNES (bsearch);
 
-	search->session = soup_session_new_with_options (SOUP_SESSION_ADD_FEATURE_BY_TYPE,
-							 SOUP_TYPE_PROXY_RESOLVER_DEFAULT,
-							 NULL);
+	search->session = soup_session_async_new_with_options (SOUP_SESSION_ADD_FEATURE_BY_TYPE,
+							       SOUP_TYPE_GNOME_FEATURES_2_26,
+							       NULL);
 
 	uri = soup_uri_new (ITUNES_SEARCH_URI);
 	limit = g_strdup_printf ("%d", max_results);

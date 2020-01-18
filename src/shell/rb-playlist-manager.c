@@ -57,6 +57,7 @@
 #include "rb-debug.h"
 #include "rb-dialog.h"
 #include "rhythmdb.h"
+#include "rb-stock-icons.h"
 #include "rb-builder-helpers.h"
 #include "rb-util.h"
 #include "rb-application.h"
@@ -354,29 +355,34 @@ append_new_playlist_source (RBPlaylistManager *mgr, RBPlaylistSource *source)
 void
 rb_playlist_manager_load_playlists (RBPlaylistManager *mgr)
 {
-	GBytes *data = NULL;
+	char *file;
 	xmlDocPtr doc;
 	xmlNodePtr root;
 	xmlNodePtr child;
+	gboolean exists;
+
+	exists = FALSE;
+	file = g_strdup (mgr->priv->playlists_file);
 
 	/* block saves until the playlists have loaded */
 	g_mutex_lock (&mgr->priv->saving_mutex);
 
-	if (g_file_test (mgr->priv->playlists_file, G_FILE_TEST_EXISTS) == FALSE) {
+	exists = g_file_test (file, G_FILE_TEST_EXISTS);
+	if (! exists) {
 		rb_debug ("personal playlists not found, loading defaults");
-		data = g_resources_lookup_data ("/org/gnome/Rhythmbox/playlists.xml",
-						G_RESOURCE_LOOKUP_FLAGS_NONE,
-						NULL);
-		if (data == NULL) {
-			rb_debug ("couldn't find default playlists resource");
-			goto out;
-		}
+
+		/* try global playlists */
+		g_free (file);
+		file = g_strdup (rb_file ("playlists.xml"));
+		exists = g_file_test (file, G_FILE_TEST_EXISTS);
 	}
 
-	if (data != NULL)
-		doc = xmlParseMemory (g_bytes_get_data (data, NULL), g_bytes_get_size (data));
-	else
-		doc = xmlParseFile (mgr->priv->playlists_file);
+	if (! exists) {
+		rb_debug ("default playlists file not found");
+		goto out;
+	}
+
+	doc = xmlParseFile (file);
 	if (doc == NULL)
 		goto out;
 
@@ -397,6 +403,7 @@ rb_playlist_manager_load_playlists (RBPlaylistManager *mgr)
 	xmlFreeDoc (doc);
 out:
 	g_mutex_unlock (&mgr->priv->saving_mutex);
+	g_free (file);
 }
 
 static void
@@ -817,7 +824,7 @@ rb_playlist_manager_set_automatic_playlist (RBPlaylistManager *mgr,
 					    RBQueryCreator *creator)
 {
 	RhythmDBQueryModelLimitType limit_type;
-	GVariant *limit_value = NULL;
+	GArray *limit_value = NULL;
 	const char *sort_key;
 	gint sort_direction;
 	GPtrArray *query;
@@ -836,7 +843,7 @@ rb_playlist_manager_set_automatic_playlist (RBPlaylistManager *mgr,
 					   sort_direction);
 	rhythmdb_query_free (query);
 	if (limit_value != NULL) {
-		g_variant_unref (limit_value);
+		g_array_unref (limit_value);
 	}
 }
 
@@ -925,7 +932,7 @@ edit_auto_playlist_action_cb (GSimpleAction *action, GVariant *parameter, gpoint
 	creator = g_object_get_data (G_OBJECT (playlist), "rhythmbox-playlist-editor");
 	if (creator == NULL) {
 		RhythmDBQueryModelLimitType limit_type;
-		GVariant *limit_value = NULL;
+		GArray *limit_value = NULL;
 		GPtrArray *query;
 		char *sort_key;
 		gint sort_direction;
@@ -946,7 +953,7 @@ edit_auto_playlist_action_cb (GSimpleAction *action, GVariant *parameter, gpoint
 									     sort_key,
 									     sort_direction));
 		if (limit_value != NULL) {
-			g_variant_unref (limit_value);
+			g_array_unref (limit_value);
 		}
 		rhythmdb_query_free (query);
 		g_free (sort_key);
@@ -1867,7 +1874,6 @@ rb_playlist_manager_constructed (GObject *object)
 
 	builder = rb_builder_load ("playlist-menu.ui", NULL);
 	menu = G_MENU_MODEL (gtk_builder_get_object (builder, "playlist-menu"));
-	rb_application_link_shared_menus (RB_APPLICATION (app), G_MENU (menu));
 	rb_application_add_shared_menu (RB_APPLICATION (app), "playlist-menu", menu);
 	g_object_unref (builder);
 
@@ -1998,7 +2004,7 @@ rb_playlist_manager_class_init (RBPlaylistManagerClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlaylistManagerClass, playlist_added),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE,
 			      1, G_TYPE_OBJECT);
 
@@ -2015,7 +2021,7 @@ rb_playlist_manager_class_init (RBPlaylistManagerClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlaylistManagerClass, playlist_created),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE,
 			      1, G_TYPE_OBJECT);
 
@@ -2032,7 +2038,7 @@ rb_playlist_manager_class_init (RBPlaylistManagerClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlaylistManagerClass, load_start),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE,
 			      0, G_TYPE_NONE);
 	/**
@@ -2048,7 +2054,7 @@ rb_playlist_manager_class_init (RBPlaylistManagerClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlaylistManagerClass, load_finish),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE,
 			      0, G_TYPE_NONE);
 

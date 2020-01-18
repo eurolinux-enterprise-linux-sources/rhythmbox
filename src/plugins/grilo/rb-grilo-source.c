@@ -58,7 +58,6 @@
 
 enum {
 	CONTAINER_UNKNOWN_MEDIA = 0,
-	CONTAINER_MARKER,
 	CONTAINER_NO_MEDIA,
 	CONTAINER_HAS_MEDIA
 };
@@ -74,8 +73,6 @@ static void rb_grilo_source_finalize (GObject *object);
 static void rb_grilo_source_constructed (GObject *object);
 static void impl_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 static void impl_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
-
-static void start_media_browse (RBGriloSource *source, GrlSupportedOps op_type, GrlMedia *container, GtkTreeIter *container_iter, guint limit);
 
 static void browser_selection_changed_cb (GtkTreeSelection *selection, RBGriloSource *source);
 static void browser_row_expanded_cb (GtkTreeView *tree_view, GtkTreeIter *iter, GtkTreePath *path, RBGriloSource *source);
@@ -120,7 +117,6 @@ struct _RBGriloSourcePrivate
 	guint maybe_expand_idle;
 
 	/* current media browse operation */
-	GrlSupportedOps media_browse_op_type;
 	guint media_browse_op;
 	char *search_text;
 	GrlMedia *media_browse_container;
@@ -186,7 +182,7 @@ rb_grilo_source_class_init (RBGriloSourceClass *klass)
 	page_class->selected = impl_selected;
 	page_class->deselected = impl_deselected;
 
-	source_class->get_entry_view = impl_get_entry_view;
+	source_class->impl_get_entry_view = impl_get_entry_view;
 
 	g_object_class_install_property (object_class,
 					 PROP_GRILO_SOURCE,
@@ -270,7 +266,6 @@ rb_grilo_source_constructed (GObject *object)
 	GtkWidget *vbox;
 	GtkWidget *mainbox;
 	GtkAdjustment *adjustment;
-	gboolean want_quality_column = FALSE;
 
 	RB_CHAIN_GOBJECT_METHOD (rb_grilo_source_parent_class, constructed, object);
 	source = RB_GRILO_SOURCE (object);
@@ -332,19 +327,6 @@ rb_grilo_source_constructed (GObject *object)
 		source->priv->grilo_keys = g_list_prepend (source->priv->grilo_keys,
 							   GUINT_TO_POINTER(GRL_METADATA_KEY_DURATION));
 	}
-	if (g_list_find ((GList *)source_keys, GUINT_TO_POINTER(GRL_METADATA_KEY_BITRATE))) {
-		want_quality_column = TRUE;
-		source->priv->grilo_keys = g_list_prepend (source->priv->grilo_keys,
-							   GUINT_TO_POINTER(GRL_METADATA_KEY_BITRATE));
-	}
-	if (g_list_find ((GList *)source_keys, GUINT_TO_POINTER(GRL_METADATA_KEY_MIME))) {
-		want_quality_column = TRUE;
-		source->priv->grilo_keys = g_list_prepend (source->priv->grilo_keys,
-							   GUINT_TO_POINTER(GRL_METADATA_KEY_MIME));
-	}
-	if (want_quality_column) {
-		rb_entry_view_append_column (source->priv->entry_view, RB_ENTRY_VIEW_COL_QUALITY, FALSE);
-	}
 
 	source->priv->grilo_keys = g_list_prepend (source->priv->grilo_keys, GUINT_TO_POINTER(GRL_METADATA_KEY_CHILDCOUNT));
 	source->priv->grilo_keys = g_list_prepend (source->priv->grilo_keys, GUINT_TO_POINTER(GRL_METADATA_KEY_URL));
@@ -375,7 +357,7 @@ rb_grilo_source_constructed (GObject *object)
 	g_signal_connect (selection, "changed", G_CALLBACK (browser_selection_changed_cb), source);
 
 	scrolled = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled), GTK_SHADOW_NONE);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled), GTK_SHADOW_IN);
 	adjustment = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled));
 	g_signal_connect (adjustment, "changed", G_CALLBACK (scroll_adjust_changed_cb), source);
 	g_signal_connect (adjustment, "value-changed", G_CALLBACK (scroll_adjust_value_changed_cb), source);
@@ -409,7 +391,7 @@ rb_grilo_source_constructed (GObject *object)
 
 	/* don't allow the browser to be hidden? */
 	source->priv->paned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
-	rb_source_bind_settings (RB_SOURCE (source), GTK_WIDGET (source->priv->entry_view), source->priv->paned, NULL, TRUE);
+	rb_source_bind_settings (RB_SOURCE (source), GTK_WIDGET (source->priv->entry_view), source->priv->paned, NULL);
 	gtk_paned_pack1 (GTK_PANED (source->priv->paned), browserbox, FALSE, FALSE);
 
 	vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
@@ -458,7 +440,6 @@ rb_grilo_source_new (GObject *plugin, GrlSource *grilo_source)
 			       "grilo-source", grilo_source,
 			       NULL);
 	g_object_unref (settings);
-	rb_display_page_set_icon_name (RB_DISPLAY_PAGE (source), "network-server-symbolic");
 
 	rb_shell_register_entry_type_for_source (shell, RB_SOURCE (source), entry_type);
 
@@ -516,8 +497,6 @@ impl_delete_thyself (RBDisplayPage *page)
 	g_object_unref (entry_type);
 
 	rhythmdb_commit (source->priv->db);
-
-	RB_DISPLAY_PAGE_CLASS (rb_grilo_source_parent_class)->delete_thyself (page);
 }
 
 void
@@ -540,7 +519,7 @@ make_operation_options (RBGriloSource *source, GrlSupportedOps op, int position)
 	grl_operation_options_set_count (options,
 					 CONTAINER_FETCH_SIZE);
 	grl_operation_options_set_type_filter (options, GRL_TYPE_FILTER_AUDIO);
-	grl_operation_options_set_resolution_flags (options, GRL_RESOLVE_NORMAL);
+	grl_operation_options_set_flags (options, GRL_RESOLVE_NORMAL);
 
 	return options;
 }
@@ -565,15 +544,8 @@ create_entry_for_media (RhythmDB *db, RhythmDBEntryType *entry_type, GrlData *da
 {
 	RhythmDBEntry *entry;
 	RBGriloEntryData *entry_data;
-	gulong bitrate = 0;
-	const gchar *url;
 
-	url = grl_media_get_url (GRL_MEDIA (data));
-	if (url == NULL) {
-		return NULL;
-	}
-
-	entry = rhythmdb_entry_lookup_by_location (db, url);
+	entry = rhythmdb_entry_lookup_by_location (db, grl_media_get_url (GRL_MEDIA (data)));
 	if (entry != NULL) {
 		return entry;
 	}
@@ -597,7 +569,11 @@ create_entry_for_media (RhythmDB *db, RhythmDBEntryType *entry_type, GrlData *da
 	}
 
 	if (grl_data_has_key (data, GRL_METADATA_KEY_BITRATE)) {
-		bitrate = grl_data_get_int (data, GRL_METADATA_KEY_BITRATE);
+		GValue v = {0,};
+		g_value_init (&v, G_TYPE_ULONG);
+		g_value_set_ulong (&v, grl_data_get_int (data, GRL_METADATA_KEY_BITRATE));
+		rhythmdb_entry_set (db, entry, RHYTHMDB_PROP_BITRATE, &v);
+		g_value_unset (&v);
 	}
 
 	if (grl_data_has_key (data, GRL_METADATA_KEY_DURATION)) {
@@ -613,28 +589,12 @@ create_entry_for_media (RhythmDB *db, RhythmDBEntryType *entry_type, GrlData *da
 		const char *media_type;
 		media_type = rb_gst_mime_type_to_media_type (grl_data_get_string (data, GRL_METADATA_KEY_MIME));
 		if (media_type) {
-			if (rb_gst_media_type_is_lossless (media_type)) {
-				/* For lossless, rhythmdb_entry_is_lossless expects
-				 * bitrate == 0/unset, but DLNA server may report
-				 * actual bitrate. Unset bitrate to keep
-				 * rhythmdb_entry_is_lossless happy. */
-				bitrate = 0;
-			}
 			GValue v = {0,};
 			g_value_init (&v, G_TYPE_STRING);
 			g_value_set_string (&v, media_type);
 			rhythmdb_entry_set (db, entry, RHYTHMDB_PROP_MEDIA_TYPE, &v);
 			g_value_unset (&v);
 		}
-	}
-
-	if (bitrate != 0) {
-		GValue v = {0,};
-		g_value_init (&v, G_TYPE_ULONG);
-		/* Grilo uses kbps and so do we. */
-		g_value_set_ulong (&v, bitrate);
-		rhythmdb_entry_set (db, entry, RHYTHMDB_PROP_BITRATE, &v);
-		g_value_unset (&v);
 	}
 
 	if (grl_data_has_key (data, GRL_METADATA_KEY_TRACK_NUMBER)) {
@@ -690,7 +650,7 @@ set_container_type (RBGriloSource *source, GtkTreeIter *iter, gboolean has_media
 			    iter,
 			    2, &container_type,
 			    -1);
-	if (container_type != CONTAINER_HAS_MEDIA) {
+	if (container_type == CONTAINER_UNKNOWN_MEDIA) {
 		container_type = has_media ? CONTAINER_HAS_MEDIA : CONTAINER_NO_MEDIA;
 	}
 
@@ -719,7 +679,7 @@ grilo_browse_cb (GrlSource *grilo_source, guint operation_id, GrlMedia *media, g
 		source->priv->browse_position++;
 	}
 
-	if (media && grl_media_is_container (media)) {
+	if (media && GRL_IS_MEDIA_BOX (media)) {
 
 		GtkTreeIter new_row;
 		if (source->priv->browse_container == NULL) {
@@ -756,10 +716,10 @@ grilo_browse_cb (GrlSource *grilo_source, guint operation_id, GrlMedia *media, g
 						   -1,
 						   0, NULL,
 						   1, "...",	/* needs to be translatable? */
-						   2, CONTAINER_MARKER,
+						   2, CONTAINER_NO_MEDIA,
 						   3, 0,
 						   -1);
-	} else if (media && grl_media_is_audio (media)) {
+	} else if (media && GRL_IS_MEDIA_AUDIO (media)) {
 		source->priv->browse_got_media = TRUE;
 	}
 
@@ -770,20 +730,12 @@ grilo_browse_cb (GrlSource *grilo_source, guint operation_id, GrlMedia *media, g
 			/* no more results for this container, so delete the marker row */
 			delete_marker_row (source, &source->priv->browse_container_iter);
 
-			set_container_type (source,
-					    &source->priv->browse_container_iter,
-					    FALSE);
+			set_container_type (source, &source->priv->browse_container_iter, source->priv->browse_got_media);
 			gtk_tree_store_set (source->priv->browser_model,
 					    &source->priv->browse_container_iter,
 					    3, -1,
 					    -1);
 		} else if (source->priv->browse_container != NULL) {
-			if (source->priv->browse_got_media) {
-				set_container_type (source,
-						    &source->priv->browse_container_iter,
-						    TRUE);
-			}
-
 			if (source->priv->browse_position >= CONTAINER_GIVE_UP_POINT &&
 			    gtk_tree_model_iter_n_children (GTK_TREE_MODEL (source->priv->browser_model),
 							    &source->priv->browse_container_iter) == 1) {
@@ -798,29 +750,9 @@ grilo_browse_cb (GrlSource *grilo_source, guint operation_id, GrlMedia *media, g
 				maybe_expand_container (source);
 			}
 
-		} else if (source->priv->browse_container == NULL) {
-		       	if (source->priv->browse_got_results) {
-				/* get all top-level containers */
-				browse_next (source);
-			} else if (source->priv->browse_got_media) {
-				GtkTreeIter root_iter;
-				GtkTreeSelection *selection;
-				/* root container has media, so show it in the browser */
-				gtk_tree_store_insert_with_values (source->priv->browser_model,
-								   &root_iter,
-								   NULL,
-								   0,
-								   0, NULL,
-								   1, grl_source_get_name (source->priv->grilo_source),
-								   2, CONTAINER_HAS_MEDIA,
-								   3, 0,
-								   -1);
-
-				/* select it, so we start fetching the media */
-				selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (source->priv->browser_view));
-				gtk_tree_selection_select_iter (selection, &root_iter);
-
-			}
+		} else if (source->priv->browse_got_results && source->priv->browse_container == NULL) {
+			/* get all top-level containers */
+			browse_next (source);
 		}
 	}
 }
@@ -885,11 +817,12 @@ grilo_media_browse_cb (GrlSource *grilo_source, guint operation_id, GrlMedia *me
 		return;
 	}
 
+	GDK_THREADS_ENTER ();
 	if (media != NULL) {
 		source->priv->media_browse_got_results = TRUE;
 		source->priv->media_browse_position++;
 
-		if (grl_media_is_audio (media)) {
+		if (GRL_IS_MEDIA_AUDIO (media)) {
 			RhythmDBEntry *entry;
 			entry = create_entry_for_media (source->priv->db,
 							source->priv->entry_type,
@@ -898,7 +831,7 @@ grilo_media_browse_cb (GrlSource *grilo_source, guint operation_id, GrlMedia *me
 			if (entry != NULL) {
 				rhythmdb_query_model_add_entry (source->priv->query_model, entry, -1);
 			}
-		} else if (grl_media_is_container (media)) {
+		} else if (GRL_IS_MEDIA_BOX (media)) {
 			source->priv->media_browse_got_containers = TRUE;
 		}
 	}
@@ -938,6 +871,7 @@ grilo_media_browse_cb (GrlSource *grilo_source, guint operation_id, GrlMedia *me
 			delete_marker_row (source, &source->priv->media_browse_container_iter);
 		}
 	}
+	GDK_THREADS_LEAVE ();
 }
 
 static void
@@ -950,7 +884,7 @@ media_browse_next (RBGriloSource *source)
 		  source->priv->media_browse_position);
 
 	source->priv->media_browse_got_results = FALSE;
-	if (source->priv->media_browse_op_type == GRL_OP_BROWSE) {
+	if (source->priv->media_browse_container != NULL) {
 		options = make_operation_options (source,
 						  GRL_OP_BROWSE,
 						  source->priv->media_browse_position);
@@ -961,7 +895,7 @@ media_browse_next (RBGriloSource *source)
 					   options,
 					   (GrlSourceResultCb) grilo_media_browse_cb,
 					   source);
-	} else if (source->priv->media_browse_op_type == GRL_OP_SEARCH) {
+	} else {
 		options = make_operation_options (source,
 						  GRL_OP_SEARCH,
 						  source->priv->media_browse_position);
@@ -972,13 +906,11 @@ media_browse_next (RBGriloSource *source)
 					   options,
 					   (GrlSourceResultCb) grilo_media_browse_cb,
 					   source);
-	} else {
-		g_assert_not_reached ();
 	}
 }
 
 static void
-start_media_browse (RBGriloSource *source, GrlSupportedOps op_type, GrlMedia *container, GtkTreeIter *container_iter, guint limit)
+start_media_browse (RBGriloSource *source, GrlMedia *container, GtkTreeIter *container_iter, guint limit)
 {
 	rb_debug ("starting media browse for %s",
 		  grl_source_get_name (source->priv->grilo_source));
@@ -999,7 +931,6 @@ start_media_browse (RBGriloSource *source, GrlSupportedOps op_type, GrlMedia *co
 	source->priv->media_browse_position = 0;
 	source->priv->media_browse_limit = limit;
 	source->priv->media_browse_got_containers = FALSE;
-	source->priv->media_browse_op_type = op_type;
 
 	if (source->priv->query_model != NULL) {
 		g_object_unref (source->priv->query_model);
@@ -1066,18 +997,13 @@ browser_selection_changed_cb (GtkTreeSelection *selection, RBGriloSource *source
 			    2, &container_type,
 			    -1);
 
-	switch (container_type) {
-	case CONTAINER_MARKER:
+	if (container == NULL) {
 		expand_from_marker (source, &iter);
-		break;
-	case CONTAINER_NO_MEDIA:
-		/* clear the track list? */
-		break;
-	case CONTAINER_UNKNOWN_MEDIA:
-	case CONTAINER_HAS_MEDIA:
+	} else if (container_type != CONTAINER_NO_MEDIA) {
 		/* fetch media directly under this container */
-		start_media_browse (source, GRL_OP_BROWSE, container, &iter, CONTAINER_MAX_TRACKS);
-		break;
+		start_media_browse (source, container, &iter, CONTAINER_MAX_TRACKS);
+	} else {
+		/* clear the track list? */
 	}
 }
 
@@ -1089,7 +1015,7 @@ maybe_expand_container (RBGriloSource *source)
 	GtkTreeIter iter;
 	GtkTreeIter end_iter;
 	GtkTreeIter next;
-	int container_type;
+	GrlMedia *container;
 	gboolean last;
 
 	source->priv->maybe_expand_idle = 0;
@@ -1113,9 +1039,9 @@ maybe_expand_container (RBGriloSource *source)
 		path = gtk_tree_model_get_path (GTK_TREE_MODEL (source->priv->browser_model), &iter);
 		last = (gtk_tree_path_compare (path, end) >= 0);
 		gtk_tree_model_get (GTK_TREE_MODEL (source->priv->browser_model), &iter,
-				    2, &container_type,
+				    0, &container,
 				    -1);
-		if (container_type == CONTAINER_MARKER) {
+		if (container == NULL) {
 			if (expand_from_marker (source, &iter)) {
 				rb_debug ("expanding");
 				break;
@@ -1182,9 +1108,7 @@ impl_selected (RBDisplayPage *page)
 		start_browse (source, NULL, NULL, 0);
 	}
 
-	if (source->priv->search_entry != NULL) {
-		rb_search_entry_set_mnemonic (source->priv->search_entry, TRUE);
-	}
+	rb_search_entry_set_mnemonic (source->priv->search_entry, TRUE);
 }
 
 static void
@@ -1194,9 +1118,7 @@ impl_deselected (RBDisplayPage *page)
 
 	RB_DISPLAY_PAGE_CLASS (rb_grilo_source_parent_class)->deselected (page);
 
-	if (source->priv->search_entry != NULL) {
-		rb_search_entry_set_mnemonic (source->priv->search_entry, FALSE);
-	}
+	rb_search_entry_set_mnemonic (source->priv->search_entry, FALSE);
 }
 
 static RBEntryView *
@@ -1214,7 +1136,7 @@ search_cb (RBSearchEntry *search, const char *text, RBGriloSource *source)
 
 	gtk_tree_selection_unselect_all (gtk_tree_view_get_selection (GTK_TREE_VIEW (source->priv->browser_view)));
 
-	start_media_browse (source, GRL_OP_SEARCH, NULL, NULL, CONTAINER_MAX_TRACKS);
+	start_media_browse (source, NULL, NULL, CONTAINER_MAX_TRACKS);
 }
 
 static void

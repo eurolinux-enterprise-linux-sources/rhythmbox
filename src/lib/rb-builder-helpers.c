@@ -47,12 +47,9 @@
  * @user_data: user data to pass to autoconnected signal handlers
  *
  * Locates and reads a GtkBuilder file, automatically connecting
- * signal handlers where possible.
- *
- * The caller can specify an absolute path to the file, a resource path
- * starting with /org/gnome/Rhythmbox/ or just a filename, in which case
- * the file will be loaded from GResources (in normal builds) or the source
- * data/ui directory (in uninstalled builds).
+ * signal handlers where possible.  The caller can specify a path
+ * relative to the shared data directory, or its 'ui' or 'art'
+ * subdirectories.
  *
  * Return value: (transfer full): #GtkBuilder object built from the file
  */
@@ -62,43 +59,24 @@ rb_builder_load (const char *file, gpointer user_data)
 	GtkBuilder *builder;
 	const char *name;
 	GError *error = NULL;
-	char *resource;
 
 	g_return_val_if_fail (file != NULL, NULL);
 
-	if (g_str_has_prefix (file, "/org/gnome/Rhythmbox/")) {
-		resource = g_strdup (file);
-		name = NULL;
-	} else if (g_path_is_absolute (file)) {
+	/* if the first character is /, it's an absolute path, otherwise locate it */
+	if (file[0] == G_DIR_SEPARATOR)
 		name = file;
-		resource = NULL;
-	} else {
-#if defined(USE_UNINSTALLED_DIRS)
+	else
 		name = rb_file (file);
-		resource = NULL;
-#else
-		resource = g_strdup_printf ("/org/gnome/Rhythmbox/ui/%s", file);
-		name = NULL;
-#endif
-	}
 
 	builder = gtk_builder_new ();
 	gtk_builder_set_translation_domain (builder, GETTEXT_PACKAGE);
-	if (resource != NULL) {
-		if (gtk_builder_add_from_resource (builder, resource, &error) == 0) {
-			g_warning ("Error loading GtkBuilder resource %s; %s", resource, error->message);
-			g_error_free (error);
-		}
-	} else {
-		if (gtk_builder_add_from_file (builder, name, &error) == 0) {
-			g_warning ("Error loading GtkBuilder file %s: %s", name, error->message);
-			g_error_free (error);
-		}
+	if (gtk_builder_add_from_file (builder, name, &error) == 0) {
+		g_warning ("Error loading GtkBuilder file %s: %s", name, error->message);
+		g_error_free (error);
 	}
 
 	gtk_builder_connect_signals (builder, user_data);
 
-	g_free (resource);
 	return builder;
 }
 
@@ -116,26 +94,12 @@ rb_builder_load (const char *file, gpointer user_data)
 GtkBuilder *
 rb_builder_load_plugin_file (GObject *plugin, const char *file, gpointer user_data)
 {
-	char *path = NULL;
+	char *path;
 	GtkBuilder *builder;
 
-#if !defined(USE_UNINSTALLED_DIRS)
-	GBytes *bytes;
-
-	path = rb_find_plugin_resource (plugin, file);
-	bytes = g_resources_lookup_data (path, G_RESOURCE_LOOKUP_FLAGS_NONE, NULL);
-	if (bytes != NULL) {
-		g_bytes_unref (bytes);
-	} else {
-		g_free (path);
-		path = NULL;
-	}
-#endif
+	path = rb_find_plugin_data_file (plugin, file);
 	if (path == NULL) {
-		path = rb_find_plugin_data_file (plugin, file);
-		if (path == NULL) {
-			return NULL;
-		}
+		return NULL;
 	}
 
 	builder = rb_builder_load (path, user_data);

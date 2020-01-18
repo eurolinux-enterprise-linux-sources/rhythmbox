@@ -24,7 +24,7 @@ bin_PROGRAMS = rhythmbox
 rhythmbox_SOURCES = main.c
 lib_LTLIBRARIES = librhythmbox-core.la
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -46,7 +46,8 @@ AM_CPPFLAGS = 						\
 	$(TOTEM_PLPARSER_CFLAGS)			\
 	$(DBUS_CFLAGS)					\
 	$(GUDEV_CFLAGS)					\
-	-D__EXTENSIONS__
+	$(WEBKIT_FLAGS)				\
+	-D__EXTENSIONS__ -D_BSD_SOURCE
 
 
 shellincludedir = $(includedir)/rhythmbox/shell
@@ -87,7 +88,6 @@ librhythmbox_core_la_SOURCES =				\
 	rb-play-order-shuffle.h				\
 	rb-playlist-manager.c				\
 	rb-removable-media-manager.c			\
-	rb-resources.c					\
 	rb-shell.c					\
 	rb-shell-clipboard.c				\
 	rb-shell-clipboard.h				\
@@ -96,8 +96,6 @@ librhythmbox_core_la_SOURCES =				\
 	rb-shell-preferences.h				\
 	rb-statusbar.c					\
 	rb-statusbar.h					\
-	rb-task-list.c					\
-	rb-task-list.h					\
 	rb-track-transfer-batch.c			\
 	rb-track-transfer-queue.c
 
@@ -114,6 +112,7 @@ librhythmbox_core_la_LIBADD =				\
 	$(DBUS_LIBS)					\
 	$(TOTEM_PLPARSER_LIBS)				\
 	$(GUDEV_LIBS)					\
+	$(WEBKIT_LIBS)				\
 	$(RHYTHMBOX_LIBS)				\
 	-lgstpbutils-1.0				\
 	-lgstcontroller-1.0				\
@@ -138,17 +137,6 @@ if ENABLE_PYTHON
 rhythmbox_LDADD += $(PYTHON_LIBS)
 endif
 
-rb_resource_deps = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(top_srcdir)/data --sourcedir $(top_builddir)/data $(srcdir)/rhythmbox.gresource.xml)
-
-rb-resources.c: $(rb_resource_deps) $(srcdir)/rhythmbox.gresource.xml
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES)		\
-		--target="$@"				\
-		--sourcedir="$(top_srcdir)/data"	\
-		--sourcedir="$(top_builddir)/data"	\
-		--generate-source "$(srcdir)/rhythmbox.gresource.xml"
-
-EXTRA_DIST += rhythmbox.gresource.xml
-
-BUILT_SOURCES += $(tab_files) rb-resources.c
+BUILT_SOURCES += $(tab_files)
 
 CLEANFILES += $(BUILT_SOURCES)

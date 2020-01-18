@@ -72,7 +72,7 @@ struct RBSearchEntryPrivate
 	guint timeout;
 };
 
-G_DEFINE_TYPE (RBSearchEntry, rb_search_entry, GTK_TYPE_BOX)
+G_DEFINE_TYPE (RBSearchEntry, rb_search_entry, GTK_TYPE_HBOX)
 #define RB_SEARCH_ENTRY_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), RB_TYPE_SEARCH_ENTRY, RBSearchEntryPrivate))
 
 /**
@@ -132,7 +132,7 @@ rb_search_entry_class_init (RBSearchEntryClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBSearchEntryClass, search),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__STRING,
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_STRING);
@@ -150,7 +150,7 @@ rb_search_entry_class_init (RBSearchEntryClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBSearchEntryClass, activate),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__STRING,
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_STRING);
@@ -167,7 +167,7 @@ rb_search_entry_class_init (RBSearchEntryClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBSearchEntryClass, show_popup),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE,
 			      0);
 
@@ -204,7 +204,6 @@ static void
 rb_search_entry_init (RBSearchEntry *entry)
 {
 	entry->priv = RB_SEARCH_ENTRY_GET_PRIVATE (entry);
-	gtk_orientable_set_orientation (GTK_ORIENTABLE (entry), GTK_ORIENTATION_HORIZONTAL);
 }
 
 static void
@@ -216,6 +215,7 @@ rb_search_entry_constructed (GObject *object)
 
 	entry = RB_SEARCH_ENTRY (object);
 
+	gtk_widget_set_can_focus (GTK_WIDGET (entry), TRUE);
 	entry->priv->entry = gtk_entry_new ();
 	g_signal_connect_object (GTK_ENTRY (entry->priv->entry),
 				 "icon-press",
@@ -225,13 +225,17 @@ rb_search_entry_constructed (GObject *object)
 	gtk_entry_set_icon_tooltip_text (GTK_ENTRY (entry->priv->entry),
 					 GTK_ENTRY_ICON_SECONDARY,
 					 _("Clear the search text"));
-	gtk_entry_set_icon_from_icon_name (GTK_ENTRY (entry->priv->entry),
-					   GTK_ENTRY_ICON_PRIMARY,
-					   "edit-find-symbolic");
 	if (entry->priv->has_popup) {
+		gtk_entry_set_icon_from_icon_name (GTK_ENTRY (entry->priv->entry),
+						   GTK_ENTRY_ICON_PRIMARY,
+						   "edit-find-symbolic");
 		gtk_entry_set_icon_tooltip_text (GTK_ENTRY (entry->priv->entry),
 						 GTK_ENTRY_ICON_PRIMARY,
 						 _("Select the search type"));
+	} else {
+		gtk_entry_set_icon_from_icon_name (GTK_ENTRY (entry->priv->entry),
+						   GTK_ENTRY_ICON_SECONDARY,
+						   "edit-find-symbolic");
 	}
 
 	gtk_box_pack_start (GTK_BOX (entry), entry->priv->entry, TRUE, TRUE, 0);
@@ -389,11 +393,22 @@ rb_search_entry_update_icons (RBSearchEntry *entry)
 {
 	const char *text;
 	const char *icon;
+	gboolean searching;
 
-	icon = NULL;
-	text = gtk_entry_get_text (GTK_ENTRY (entry->priv->entry));
-	if (text && *text) {
+	if (entry->priv->explicit_mode) {
+		searching = entry->priv->searching;
+	} else {
+		text = gtk_entry_get_text (GTK_ENTRY (entry->priv->entry));
+		searching = (text && *text);
+	}
+
+	if (searching) {
 		icon = "edit-clear-symbolic";
+	} else if (entry->priv->has_popup) {
+		/* we already use 'find' as the primary icon */
+		icon = NULL;
+	} else {
+		icon = "edit-find-symbolic";
 	}
 	gtk_entry_set_icon_from_icon_name (GTK_ENTRY (entry->priv->entry),
 					   GTK_ENTRY_ICON_SECONDARY,
@@ -434,6 +449,7 @@ static gboolean
 rb_search_entry_timeout_cb (RBSearchEntry *entry)
 {
 	const char *text;
+	gdk_threads_enter ();
 
 	text = gtk_entry_get_text (GTK_ENTRY (entry->priv->entry));
 
@@ -441,6 +457,8 @@ rb_search_entry_timeout_cb (RBSearchEntry *entry)
 		g_signal_emit (G_OBJECT (entry), rb_search_entry_signals[SEARCH], 0, text);
 	}
 	entry->priv->timeout = 0;
+
+	gdk_threads_leave ();
 
 	return FALSE;
 }

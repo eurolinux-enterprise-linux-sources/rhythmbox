@@ -1,0 +1,108 @@
+<!-- ##### SECTION Title ##### -->
+RBAsyncCopy
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### USER_FUNCTION RBAsyncCopyProgressCallback ##### -->
+<para>
+
+</para>
+
+@copy: 
+@position: 
+@total: 
+@data: 
+
+
+<!-- ##### USER_FUNCTION RBAsyncCopyCallback ##### -->
+<para>
+
+</para>
+
+@copy: 
+@success: 
+@data: 
+
+
+<!-- ##### STRUCT RBAsyncCopy ##### -->
+<para>
+
+</para>
+
+@parent: 
+@priv: 
+
+<!-- ##### STRUCT RBAsyncCopyClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+
+<!-- ##### FUNCTION rb_async_copy_new ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_async_copy_set_progress ##### -->
+<para>
+
+</para>
+
+@copy: 
+@callback: 
+@user_data: 
+@destroy_data: 
+
+
+<!-- ##### FUNCTION rb_async_copy_get_error ##### -->
+<para>
+
+</para>
+
+@copy: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_async_copy_start ##### -->
+<para>
+
+</para>
+
+@copy: 
+@src: 
+@dest: 
+@callback: 
+@user_data: 
+@destroy_data: 
+
+
+<!-- ##### FUNCTION rb_async_copy_cancel ##### -->
+<para>
+
+</para>
+
+@copy: 
+
+

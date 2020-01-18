@@ -1,0 +1,95 @@
+<!-- ##### SECTION Title ##### -->
+RBChunkLoader
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### USER_FUNCTION RBChunkLoaderCallback ##### -->
+<para>
+
+</para>
+
+@loader: 
+@data: 
+@total: 
+@user_data: 
+
+
+<!-- ##### STRUCT RBChunkLoader ##### -->
+<para>
+
+</para>
+
+@parent: 
+@priv: 
+
+<!-- ##### STRUCT RBChunkLoaderClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+
+<!-- ##### FUNCTION rb_chunk_loader_new ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_chunk_loader_set_callback ##### -->
+<para>
+
+</para>
+
+@loader: 
+@callback: 
+@user_data: 
+@destroy_data: 
+
+
+<!-- ##### FUNCTION rb_chunk_loader_get_error ##### -->
+<para>
+
+</para>
+
+@loader: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_chunk_loader_start ##### -->
+<para>
+
+</para>
+
+@loader: 
+@uri: 
+@chunk_size: 
+
+
+<!-- ##### FUNCTION rb_chunk_loader_cancel ##### -->
+<para>
+
+</para>
+
+@loader: 
+
+

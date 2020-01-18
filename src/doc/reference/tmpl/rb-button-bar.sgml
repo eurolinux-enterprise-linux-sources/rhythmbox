@@ -1,0 +1,65 @@
+<!-- ##### SECTION Title ##### -->
+RBButtonBar
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT RBButtonBar ##### -->
+<para>
+
+</para>
+
+@parent: 
+@priv: 
+
+<!-- ##### STRUCT RBButtonBarClass ##### -->
+<para>
+
+</para>
+
+@parent: 
+
+<!-- ##### FUNCTION rb_button_bar_new ##### -->
+<para>
+
+</para>
+
+@model: 
+@target: 
+@Returns: 
+
+
+<!-- ##### FUNCTION rb_button_bar_add_accelerators ##### -->
+<para>
+
+</para>
+
+@bar: 
+@group: 
+
+
+<!-- ##### FUNCTION rb_button_bar_remove_accelerators ##### -->
+<para>
+
+</para>
+
+@bar: 
+@group: 
+
+

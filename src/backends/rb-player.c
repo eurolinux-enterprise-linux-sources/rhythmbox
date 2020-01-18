@@ -21,7 +21,8 @@
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  */
 
@@ -30,7 +31,7 @@
 #include "rb-player.h"
 #include "rb-player-gst.h"
 #include "rb-player-gst-xfade.h"
-#include "rb-util.h"
+#include "rb-marshal.h"
 
 /**
  * RBPlayerPlayType:
@@ -119,7 +120,7 @@ rb_player_interface_init (RBPlayerIface *iface)
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE,
 			      G_STRUCT_OFFSET (RBPlayerIface, eos),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__POINTER_BOOLEAN,
 			      G_TYPE_NONE,
 			      2, G_TYPE_POINTER, G_TYPE_BOOLEAN);
 
@@ -139,7 +140,7 @@ rb_player_interface_init (RBPlayerIface *iface)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlayerIface, info),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__POINTER_INT_POINTER,
 			      G_TYPE_NONE,
 			      3, G_TYPE_POINTER, G_TYPE_INT, G_TYPE_VALUE);
 
@@ -158,7 +159,7 @@ rb_player_interface_init (RBPlayerIface *iface)
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE,
 			      G_STRUCT_OFFSET (RBPlayerIface, error),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__POINTER_POINTER,
 			      G_TYPE_NONE,
 			      2,
 			      G_TYPE_POINTER, G_TYPE_POINTER);
@@ -180,7 +181,8 @@ rb_player_interface_init (RBPlayerIface *iface)
 			      G_TYPE_FROM_INTERFACE (iface),
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlayerIface, tick),
-			      NULL, NULL, NULL,
+			      NULL, NULL,
+			      rb_marshal_VOID__POINTER_INT64_INT64,
 			      G_TYPE_NONE,
 			      3,
 			      G_TYPE_POINTER, G_TYPE_INT64, G_TYPE_INT64);
@@ -201,7 +203,7 @@ rb_player_interface_init (RBPlayerIface *iface)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlayerIface, buffering),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__POINTER_UINT,
 			      G_TYPE_NONE,
 			      2,
 			      G_TYPE_POINTER, G_TYPE_UINT);
@@ -225,7 +227,7 @@ rb_player_interface_init (RBPlayerIface *iface)
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
 			      G_STRUCT_OFFSET (RBPlayerIface, event),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__POINTER_POINTER,
 			      G_TYPE_NONE,
 			      2,
 			      G_TYPE_POINTER, G_TYPE_POINTER);
@@ -246,7 +248,7 @@ rb_player_interface_init (RBPlayerIface *iface)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlayerIface, playing_stream),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__POINTER,
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_POINTER);
@@ -264,7 +266,7 @@ rb_player_interface_init (RBPlayerIface *iface)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlayerIface, volume_changed),
 			      NULL, NULL,
-			      NULL,
+			      g_cclosure_marshal_VOID__FLOAT,
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_FLOAT);
@@ -284,7 +286,7 @@ rb_player_interface_init (RBPlayerIface *iface)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlayerIface, image),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__POINTER_OBJECT,
 			      G_TYPE_NONE,
 			      2,
 			      G_TYPE_POINTER, GDK_TYPE_PIXBUF);
@@ -303,7 +305,7 @@ rb_player_interface_init (RBPlayerIface *iface)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBPlayerIface, redirect),
 			      NULL, NULL,
-			      NULL,
+			      rb_marshal_VOID__POINTER_STRING,
 			      G_TYPE_NONE,
 			      2,
 			      G_TYPE_POINTER, G_TYPE_STRING);
@@ -597,7 +599,6 @@ rb_player_new (gboolean want_crossfade, GError **error)
 void
 _rb_player_emit_eos (RBPlayer *player, gpointer stream_data, gboolean early)
 {
-	g_assert (rb_is_main_thread ());
 	g_signal_emit (player, signals[EOS], 0, stream_data, early);
 }
 
@@ -617,7 +618,6 @@ _rb_player_emit_info (RBPlayer *player,
 		      RBMetaDataField field,
 		      GValue *value)
 {
-	g_assert (rb_is_main_thread ());
 	g_signal_emit (player, signals[INFO], 0, stream_data, field, value);
 }
 
@@ -633,7 +633,6 @@ _rb_player_emit_info (RBPlayer *player,
 void
 _rb_player_emit_buffering (RBPlayer *player, gpointer stream_data, guint progress)
 {
-	g_assert (rb_is_main_thread ());
 	g_signal_emit (player, signals[BUFFERING], 0, stream_data, progress);
 }
 
@@ -649,7 +648,6 @@ _rb_player_emit_buffering (RBPlayer *player, gpointer stream_data, guint progres
 void
 _rb_player_emit_error (RBPlayer *player, gpointer stream_data, GError *error)
 {
-	g_assert (rb_is_main_thread ());
 	g_signal_emit (player, signals[ERROR], 0, stream_data, error);
 }
 
@@ -666,7 +664,6 @@ _rb_player_emit_error (RBPlayer *player, gpointer stream_data, GError *error)
 void
 _rb_player_emit_tick (RBPlayer *player, gpointer stream_data, gint64 elapsed, gint64 duration)
 {
-	g_assert (rb_is_main_thread ());
 	g_signal_emit (player, signals[TICK], 0, stream_data, elapsed, duration);
 }
 
@@ -683,7 +680,6 @@ _rb_player_emit_tick (RBPlayer *player, gpointer stream_data, gint64 elapsed, gi
 void
 _rb_player_emit_event (RBPlayer *player, gpointer stream_data, const char *name, gpointer data)
 {
-	g_assert (rb_is_main_thread ());
 	g_signal_emit (player, signals[EVENT], g_quark_from_string (name), stream_data, data);
 }
 
@@ -698,7 +694,6 @@ _rb_player_emit_event (RBPlayer *player, gpointer stream_data, const char *name,
 void
 _rb_player_emit_playing_stream (RBPlayer *player, gpointer stream_data)
 {
-	g_assert (rb_is_main_thread ());
 	g_signal_emit (player, signals[PLAYING_STREAM], 0, stream_data);
 }
 
@@ -713,7 +708,6 @@ _rb_player_emit_playing_stream (RBPlayer *player, gpointer stream_data)
 void
 _rb_player_emit_volume_changed (RBPlayer *player, float volume)
 {
-	g_assert (rb_is_main_thread ());
 	g_signal_emit (player, signals[VOLUME_CHANGED], 0, volume);
 }
 
@@ -729,7 +723,6 @@ _rb_player_emit_volume_changed (RBPlayer *player, float volume)
 void
 _rb_player_emit_image (RBPlayer *player, gpointer stream_data, GdkPixbuf *image)
 {
-	g_assert (rb_is_main_thread ());
 	g_signal_emit (player, signals[IMAGE], 0, stream_data, image);
 }
 
@@ -745,7 +738,6 @@ _rb_player_emit_image (RBPlayer *player, gpointer stream_data, GdkPixbuf *image)
 void
 _rb_player_emit_redirect (RBPlayer *player, gpointer stream_data, const char *uri)
 {
-	g_assert (rb_is_main_thread ());
 	g_signal_emit (player, signals[REDIRECT], 0, stream_data, uri);
 }
 

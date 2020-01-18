@@ -33,10 +33,12 @@ CFILE_GLOB=$(top_srcdir)/lib/*.c
 # - plugins (no API there)
 IGNORE_HFILES= \
 	config.h \
+	eggdesktopfile.h \
 	eggwrapbox.h \
 	eggwrapbox-enums.h \
 	md5.h \
 	rb-cut-and-paste-code.h \
+	rb-marshal.h \
 	rb-thread.h \
 	rhythmdb-private.h \
 	rhythmdb-tree.h \
@@ -138,6 +140,9 @@ IGNORE_HFILES= \
 	rb-rhythmdb-dmap-db-adapter.h \
 	rb-rhythmdb-query-model-dmap-db-adapter.h \
 	rb-station-properties-dialog.h \
+	rb-visualizer-fullscreen.h \
+	rb-visualizer-menu.h \
+	rb-visualizer-page.h \
 	sj-metadata-marshal.h \
 	\
 	test-utils.h
@@ -161,7 +166,7 @@ expand_content_files=
 
 
 
-AM_CPPFLAGS=\
+INCLUDES=\
 	-I$(top_srcdir) \
 	-I$(top_builddir) \
 	-I$(top_builddir)/lib \

@@ -9,41 +9,129 @@
 -->
 <appendix id="fdl">
   <appendixinfo>
-    <releaseinfo>Versiunea 1.1, Martie 2000</releaseinfo>
+    <releaseinfo>
+      Version 1.1, March 2000
+    </releaseinfo>
     <copyright>
       <year>2000</year><holder>Free Software Foundation, Inc.</holder>
     </copyright>
     <legalnotice id="fdl-legalnotice">
-      <para><address>Free Software Foundation, Inc. <street>51 Franklin St, 
+      <para>
+	<address>Free Software Foundation, Inc. <street>51 Franklin St, 
         Fifth Floor</street>, <city>Boston</city>, <state>MA</state>  
-        <postcode>02110-1301</postcode>  <country>USA</country></address> Oricui îi este permis să copieze și să distribuie cópii exacte ale acestui document de licență, dar modificarea lui nu este permisă.</para>
+        <postcode>02110-1301</postcode>  <country>USA</country></address> 
+	Everyone is permitted to copy and distribute verbatim copies of this 
+        license document, but changing it is not allowed.
+      </para>
     </legalnotice>
   </appendixinfo>
-  <title>Licența GNU pentru Documentație liberă</title>
+  <title>GNU Free Documentation License</title>
 
   <sect1 id="fdl-preamble">
-    <title>0. PREAMBUL</title>
-    <para>Scopul acestei Licențe este de a conferi unui set de instrucțiuni, manual școlar sau altui document folositor „<quote>liber</quote>”, înțeleasă în sensul următor: asigură tuturor libertatea de a copia și redistribui textul, cu sau fără modificări, în scopuri comerciale și necomerciale. Ca scop secundar, această Licență rezervă pentru autor și editor dreptul de a fi creditați pentru munca lor și de a nu fi responsabili pentru modificările efectuate de alții.</para>
+    <title>0. PREAMBLE</title>
+    <para>
+      The purpose of this License is to make a manual, textbook, or
+      other written document <quote>free</quote> in the sense of
+      freedom: to assure everyone the effective freedom to copy and
+      redistribute it, with or without modifying it, either
+      commercially or noncommercially. Secondarily, this License
+      preserves for the author and publisher a way to get credit for
+      their work, while not being considered responsible for
+      modifications made by others.
+    </para>
     
-    <para>Acestă Licență conferă un fel de <quote>stâng de autor („copyleft”)</quote>, ceea ce înseamnă că lucrările derivate trebuie să fie și ele libere în sensul de mai sus. Această Licență este inspirată de Licența Publică Generală GNU (GNU General Public License, GNU GPL), care este o licență similară concepută pentru a acoperi programele libere.</para>
+    <para>
+      This License is a kind of <quote>copyleft</quote>, which means
+      that derivative works of the document must themselves be free in
+      the same sense. It complements the GNU General Public License,
+      which is a copyleft license designed for free software.
+    </para>
     
-    <para>Această Licență a fost scrisă pentru a acoperi manuale pentru programe libere, pentru că programele libere necesită documentație liberă: un program trebuie însoțit de manuale care oferă aceeași libertate în folosire ca și programul. Acestă Licență nu este limitată la manuale pentru software și poate fi folosită pentru a acoperi orice lucrare, indiferent de subiect sau de modul de publicare. Această Licență este recomandată în principal pentru lucrări care servesc drept referință sau au fost scrise în scop de instruire.</para>
+    <para>
+      We have designed this License in order to use it for manuals for
+      free software, because free software needs free documentation: a
+      free program should come with manuals providing the same
+      freedoms that the software does. But this License is not limited
+      to software manuals; it can be used for any textual work,
+      regardless of subject matter or whether it is published as a
+      printed book. We recommend this License principally for works
+      whose purpose is instruction or reference.
+    </para>
   </sect1>
   <sect1 id="fdl-section1">
-    <title>1. APLICABILITATE ȘI DEFINIȚII</title>
-    <para id="fdl-document">Această licență se aplică oricărui manual sau lucrări care conține o notă inclusă de către deținătorul dreptului de autor ce permite distribuția sub acoperirea acestei Licențe. Termenul <quote>Documentul</quote> folosit mai jos se referă la manualul sau lucrarea acoperită de Licență. Orice membru al publicului este un beneficiar al acestei Licențe și va fi desemnat prin termenul „<quote>dumneavoastră</quote>”.</para>
+    <title>1. APPLICABILITY AND DEFINITIONS</title>
+    <para id="fdl-document">
+      This License applies to any manual or other work that contains a
+      notice placed by the copyright holder saying it can be
+      distributed under the terms of this License. The
+      <quote>Document</quote>, below, refers to any such manual or
+      work. Any member of the public is a licensee, and is addressed
+      as <quote>you</quote>.
+    </para>
     
-    <para id="fdl-modified">O „<quote>Versiune modificată</quote>” a Documentului este orice lucrare conținând Documentul sau o porțiune din Document, copiată identic sau cu modificări și/sau tradusă într-o altă limbă.</para>
+    <para id="fdl-modified">
+      A <quote>Modified Version</quote> of the Document means any work
+      containing the Document or a portion of it, either copied
+      verbatim, or with modifications and/or translated into another
+      language.
+    </para>
 	
-    <para id="fdl-secondary">O „<quote>Secțiune secundară</quote>” este o anexă cu titlu, sau o secțiune menționată în cuprins care are ca scop exclusiv descrierea relației editorilor sau a autorilor Documentului cu subiectul Documentului (sau cu subiecte legate de acesta) și care nu conține subiecte incluse în mod direct în subiectul Documentului. (Așadar, dacă Documentul este în parte manual de matematică, o Secțiune Secundară nu poate conține explicații matematice.) Relația poate fi o conexiune istorică cu subiectul sau cu problemele înrudite cu subiectul, sau puncte de vedere legale, comerciale, filozofice, etice sau politice legate de acesta.</para>
+    <para id="fdl-secondary">
+      A <quote>Secondary Section</quote> is a named appendix or a
+      front-matter section of the <link linkend="fdl-document">Document</link> that deals exclusively
+      with the relationship of the publishers or authors of the
+      Document to the Document's overall subject (or to related
+      matters) and contains nothing that could fall directly within
+      that overall subject. (For example, if the Document is in part a
+      textbook of mathematics, a Secondary Section may not explain any
+      mathematics.)  The relationship could be a matter of historical
+      connection with the subject or with related matters, or of
+      legal, commercial, philosophical, ethical or political position
+      regarding them.
+    </para>
 
-    <para id="fdl-invariant"><quote>Secțiunile invariante</quote> sunt anumite <link linkend="fdl-secondary">Secțiunile secundare</link> ale căror titluri sunt specificate ca fiind titluri de Secțiuni Invariante din Document în nota ce permite distribuția <link linkend="fdl-document">Documentul</link> sub acoperirea acestei Licențe.</para>
+    <para id="fdl-invariant">
+      The <quote>Invariant Sections</quote> are certain <link linkend="fdl-secondary"> Secondary Sections</link> whose titles
+      are designated, as being those of Invariant Sections, in the
+      notice that says that the <link linkend="fdl-document">Document</link> is released under this
+      License.
+    </para>
     
-    <para id="fdl-cover-texts"><quote>Texte de copertă</quote> sunt pasaje scurte de text care sunt listate ca Texte Pentru Coperta I (coperta din față) și Texte Pentru Coperta IV (coperta din spate) în nota ce permite distribuția <link linkend="fdl-document">Documentul</link> sub acoperirea acestei Licențe.</para>
+    <para id="fdl-cover-texts">
+      The <quote>Cover Texts</quote> are certain short passages of
+      text that are listed, as Front-Cover Texts or Back-Cover Texts,
+      in the notice that says that the <link linkend="fdl-document">Document</link> is released under this
+      License.
+    </para>
 	
-    <para id="fdl-transparent">O copie „<quote>Transparentă</quote>” a <link linkend="fdl-document">Documentul</link> este o copie în format electronic, reprezentată într-un format a cărui specificație este disponibilă publicului, care este ușor de modificat folosind un editor de text generic sau (pentru imagini compuse din pixeli) un editor grafic generic sau (pentru desene) un editor larg răspândit de grafică vectorială, și care poate fi folosit de către programe de formatare de text sau de către programe de conversie în alte formate care pot fi folosite ca intrare de către programe de formatare a textului. O copie făcută într-un format de fișier Transparent dar care prin prezența sau absența anumitor elemente specifice formatului descurajează sau împiedică modificările ulterioare nu este o copie Transparentă. Un format grafic - o imagine - nu este un format Transparent dacă este folosit pentru a reprezenta o cantitate substanțială de text. O copie care nu este „<quote>Transparentă</quote>” este „<quote>Opacă</quote>”.</para>
+    <para id="fdl-transparent">
+      A <quote>Transparent</quote> copy of the <link linkend="fdl-document"> Document</link> means a machine-readable
+      copy, represented in a format whose specification is available
+      to the general public, whose contents can be viewed and edited
+      directly and straightforwardly with generic text editors or (for
+      images composed of pixels) generic paint programs or (for
+      drawings) some widely available drawing editor, and that is
+      suitable for input to text formatters or for automatic
+      translation to a variety of formats suitable for input to text
+      formatters. A copy made in an otherwise Transparent file format
+      whose markup has been designed to thwart or discourage
+      subsequent modification by readers is not Transparent.  A copy
+      that is not <quote>Transparent</quote> is called
+      <quote>Opaque</quote>.
+    </para>
     
-    <para>Exemple de formate compatibile cu copiile Transparente includ text ASCII fără marcare, format de intrare Texinfo, format de intrare LaTeX, SGML sau XML folosind un DTD public, HTML simplu și standard conceput pentru modificarea de către oameni. Formatele Opace includ formate de text ce pot fi citite și editate doar de procesoare de text proprietare, SGML și XML pentru care DTD-ul și/sau uneltele de procesare nu sunt disponibile public, HTML generat automat exclusiv în scopul printării/afișării.</para>
+    <para>
+      Examples of suitable formats for Transparent copies include
+      plain ASCII without markup, Texinfo input format, LaTeX input
+      format, SGML or XML using a publicly available DTD, and
+      standard-conforming simple HTML designed for human
+      modification. Opaque formats include PostScript, PDF,
+      proprietary formats that can be read and edited only by
+      proprietary word processors, SGML or XML for which the DTD
+      and/or processing tools are not generally available, and the
+      machine-generated HTML produced by some word processors for
+      output purposes only.
+    </para>
     
     <para id="fdl-title-page">
       The <quote>Title Page</quote> means, for a printed book, the
@@ -408,7 +496,7 @@
     
     <para>
       You may extract a single document from such a collection, and
-      distribute it individually under this License, provided you
+      dispbibute it individually under this License, provided you
       insert a copy of this License into the extracted document, and
       follow this License in all other respects regarding verbatim
       copying of that document.

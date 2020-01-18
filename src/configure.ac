@@ -1,20 +1,22 @@
-AC_PREREQ(2.63.2)
-
+AC_PREREQ(2.53)
 AC_INIT([rhythmbox],
-	[3.4.2],
+	[2.99.1],
 	[https://bugzilla.gnome.org/enter_bug.cgi?product=rhythmbox])
 AC_CONFIG_SRCDIR(rhythmbox.pc.in)
-AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_MACRO_DIR(macros)
 AC_CONFIG_HEADERS(config.h)
-AM_INIT_AUTOMAKE([1.11 tar-ustar dist-xz no-dist-gzip -Wno-portability])
+AM_INIT_AUTOMAKE([1.9 dist-xz no-dist-gzip])
+
+AC_SUBST(ACLOCAL_AMFLAGS, "-I macros")
 
 AM_MAINTAINER_MODE([enable])
+GNOME_MAINTAINER_MODE_DEFINES
 
 # plugin API versioning
 # Increment on interface addition, reset on removal
 RHYTHMBOX_CORE_AGE=0
 # Increment on interface add, remove, or change
-RHYTHMBOX_CORE_CURRENT=10
+RHYTHMBOX_CORE_CURRENT=7
 # Increment on source change, reset when CURRENT changes.
 RHYTHMBOX_CORE_REVISION=0
 
@@ -22,7 +24,7 @@ AC_SUBST(RHYTHMBOX_CORE_AGE)
 AC_SUBST(RHYTHMBOX_CORE_CURRENT)
 AC_SUBST(RHYTHMBOX_CORE_REVISION)
 
-AM_SILENT_RULES([yes])
+m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])],)
 
 dnl XXXX hack to kill off all the libtool tags ...
 dnl it isn't like we are using C++ or Fortran.
@@ -42,24 +44,26 @@ m4_ifdef([LT_OUTPUT], [LT_OUTPUT])
 AC_C_BIGENDIAN
 AC_CHECK_SIZEOF(long)
 
-GTK_REQS=3.16.0
+GTK_REQS=3.6.0
 
-GST_REQS=1.4.0
+GST_REQS=0.11.92
 GDK_PIXBUF_REQS=2.18.0
-GLIB_REQS=2.38.0
+GLIB_REQS=2.32.0
 LIBGPOD_REQS=0.6
 TOTEM_PLPARSER_REQS=3.2.0
 VALA_REQS=0.9.4
-LIBSOUP_REQS=2.42.0
+LIBSOUP_REQS=2.26.0
 GUDEV_REQS=143
 LIBMTP_REQS=0.3.0
 LIBPEAS_REQS=0.7.3
-GRILO_REQS=0.3.0
+GRILO_REQS=0.2.0
 LIBXML2_REQS=2.7.8
-LIBSECRET_REQS=0.18
+# Needed for libsecret commit ddd9bdd2 for the Magnatune plugin
+LIBSECRET_REQS=0.14
 
 LIBNOTIFY_REQS=0.7.0
 BRASERO_MIN_REQS=2.31.5
+WEBKIT_MIN_REQS=1.3.9
 PYGOBJECT_REQUIRED=3.0.0
 
 GLIB_GSETTINGS
@@ -108,6 +112,7 @@ PKG_CHECK_MODULES(RHYTHMBOX,				\
 		  gio-2.0 >= $GLIB_REQS			\
 		  gio-unix-2.0 >= $GLIB_REQS		\
 		  libsoup-2.4 >= $LIBSOUP_REQS		\
+		  libsoup-gnome-2.4 >= $LIBSOUP_REQS	\
 		  libpeas-1.0 >= $LIBPEAS_REQS		\
 		  libpeas-gtk-1.0 >= $LIBPEAS_REQS	\
 		  libxml-2.0 >= $LIBXML2_REQS		\
@@ -118,7 +123,7 @@ PKG_CHECK_MODULES(TOTEM_PLPARSER, totem-plparser >= $TOTEM_PLPARSER_REQS, have_t
 if test x$have_totem_plparser != xyes; then
    AC_MSG_ERROR([totem playlist parsing library not found or too old])
 else
-   if test "x`$PKG_CONFIG --variable uselibcamel totem-plparser`" = "xno" ; then
+   if test "x`pkg-config --variable uselibcamel totem-plparser`" = "xno" ; then
        AC_MSG_ERROR([totem playlist parsing library has Podcast parsing disabled])
    fi
 fi
@@ -303,7 +308,7 @@ fi
 AM_CONDITIONAL(USE_NOTIFY, test x"$enable_libnotify" = xyes)
 if test x$enable_libnotify = xyes ; then
     # Find out the version of LIBNOTIFY we're using
-    libnotify_version=`$PKG_CONFIG --modversion libnotify`
+    libnotify_version=`pkg-config --modversion libnotify`
     LIBNOTIFY_VERSION_MAJOR=`echo $libnotify_version | awk -F. '{print $1}'`
     LIBNOTIFY_VERSION_MINOR=`echo $libnotify_version | awk -F. '{print $2}'`
     LIBNOTIFY_VERSION_MICRO=`echo $libnotify_version | awk -F. '{print $3}'`
@@ -334,12 +339,12 @@ CFLAGS="$CFLAGS $X_CFLAGS"
 
 dnl Multimedia keys
 have_xfree=no
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
+AC_COMPILE_IFELSE([
 	#include <X11/XF86keysym.h>
 int main(int argc,char **argv) {
   return 0;
 }
-]])], have_xfree=yes)
+], have_xfree=yes)
 AC_MSG_CHECKING(for XFree86 headers)
 AC_MSG_RESULT($have_xfree)
 if test x"$have_xfree" = "xyes" ; then
@@ -382,7 +387,8 @@ AC_SUBST(HAVE_LIBBRASERO_MEDIA)
 AC_SUBST(CFLAGS)
 AC_SUBST(LDFLAGS)
 
-AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
+AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
+AC_PATH_PROG(GDK_PIXBUF_CSOURCE, gdk-pixbuf-csource)
 
 AC_SUBST(RHYTHMBOX_CFLAGS)
 AC_SUBST(RHYTHMBOX_LIBS)
@@ -410,11 +416,17 @@ if test "x$ac_cv_strftime_supports_E_O" = xyes; then
         AC_DEFINE(HAVE_STRFTIME_EXTENSION, 1, [Define if strftime supports %E and %O modifiers.])
 fi
 
-AM_GNU_GETTEXT_VERSION([0.18])
-AM_GNU_GETTEXT([external])
+GETTEXT_PACKAGE=rhythmbox
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Define to the Gettext package name])
 
-AC_SUBST([GETTEXT_PACKAGE], [rhythmbox])
-AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], "$GETTEXT_PACKAGE", [Define to the gettext package name.])
+AM_GLIB_GNU_GETTEXT
+
+dnl Workaround for automake 1.8
+AC_SUBST(mkdir_p) if test x"$mkdir_p" = "x"; then
+  MKINSTALLDIRS="mkinstalldirs"
+fi
+AC_SUBST(MKINSTALLDIRS)
 
 dnl LIRC
 AC_ARG_ENABLE(lirc,
@@ -431,15 +443,33 @@ if test x"$enable_lirc" != xno; then
 fi
 AM_CONDITIONAL(WITH_LIRC, test x"$with_lirc" = xyes)
 
+dnl WebKit
+have_webkit=no
+AC_ARG_WITH(webkit,
+	    AC_HELP_STRING([--with-webkit],
+			   [Use WebKit to display HTML]),,
+	    with_webkit=auto)
+if test "x$with_webkit" != xno; then
+	PKG_CHECK_MODULES(WEBKIT, [webkitgtk-3.0 >= $WEBKIT_MIN_REQS], have_webkit=yes, have_webkit=no)
+	if test "x$have_webkit" = "xno" -a "x$with_webkit" = "xyes"; then
+		AC_MSG_ERROR([WebKit support explicitly requested, but WebKit could not be found])
+	fi
+	if test "x$have_webkit" = "xyes"; then
+		AC_DEFINE(WITH_WEBKIT, 1, [Define if WebKit is enabled])
+	fi
+fi
+AM_CONDITIONAL(WITH_WEBKIT, test x"$have_webkit" = xyes)
+
+
 AC_ARG_ENABLE(uninstalled-build,
               AC_HELP_STRING([--enable-uninstalled-build],
 			     [Search for files in build directory as well]),
-	      enable_uninstalled=$enableval,)
+	      enable_uninstalled=yes,)
 if test x"$enable_uninstalled" = xyes; then
 	AC_DEFINE(USE_UNINSTALLED_DIRS, 1, [Define to look for files in source tree locations])
 fi
-ROOT_UNINSTALLED_DIR=$( cd $( dirname $0 ) && pwd )
-AC_DEFINE_UNQUOTED(SHARE_UNINSTALLED_DIR,"$ROOT_UNINSTALLED_DIR/data",[path to source data dir])
+ROOT_UNINSTALLED_DIR="`pwd`"
+AC_DEFINE_UNQUOTED(SHARE_UNINSTALLED_DIR,"`pwd`/$srcdir/data",[path to source data dir])
 AC_DEFINE_UNQUOTED(SHARE_UNINSTALLED_BUILDDIR,"`pwd`/data",[path to built source data dir])
 AC_DEFINE_UNQUOTED(METADATA_UNINSTALLED_DIR,"`pwd`/metadata",[path to metadata build dir])
 AC_SUBST(ROOT_UNINSTALLED_DIR)
@@ -511,10 +541,12 @@ else
 fi
 
 dnl Set required and max glib/gdk versions
-AC_DEFINE(GLIB_VERSION_MIN_REQUIRED, GLIB_VERSION_2_38, [minimum glib version])
-AC_DEFINE(GLIB_VERSION_MAX_ALLOWED, GLIB_VERSION_2_38, [maximum glib version])
-AC_DEFINE(GDK_VERSION_MIN_REQUIRED, GDK_VERSION_3_16, [minimum gdk version])
-AC_DEFINE(GDK_VERSION_MAX_ALLOWED, GDK_VERSION_3_16, [maximum gdk version])
+AC_DEFINE(GLIB_VERSION_MIN_REQUIRED, GLIB_VERSION_2_34, [minimum glib version])
+AC_DEFINE(GLIB_VERSION_MAX_ALLOWED, GLIB_VERSION_2_34, [maximum glib version])
+AC_DEFINE(GDK_VERSION_MIN_REQUIRED, GDK_VERSION_3_6, [minimum gdk version])
+AC_DEFINE(GDK_VERSION_MAX_ALLOWED, GDK_VERSION_3_6, [maximum gdk version])
+AC_DEFINE(CLUTTER_VERSION_MIN_REQUIRED, CLUTTER_VERSION_1_8, [minimum clutter version])
+AC_DEFINE(CLUTTER_VERSION_MAX_ALLOWED, CLUTTER_VERSION_1_8, [maximum clutter version])
 
 dnl Check for -fno-strict-aliasing
 FLAGS="-fno-strict-aliasing"
@@ -552,36 +584,27 @@ AC_SUBST(SAMPLEPLUGINDIR)
 dnl ================================================================
 dnl Python plugins
 dnl ================================================================
+AM_PATH_PYTHON
 
-AC_MSG_CHECKING([whether Python plugin support is requested])
+
 AC_ARG_ENABLE([python],
               AS_HELP_STRING([--enable-python[=@<:@no/auto/yes@:>@]],[Build with python support]),
               [enable_python=$enableval],
               [enable_python="auto"])
-AC_MSG_RESULT([$enable_python])
 
-if test "x$enable_python" != "xno"; then
-	AM_PATH_PYTHON([3.2.3], [have_python=yes], [have_python=no])
-
-	if test "x$have_python" = "xno" -a "x$enable_python" = "xyes"; then
-		AC_MSG_ERROR([Python support explicitly requested, but no suitable Python interpreter could be found])
-	fi
-
-	PKG_CHECK_MODULES(PYTHON, [pygobject-3.0 >= $PYGOBJECT_REQUIRED],
-			[have_pygobject=yes], [have_pygobject=no])
-
-	if test "x$have_pygobject" = "xno" -a "x$enable_python" = "xyes"; then
-		AC_MSG_ERROR([Python support explicitly requested, but pygobject-3.0 could not be found])
-	fi
-
-	if test "x$have_python" = "xyes" -a "x$have_pygobject" = "xyes"; then
-		pyoverridesdir=`$PYTHON -c "import gi; print(gi._overridesdir)"`
-		AC_SUBST(pyoverridesdir)
-		build_python=yes
-	fi
+if test "x$enable_python" = "xauto"; then
+	PKG_CHECK_EXISTS([pygobject-3.0 >= $PYGOBJECT_REQUIRED],
+	                 [enable_python=yes],[enable_python=no])
 fi
 
-AM_CONDITIONAL(ENABLE_PYTHON, test "x$build_python" = "xyes")
+if test "x$enable_python" = "xyes"; then
+	PKG_CHECK_MODULES(PYTHON, [pygobject-3.0 >= $PYGOBJECT_REQUIRED])
+
+	pyoverridesdir=`$PKG_CONFIG --variable=overridesdir pygobject-3.0`
+	AC_SUBST(pyoverridesdir)
+fi
+
+AM_CONDITIONAL(ENABLE_PYTHON, test x"$enable_python" = "xyes")
 
 dnl ================================================================
 dnl Vala plugins
@@ -639,7 +662,7 @@ AC_ARG_VAR([MOZILLA_PLUGINDIR],[Where to install the browser plugin to])
 
 AM_CONDITIONAL([ENABLE_BROWSER_PLUGIN], test x$enable_browser_plugin = xyes)
 if test x$enable_browser_plugin = xyes; then
-	ITMS_HANDLER="x-scheme-handler/itms;x-scheme-handler/itmss;"
+	ITMS_HANDLER="x-scheme-handler/itms;"
 fi
 AC_SUBST(ITMS_HANDLER)
 
@@ -651,7 +674,7 @@ AC_ARG_ENABLE(daap,
                             [Disable DAAP support]),,
               enable_daap=auto)
 if test "x$enable_daap" != "xno"; then
-	PKG_CHECK_MODULES(DMAPSHARING, libdmapsharing-3.0 >= 2.9.19,
+	PKG_CHECK_MODULES(DMAPSHARING, libdmapsharing-3.0 >= 2.9.16,
 			  have_libdmapsharing=yes,
 			  have_libdmapsharing=no)
 	if test "x$have_libdmapsharing" = "xno" -a "x$enable_daap" = "xyes"; then
@@ -668,6 +691,32 @@ AC_SUBST(DMAPSHARING_CFLAGS)
 AC_SUBST(DMAPSHARING_LIBS)
 
 dnl ================================================================
+dnl clutter for visualizer plugin
+dnl ================================================================
+AC_ARG_ENABLE(visualizer,
+              AC_HELP_STRING([--disable-visualizer],
+                             [Disable visualizer plugin support]),,
+              enable_visualizer=auto)
+if test "x$enable_visualizer" != "xno"; then
+	PKG_CHECK_MODULES(CLUTTER,
+			  clutter-1.0 >= 1.8			\
+			  clutter-x11-1.0 >= 1.8		\
+			  clutter-gst-2.0				\
+			  clutter-gtk-1.0 >= 1.0		\
+			  mx-1.0 >= 1.0.1,
+			  have_clutter=yes,
+			  have_clutter=no)
+	if test "x$have_clutter" = "xno" -a "x$enable_visualizer" = "xyes"; then
+		AC_MSG_ERROR([Visualizer support explicitly requested, but clutter couldn't be found])
+	fi
+fi
+
+AM_CONDITIONAL(USE_CLUTTER, test x"$have_clutter" = "xyes")
+
+AC_SUBST(CLUTTER_CFLAGS)
+AC_SUBST(CLUTTER_LIBS)
+
+dnl ================================================================
 dnl grilo plugin
 dnl ================================================================
 AC_ARG_ENABLE(grilo,
@@ -675,7 +724,7 @@ AC_ARG_ENABLE(grilo,
 			     [Disable Grilo support]),,
 	      enable_grilo=auto)
 if test "x$enable_grilo" != "xno"; then
-	PKG_CHECK_MODULES(GRILO, grilo-0.3 >= $GRILO_REQS, have_grilo=yes, have_grilo=no)
+	PKG_CHECK_MODULES(GRILO, grilo-0.2 >= $GRILO_REQS, have_grilo=yes, have_grilo=no)
 	if test "x$have_grilo" = "xno" -a "x$enable_grilo" = "xyes"; then
 		AC_MSG_ERROR([Grilo support explicitly requested, but grilo couldn not be found])
 	fi
@@ -695,6 +744,7 @@ dnl ================================================================
 AC_OUTPUT([
 rhythmbox.pc
 Makefile
+macros/Makefile
 lib/Makefile
 lib/libmediaplayerid/Makefile
 metadata/Makefile
@@ -709,26 +759,34 @@ data/ui/Makefile
 data/icons/Makefile
 data/icons/hicolor/Makefile
 data/icons/hicolor/16x16/Makefile
+data/icons/hicolor/16x16/actions/Makefile
 data/icons/hicolor/16x16/apps/Makefile
+data/icons/hicolor/16x16/places/Makefile
 data/icons/hicolor/16x16/status/Makefile
 data/icons/hicolor/22x22/Makefile
+data/icons/hicolor/22x22/actions/Makefile
 data/icons/hicolor/22x22/apps/Makefile
+data/icons/hicolor/22x22/places/Makefile
 data/icons/hicolor/24x24/Makefile
 data/icons/hicolor/24x24/apps/Makefile
+data/icons/hicolor/24x24/places/Makefile
 data/icons/hicolor/32x32/Makefile
+data/icons/hicolor/32x32/actions/Makefile
 data/icons/hicolor/32x32/apps/Makefile
+data/icons/hicolor/32x32/places/Makefile
 data/icons/hicolor/48x48/Makefile
 data/icons/hicolor/48x48/apps/Makefile
 data/icons/hicolor/48x48/status/Makefile
 data/icons/hicolor/256x256/Makefile
 data/icons/hicolor/256x256/apps/Makefile
 data/icons/hicolor/scalable/Makefile
+data/icons/hicolor/scalable/actions/Makefile
 data/icons/hicolor/scalable/apps/Makefile
+data/icons/hicolor/scalable/places/Makefile
 data/icons/src/Makefile
 sources/Makefile
 sources/sync/Makefile
 plugins/Makefile
-plugins/android/Makefile
 plugins/audiocd/Makefile
 plugins/audioscrobbler/Makefile
 plugins/brasero-disc-recorder/Makefile
@@ -755,9 +813,8 @@ plugins/mpris/Makefile
 plugins/dbus-media-server/Makefile
 plugins/rbzeitgeist/Makefile
 plugins/notification/Makefile
+plugins/visualizer/Makefile
 plugins/grilo/Makefile
-plugins/soundcloud/Makefile
-plugins/webremote/Makefile
 sample-plugins/Makefile
 sample-plugins/sample/Makefile
 sample-plugins/sample-python/Makefile
@@ -818,6 +875,11 @@ if test x"$have_libnotify" = xyes; then
 else
 	AC_MSG_NOTICE([   libnotify support is disabled])
 fi
+if test x"$have_webkit" = xyes; then
+	AC_MSG_NOTICE([** WebKit support is enabled])
+else
+	AC_MSG_NOTICE([   WebKit support is disabled])
+fi
 if test x"$use_gudev" = xyes; then
 	AC_MSG_NOTICE([** GUdev support enabled])
 elif test x"$enable_hal" = xyes; then
@@ -825,7 +887,7 @@ elif test x"$enable_hal" = xyes; then
 else
 	AC_MSG_NOTICE([   GUdev support disabled])
 fi
-if test x"$build_python" = xyes; then
+if test x"$enable_python" = xyes; then
 	AC_MSG_NOTICE([** Python plugin support enabled])
 else
 	AC_MSG_NOTICE([   Python plugin support disabled])
@@ -850,6 +912,12 @@ if test "x$enable_browser_plugin" != xno; then
 	AC_MSG_NOTICE([** iTunes detection browser plugin (for podcasts) enabled])
 else
 	AC_MSG_NOTICE([   iTunes detection browser plugin (for podcasts) disabled])
+fi
+
+if test "x$have_clutter" = xyes; then
+	AC_MSG_NOTICE([** Visualizer plugin enabled])
+else
+	AC_MSG_NOTICE([   Visualizer plugin disabled])
 fi
 
 AC_MSG_NOTICE([End options])

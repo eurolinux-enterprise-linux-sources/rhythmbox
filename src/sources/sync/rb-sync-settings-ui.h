@@ -48,14 +48,14 @@ typedef struct _RBSyncSettingsUIPrivate RBSyncSettingsUIPrivate;
 
 struct _RBSyncSettingsUI
 {
-	GtkBox parent;
+	GtkVBox parent;
 
 	RBSyncSettingsUIPrivate *priv;
 };
 
 struct _RBSyncSettingsUIClass
 {
-	GtkBoxClass parent_class;
+	GtkVBoxClass parent_class;
 };
 
 GType			rb_sync_settings_ui_get_type (void);

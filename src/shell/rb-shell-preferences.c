@@ -97,7 +97,6 @@ struct {
 } column_checks[] = {
 	{ "track_check",	RHYTHMDB_PROP_TRACK_NUMBER },
 	{ "artist_check",	RHYTHMDB_PROP_ARTIST },
-	{ "composer_check",	RHYTHMDB_PROP_COMPOSER },
 	{ "album_check",	RHYTHMDB_PROP_ALBUM },
 	{ "year_check",		RHYTHMDB_PROP_DATE },
 	{ "last_played_check",	RHYTHMDB_PROP_LAST_PLAYED },
@@ -189,10 +188,10 @@ rb_shell_preferences_init (RBShellPreferences *shell_preferences)
 				 shell_preferences, 0);
 
 	gtk_dialog_add_button (GTK_DIALOG (shell_preferences),
-			       _("_Close"),
+			       GTK_STOCK_CLOSE,
 			       GTK_RESPONSE_CLOSE);
 	tmp = gtk_dialog_add_button (GTK_DIALOG (shell_preferences),
-			              _("_Help"),
+			              GTK_STOCK_HELP,
 			              GTK_RESPONSE_HELP);
 	g_signal_connect_object (tmp, "clicked",
 				 G_CALLBACK (help_cb), shell_preferences, 0);

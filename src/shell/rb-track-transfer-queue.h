@@ -70,9 +70,12 @@ void			rb_track_transfer_queue_start_batch	(RBTrackTransferQueue *queue,
 								 RBTrackTransferBatch *batch);
 void			rb_track_transfer_queue_cancel_batch	(RBTrackTransferQueue *queue,
 								 RBTrackTransferBatch *batch);
+gboolean		rb_track_transfer_queue_get_status	(RBTrackTransferQueue *queue,
+								 char **text,
+								 char **progress_text,
+								 float *progress,
+								 int *time_left);
 GList *			rb_track_transfer_queue_find_batch_by_source (RBTrackTransferQueue *queue,
-								 RBSource *source);
-void			rb_track_transfer_queue_cancel_for_source (RBTrackTransferQueue *queue,
 								 RBSource *source);
 
 G_END_DECLS

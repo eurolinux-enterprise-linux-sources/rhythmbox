@@ -48,12 +48,12 @@ typedef struct _RBLibraryBrowserClass RBLibraryBrowserClass;
 
 struct _RBLibraryBrowser
 {
-	GtkBox parent;
+	GtkHBox parent;
 };
 
 struct _RBLibraryBrowserClass
 {
-	GtkBoxClass parent;
+	GtkHBoxClass parent;
 };
 
 GType			rb_library_browser_get_type (void);

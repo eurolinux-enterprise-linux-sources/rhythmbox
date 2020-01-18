@@ -37,28 +37,17 @@ test_rb_lib_SOURCES = \
 
 test_audioscrobbler_SOURCES = \
 	test-audioscrobbler.c								\
+	$(top_srcdir)/plugins/audioscrobbler/rb-audioscrobbler-entry.c			\
+	$(top_srcdir)/plugins/audioscrobbler/rb-audioscrobbler-radio-track-entry-type.c	\
 	$(test_utils)
-
-test_audioscrobbler_LDADD = \
-	$(LDADD) \
-	$(top_builddir)/plugins/audioscrobbler/libaudioscrobblertest.la \
-	$(RHYTHMBOX_LIBS)
 
 test_widgets_SOURCES = \
 	test-widgets.c						\
-	test-widgets-resources.c				\
 	$(test_utils)
-
-test_resource_deps = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(top_srcdir)/data $(srcdir)/test-widgets.gresource.xml)
-test-widgets-resources.c: $(test_resource_deps) $(srcdir)/test-widgets.gresource.xml
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES)			\
-		--target="$@"					\
-		--sourcedir="$(top_srcdir)/data"		\
-		--generate-source "$(srcdir)/test-widgets.gresource.xml"
 
 bench_rhythmdb_load_SOURCES = bench-rhythmdb-load.c
 
-AM_CPPFLAGS = 							\
+INCLUDES = 							\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"	        \
 	-DG_LOG_DOMAIN=\"Rhythmbox-tests\"			\
 	-I$(top_srcdir) 					\
@@ -68,7 +57,8 @@ AM_CPPFLAGS = 							\
 	-I$(top_srcdir)/widgets					\
 	-I$(top_srcdir)/rhythmdb				\
 	-I$(top_srcdir)/podcast					\
-	-I$(top_srcdir)/plugins/audioscrobbler
+	-I$(top_srcdir)/plugins/audioscrobbler			\
+	-D_BSD_SOURCE
 
 if HAVE_CHECK
 TESTS += \
@@ -96,7 +86,4 @@ EXTRA_DIST = 							\
 	deserialization-test2.xml 				\
 	deserialization-test3.xml 				\
 	podcast-upgrade.xml					\
-	test-widgets.gresource.xml				\
 	$(OLD_TESTS)
-
-CLEANFILES = test-widgets-resources.c

@@ -27,12 +27,11 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 import os, re
-import urllib.request
+import urllib
 
 import rb
 from gi.repository import Gtk, Gio, GObject, Peas
 from gi.repository import RB
-from gi.repository import Gst, GstPbutils
 
 import LyricsParse
 from LyricsConfigureDialog import LyricsConfigureDialog
@@ -117,7 +116,7 @@ def extract_artist_and_title(stream_song_title):
 	return (artist, title)
 	
 def build_cache_path(artist, title):
-	settings = Gio.Settings.new("org.gnome.rhythmbox.plugins.lyrics")
+	settings = Gio.Settings("org.gnome.rhythmbox.plugins.lyrics")
 	folder = settings['folder']
 	if folder is None or folder == "":
 		folder = os.path.join(RB.user_cache_dir(), "lyrics")
@@ -133,107 +132,41 @@ def build_cache_path(artist, title):
 	return os.path.join(artist_folder, title[:128] + '.lyric')
 
 class LyricGrabber(object):
-	"""
-	Fetch lyrics from several sources.
-
-	1. Local cache file
-	2. Lyric tags in file meta data
-	3. Online services
-	"""
 	def __init__(self, db, entry):
 		self.db = db
 		self.entry = entry
-
+		
 		(self.artist, self.title) = parse_song_data(self.db, self.entry)
 
 		self.cache_path = build_cache_path(self.artist, self.title)
 
 	def verify_lyric(self):
 		return os.path.exists(self.cache_path)
-
+	  
 	def search_lyrics(self, callback, cache_only=False):
-		"""
-		Fetch lyrics from cache.
-
-		If no cache file exist, tag extraction is tried next.
-		"""
 		self.callback = callback
-
+		
 		status = self.verify_lyric()
+		
 		if status:
-			f = open(self.cache_path, 'rt')
-			text = f.read()
-			f.close()
-			self.callback(text)
+			l = rb.Loader()
+			l.get_url('file://' + urllib.pathname2url(self.cache_path), callback)
 		elif cache_only:
 			self.callback(_("No lyrics found"))
-		else:
-			self.search_tags()
-
-	def search_tags(self):
-		"""
-		Initiate fetching meta tags.
-
-		Result will be handled in search_tags_result
-		"""
-		location = self.entry.get_playback_uri()
-		self.discoverer = GstPbutils.Discoverer(timeout=Gst.SECOND*3)
-		self.discoverer.connect('discovered', self.search_tags_result)
-		self.discoverer.start()
-		self.discoverer.discover_uri_async(location)
-
-	def search_tags_result(self, discoverer, info, error):
-		"""
-		Extract lyrics from the file meta data (tags).
-
-		If no lyrics tags are found, online services are tried next.
-
-		Supported file formats and lyrics tags:
-		- ogg/vorbis files with "LYRICS" and "SYNCLYRICS" tag
-		"""
-		tags = info.get_tags()
-		if tags is None:
-			self.search_online()
-			return
-
-		for i in range(tags.get_tag_size("extended-comment")):
-			(exists, value) = tags.get_string_index("extended-comment", i)
-			#ogg/vorbis unsynchronized lyrics
-			if exists and value.startswith("LYRICS"):
-				text = value.replace("LYRICS=", "")
-				self.lyrics_found(text)
-				return
-			#ogg/vorbis synchronized lyrics
-			elif exists and value.startswith("SYNCLYRICS"):
-				text = value.replace("SYNCLYRICS=", "")
-				self.lyrics_found(text)
-				return
-
-		self.search_online()
-
-	def search_online(self):
-		"""Initiate searching the online lyrics services"""
-		if self.artist == "" and self.title == "":
+		elif self.artist == "" and self.title == "":
 			self.callback(_("No lyrics found"))
 		else:
+			def lyric_callback (text):
+				if text is not None:
+					f = file (self.cache_path, 'w')
+					f.write (text)
+					f.close ()
+					self.callback(text)
+				else:
+					self.callback(_("No lyrics found"))
+
 			parser = LyricsParse.Parser(self.artist, self.title)
-			parser.get_lyrics(self.search_online_result)
-
-	def search_online_result(self, text):
-		"""Handle the result of searching online lyrics services"""
-		if text is not None:
-			self.lyrics_found(text)
-		else:
-			self.callback(_("No lyrics found"))
-
-
-	def lyrics_found(self, text):
-		f = open(self.cache_path, 'wt')
-		f.write(text)
-		f.close()
-
-		self.callback(text)
-
+			parser.get_lyrics(lyric_callback)
 
 class LyricPane(object):
 	def __init__(self, db, song_info):
@@ -244,14 +177,14 @@ class LyricPane(object):
 		self.build_path()
 		
 		def save_lyrics(cache_path, text):
-			f = open(cache_path, 'wt')
-			f.write(text)
-			f.close()
+			f = file (cache_path, 'w')
+			f.write (text)
+			f.close ()
 		
 		def erase_lyrics(cache_path):
-			f = open(cache_path, 'w')
-			f.write("")
-			f.close()
+			f = file (cache_path, 'w')
+			f.write ("")
+			f.close ()
 		
 		def save_callback():
 			buf = self.buffer
@@ -288,7 +221,7 @@ class LyricPane(object):
 		self.discard.connect('clicked', discard_callback)
 		self.clear = Gtk.Button.new_from_stock(Gtk.STOCK_CLEAR)
 		self.clear.connect('clicked', clear_callback)
-		self.hbox = Gtk.ButtonBox(orientation=Gtk.Orientation.HORIZONTAL)
+		self.hbox = Gtk.HButtonBox()
 		self.hbox.set_spacing (6)
 		self.hbox.set_layout(Gtk.ButtonBoxStyle.END)
 		self.hbox.add(self.edit)
@@ -298,9 +231,8 @@ class LyricPane(object):
 
 		(self.view, self.buffer, self.tview) = create_lyrics_view()
 
-		self.view.pack_start(self.hbox, False, False, 0)
-		self.view.set_spacing(6)
-		self.view.props.margin = 6
+		self.view.pack_start(self.hbox, False, False, 6)
+		self.view.set_spacing(2)
 	
 		self.view.show_all()
 		self.page_num = song_info.append_page(_("Lyrics"), self.view)
@@ -337,7 +269,7 @@ class LyricPane(object):
 		self.get_lyrics()
 
 	def __got_lyrics(self, text):
-		self.buffer.set_text(text, -1)
+		self.buffer.set_text(str(text), -1)
 
 	def get_lyrics(self):
 		if self.entry is None:
@@ -466,7 +398,7 @@ class LyricsDisplayPlugin(GObject.Object, Peas.Activatable):
 			self.action.set_enabled (False)
 
 	def window_deleted (self, window):
-		print("lyrics window destroyed")
+		print "lyrics window destroyed"
 		self.window = None
 	
 	def create_song_info (self, shell, song_info, is_multiple):

@@ -52,8 +52,6 @@ static const char *container_formats[] = {
 static GstEncodingTarget *default_target = NULL;
 static GKeyFile *target_keyfile = NULL;
 
-#define ENCODER_STYLE_SETTINGS_PREFIX "rhythmbox-encoding-"
-
 RBGstMediaType
 rb_gst_get_missing_plugin_type (const GstStructure *structure)
 {
@@ -165,8 +163,6 @@ rb_gst_media_type_to_extension (const char *media_type)
 		return "mp3";
 	} else if (!strcmp (media_type, "audio/x-vorbis") || !strcmp (media_type, "application/ogg") || !strcmp (media_type, "audio/ogg")) {
 		return "ogg";
-	} else if (!strcmp (media_type, "audio/x-opus")) {
-		return "opus";
 	} else if (!strcmp (media_type, "audio/x-flac") || !strcmp (media_type, "audio/flac")) {
 		return "flac";
 	} else if (!strcmp (media_type, "audio/x-aac") || !strcmp (media_type, "audio/aac") || !strcmp (media_type, "audio/x-alac")) {
@@ -274,11 +270,6 @@ get_encoding_target_file ()
 	return target_file;
 }
 
-/**
- * rb_gst_get_default_encoding_target:
- *
- * Return value: (transfer none): default encoding target
- */
 GstEncodingTarget *
 rb_gst_get_default_encoding_target ()
 {
@@ -300,12 +291,6 @@ rb_gst_get_default_encoding_target ()
 	return default_target;
 }
 
-/**
- * rb_gst_get_encoding_profile:
- * @media_type: media type to get a profile for
- *
- * Return value: (transfer full): encoding profile
- */
 GstEncodingProfile *
 rb_gst_get_encoding_profile (const char *media_type)
 {
@@ -379,6 +364,7 @@ get_audio_encoder_factory (GstEncodingProfile *profile)
 	if (fl != NULL) {
 		f = gst_object_ref (fl->data);
 	} else {
+		g_warning ("no encoder factory for profile %s", gst_encoding_profile_get_name (p));
 		f = NULL;
 	}
 	gst_plugin_feature_list_free (l);
@@ -404,9 +390,31 @@ rb_gst_encoding_profile_set_preset (GstEncodingProfile *profile, const char *pre
 	}
 }
 
-static GKeyFile *
-get_target_keyfile (void)
+/**
+ * rb_gst_encoding_profile_get_settings:
+ * @profile: a #GstEncodingProfile
+ *
+ * Returns a list of settings for the profile @profile that can usefully
+ * be exposed to a user.  This usually means just bitrate/quality settings.
+ * This works by finding the name of the encoder element for the profile
+ * and retrieving a list specific to that encoder.
+ *
+ * Return value: (transfer full) (element-type GParamSpec): list of settings
+ */
+char **
+rb_gst_encoding_profile_get_settings (GstEncodingProfile *profile)
 {
+	GstElementFactory *factory;
+	char **setting_names;
+
+	factory = get_audio_encoder_factory (profile);
+	if (factory == NULL) {
+		return NULL;
+	}
+
+	/* look up list of settings;
+	 * if we don't have one for the encoder, what do we do?  return everything?
+	 */
 	if (target_keyfile == NULL) {
 		char *file = get_encoding_target_file ();
 		GError *error = NULL;
@@ -420,60 +428,14 @@ get_target_keyfile (void)
 		}
 	}
 
-	return target_keyfile;
-}
-
-/**
- * rb_gst_encoding_profile_get_settings:
- * @profile: a #GstEncodingProfile
- * @style: encoding style (NULL or "cbr" or "vbr")
- *
- * Returns a list of settings for the profile @profile that can usefully
- * be exposed to a user.  This usually means just bitrate/quality settings.
- * This works by finding the name of the encoder element for the profile
- * and retrieving a list specific to that encoder.
- *
- * Return value: (transfer full): list of settings
- */
-char **
-rb_gst_encoding_profile_get_settings (GstEncodingProfile *profile, const char *style)
-{
-	GstElementFactory *factory;
-	char **setting_names;
-	char *key_name;
-
-	factory = get_audio_encoder_factory (profile);
-	if (factory == NULL) {
-		return NULL;
-	}
-
-	/* look up list of settings;
-	 * if we don't have one for the encoder, what do we do?  return everything?
-	 */
-
-	if (style == NULL) {
-		key_name = g_strdup (gst_plugin_feature_get_name (GST_PLUGIN_FEATURE (factory)));
-	} else {
-		key_name = g_strdup_printf ("%s-%s",
-					    gst_plugin_feature_get_name (GST_PLUGIN_FEATURE (factory)),
-					    style);
-	}
-
-	setting_names = g_key_file_get_string_list (get_target_keyfile (),
+	setting_names = g_key_file_get_string_list (target_keyfile,
 						    "rhythmbox-encoder-settings",
-						    key_name,
+						    gst_plugin_feature_get_name (GST_PLUGIN_FEATURE (factory)),
 						    NULL,
 						    NULL);
-	g_free (key_name);
 	return setting_names;
 }
 
-/**
- * rb_gst_encoding_profile_get_encoder:
- * @profile: a #GstEncodingProfile
- *
- * Return value: (transfer full): an encoder element instance
- */
 GstElement *
 rb_gst_encoding_profile_get_encoder (GstEncodingProfile *profile)
 {
@@ -487,28 +449,6 @@ rb_gst_encoding_profile_get_encoder (GstEncodingProfile *profile)
 	return gst_element_factory_create (factory, NULL);
 }
 
-/**
- * rb_gst_encoding_profile_get_encoder_caps:
- * @profile: a #GstEncodingProfile
- *
- * Return value: (transfer full): output caps for the encoder
- */
-GstCaps *
-rb_gst_encoding_profile_get_encoder_caps (GstEncodingProfile *profile)
-{
-	GstEncodingProfile *p = get_audio_encoding_profile (profile);
-	if (p != NULL)
-		return gst_encoding_profile_get_format (p);
-
-	return NULL;
-}
-
-/**
- * rb_gst_encoding_profile_get_presets:
- * @profile: profile to return presets for
- *
- * Return value: (transfer full) (array zero-terminated=1) (element-type gchar *): preset names
- */
 char **
 rb_gst_encoding_profile_get_presets (GstEncodingProfile *profile)
 {
@@ -523,56 +463,3 @@ rb_gst_encoding_profile_get_presets (GstEncodingProfile *profile)
 	return presets;
 }
 
-gboolean
-rb_gst_encoder_set_encoding_style (GstElement *encoder, const char *style)
-{
-	GstElementFactory *factory;
-	char *group_name;
-	char **keys;
-	int i;
-
-	factory = gst_element_get_factory (encoder);
-	group_name = g_strdup_printf (ENCODER_STYLE_SETTINGS_PREFIX "%s-%s",
-				      gst_plugin_feature_get_name (GST_PLUGIN_FEATURE (factory)),
-				      style);
-	rb_debug ("applying settings from %s", group_name);
-
-	keys = g_key_file_get_keys (get_target_keyfile (), group_name, NULL, NULL);
-	if (keys == NULL) {
-		rb_debug ("nothing to apply");
-		g_free (group_name);
-		return FALSE;
-	}
-
-	for (i = 0; keys[i] != NULL; i++) {
-		GParamSpec *pspec;
-		GValue v = {0,};
-		char *value;
-
-		pspec = g_object_class_find_property (G_OBJECT_GET_CLASS (encoder), keys[i]);
-		if (pspec == NULL) {
-			rb_debug ("couldn't find property %s", keys[i]);
-			continue;
-		}
-
-		value = g_key_file_get_string (get_target_keyfile (), group_name, keys[i], NULL);
-		if (value == NULL) {
-			rb_debug ("couldn't get value for property %s", keys[i]);
-			continue;
-		}
-
-		g_value_init (&v, pspec->value_type);
-		if (gst_value_deserialize (&v, value)) {
-			rb_debug ("applying value \"%s\" to property %s", value, keys[i]);
-			g_object_set_property (G_OBJECT (encoder), keys[i], &v);
-		} else {
-			rb_debug ("couldn't deserialize value \"%s\" for property %s", value, keys[i]);
-		}
-
-		g_value_unset (&v);
-	}
-
-	g_strfreev (keys);
-	g_free (group_name);
-	return TRUE;
-}

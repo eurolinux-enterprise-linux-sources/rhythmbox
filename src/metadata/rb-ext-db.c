@@ -38,6 +38,7 @@
 #include <lib/rb-file-helpers.h>
 #include <lib/rb-debug.h>
 #include <lib/rb-util.h>
+#include <lib/rb-marshal.h>
 
 /**
  * SECTION:rb-ext-db
@@ -93,7 +94,6 @@ typedef struct {
 	gpointer user_data;
 	GDestroyNotify destroy_notify;
 
-	RBExtDBKey *store_key;
 	char *filename;
 	GValue *data;
 } RBExtDBRequest;
@@ -115,8 +115,6 @@ static void
 free_request (RBExtDBRequest *request)
 {
 	rb_ext_db_key_free (request->key);
-	if (request->store_key)
-		rb_ext_db_key_free (request->store_key);
 
 	g_free (request->filename);
 
@@ -133,11 +131,10 @@ free_request (RBExtDBRequest *request)
 
 static void
 answer_request (RBExtDBRequest *request,
-		RBExtDBKey *store_key,
 		const char *filename,
 		GValue *data)
 {
-	request->callback (request->key, store_key, filename, data, request->user_data);
+	request->callback (request->key, filename, data, request->user_data);
 	free_request (request);
 }
 
@@ -435,10 +432,6 @@ rb_ext_db_class_init (RBExtDBClass *klass)
 
 	/**
 	 * RBExtDB::added:
-	 * @store: the #RBExtDB
-	 * @key: the #RBExtDBKey that was added
-	 * @filename: the filename for the item that was added
-	 * @data: the value that was stored
 	 *
 	 * Emitted when metadata is added to the store.  Metadata consumers
 	 * can use this to process metadata they did not specifically
@@ -455,9 +448,6 @@ rb_ext_db_class_init (RBExtDBClass *klass)
 			      3, RB_TYPE_EXT_DB_KEY, G_TYPE_STRING, G_TYPE_VALUE);
 	/**
 	 * RBExtDB::request:
-	 * @store: the #RBExtDB
-	 * @key: the #RBExtDBKey that was requested
-	 * @last_time: the last time this item was requested
 	 *
 	 * Emitted when a metadata request cannot be satisfied from the local
 	 * store.  Metadata providers initiate searches in response to this
@@ -473,14 +463,10 @@ rb_ext_db_class_init (RBExtDBClass *klass)
 			      2, RB_TYPE_EXT_DB_KEY, G_TYPE_ULONG);
 	/**
 	 * RBExtDB::store:
-	 * @store: the #RBExtDB instance
-	 * @data: the data being stored
 	 *
 	 * Emitted when a metadata item needs to be written to a local file.
 	 * This only needs to be used for metadata that needs to be encoded
 	 * or compressed, such as images.
-	 *
-	 * Return value: (transfer full): the value to write to a file
 	 */
 	signals[STORE] =
 		g_signal_new ("store",
@@ -488,18 +474,14 @@ rb_ext_db_class_init (RBExtDBClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBExtDBClass, store),
 			      g_signal_accumulator_first_wins, NULL,
-			      NULL,
+			      rb_marshal_POINTER__BOXED,
 			      G_TYPE_POINTER,
 			      1, G_TYPE_VALUE);
 	/**
 	 * RBExtDB::load:
-	 * @store: the #RBExtDB instance
-	 * @data: the data being loaded
 	 *
 	 * Emitted when loading a metadata item from a local file or from a
 	 * URI.
-	 *
-	 * Return value: (transfer full): converted value
 	 */
 	signals[LOAD] =
 		g_signal_new ("load",
@@ -507,7 +489,7 @@ rb_ext_db_class_init (RBExtDBClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBExtDBClass, load),
 			      g_signal_accumulator_first_wins, NULL,
-			      NULL,
+			      rb_marshal_POINTER__BOXED,
 			      G_TYPE_POINTER,
 			      1, G_TYPE_VALUE);
 
@@ -532,13 +514,12 @@ rb_ext_db_new (const char *name)
 typedef struct {
 	RBExtDB *store;
 	char **filename;
-	RBExtDBKey **store_key;
 	guint64 search_time;
 	RBExtDBSourceType source_type;
 } RBExtDBLookup;
 
 static gboolean
-lookup_cb (TDB_DATA data, RBExtDBKey *key, gpointer user_data)
+lookup_cb (TDB_DATA data, gpointer user_data)
 {
 	TDB_DATA tdbvalue;
 	RBExtDBLookup *lookup = user_data;
@@ -560,17 +541,12 @@ lookup_cb (TDB_DATA data, RBExtDBKey *key, gpointer user_data)
 			lookup->search_time = search_time;
 		break;
 	default:
-		if (source_type > lookup->source_type) {
+		if (source_type > lookup->source_type && fn != NULL) {
 			g_free (*lookup->filename);
 			*lookup->filename = fn;
-			if (lookup->store_key) {
-				if (*lookup->store_key)
-					rb_ext_db_key_free (*lookup->store_key);
-				*lookup->store_key = rb_ext_db_key_copy (key);
-			}
 			lookup->source_type = source_type;
 			lookup->search_time = search_time;
-			rb_debug ("found new best match %s, %d", fn ? fn : "none", source_type);
+			rb_debug ("found new best match %s, %d", fn, source_type);
 		} else {
 			g_free (fn);
 			rb_debug ("don't care about match %d", source_type);
@@ -585,14 +561,13 @@ lookup_cb (TDB_DATA data, RBExtDBKey *key, gpointer user_data)
  * rb_ext_db_lookup:
  * @store: metadata store instance
  * @key: metadata lookup key
- * @store_key: (out) (transfer full) (allow-none): optionally returns the matching storage key
  *
  * Looks up a cached metadata item.
  *
  * Return value: name of the file storing the cached metadata item
  */
 char *
-rb_ext_db_lookup (RBExtDB *store, RBExtDBKey *key, RBExtDBKey **store_key)
+rb_ext_db_lookup (RBExtDB *store, RBExtDBKey *key)
 {
 	char *fn = NULL;
 	RBExtDBLookup lookup;
@@ -600,7 +575,6 @@ rb_ext_db_lookup (RBExtDB *store, RBExtDBKey *key, RBExtDBKey **store_key)
 
 	lookup.store = store;
 	lookup.filename = &fn;
-	lookup.store_key = store_key;
 	lookup.source_type = RB_EXT_DB_SOURCE_NONE;
 	lookup.search_time = 0;
 
@@ -622,7 +596,7 @@ load_request_cb (RBExtDB *store, GAsyncResult *result, gpointer data)
 	req = g_simple_async_result_get_op_res_gpointer (G_SIMPLE_ASYNC_RESULT (result));
 
 	rb_debug ("finished loading %s", req->filename);
-	req->callback (req->key, req->store_key, req->filename, req->data, req->user_data);
+	req->callback (req->key, req->filename, req->data, req->user_data);
 
 	g_object_unref (result);
 }
@@ -702,32 +676,13 @@ rb_ext_db_request (RBExtDB *store,
 	char *filename;
 	GList *l;
 	gboolean emit_request = TRUE;
-	RBExtDBKey *store_key = NULL;
 
 	rb_debug ("starting metadata request");
 
-	filename = rb_ext_db_lookup (store, key, &store_key);
-	if (store_key != NULL) {
+	filename = rb_ext_db_lookup (store, key);
+	if (filename != NULL) {
 		GSimpleAsyncResult *load_op;
-
-		if (filename == NULL) {
-			if (rb_debug_here ()) {
-				char *str = rb_ext_db_key_to_string (store_key);
-				rb_debug ("found empty match under key %s", str);
-				g_free (str);
-			}
-			callback (key, store_key, NULL, NULL, user_data);
-			if (destroy)
-				destroy (user_data);
-			rb_ext_db_key_free (store_key);
-			return FALSE;
-		}
-
-		if (rb_debug_here ()) {
-			char *str = rb_ext_db_key_to_string (store_key);
-			rb_debug ("found cached match %s under key %s", filename, str);
-			g_free (str);
-		}
+		rb_debug ("found cached match %s", filename);
 		load_op = g_simple_async_result_new (G_OBJECT (store),
 						     (GAsyncReadyCallback) load_request_cb,
 						     NULL,
@@ -735,7 +690,6 @@ rb_ext_db_request (RBExtDB *store,
 
 		req = create_request (key, callback, user_data, destroy);
 		req->filename = filename;
-		req->store_key = store_key;
 		g_simple_async_result_set_op_res_gpointer (load_op, req, (GDestroyNotify) free_request);
 
 		g_simple_async_result_run_in_thread (load_op,
@@ -774,7 +728,6 @@ rb_ext_db_request (RBExtDB *store,
 	} else {
 		last_time = 0;
 	}
-	g_free (tdbkey.dptr);
 
 	/* add stuff to list of outstanding requests */
 	req = create_request (key, callback, user_data, destroy);
@@ -790,27 +743,6 @@ rb_ext_db_request (RBExtDB *store,
 
 	/* free the request if result == FALSE? */
 	return result;
-}
-
-static void
-delete_file (RBExtDB *store, const char *filename)
-{
-	char *fullname;
-	GFile *f;
-	GError *error = NULL;
-
-	fullname = g_build_filename (rb_user_cache_dir (), store->priv->name, filename, NULL);
-	f = g_file_new_for_path (fullname);
-	g_free (fullname);
-
-	g_file_delete (f, NULL, &error);
-	if (error) {
-		rb_debug ("error deleting %s from %s: %s", filename, store->priv->name, error->message);
-		g_clear_error (&error);
-	} else {
-		rb_debug ("deleted %s from %s", filename, store->priv->name);
-	}
-
 }
 
 
@@ -832,7 +764,7 @@ store_request_cb (RBExtDB *store, GAsyncResult *result, gpointer data)
 			if (rb_ext_db_key_matches (sreq->key, req->key)) {
 				GList *n = l->next;
 				rb_debug ("answering metadata request %p", req);
-				answer_request (req, sreq->key, sreq->filename, sreq->value);
+				answer_request (req, sreq->filename, sreq->value);
 				store->priv->requests = g_list_delete_link (store->priv->requests, l);
 				l = n;
 			} else {
@@ -878,11 +810,6 @@ do_store_request (GSimpleAsyncResult *result, GObject *object, GCancellable *can
 	g_simple_async_result_set_op_res_gpointer (result, req, (GDestroyNotify)free_store_request);
 
 	/* convert key to storage blob */
-	if (rb_debug_here()) {
-		char *str = rb_ext_db_key_to_string (req->key);
-		rb_debug ("storing %s; source = %d", str, req->source_type);
-		g_free (str);
-	}
 	tdbkey = rb_ext_db_key_to_store_key (req->key);
 
 	/* fetch current contents, if any */
@@ -959,8 +886,7 @@ do_store_request (GSimpleAsyncResult *result, GObject *object, GCancellable *can
 		/* indicates we actually didn't get anything, as opposed to communication errors etc.
 		 * providers just shouldn't call rb_ext_db_store_* in that case.
 		 */
-		if (req->source_type != RB_EXT_DB_SOURCE_USER_EXPLICIT)
-			req->source_type = RB_EXT_DB_SOURCE_NONE;
+		req->source_type = RB_EXT_DB_SOURCE_NONE;
 	}
 
 	/* get data to write to file */
@@ -987,41 +913,18 @@ do_store_request (GSimpleAsyncResult *result, GObject *object, GCancellable *can
 	if (file_data != NULL && file_data_size > 0) {
 		GFile *f;
 		GError *error = NULL;
-		char *subdir = NULL;
-		char *basename = NULL;
-		char *fullsubdir;
 
 		if (filename == NULL) {
-			int seq;
-
-			seq = tdb_get_seqnum (store->priv->tdb_context);
-			if (seq > 0xffffff) {
-				subdir = g_strdup_printf ("d%3.3x%sd%3.3x", seq >> 24, G_DIR_SEPARATOR_S, (seq >> 12) & 0xfff);
-			} else if (seq > 0xfff) {
-				subdir = g_strdup_printf ("d%3.3x", seq >> 12);
-			} else {
-				subdir = g_strdup (".");
-			}
-			basename = g_strdup_printf ("%3.3x", seq & 0xfff);
-			rb_debug ("generated filename %s, subdir %s", basename, subdir ? subdir : "none");
-			filename = g_build_filename (subdir, basename, NULL);
+			filename = g_strdup_printf ("%8.8x", tdb_get_seqnum (store->priv->tdb_context));
+			rb_debug ("generated filename %s", filename);
 		} else {
-			basename = g_path_get_basename (filename);
-			subdir = g_path_get_dirname (filename);
-			rb_debug ("using existing filename %s (basename %s, subdir %s)", filename, basename, subdir);
+			rb_debug ("using existing filename %s", filename);
 		}
-
-		fullsubdir = g_build_filename (rb_user_cache_dir (), store->priv->name, subdir, NULL);
-		/* ignore errors, g_file_replace_contents will fail too, and it'll explain */
-		g_mkdir_with_parents (fullsubdir, 0770);
-		g_free (fullsubdir);
 
 		req->filename = g_build_filename (rb_user_cache_dir (),
 						  store->priv->name,
-						  subdir,
-						  basename,
+						  filename,
 						  NULL);
-
 		f = g_file_new_for_path (req->filename);
 
 		g_file_replace_contents (f,
@@ -1039,18 +942,7 @@ do_store_request (GSimpleAsyncResult *result, GObject *object, GCancellable *can
 		} else {
 			req->stored = TRUE;
 		}
-
-		g_free (basename);
-		g_free (subdir);
-
 		g_object_unref (f);
-	} else if (req->source_type == RB_EXT_DB_SOURCE_USER_EXPLICIT) {
-		if (filename != NULL) {
-			delete_file (store, filename);
-			g_free (filename);
-			filename = NULL;
-		}
-		req->stored = TRUE;
 	} else if (req->source_type == RB_EXT_DB_SOURCE_NONE) {
 		req->stored = TRUE;
 	}
@@ -1059,7 +951,7 @@ do_store_request (GSimpleAsyncResult *result, GObject *object, GCancellable *can
 		TDB_DATA store_data;
 
 		g_get_current_time (&now);
-		rb_debug ("actually storing; time = %lu, filename = %s, source = %d", now.tv_sec, filename, req->source_type);
+		rb_debug ("actually storing this in the database");
 		store_data = flatten_data (now.tv_sec, filename, req->source_type);
 		tdb_store (store->priv->tdb_context, tdbkey, store_data, 0);
 		/* XXX warn on error.. */
@@ -1170,44 +1062,6 @@ rb_ext_db_store_raw (RBExtDB *store,
 {
 	rb_debug ("storing encoded data of type %s", data ? G_VALUE_TYPE_NAME (data) : "<none>");
 	store_metadata (store, create_store_request (key, source_type, NULL, data, NULL));
-}
-
-/**
- * rb_ext_db_delete:
- * @store: metadata store instance
- * @key: metadata storage key
- *
- * Deletes the item stored in the metadata store under the specified storage key.
- */
-void
-rb_ext_db_delete (RBExtDB *store, RBExtDBKey *key)
-{
-	TDB_DATA k;
-	TDB_DATA value;
-
-	k = rb_ext_db_key_to_store_key (key);
-	if (rb_debug_here ()) {
-		char *str = rb_ext_db_key_to_string (key);
-		rb_debug ("deleting key %s", str);
-		g_free (str);
-	}
-
-	value = tdb_fetch (store->priv->tdb_context, k);
-	if (value.dptr != NULL) {
-		char *fn = NULL;
-
-		extract_data (value, NULL, &fn, NULL);
-		if (fn != NULL) {
-			delete_file (store, fn);
-			g_free (fn);
-		}
-
-		tdb_delete (store->priv->tdb_context, k);
-		free (value.dptr);
-
-		g_signal_emit (store, signals[ADDED], 0, key, NULL, NULL);
-	}
-	g_free (k.dptr);
 }
 
 #define ENUM_ENTRY(NAME, DESC) { NAME, "" #NAME "", DESC }

@@ -547,7 +547,7 @@ rb_sync_state_class_init (RBSyncStateClass *klass)
 					 G_SIGNAL_RUN_LAST,
 					 G_STRUCT_OFFSET (RBSyncStateClass, updated),
 					 NULL, NULL,
-					 NULL,
+					 g_cclosure_marshal_VOID__VOID,
 					 G_TYPE_NONE,
 					 0);
 

@@ -15,7 +15,8 @@
 
    You should have received a copy of the GNU Library General Public
    License along with the Gnome Library; see the file COPYING.LIB.  If not,
-   see <http://www.gnu.org/licenses/>.
+   write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
 
    Based on totem-missing-plugins.c, authored by Tim-Philipp Müller <tim centricular net>
  */
@@ -213,11 +214,9 @@ rb_missing_plugins_install (const char **details, gboolean ignore_blacklist, GCl
 
 	if (parent_window != NULL && gtk_widget_get_realized (GTK_WIDGET (parent_window))) {
 #ifdef GDK_WINDOWING_X11
-		if (GDK_IS_X11_WINDOW (gtk_widget_get_window (GTK_WIDGET (parent_window)))) {
-			gulong xid = 0;
-			xid = gdk_x11_window_get_xid (gtk_widget_get_window (GTK_WIDGET (parent_window)));
-			gst_install_plugins_context_set_xid (install_ctx, xid);
-		}
+		gulong xid = 0;
+		xid = gdk_x11_window_get_xid (gtk_widget_get_window (GTK_WIDGET (parent_window)));
+		gst_install_plugins_context_set_xid (install_ctx, xid);
 #endif
 	}
 

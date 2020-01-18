@@ -62,9 +62,7 @@ typedef struct
 	char *current_album_and_artist;	/* from _album_ by _artist_ */
 
 	gchar *notify_art_path;
-	RBExtDBKey *notify_art_key;
 	NotifyNotification *notification;
-	NotifyNotification *misc_notification;
 	gboolean notify_supports_actions;
 	gboolean notify_supports_icon_buttons;
 	gboolean notify_supports_persistence;
@@ -111,7 +109,7 @@ notification_playpause_cb (NotifyNotification *notification,
 			   RBNotificationPlugin *plugin)
 {
 	rb_debug ("notification action: %s", action);
-	rb_shell_player_playpause (plugin->shell_player, NULL);
+	rb_shell_player_playpause (plugin->shell_player, FALSE, NULL);
 }
 
 static void
@@ -174,7 +172,7 @@ do_notify (RBNotificationPlugin *plugin,
 	if (playback) {
 		notification = plugin->notification;
 	} else {
-		notification = plugin->misc_notification;
+		notification = NULL;
 	}
 
 	if (notification == NULL) {
@@ -186,8 +184,6 @@ do_notify (RBNotificationPlugin *plugin,
 					 plugin, 0);
 		if (playback) {
 			plugin->notification = notification;
-		} else {
-			plugin->misc_notification = notification;
 		}
 	} else {
 		notify_notification_clear_hints (notification);
@@ -210,24 +206,18 @@ do_notify (RBNotificationPlugin *plugin,
 
 	notify_notification_clear_actions (notification);
 	if (playback && plugin->notify_supports_actions) {
-		gboolean rtl;
-		const char *play_icon;
-
-		rtl = (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL);
-		play_icon = rtl ? "media-playback-start-rtl" : "media-playback-start";
-
 		if (plugin->notify_supports_icon_buttons) {
 			gboolean playing = FALSE;
 			rb_shell_player_get_playing (plugin->shell_player, &playing, NULL);
 
 			notify_notification_add_action (notification,
-							rtl ? "media-skip-backward-rtl" : "media-skip-backward",
+							"media-skip-backward",
 							_("Previous"),
 							(NotifyActionCallback) notification_previous_cb,
 							plugin,
 							NULL);
 			notify_notification_add_action (notification,
-							playing ? "media-playback-pause" : play_icon,
+							playing ? "media-playback-pause" : "media-playback-start",
 							playing ? _("Pause") : _("Play"),
 							(NotifyActionCallback) notification_playpause_cb,
 							plugin,
@@ -236,7 +226,7 @@ do_notify (RBNotificationPlugin *plugin,
 		}
 
 		notify_notification_add_action (notification,
-						rtl ? "media-skip-forward-rtl" : "media-skip-forward",
+						"media-skip-forward",
 						_("Next"),
 						(NotifyActionCallback) notification_next_cb,
 						plugin,
@@ -291,13 +281,6 @@ cleanup_notification (RBNotificationPlugin *plugin)
 						      plugin);
 		notify_notification_close (plugin->notification, NULL);
 		plugin->notification = NULL;
-	}
-	if (plugin->misc_notification != NULL) {
-		g_signal_handlers_disconnect_by_func (plugin->misc_notification,
-						      G_CALLBACK (notification_closed_cb),
-						      plugin);
-		notify_notification_close (plugin->misc_notification, NULL);
-		plugin->misc_notification = NULL;
 	}
 }
 
@@ -364,7 +347,7 @@ get_artist_album_templates (const char *artist,
 }
 
 static void
-art_cb (RBExtDBKey *key, RBExtDBKey *store_key, const char *filename, GValue *data, RBNotificationPlugin *plugin)
+art_cb (RBExtDBKey *key, const char *filename, GValue *data, RBNotificationPlugin *plugin)
 {
 	RhythmDBEntry *entry;
 
@@ -373,7 +356,7 @@ art_cb (RBExtDBKey *key, RBExtDBKey *store_key, const char *filename, GValue *da
 		return;
 	}
 
-	if (rhythmdb_entry_matches_ext_db_key (plugin->db, entry, store_key)) {
+	if (rhythmdb_entry_matches_ext_db_key (plugin->db, entry, key)) {
 		guint elapsed = 0;
 
 		plugin->notify_art_path = g_strdup (filename);
@@ -382,10 +365,6 @@ art_cb (RBExtDBKey *key, RBExtDBKey *store_key, const char *filename, GValue *da
 		if (elapsed < PLAYING_ENTRY_NOTIFY_TIME) {
 			notify_playing_entry (plugin, FALSE);
 		}
-
-		if (plugin->notify_art_key != NULL)
-			rb_ext_db_key_free (plugin->notify_art_key);
-		plugin->notify_art_key = rb_ext_db_key_copy (store_key);
 	}
 
 	rhythmdb_entry_unref (entry);
@@ -407,36 +386,27 @@ update_current_playing_data (RBNotificationPlugin *plugin, RhythmDBEntry *entry)
 
 	g_free (plugin->current_title);
 	g_free (plugin->current_album_and_artist);
+	g_free (plugin->notify_art_path);
 	plugin->current_title = NULL;
 	plugin->current_album_and_artist = NULL;
+	plugin->notify_art_path = NULL;
 
 	if (entry == NULL) {
 		plugin->current_title = g_strdup (_("Not Playing"));
 		plugin->current_album_and_artist = g_strdup ("");
-		g_free (plugin->notify_art_path);
-		plugin->notify_art_path = NULL;
 		return;
 	}
 
 	secondary = g_string_sized_new (100);
 
-	if (plugin->notify_art_key == NULL ||
-	    (rhythmdb_entry_matches_ext_db_key (plugin->db, entry, plugin->notify_art_key) == FALSE)) {
-		if (plugin->notify_art_key)
-			rb_ext_db_key_free (plugin->notify_art_key);
-		plugin->notify_art_key = NULL;
-		g_free (plugin->notify_art_path);
-		plugin->notify_art_path = NULL;
-
-		/* request album art */
-		key = rhythmdb_entry_create_ext_db_key (entry, RHYTHMDB_PROP_ALBUM);
-		rb_ext_db_request (plugin->art_store,
-				   key,
-				   (RBExtDBRequestCallback) art_cb,
-				   g_object_ref (plugin),
-				   g_object_unref);
-		rb_ext_db_key_free (key);
-	}
+	/* request album art */
+	key = rhythmdb_entry_create_ext_db_key (entry, RHYTHMDB_PROP_ALBUM);
+	rb_ext_db_request (plugin->art_store,
+			   key,
+			   (RBExtDBRequestCallback) art_cb,
+			   g_object_ref (plugin),
+			   g_object_unref);
+	rb_ext_db_key_free (key);
 
 	/* get artist, preferring streaming song details */
 	value = rhythmdb_entry_request_extra_metadata (plugin->db,
@@ -519,12 +489,8 @@ playing_entry_changed_cb (RBShellPlayer *player,
 			  RhythmDBEntry *entry,
 			  RBNotificationPlugin *plugin)
 {
-	if (entry == NULL) {
-		cleanup_notification (plugin);
-	} else {
-		update_current_playing_data (plugin, entry);
-		notify_playing_entry (plugin, FALSE);
-	}
+	update_current_playing_data (plugin, entry);
+	notify_playing_entry (plugin, FALSE);
 }
 
 static void
@@ -532,10 +498,7 @@ playing_changed_cb (RBShellPlayer *player,
 		    gboolean       playing,
 		    RBNotificationPlugin *plugin)
 {
-	/* only notify while not playing if there are actions in an existing notification to update */
-	if (playing || (plugin->notify_supports_icon_buttons && plugin->notification != NULL)) {
-		notify_playing_entry (plugin, FALSE);
-	}
+	notify_playing_entry (plugin, FALSE);
 }
 
 static gboolean
@@ -637,12 +600,9 @@ impl_deactivate	(PeasActivatable *bplugin)
 	plugin->art_store = NULL;
 
 	/* forget what's playing */
-	if (plugin->notify_art_key)
-		rb_ext_db_key_free (plugin->notify_art_key);
 	g_free (plugin->current_title);
 	g_free (plugin->current_album_and_artist);
 	g_free (plugin->notify_art_path);
-	plugin->notify_art_key = NULL;
 	plugin->current_title = NULL;
 	plugin->current_album_and_artist = NULL;
 	plugin->notify_art_path = NULL;

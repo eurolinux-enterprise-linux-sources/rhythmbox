@@ -2,10 +2,7 @@ NULL =
 
 plugindir = $(PLUGINDIR)/audioscrobbler
 plugindatadir = $(PLUGINDATADIR)/audioscrobbler
-icondir = $(plugindatadir)/icons/hicolor/scalable/places
-
 plugin_LTLIBRARIES = libaudioscrobbler.la
-noinst_LTLIBRARIES = libaudioscrobblertest.la
 
 libaudioscrobbler_la_SOURCES = \
 	rb-audioscrobbler-plugin.c			\
@@ -28,10 +25,6 @@ libaudioscrobbler_la_SOURCES = \
 	rb-audioscrobbler-play-order.c			\
 	rb-audioscrobbler-play-order.h
 
-libaudioscrobblertest_la_SOURCES = \
-	rb-audioscrobbler-entry.c			\
-	rb-audioscrobbler-radio-track-entry-type.c
-
 libaudioscrobbler_la_LDFLAGS = $(PLUGIN_LIBTOOL_FLAGS)
 libaudioscrobbler_la_LIBTOOLFLAGS = --tag=disable-static
 libaudioscrobbler_la_LIBADD = 				\
@@ -40,7 +33,7 @@ libaudioscrobbler_la_LIBADD = 				\
 	$(JSON_GLIB_LIBS)				\
 	$(RHYTHMBOX_LIBS)
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -59,7 +52,8 @@ AM_CPPFLAGS = 						\
 	-DDATADIR=\""$(datadir)"\"			\
 	$(TOTEM_PLPARSER_CFLAGS)			\
 	$(JSON_GLIB_CFLAGS)				\
-	$(RHYTHMBOX_CFLAGS)
+	$(RHYTHMBOX_CFLAGS)				\
+	-D_BSD_SOURCE
 
 gtkbuilderdir = $(plugindatadir)
 gtkbuilder_DATA =					\
@@ -78,12 +72,16 @@ plugin_DATA =							\
 	$(BUILT_SOURCES)					\
 	$(NULL)
 
-icon_DATA = icons/hicolor/scalable/places/Last.fm-symbolic.svg
+plugindata_DATA = 						\
+	$(top_srcdir)/plugins/audioscrobbler/Last.fm-icon.png	\
+	$(top_srcdir)/plugins/audioscrobbler/Libre.fm-icon.png	\
+	$(NULL)
 
 EXTRA_DIST = 					\
 	$(plugin_in_files)			\
 	$(gtkbuilder_DATA)			\
-	$(icon_DATA)				\
+	$(top_srcdir)/plugins/audioscrobbler/Last.fm-icon.png		\
+	$(top_srcdir)/plugins/audioscrobbler/Libre.fm-icon.png		\
 	$(NULL)
 
 CLEANFILES = 			\

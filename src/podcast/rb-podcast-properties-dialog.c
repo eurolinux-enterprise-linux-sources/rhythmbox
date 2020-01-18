@@ -30,11 +30,14 @@
 
 #include <string.h>
 #include <time.h>
-#include <errno.h>
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <glib.h>
+
+#if defined(WITH_WEBKIT)
+#include <webkit/webkit.h>
+#endif
 
 #include "rb-podcast-properties-dialog.h"
 #include "rb-file-helpers.h"
@@ -97,6 +100,7 @@ struct RBPodcastPropertiesDialogPrivate
 	GtkWidget   *rating;
 	GtkWidget   *date;
 	GtkWidget   *description;
+	GtkWidget   *description_window;
 
 	GtkWidget   *close_button;
 };
@@ -110,14 +114,14 @@ enum
 
 G_DEFINE_TYPE (RBPodcastPropertiesDialog, rb_podcast_properties_dialog, GTK_TYPE_DIALOG)
 
+#if defined(WITH_WEBKIT)
 /* list of HTML-ish strings that we search for to distinguish plain text from HTML podcast
  * descriptions.  we don't really have anything else to go on - regular content type
  * sniffing only works for proper HTML documents, but these are just tiny fragments, usually
  * with some simple formatting tags.  if we find any of these in a podcast description,
- * we'll strip HTML tags and attempt to decode entities.
+ * we'll display it as HTML rather than text.
  */
 static const char *html_clues[] = {
-	"<p>",
 	"<a ",
 	"<b>",
 	"<i>",
@@ -127,142 +131,20 @@ static const char *html_clues[] = {
 	"&lt;",
 	"&gt;",
 	"&amp;",
-	"&quot;",
-	"&apos;",
-	"&lsquo;",
-	"&rsquo;",
-	"&ldquo;",
-	"&rdquo;",
-	"&#",
+	"&quo;",
+	"&#8",
+	"&#x"
 };
 
-static char *
-unhtml (const char *str)
-{
-	const char *p;
-	char *out, *o, *e;
-	enum {
-		NORMAL,
-		TAG,
-		ENTITY,
-		BAD_ENTITY
-	} state;
-	char entity[6];
-	int elen;
+/* list of URI prefixes for things we ignore when handling navigation requests.
+ * some podcast descriptions include facebook 'like' buttons as iframes, which otherwise
+ * show up as external web browser windows.
+ */
+static const char *ignore_uris[] = {
+	"http://www.facebook.com/plugins/like.php?"
+};
 
-	out = g_malloc (strlen (str) + 1);
-
-	p = str;
-	o = out;
-	state = NORMAL;
-	e = entity;
-	elen = 0;
-	while (*p != '\0') {
-		switch (state) {
-		case TAG:
-			if (*p == '>') {
-				state = NORMAL;
-			}
-			break;
-
-		case BAD_ENTITY:
-			switch (*p) {
-			case ';':
-			case ' ':
-				*o++ = '?';
-				state = NORMAL;
-				break;
-			default:
-				break;
-			}
-			break;
-
-		case ENTITY:
-			if (*p == ';' || *p == ' ') {
-				*e++ = '\0';
-				if (strncmp (entity, "amp", sizeof(entity)) == 0) {
-					*o++ = '&';
-				} else if (strncmp (entity, "lt", sizeof(entity)) == 0) {
-					*o++ = '<';
-				} else if (strncmp (entity, "gt", sizeof(entity)) == 0) {
-					*o++ = '>';
-				} else if (strncmp (entity, "quot", sizeof(entity)) == 0) {
-					*o++ = '"';
-				} else if (strncmp (entity, "nbsp", sizeof(entity)) == 0) {
-					*o++ = ' ';
-				} else if (strncmp (entity, "lrm", sizeof(entity)) == 0) {
-					o += g_unichar_to_utf8 (0x200e, o);
-				} else if (strncmp (entity, "rlm", sizeof(entity)) == 0) {
-					o += g_unichar_to_utf8 (0x200f, o);
-				} else if (strncmp (entity, "ndash", sizeof(entity)) == 0) {
-					o += g_unichar_to_utf8 (0x2013, o);
-				} else if (strncmp (entity, "mdash", sizeof(entity)) == 0) {
-					o += g_unichar_to_utf8 (0x2014, o);
-				} else if (strncmp (entity, "lsquo", sizeof(entity)) == 0) {
-					o += g_unichar_to_utf8 (0x2018, o);
-				} else if (strncmp (entity, "rsquo", sizeof(entity)) == 0) {
-					o += g_unichar_to_utf8 (0x2019, o);
-				} else if (strncmp (entity, "ldquo", sizeof(entity)) == 0) {
-					o += g_unichar_to_utf8 (0x201c, o);
-				} else if (strncmp (entity, "rdquo", sizeof(entity)) == 0) {
-					o += g_unichar_to_utf8 (0x201d, o);
-				} else if (entity[0] == '#') {
-					int base = 10;
-					char *str = entity + 1;
-					char *end = NULL;
-					gulong l;
-
-					if (str[0] == 'x') {
-						base = 16;
-						str++;
-					}
-
-					errno = 0;
-					l = strtoul (str, &end, base);
-					if (end == str || errno != 0 || *end != '\0') {
-						*o++ = '?';
-					} else {
-						o += g_unichar_to_utf8 (l, o);
-					}
-				} else if (elen == 0) {
-					/* bare ampersand */
-					*o++ = '&';
-					*o++ = *p;
-				} else {
-					/* unsupported entity */
-					*o++ = '?';
-				}
-				state = NORMAL;
-				break;
-			}
-			elen++;
-			if (elen == sizeof(entity)) {
-				state = BAD_ENTITY;
-				break;
-			}
-			*e++ = *p;
-			break;
-
-		case NORMAL:
-			switch (*p) {
-			case '<':
-				state = TAG;
-				break;
-			case '&':
-				state = ENTITY;
-				e = entity;
-				elen = 0;
-				break;
-			default:
-				*o++ = *p;
-			}
-		}
-		p++;
-	}
-
-	*o++ = '\0';
-	return out;
-}
+#endif
 
 static void
 rb_podcast_properties_dialog_class_init (RBPodcastPropertiesDialogClass *klass)
@@ -286,10 +168,86 @@ rb_podcast_properties_dialog_class_init (RBPodcastPropertiesDialogClass *klass)
 	g_type_class_add_private (klass, sizeof (RBPodcastPropertiesDialogPrivate));
 }
 
+#if defined(WITH_WEBKIT)
+
+static WebKitNavigationResponse
+navigation_requested_cb (WebKitWebView *web_view,
+			 WebKitWebFrame *frame,
+			 WebKitNetworkRequest *request,
+			 RBPodcastPropertiesDialog *dialog)
+{
+	const char *uri;
+	GError *error = NULL;
+	int i;
+
+	uri = webkit_network_request_get_uri (request);
+
+	/* ignore some obnoxious social networking stuff */
+	for (i = 0; i < G_N_ELEMENTS (ignore_uris); i++) {
+		if (g_str_has_prefix (uri, ignore_uris[i])) {
+			rb_debug ("ignoring external URI %s", uri);
+			return WEBKIT_NAVIGATION_RESPONSE_IGNORE;
+		}
+	}
+
+	gtk_show_uri (gtk_widget_get_screen (GTK_WIDGET (dialog)), uri, GDK_CURRENT_TIME, &error);
+	if (error != NULL) {
+		rb_error_dialog (NULL, _("Unable to display requested URI"), "%s", error->message);
+		g_error_free (error);
+	}
+
+	return WEBKIT_NAVIGATION_RESPONSE_IGNORE;
+}
+
+static void
+set_webkit_settings (WebKitWebView *view)
+{
+	WebKitWebSettings *settings;
+
+	settings = webkit_web_settings_new ();
+	g_object_set (settings,
+		      "enable-scripts", FALSE,
+		      "enable-plugins", FALSE,
+		      NULL);
+	webkit_web_view_set_settings (view, settings);
+}
+
+static void
+set_webkit_font_from_gtk_style (WebKitWebView *view)
+{
+	WebKitWebSettings *settings;
+	const PangoFontDescription *font_desc;
+	GtkStyleContext *style;
+	int font_size;
+	const char *font_family;
+
+	style = gtk_widget_get_style_context (GTK_WIDGET (view));
+	settings = webkit_web_view_get_settings (view);
+
+	font_desc = gtk_style_context_get_font (style,
+						GTK_STATE_FLAG_ACTIVE);
+	font_size = pango_font_description_get_size (font_desc);
+	if (pango_font_description_get_size_is_absolute (font_desc) == FALSE)
+		font_size /= PANGO_SCALE;
+
+	font_family = pango_font_description_get_family (font_desc);
+
+	rb_debug ("setting font settings: %s / %d", font_family, font_size);
+	g_object_set (settings,
+		      "default-font-size", font_size,
+		      "default-monospace-font-size", font_size,
+		      "sans-serif-font-family", font_family,
+		      "monospace-font-family", font_family,
+		      NULL);
+}
+#endif
+
 static void
 rb_podcast_properties_dialog_init (RBPodcastPropertiesDialog *dialog)
 {
 	GtkWidget  *content_area;
+	GtkWidget  *bin;
+	GtkWidget  *widget;
 	GtkBuilder *builder;
 	AtkObject *lobj, *robj;
 
@@ -315,7 +273,7 @@ rb_podcast_properties_dialog_init (RBPodcastPropertiesDialog *dialog)
 	gtk_container_add (GTK_CONTAINER (content_area),
 			   GTK_WIDGET (gtk_builder_get_object (builder, "podcastproperties")));
 	dialog->priv->close_button = gtk_dialog_add_button (GTK_DIALOG (dialog),
-							    _("_Close"),
+							    GTK_STOCK_CLOSE,
 							    GTK_RESPONSE_CLOSE);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
 
@@ -329,7 +287,32 @@ rb_podcast_properties_dialog_init (RBPodcastPropertiesDialog *dialog)
 	dialog->priv->playcount = GTK_WIDGET (gtk_builder_get_object (builder, "playcountLabel"));
 	dialog->priv->bitrate = GTK_WIDGET (gtk_builder_get_object (builder, "bitrateLabel"));
 	dialog->priv->date = GTK_WIDGET (gtk_builder_get_object (builder, "dateLabel"));
-	dialog->priv->description = GTK_WIDGET (gtk_builder_get_object (builder, "descriptionLabel"));
+#if defined(WITH_WEBKIT)
+	dialog->priv->description = webkit_web_view_new ();
+	set_webkit_settings (WEBKIT_WEB_VIEW (dialog->priv->description));
+	set_webkit_font_from_gtk_style (WEBKIT_WEB_VIEW (dialog->priv->description));
+
+	g_signal_connect_object (dialog->priv->description,
+				 "navigation-requested",
+				 G_CALLBACK (navigation_requested_cb),
+				 dialog,
+				 0);
+#else
+	dialog->priv->description = gtk_label_new (NULL);
+	gtk_label_set_line_wrap (GTK_LABEL (dialog->priv->description), TRUE);
+#endif
+	/* add relationship between the description label and the description widget */
+	widget = GTK_WIDGET (gtk_builder_get_object (builder, "descriptionDescLabel"));
+	gtk_label_set_mnemonic_widget (GTK_LABEL (widget), dialog->priv->description);
+	lobj = gtk_widget_get_accessible (widget);
+	robj = gtk_widget_get_accessible (dialog->priv->description);
+	atk_object_add_relationship (lobj, ATK_RELATION_LABEL_FOR, robj);
+	atk_object_add_relationship (robj, ATK_RELATION_LABELLED_BY, lobj);
+
+	bin = GTK_WIDGET (gtk_builder_get_object (builder, "descriptionViewport"));
+	gtk_container_add (GTK_CONTAINER (bin), dialog->priv->description);
+
+	dialog->priv->description_window = GTK_WIDGET (gtk_builder_get_object (builder, "descriptionWindow"));
 
 	rb_builder_boldify_label (builder, "titleDescLabel");
 	rb_builder_boldify_label (builder, "feedDescLabel");
@@ -673,25 +656,56 @@ rb_podcast_properties_dialog_update_date (RBPodcastPropertiesDialog *dialog)
 	g_free (time);
 }
 
+#if defined(WITH_WEBKIT)
+static gboolean
+update_scrollbar_policy_cb (WebKitWebFrame *frame, RBPodcastPropertiesDialog *dialog)
+{
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (dialog->priv->description_window),
+					webkit_web_frame_get_horizontal_scrollbar_policy (frame),
+					webkit_web_frame_get_vertical_scrollbar_policy (frame));
+	return TRUE;
+}
+
+#endif
+
 static void
 rb_podcast_properties_dialog_update_description (RBPodcastPropertiesDialog *dialog)
 {
+#if defined(WITH_WEBKIT)
+	WebKitWebFrame *frame;
+	const char *str;
 	int i;
-	const char *desc;
-
-	desc = rhythmdb_entry_get_string (dialog->priv->current_entry, RHYTHMDB_PROP_DESCRIPTION);
+	gboolean loaded = FALSE;
+	str = rhythmdb_entry_get_string (dialog->priv->current_entry, RHYTHMDB_PROP_DESCRIPTION);
 	for (i = 0; i < G_N_ELEMENTS (html_clues); i++) {
-		if (g_strstr_len (desc, -1, html_clues[i]) != NULL) {
-			char *text;
-
-			text = unhtml (desc);
-			gtk_label_set_text (GTK_LABEL (dialog->priv->description), text);
-			g_free (text);
-			return;
+		if (g_strstr_len (str, -1, html_clues[i]) != NULL) {
+			webkit_web_view_load_html_string (WEBKIT_WEB_VIEW (dialog->priv->description),
+							  str,
+							  "");
+			loaded = TRUE;
 		}
 	}
 
-	gtk_label_set_text (GTK_LABEL (dialog->priv->description), desc);
+	if (loaded == FALSE) {
+		webkit_web_view_load_string (WEBKIT_WEB_VIEW (dialog->priv->description),
+					     str,
+					     "text/plain",
+					     "utf-8",
+					     "");
+	}
+
+	/* ensure scrollbar policy for the frame matches the viewport */
+	frame = webkit_web_view_get_main_frame (WEBKIT_WEB_VIEW (dialog->priv->description));
+	g_signal_connect_object (frame,
+				 "scrollbars-policy-changed",
+				 G_CALLBACK (update_scrollbar_policy_cb),
+				 dialog, 0);
+	update_scrollbar_policy_cb (frame, dialog);
+#else
+	const char *str;
+	str = rhythmdb_entry_get_string (dialog->priv->current_entry, RHYTHMDB_PROP_DESCRIPTION);
+	gtk_label_set_text (GTK_LABEL (dialog->priv->description), str);
+#endif
 }
 
 static char *

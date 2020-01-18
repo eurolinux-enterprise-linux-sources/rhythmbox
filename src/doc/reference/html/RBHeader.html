@@ -2,29 +2,36 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RBHeader: Rhythmbox Development Reference Manual</title>
-<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<title>RBHeader</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch07.html" title="Widgets">
 <link rel="prev" href="RBEntryView.html" title="RBEntryView">
 <link rel="next" href="RBLibraryBrowser.html" title="RBLibraryBrowser">
-<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
-<td width="100%" align="left" class="shortcuts">
-<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
-                  <a href="#RBHeader.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
-                  <a href="#RBHeader.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
-                  <a href="#RBHeader.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
-                  <a href="#RBHeader.properties" class="shortcut">Properties</a></span>
-</td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
-<td><a accesskey="u" href="ch07.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
-<td><a accesskey="p" href="RBEntryView.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
-<td><a accesskey="n" href="RBLibraryBrowser.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
-</tr></table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="RBEntryView.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch07.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
+<td><a accesskey="n" href="RBLibraryBrowser.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#RBHeader.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#RBHeader.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#RBHeader.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#RBHeader.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#RBHeader.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
 <div class="refentry">
 <a name="RBHeader"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -32,157 +39,61 @@
 <h2><span class="refentrytitle"><a name="RBHeader.top_of_page"></a>RBHeader</span></h2>
 <p>RBHeader — playback area widgetry</p>
 </td>
-<td class="gallery_image" valign="top" align="right"></td>
+<td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsect1">
-<a name="RBHeader.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="functions_return">
-<col class="functions_name">
-</colgroup>
-<tbody><tr>
-<td class="function_type">
-<a class="link" href="RBHeader.html" title="RBHeader"><span class="returnvalue">RBHeader</span></a> *
-</td>
-<td class="function_name">
-<a class="link" href="RBHeader.html#rb-header-new" title="rb_header_new ()">rb_header_new</a> <span class="c_punctuation">()</span>
-</td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect1">
-<a name="RBHeader.properties"></a><h2>Properties</h2>
-<div class="informaltable"><table class="informaltable" border="0">
-<colgroup>
-<col width="150px" class="properties_type">
-<col width="300px" class="properties_name">
-<col width="200px" class="properties_flags">
-</colgroup>
-<tbody>
-<tr>
-<td class="property_type">
-<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</td>
-<td class="property_name"><a class="link" href="RBHeader.html#RBHeader--db" title="The “db” property">db</a></td>
-<td class="property_flags">Read / Write</td>
-</tr>
-<tr>
-<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
-<td class="property_name"><a class="link" href="RBHeader.html#RBHeader--seekable" title="The “seekable” property">seekable</a></td>
-<td class="property_flags">Read / Write</td>
-</tr>
-<tr>
-<td class="property_type">
-<a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> *</td>
-<td class="property_name"><a class="link" href="RBHeader.html#RBHeader--shell-player" title="The “shell-player” property">shell-player</a></td>
-<td class="property_flags">Read / Write / Construct Only</td>
-</tr>
-<tr>
-<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
-<td class="property_name"><a class="link" href="RBHeader.html#RBHeader--show-album-art" title="The “show-album-art” property">show-album-art</a></td>
-<td class="property_flags">Read / Write</td>
-</tr>
-<tr>
-<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
-<td class="property_name"><a class="link" href="RBHeader.html#RBHeader--show-position-slider" title="The “show-position-slider” property">show-position-slider</a></td>
-<td class="property_flags">Read / Write</td>
-</tr>
-<tr>
-<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
-<td class="property_name"><a class="link" href="RBHeader.html#RBHeader--show-remaining" title="The “show-remaining” property">show-remaining</a></td>
-<td class="property_flags">Read / Write</td>
-</tr>
-<tr>
-<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
-<td class="property_name"><a class="link" href="RBHeader.html#RBHeader--slider-dragging" title="The “slider-dragging” property">slider-dragging</a></td>
-<td class="property_flags">Read</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="refsect1">
-<a name="RBHeader.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="name">
-<col class="description">
-</colgroup>
-<tbody>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="RBHeader.html#RBHeader-struct" title="struct RBHeader">RBHeader</a></td>
-</tr>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="RBHeader.html#RBHeaderClass" title="struct RBHeaderClass">RBHeaderClass</a></td>
-</tr>
-</tbody>
-</table></div>
+<div class="refsynopsisdiv">
+<a name="RBHeader.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">struct              <a class="link" href="RBHeader.html#RBHeader-struct" title="struct RBHeader">RBHeader</a>;
+struct              <a class="link" href="RBHeader.html#RBHeaderClass" title="struct RBHeaderClass">RBHeaderClass</a>;
+<a class="link" href="RBHeader.html" title="RBHeader"><span class="returnvalue">RBHeader</span></a> *          <a class="link" href="RBHeader.html#rb-header-new" title="rb_header_new ()">rb_header_new</a>                       (<em class="parameter"><code><a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> *shell_player</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *db</code></em>);
+</pre>
 </div>
 <div class="refsect1">
 <a name="RBHeader.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
-    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct">GtkWidget</a>
-            <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkContainer.html#GtkContainer-struct">GtkContainer</a>
-                <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkGrid.html#GtkGrid-struct">GtkGrid</a>
-                    <span class="lineart">╰──</span> RBHeader
+<pre class="synopsis">
+  GObject
+   +----GInitiallyUnowned
+         +----GtkWidget
+               +----GtkContainer
+                     +----GtkGrid
+                           +----RBHeader
 </pre>
 </div>
 <div class="refsect1">
 <a name="RBHeader.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 RBHeader implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3GtkBuildable.html#GtkBuildable-struct">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk3gtk3-Orientable.html#GtkOrientable-struct">GtkOrientable</a>.</p>
+ AtkImplementorIface,  GtkBuildable and  GtkOrientable.</p>
+</div>
+<div class="refsect1">
+<a name="RBHeader.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="RBHeader.html#RBHeader--db" title='The "db" property'>db</a>"                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>*             : Read / Write
+  "<a class="link" href="RBHeader.html#RBHeader--seekable" title='The "seekable" property'>seekable</a>"                 <span class="type">gboolean</span>              : Read / Write
+  "<a class="link" href="RBHeader.html#RBHeader--shell-player" title='The "shell-player" property'>shell-player</a>"             <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a>*        : Read / Write / Construct Only
+  "<a class="link" href="RBHeader.html#RBHeader--show-album-art" title='The "show-album-art" property'>show-album-art</a>"           <span class="type">gboolean</span>              : Read / Write
+  "<a class="link" href="RBHeader.html#RBHeader--show-position-slider" title='The "show-position-slider" property'>show-position-slider</a>"     <span class="type">gboolean</span>              : Read / Write
+  "<a class="link" href="RBHeader.html#RBHeader--show-remaining" title='The "show-remaining" property'>show-remaining</a>"           <span class="type">gboolean</span>              : Read / Write
+  "<a class="link" href="RBHeader.html#RBHeader--slider-dragging" title='The "slider-dragging" property'>slider-dragging</a>"          <span class="type">gboolean</span>              : Read
+</pre>
 </div>
 <div class="refsect1">
 <a name="RBHeader.description"></a><h2>Description</h2>
-<p>The RBHeader widget displays information about the current playing track
+<p>
+The RBHeader widget displays information about the current playing track
 (title, album, artist), the elapsed or remaining playback time, and a
 position slider indicating the playback position.  It translates slider
-move and drag events into seek requests for the player backend.</p>
-<p>For shoutcast-style streams, the title/artist/album display is supplemented
+move and drag events into seek requests for the player backend.
+</p>
+<p>
+For shoutcast-style streams, the title/artist/album display is supplemented
 by metadata extracted from the stream.  See <a class="link" href="RBStreamingSource.html" title="RBStreamingSource"><span class="type">RBStreamingSource</span></a> for more information
-on how the metadata is reported.</p>
+on how the metadata is reported.
+</p>
 </div>
 <div class="refsect1">
-<a name="RBHeader.functions_details"></a><h2>Functions</h2>
-<div class="refsect2">
-<a name="rb-header-new"></a><h3>rb_header_new ()</h3>
-<pre class="programlisting"><a class="link" href="RBHeader.html" title="RBHeader"><span class="returnvalue">RBHeader</span></a> *
-rb_header_new (<em class="parameter"><code><a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> *shell_player</code></em>,
-               <em class="parameter"><code><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *db</code></em>);</pre>
-<p>Creates a new header widget.</p>
-<div class="refsect3">
-<a name="rb-header-new.parameters"></a><h4>Parameters</h4>
-<div class="informaltable"><table class="informaltable" width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody>
-<tr>
-<td class="parameter_name"><p>shell_player</p></td>
-<td class="parameter_description"><p>the <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-<tr>
-<td class="parameter_name"><p>db</p></td>
-<td class="parameter_description"><p>the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance</p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="refsect3">
-<a name="rb-header-new.returns"></a><h4>Returns</h4>
-<p> the header widget</p>
-</div>
-</div>
-</div>
-<div class="refsect1">
-<a name="RBHeader.other_details"></a><h2>Types and Values</h2>
+<a name="RBHeader.details"></a><h2>Details</h2>
 <div class="refsect2">
 <a name="RBHeader-struct"></a><h3>struct RBHeader</h3>
 <pre class="programlisting">struct RBHeader;</pre>
@@ -199,66 +110,103 @@ rb_header_new (<em class="parameter"><code><a class="link" href="RBShellPlayer.h
 <p>
 </p>
 </div>
+<hr>
+<div class="refsect2">
+<a name="rb-header-new"></a><h3>rb_header_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBHeader.html" title="RBHeader"><span class="returnvalue">RBHeader</span></a> *          rb_header_new                       (<em class="parameter"><code><a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> *shell_player</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *db</code></em>);</pre>
+<p>
+Creates a new header widget.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shell_player</code></em> :</span></p></td>
+<td>the <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>db</code></em> :</span></p></td>
+<td>the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the header widget</td>
+</tr>
+</tbody>
+</table></div>
+</div>
 </div>
 <div class="refsect1">
 <a name="RBHeader.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
-<a name="RBHeader--db"></a><h3>The <code class="literal">“db”</code> property</h3>
-<pre class="programlisting">  “db”                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</pre>
-<p><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance</p>
-<p>Flags: Read / Write</p>
+<a name="RBHeader--db"></a><h3>The <code class="literal">"db"</code> property</h3>
+<pre class="programlisting">  "db"                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>*             : Read / Write</pre>
+<p>
+<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance
+</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RBHeader--seekable"></a><h3>The <code class="literal">“seekable”</code> property</h3>
-<pre class="programlisting">  “seekable”                 <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
-<p>If TRUE, the header should allow seeking by dragging the playback position slider</p>
-<p>Flags: Read / Write</p>
+<a name="RBHeader--seekable"></a><h3>The <code class="literal">"seekable"</code> property</h3>
+<pre class="programlisting">  "seekable"                 <span class="type">gboolean</span>              : Read / Write</pre>
+<p>
+If TRUE, the header should allow seeking by dragging the playback position slider
+</p>
 <p>Default value: TRUE</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RBHeader--shell-player"></a><h3>The <code class="literal">“shell-player”</code> property</h3>
-<pre class="programlisting">  “shell-player”             <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> *</pre>
-<p>The <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> instance</p>
-<p>Flags: Read / Write / Construct Only</p>
+<a name="RBHeader--shell-player"></a><h3>The <code class="literal">"shell-player"</code> property</h3>
+<pre class="programlisting">  "shell-player"             <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a>*        : Read / Write / Construct Only</pre>
+<p>
+The <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> instance
+</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RBHeader--show-album-art"></a><h3>The <code class="literal">“show-album-art”</code> property</h3>
-<pre class="programlisting">  “show-album-art”           <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
-<p>Whether to show the album art display widget.</p>
-<p>Flags: Read / Write</p>
+<a name="RBHeader--show-album-art"></a><h3>The <code class="literal">"show-album-art"</code> property</h3>
+<pre class="programlisting">  "show-album-art"           <span class="type">gboolean</span>              : Read / Write</pre>
+<p>
+Whether to show the album art display widget.
+</p>
 <p>Default value: TRUE</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RBHeader--show-position-slider"></a><h3>The <code class="literal">“show-position-slider”</code> property</h3>
-<pre class="programlisting">  “show-position-slider”     <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
-<p>Whether to show the playback position slider.</p>
-<p>Flags: Read / Write</p>
+<a name="RBHeader--show-position-slider"></a><h3>The <code class="literal">"show-position-slider"</code> property</h3>
+<pre class="programlisting">  "show-position-slider"     <span class="type">gboolean</span>              : Read / Write</pre>
+<p>
+Whether to show the playback position slider.
+</p>
 <p>Default value: TRUE</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RBHeader--show-remaining"></a><h3>The <code class="literal">“show-remaining”</code> property</h3>
-<pre class="programlisting">  “show-remaining”           <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
-<p>Whether to show remaining time (as opposed to elapsed time) in the numeric
-time display.</p>
-<p>Flags: Read / Write</p>
+<a name="RBHeader--show-remaining"></a><h3>The <code class="literal">"show-remaining"</code> property</h3>
+<pre class="programlisting">  "show-remaining"           <span class="type">gboolean</span>              : Read / Write</pre>
+<p>
+Whether to show remaining time (as opposed to elapsed time) in the numeric
+time display.
+</p>
 <p>Default value: FALSE</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RBHeader--slider-dragging"></a><h3>The <code class="literal">“slider-dragging”</code> property</h3>
-<pre class="programlisting">  “slider-dragging”          <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
-<p>Whether the song position slider is currently being dragged.</p>
-<p>Flags: Read</p>
+<a name="RBHeader--slider-dragging"></a><h3>The <code class="literal">"slider-dragging"</code> property</h3>
+<pre class="programlisting">  "slider-dragging"          <span class="type">gboolean</span>              : Read</pre>
+<p>
+Whether the song position slider is currently being dragged.
+</p>
 <p>Default value: FALSE</p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.25</div>
+<hr>
+          Generated by GTK-Doc V1.18.1</div>
 </body>
 </html>

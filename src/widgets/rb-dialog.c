@@ -40,6 +40,7 @@
 
 #include "rb-dialog.h"
 #include "rb-file-helpers.h"
+#include "rb-stock-icons.h"
 
 /**
  * SECTION:rb-dialog
@@ -90,6 +91,8 @@ rb_error_dialog (GtkWindow *parent,
 
 	gtk_window_set_title (GTK_WINDOW (dialog), "");
 
+	gtk_container_set_border_width (GTK_CONTAINER (dialog), 6);
+
 	g_signal_connect (dialog, "response", G_CALLBACK (gtk_widget_destroy), NULL);
 
 	gtk_widget_show (dialog);
@@ -128,16 +131,16 @@ rb_file_chooser_new (const char *title,
 	    action == GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER) {
 		dialog = gtk_file_chooser_dialog_new (title, parent,
 						      action,
-						      _("_Cancel"), GTK_RESPONSE_CANCEL,
-						      _("_Open"), GTK_RESPONSE_ACCEPT,
+						      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+						      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 						      NULL);
 		gtk_dialog_set_default_response (GTK_DIALOG (dialog),
 						 GTK_RESPONSE_ACCEPT);
 	} else if (action == GTK_FILE_CHOOSER_ACTION_SAVE) {
 		dialog = gtk_file_chooser_dialog_new (title, parent,
 						      action,
-						      _("_Cancel"), GTK_RESPONSE_CANCEL,
-						      _("_Save"), GTK_RESPONSE_ACCEPT,
+						      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+						      GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 						      NULL);
 		gtk_dialog_set_default_response (GTK_DIALOG (dialog),
 						 GTK_RESPONSE_ACCEPT);

@@ -21,7 +21,8 @@
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  */
 
@@ -40,7 +41,6 @@
 #include <lib/rb-debug.h>
 #include <lib/rb-file-helpers.h>
 #include <widgets/rb-dialog.h>
-#include <shell/rb-task-list.h>
 
 /* arbitrary length limit for file extensions */
 #define EXTENSION_LENGTH_LIMIT	8
@@ -90,6 +90,13 @@ rb_transfer_target_build_dest_uri (RBTransferTarget *target,
 
 	uri = iface->build_dest_uri (target, entry, media_type, extension);
 	if (uri != NULL) {
+		char *sane_uri;
+
+		sane_uri = rb_sanitize_uri_for_filesystem (uri);
+		g_return_val_if_fail (sane_uri != NULL, NULL);
+		g_free (uri);
+		uri = sane_uri;
+
 		rb_debug ("built dest uri for media type '%s', extension '%s': %s",
 			  media_type, extension, uri);
 	} else {
@@ -368,8 +375,7 @@ track_done_cb (RBTrackTransferBatch *batch,
 /**
  * rb_transfer_target_transfer:
  * @target: an #RBTransferTarget
- * @settings: #GSettings instance holding encoding settings
- * @entries: (element-type RB.RhythmDBEntry): a #GList of entries to transfer
+ * @entries: a #GList of entries to transfer
  * @defer: if %TRUE, don't start the transfer until
  *
  * Starts tranferring @entries to the target.  This returns the
@@ -380,10 +386,9 @@ track_done_cb (RBTrackTransferBatch *batch,
  * Return value: (transfer full): an #RBTrackTransferBatch, or NULL
  */
 RBTrackTransferBatch *
-rb_transfer_target_transfer (RBTransferTarget *target, GSettings *settings, GList *entries, gboolean defer)
+rb_transfer_target_transfer (RBTransferTarget *target, GList *entries, gboolean defer)
 {
 	RBTrackTransferQueue *xferq;
-	RBTaskList *tasklist;
 	RBShell *shell;
 	GList *l;
 	RhythmDBEntryType *our_entry_type;
@@ -394,16 +399,13 @@ rb_transfer_target_transfer (RBTransferTarget *target, GSettings *settings, GLis
 		      "shell", &shell,
 		      "entry-type", &our_entry_type,
 		      NULL);
-	g_object_get (shell,
-		      "track-transfer-queue", &xferq,
-		      "task-list", &tasklist,
-		      NULL);
+	g_object_get (shell, "track-transfer-queue", &xferq, NULL);
 	g_object_unref (shell);
 
 	batch = g_object_steal_data (G_OBJECT (target), "transfer-target-batch");
 
 	if (batch == NULL) {
-		batch = rb_track_transfer_batch_new (NULL, settings, NULL, G_OBJECT (target), G_OBJECT (xferq));
+		batch = rb_track_transfer_batch_new (NULL, NULL, G_OBJECT (target));
 
 		g_signal_connect_object (batch, "get-dest-uri", G_CALLBACK (get_dest_uri_cb), target, 0);
 		g_signal_connect_object (batch, "track-done", G_CALLBACK (track_done_cb), target, 0);
@@ -439,20 +441,9 @@ rb_transfer_target_transfer (RBTransferTarget *target, GSettings *settings, GLis
 			g_object_set_data_full (G_OBJECT (target), "transfer-target-batch", g_object_ref (batch), g_object_unref);
 		} else {
 			GstEncodingTarget *encoding_target;
-			char *name;
-			char *label;
-
 			g_object_get (target, "encoding-target", &encoding_target, NULL);
 			g_object_set (batch, "encoding-target", encoding_target, NULL);
 			gst_encoding_target_unref (encoding_target);
-
-			g_object_get (target, "name", &name, NULL);
-			label = g_strdup_printf (_("Transferring tracks to %s"), name);
-			g_object_set (batch, "task-label", label, NULL);
-			g_free (name);
-			g_free (label);
-			
-			rb_task_list_add_task (tasklist, RB_TASK_PROGRESS (batch));
 
 			rb_track_transfer_queue_start_batch (xferq, batch);
 		}
@@ -461,7 +452,6 @@ rb_transfer_target_transfer (RBTransferTarget *target, GSettings *settings, GLis
 		batch = NULL;
 	}
 	g_object_unref (xferq);
-	g_object_unref (tasklist);
 	return batch;
 }
 

@@ -24,6 +24,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
+import urllib
+import re
+
 import rb
 from gi.repository import GObject, Gio
 
@@ -35,21 +38,21 @@ class Parser (object):
 		self.artist = artist
 
 		try:
-			settings = Gio.Settings.new("org.gnome.rhythmbox.plugins.lyrics")
+			settings = Gio.Settings("org.gnome.rhythmbox.plugins.lyrics")
 			self.sites = settings['sites']
-		except GLib.GError as e:
-			print(e)
+		except GObject.GError, e:
+			print e
 			self.sites = []
 
 	def searcher(self, plexer, callback, *data):
 		for site in lyrics_sites:
 			if site['id'] not in self.sites:
-				print(site['id'] + " search is disabled")
+				print site['id'] + " search is disabled"
 				continue
 
 			plexer.clear()
 			parser = site['class'] (self.artist, self.title)
-			print("searching " + site['id'] + " for lyrics")
+			print "searching " + site['id'] + " for lyrics"
 
 			parser.search(plexer.send())
 			yield None
