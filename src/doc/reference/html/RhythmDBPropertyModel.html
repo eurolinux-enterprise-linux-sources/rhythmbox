@@ -1,0 +1,393 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RhythmDBPropertyModel: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch04.html" title="RhythmDB">
+<link rel="prev" href="RhythmDBImportJob.html" title="RhythmDBImportJob">
+<link rel="next" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RhythmDBPropertyModel.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RhythmDBPropertyModel.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#RhythmDBPropertyModel.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#RhythmDBPropertyModel.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#RhythmDBPropertyModel.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch04.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RhythmDBImportJob.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RhythmDBQueryModel.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="RhythmDBPropertyModel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RhythmDBPropertyModel.top_of_page"></a>RhythmDBPropertyModel</span></h2>
+<p>RhythmDBPropertyModel — tree model grouping entries from a query model by property values</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="RhythmDBPropertyModel.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="returnvalue">RhythmDBPropertyModel</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBPropertyModel.html#rhythmdb-property-model-new" title="rhythmdb_property_model_new ()">rhythmdb_property_model_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBPropertyModel.html#rhythmdb-property-model-iter-from-string" title="rhythmdb_property_model_iter_from_string ()">rhythmdb_property_model_iter_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBPropertyModel.html#rhythmdb-property-model-enable-drag" title="rhythmdb_property_model_enable_drag ()">rhythmdb_property_model_enable_drag</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBPropertyModel.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</td>
+<td class="property_name"><a class="link" href="RhythmDBPropertyModel.html#RhythmDBPropertyModel--db" title="The “db” property">db</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="RhythmDBPropertyModel.html#RhythmDBPropertyModel--prop" title="The “prop” property">prop</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *</td>
+<td class="property_name"><a class="link" href="RhythmDBPropertyModel.html#RhythmDBPropertyModel--query-model" title="The “query-model” property">query-model</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBPropertyModel.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody><tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RhythmDBPropertyModel.html#RhythmDBPropertyModel-pre-row-deletion" title="The “pre-row-deletion” signal">pre-row-deletion</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBPropertyModel.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RhythmDBPropertyModel.html#RhythmDBPropertyModel-struct" title="struct RhythmDBPropertyModel">RhythmDBPropertyModel</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RhythmDBPropertyModel.html#RhythmDBPropertyModelClass" title="struct RhythmDBPropertyModelClass">RhythmDBPropertyModelClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="RhythmDBPropertyModel.html#RhythmDBPropertyModelColumn" title="enum RhythmDBPropertyModelColumn">RhythmDBPropertyModelColumn</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBPropertyModel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-Enumeration-and-Flag-Types.html">GEnum</a>
+    <span class="lineart">╰──</span> RhythmDBPropertyModelColumn
+    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> RhythmDBPropertyModel
+</pre>
+</div>
+<div class="refsect1">
+<a name="RhythmDBPropertyModel.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RhythmDBPropertyModel implements
+ <a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeModel-struct">GtkTreeModel</a> and  <a class="link" href="rhythmbox-rb-tree-dnd.html#RbTreeDragSource">RbTreeDragSource</a>.</p>
+</div>
+<div class="refsect1">
+<a name="RhythmDBPropertyModel.description"></a><h2>Description</h2>
+<p>A RhythmDBPropertyModel groups the entries in a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> by
+the value of a property.  For example, a RhythmDBPropertyModel using
+the RHYTHMDB_PROP_ARTIST property can be used as the model for a 
+<a href="/usr/share/gtk-doc/html/gtk3GtkTreeView.html#GtkTreeView-struct"><span class="type">GtkTreeView</span></a> that will list the artists present in the query model.</p>
+<p>The album/artist/genre browsers displayed in the library and other sources are
+populated using a RhythmDBPropertyModel for each property.</p>
+</div>
+<div class="refsect1">
+<a name="RhythmDBPropertyModel.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rhythmdb-property-model-new"></a><h3>rhythmdb_property_model_new ()</h3>
+<pre class="programlisting"><a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="returnvalue">RhythmDBPropertyModel</span></a> *
+rhythmdb_property_model_new (<em class="parameter"><code><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *db</code></em>,
+                             <em class="parameter"><code><a class="link" href="RhythmDB.html#RhythmDBPropType" title="enum RhythmDBPropType"><span class="type">RhythmDBPropType</span></a> propid</code></em>);</pre>
+<p>Creates a new property model for the specified property ID.</p>
+<div class="refsect3">
+<a name="rhythmdb-property-model-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>db</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> object</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>propid</p></td>
+<td class="parameter_description"><p>the property to index</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-property-model-new.returns"></a><h4>Returns</h4>
+<p> the new <a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-property-model-iter-from-string"></a><h3>rhythmdb_property_model_iter_from_string ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rhythmdb_property_model_iter_from_string
+                               (<em class="parameter"><code><a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a> *model</code></em>,
+                                <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeIter-struct"><span class="type">GtkTreeIter</span></a> *iter</code></em>);</pre>
+<p>Locates the row in the model for a property value.</p>
+<div class="refsect3">
+<a name="rhythmdb-property-model-iter-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the property value to find</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>iter</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeIter-struct"><span class="type">GtkTreeIter</span></a> to point to the row</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-property-model-iter-from-string.returns"></a><h4>Returns</h4>
+<p> TRUE if the value was found.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-property-model-enable-drag"></a><h3>rhythmdb_property_model_enable_drag ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rhythmdb_property_model_enable_drag (<em class="parameter"><code><a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a> *model</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkTreeView.html#GtkTreeView-struct"><span class="type">GtkTreeView</span></a> *view</code></em>);</pre>
+<p>Enables drag and drop from a specified <a href="/usr/share/gtk-doc/html/gtk3GtkTreeView.html#GtkTreeView-struct"><span class="type">GtkTreeView</span></a> that is
+backed by the <a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a>.  Drag targets are
+determined by the indexed property.</p>
+<div class="refsect3">
+<a name="rhythmdb-property-model-enable-drag.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a href="/usr/share/gtk-doc/html/gtk3GtkTreeView.html#GtkTreeView-struct"><span class="type">GtkTreeView</span></a> from which to enable drag and drop</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBPropertyModel.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RhythmDBPropertyModel-struct"></a><h3>struct RhythmDBPropertyModel</h3>
+<pre class="programlisting">struct RhythmDBPropertyModel;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBPropertyModelClass"></a><h3>struct RhythmDBPropertyModelClass</h3>
+<pre class="programlisting">struct RhythmDBPropertyModelClass {
+	GObjectClass parent;
+
+	void (*pre_row_deletion) (RhythmDBPropertyModel *model);
+};
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBPropertyModelColumn"></a><h3>enum RhythmDBPropertyModelColumn</h3>
+<p>
+</p>
+<div class="refsect3">
+<a name="RhythmDBPropertyModelColumn.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-PROPERTY-MODEL-COLUMN-TITLE:CAPS"></a>RHYTHMDB_PROPERTY_MODEL_COLUMN_TITLE</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-PROPERTY-MODEL-COLUMN-PRIORITY:CAPS"></a>RHYTHMDB_PROPERTY_MODEL_COLUMN_PRIORITY</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-PROPERTY-MODEL-COLUMN-NUMBER:CAPS"></a>RHYTHMDB_PROPERTY_MODEL_COLUMN_NUMBER</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-PROPERTY-MODEL-COLUMN-LAST:CAPS"></a>RHYTHMDB_PROPERTY_MODEL_COLUMN_LAST</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBPropertyModel.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="RhythmDBPropertyModel--db"></a><h3>The <code class="literal">“db”</code> property</h3>
+<pre class="programlisting">  “db”                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</pre>
+<p>The <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> object the model is associated with.</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBPropertyModel--prop"></a><h3>The <code class="literal">“prop”</code> property</h3>
+<pre class="programlisting">  “prop”                     <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>The property that this property model indexes.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Allowed values: [0,75]</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBPropertyModel--query-model"></a><h3>The <code class="literal">“query-model”</code> property</h3>
+<pre class="programlisting">  “query-model”              <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *</pre>
+<p>The query model that this property model indexes.</p>
+<p>Flags: Read / Write</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBPropertyModel.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="RhythmDBPropertyModel-pre-row-deletion"></a><h3>The <code class="literal">“pre-row-deletion”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a> *model,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)</pre>
+<p>Emitted just before a row is deleted from the model.</p>
+<div class="refsect3">
+<a name="RhythmDBPropertyModel-pre-row-deletion.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

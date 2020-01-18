@@ -1,0 +1,1018 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBMetaData: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch03.html" title="Metadata">
+<link rel="prev" href="ch03.html" title="Metadata">
+<link rel="next" href="rhythmbox-RBExtDB.html" title="RBExtDB">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBMetaData.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBMetaData.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch03.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="rhythmbox-RBExtDB.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="RBMetaData"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBMetaData.top_of_page"></a>RBMetaData</span></h2>
+<p>RBMetaData — metadata reader and writer interface</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="RBMetaData.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-error-quark" title="rb_metadata_error_quark ()">rb_metadata_error_quark</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-get-field-type" title="rb_metadata_get_field_type ()">rb_metadata_get_field_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-get-field-name" title="rb_metadata_get_field_name ()">rb_metadata_get_field_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="RBMetaData.html" title="RBMetaData"><span class="returnvalue">RBMetaData</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-new" title="rb_metadata_new ()">rb_metadata_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-can-save" title="rb_metadata_can_save ()">rb_metadata_can_save</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> **
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-get-saveable-types" title="rb_metadata_get_saveable_types ()">rb_metadata_get_saveable_types</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-reset" title="rb_metadata_reset ()">rb_metadata_reset</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-load" title="rb_metadata_load ()">rb_metadata_load</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-save" title="rb_metadata_save ()">rb_metadata_save</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-get-media-type" title="rb_metadata_get_media_type ()">rb_metadata_get_media_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-has-missing-plugins" title="rb_metadata_has_missing_plugins ()">rb_metadata_has_missing_plugins</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-get-missing-plugins" title="rb_metadata_get_missing_plugins ()">rb_metadata_get_missing_plugins</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-has-audio" title="rb_metadata_has_audio ()">rb_metadata_has_audio</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-has-video" title="rb_metadata_has_video ()">rb_metadata_has_video</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-has-other-data" title="rb_metadata_has_other_data ()">rb_metadata_has_other_data</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-get" title="rb_metadata_get ()">rb_metadata_get</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBMetaData.html#rb-metadata-set" title="rb_metadata_set ()">rb_metadata_set</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBMetaData.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="RBMetaData.html#RBMetaDataField" title="enum RBMetaDataField">RBMetaDataField</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="RBMetaData.html#RBMetaDataError" title="enum RBMetaDataError">RBMetaDataError</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBMetaData.html#RBMetaData-struct" title="struct RBMetaData">RBMetaData</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBMetaData.html#RBMetaDataClass" title="struct RBMetaDataClass">RBMetaDataClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBMetaData.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> RBMetaData
+</pre>
+</div>
+<div class="refsect1">
+<a name="RBMetaData.description"></a><h2>Description</h2>
+<p>Provides a simple synchronous interface for metadata extraction and updating.</p>
+</div>
+<div class="refsect1">
+<a name="RBMetaData.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-metadata-error-quark"></a><h3>rb_metadata_error_quark ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>
+rb_metadata_error_quark (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-get-field-type"></a><h3>rb_metadata_get_field_type ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>
+rb_metadata_get_field_type (<em class="parameter"><code><a class="link" href="RBMetaData.html#RBMetaDataField" title="enum RBMetaDataField"><span class="type">RBMetaDataField</span></a> field</code></em>);</pre>
+<p>Returns the <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="type">GType</span></a> of the value for a metadata field.</p>
+<div class="refsect3">
+<a name="rb-metadata-get-field-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>field</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBMetaData.html#RBMetaDataField" title="enum RBMetaDataField"><span class="type">RBMetaDataField</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-metadata-get-field-type.returns"></a><h4>Returns</h4>
+<p> value type</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-get-field-name"></a><h3>rb_metadata_get_field_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+rb_metadata_get_field_name (<em class="parameter"><code><a class="link" href="RBMetaData.html#RBMetaDataField" title="enum RBMetaDataField"><span class="type">RBMetaDataField</span></a> field</code></em>);</pre>
+<p>Returns the name of a metadata field.</p>
+<div class="refsect3">
+<a name="rb-metadata-get-field-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>field</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBMetaData.html#RBMetaDataField" title="enum RBMetaDataField"><span class="type">RBMetaDataField</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-metadata-get-field-name.returns"></a><h4>Returns</h4>
+<p> field name</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-new"></a><h3>rb_metadata_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="returnvalue">RBMetaData</span></a> *
+rb_metadata_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new metadata backend instance.</p>
+<div class="refsect3">
+<a name="rb-metadata-new.returns"></a><h4>Returns</h4>
+<p> new <a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> instance</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-can-save"></a><h3>rb_metadata_can_save ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_metadata_can_save (<em class="parameter"><code><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> *md</code></em>,
+                      <em class="parameter"><code>const <span class="type">char</span> *media_type</code></em>);</pre>
+<p>Checks if the metadata writer is capable of updating file metadata
+for a given media type.</p>
+<div class="refsect3">
+<a name="rb-metadata-can-save.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>md</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>media_type</p></td>
+<td class="parameter_description"><p>the media type string to check</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-metadata-can-save.returns"></a><h4>Returns</h4>
+<p> TRUE if the file metadata for the given media type can be updated</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-get-saveable-types"></a><h3>rb_metadata_get_saveable_types ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **
+rb_metadata_get_saveable_types (<em class="parameter"><code><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> *md</code></em>);</pre>
+<p>Constructs a list of the media types for which the metadata backend
+implements tag saving.</p>
+<div class="refsect3">
+<a name="rb-metadata-get-saveable-types.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>md</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-metadata-get-saveable-types.returns"></a><h4>Returns</h4>
+<p> a NULL-terminated
+array of media type strings.  Use g_strfreev to free it. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>][<a href="http://foldoc.org/array"><span class="acronym">array</span></a> zero-terminated=1]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-reset"></a><h3>rb_metadata_reset ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_metadata_reset (<em class="parameter"><code><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> *md</code></em>);</pre>
+<p>Resets the state of the metadata interface.  Call this before
+setting tags to be written to a file.</p>
+<div class="refsect3">
+<a name="rb-metadata-reset.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>md</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-load"></a><h3>rb_metadata_load ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_metadata_load (<em class="parameter"><code><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> *md</code></em>,
+                  <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>,
+                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Reads metadata information from the specified URI.
+Once this has returned successfully (with *error == NULL),
+rb_metadata_get, rb_metadata_get_media_type, rb_metadata_has_missing_plugins,
+and rb_metadata_get_missing_plugins can usefully be called.</p>
+<div class="refsect3">
+<a name="rb-metadata-load.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>md</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>URI from which to load metadata</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>returns error information</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-save"></a><h3>rb_metadata_save ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_metadata_save (<em class="parameter"><code><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> *md</code></em>,
+                  <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>,
+                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Saves all metadata changes made with rb_metadata_set to the
+target URI.</p>
+<div class="refsect3">
+<a name="rb-metadata-save.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>md</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>the target URI</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>returns error information</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-get-media-type"></a><h3>rb_metadata_get_media_type ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+rb_metadata_get_media_type (<em class="parameter"><code><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> *md</code></em>);</pre>
+<p>Returns the type of the file from which metadata was read.
+This may look like a MIME type, but it isn't.</p>
+<div class="refsect3">
+<a name="rb-metadata-get-media-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>md</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-metadata-get-media-type.returns"></a><h4>Returns</h4>
+<p> media type string</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-has-missing-plugins"></a><h3>rb_metadata_has_missing_plugins ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_metadata_has_missing_plugins (<em class="parameter"><code><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> *md</code></em>);</pre>
+<p>If the metadata reader could not decode the file it was asked to
+because one or more media framework plugins (specifically, for the
+existing implementations, GStreamer plugins) required are missing,
+this will return TRUE.</p>
+<div class="refsect3">
+<a name="rb-metadata-has-missing-plugins.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>md</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-metadata-has-missing-plugins.returns"></a><h4>Returns</h4>
+<p> TRUE if required plugins are missing</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-get-missing-plugins"></a><h3>rb_metadata_get_missing_plugins ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_metadata_get_missing_plugins (<em class="parameter"><code><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> *md</code></em>,
+                                 <em class="parameter"><code><span class="type">char</span> ***missing_plugins</code></em>,
+                                 <em class="parameter"><code><span class="type">char</span> ***plugin_descriptions</code></em>);</pre>
+<p>This function returns the information used to request automatic
+installation of media framework plugins required to decode the target URI.
+Use <a href="/usr/share/gtk-doc/html/glibglib-String-Utility-Functions.html#g-strfreev"><code class="function">g_strfreev()</code></a> to free the returned information arrays.</p>
+<div class="refsect3">
+<a name="rb-metadata-get-missing-plugins.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>md</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>missing_plugins</p></td>
+<td class="parameter_description"><p> returns machine-readable
+missing plugin information. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/out"><span class="acronym">out</span></a>][<a href="http://foldoc.org/array"><span class="acronym">array</span></a> zero-terminated=1]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>plugin_descriptions</p></td>
+<td class="parameter_description"><p> returns human-readable
+missing plugin descriptions. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/out"><span class="acronym">out</span></a>][<a href="http://foldoc.org/array"><span class="acronym">array</span></a> zero-terminated=1]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-metadata-get-missing-plugins.returns"></a><h4>Returns</h4>
+<p> TRUE if missing plugin information was returned</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-has-audio"></a><h3>rb_metadata_has_audio ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_metadata_has_audio (<em class="parameter"><code><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> *md</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-has-video"></a><h3>rb_metadata_has_video ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_metadata_has_video (<em class="parameter"><code><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> *md</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-has-other-data"></a><h3>rb_metadata_has_other_data ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_metadata_has_other_data (<em class="parameter"><code><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> *md</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-get"></a><h3>rb_metadata_get ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_metadata_get (<em class="parameter"><code><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> *md</code></em>,
+                 <em class="parameter"><code><a class="link" href="RBMetaData.html#RBMetaDataField" title="enum RBMetaDataField"><span class="type">RBMetaDataField</span></a> field</code></em>,
+                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobjectgobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *val</code></em>);</pre>
+<p>Retrieves the value of a metadata field extracted from the target URI.
+If the target URI contained no value for the field, returns FALSE.</p>
+<div class="refsect3">
+<a name="rb-metadata-get.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>md</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>field</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBMetaData.html#RBMetaDataField" title="enum RBMetaDataField"><span class="type">RBMetaDataField</span></a> to retrieve</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>val</p></td>
+<td class="parameter_description"><p> returns the field value. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/out%20caller-allocates"><span class="acronym">out caller-allocates</span></a>][<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-metadata-get.returns"></a><h4>Returns</h4>
+<p> TRUE if a value was returned</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-metadata-set"></a><h3>rb_metadata_set ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_metadata_set (<em class="parameter"><code><a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> *md</code></em>,
+                 <em class="parameter"><code><a class="link" href="RBMetaData.html#RBMetaDataField" title="enum RBMetaDataField"><span class="type">RBMetaDataField</span></a> field</code></em>,
+                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/gobjectgobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *val</code></em>);</pre>
+<p>Sets a metadata field value.  The value is only stored inside the
+<a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a> object until rb_metadata_save is called.</p>
+<div class="refsect3">
+<a name="rb-metadata-set.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>md</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBMetaData.html" title="RBMetaData"><span class="type">RBMetaData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>field</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBMetaData.html#RBMetaDataField" title="enum RBMetaDataField"><span class="type">RBMetaDataField</span></a> to set</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>val</p></td>
+<td class="parameter_description"><p>the value to set</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-metadata-set.returns"></a><h4>Returns</h4>
+<p> TRUE if the field is valid</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBMetaData.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RBMetaDataField"></a><h3>enum RBMetaDataField</h3>
+<p>Metadata fields that can be read from and written to files.</p>
+<div class="refsect3">
+<a name="RBMetaDataField.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-TITLE:CAPS"></a>RB_METADATA_FIELD_TITLE</p></td>
+<td class="enum_member_description">
+<p>Title of the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-ARTIST:CAPS"></a>RB_METADATA_FIELD_ARTIST</p></td>
+<td class="enum_member_description">
+<p>Person(s) responsible for the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-ALBUM:CAPS"></a>RB_METADATA_FIELD_ALBUM</p></td>
+<td class="enum_member_description">
+<p>Album containing the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-DATE:CAPS"></a>RB_METADATA_FIELD_DATE</p></td>
+<td class="enum_member_description">
+<p>Release date of the album</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-GENRE:CAPS"></a>RB_METADATA_FIELD_GENRE</p></td>
+<td class="enum_member_description">
+<p>Genre of the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-COMMENT:CAPS"></a>RB_METADATA_FIELD_COMMENT</p></td>
+<td class="enum_member_description">
+<p>Free form comment on the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-TRACK-NUMBER:CAPS"></a>RB_METADATA_FIELD_TRACK_NUMBER</p></td>
+<td class="enum_member_description">
+<p>Track number inside a collection</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-MAX-TRACK-NUMBER:CAPS"></a>RB_METADATA_FIELD_MAX_TRACK_NUMBER</p></td>
+<td class="enum_member_description">
+<p>Count of tracks inside the collection</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-DISC-NUMBER:CAPS"></a>RB_METADATA_FIELD_DISC_NUMBER</p></td>
+<td class="enum_member_description">
+<p>Disc number inside a collection</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-MAX-DISC-NUMBER:CAPS"></a>RB_METADATA_FIELD_MAX_DISC_NUMBER</p></td>
+<td class="enum_member_description">
+<p>Count of discs inside the collection</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-DESCRIPTION:CAPS"></a>RB_METADATA_FIELD_DESCRIPTION</p></td>
+<td class="enum_member_description">
+<p>Short text describing the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-VERSION:CAPS"></a>RB_METADATA_FIELD_VERSION</p></td>
+<td class="enum_member_description">
+<p>Version of the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-ISRC:CAPS"></a>RB_METADATA_FIELD_ISRC</p></td>
+<td class="enum_member_description">
+<p>International Standard Recording Code</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-ORGANIZATION:CAPS"></a>RB_METADATA_FIELD_ORGANIZATION</p></td>
+<td class="enum_member_description">
+<p>Organization responsible for the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-COPYRIGHT:CAPS"></a>RB_METADATA_FIELD_COPYRIGHT</p></td>
+<td class="enum_member_description">
+<p>Copyright notice on the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-CONTACT:CAPS"></a>RB_METADATA_FIELD_CONTACT</p></td>
+<td class="enum_member_description">
+<p>Contact information</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-LICENSE:CAPS"></a>RB_METADATA_FIELD_LICENSE</p></td>
+<td class="enum_member_description">
+<p>License of the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-PERFORMER:CAPS"></a>RB_METADATA_FIELD_PERFORMER</p></td>
+<td class="enum_member_description">
+<p>Person(s) performing in the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-DURATION:CAPS"></a>RB_METADATA_FIELD_DURATION</p></td>
+<td class="enum_member_description">
+<p>Duration of the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-CODEC:CAPS"></a>RB_METADATA_FIELD_CODEC</p></td>
+<td class="enum_member_description">
+<p>Codec used to store the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-BITRATE:CAPS"></a>RB_METADATA_FIELD_BITRATE</p></td>
+<td class="enum_member_description">
+<p>Exact or average encoding bitrate in bits/s</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-TRACK-GAIN:CAPS"></a>RB_METADATA_FIELD_TRACK_GAIN</p></td>
+<td class="enum_member_description">
+<p>Track gain in dB for replaygain</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-TRACK-PEAK:CAPS"></a>RB_METADATA_FIELD_TRACK_PEAK</p></td>
+<td class="enum_member_description">
+<p>Track peak volume level</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-ALBUM-GAIN:CAPS"></a>RB_METADATA_FIELD_ALBUM_GAIN</p></td>
+<td class="enum_member_description">
+<p>Album gain in dB for replaygain</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-ALBUM-PEAK:CAPS"></a>RB_METADATA_FIELD_ALBUM_PEAK</p></td>
+<td class="enum_member_description">
+<p>Album peak volume level</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-LANGUAGE-CODE:CAPS"></a>RB_METADATA_FIELD_LANGUAGE_CODE</p></td>
+<td class="enum_member_description">
+<p>Language code (ISO-639-1)</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-BPM:CAPS"></a>RB_METADATA_FIELD_BPM</p></td>
+<td class="enum_member_description">
+<p>Beats Per Minute</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-MUSICBRAINZ-TRACKID:CAPS"></a>RB_METADATA_FIELD_MUSICBRAINZ_TRACKID</p></td>
+<td class="enum_member_description">
+<p>MusicBrainz track ID</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-MUSICBRAINZ-ARTISTID:CAPS"></a>RB_METADATA_FIELD_MUSICBRAINZ_ARTISTID</p></td>
+<td class="enum_member_description">
+<p>MusicBrainz artist ID</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-MUSICBRAINZ-ALBUMID:CAPS"></a>RB_METADATA_FIELD_MUSICBRAINZ_ALBUMID</p></td>
+<td class="enum_member_description">
+<p>MusicBrainz album ID</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-MUSICBRAINZ-ALBUMARTISTID:CAPS"></a>RB_METADATA_FIELD_MUSICBRAINZ_ALBUMARTISTID</p></td>
+<td class="enum_member_description">
+<p>MusicBrainz album artist ID</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-ARTIST-SORTNAME:CAPS"></a>RB_METADATA_FIELD_ARTIST_SORTNAME</p></td>
+<td class="enum_member_description">
+<p>Person(s) responsible for the recording, as used for sorting</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-ALBUM-SORTNAME:CAPS"></a>RB_METADATA_FIELD_ALBUM_SORTNAME</p></td>
+<td class="enum_member_description">
+<p>Album containing the recording, as used for sorting</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-ALBUM-ARTIST:CAPS"></a>RB_METADATA_FIELD_ALBUM_ARTIST</p></td>
+<td class="enum_member_description">
+<p>The artist of the entire album</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-ALBUM-ARTIST-SORTNAME:CAPS"></a>RB_METADATA_FIELD_ALBUM_ARTIST_SORTNAME</p></td>
+<td class="enum_member_description">
+<p>The artist of the entire album, as it should be sorted</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-COMPOSER:CAPS"></a>RB_METADATA_FIELD_COMPOSER</p></td>
+<td class="enum_member_description">
+<p>The composer of the recording</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-COMPOSER-SORTNAME:CAPS"></a>RB_METADATA_FIELD_COMPOSER_SORTNAME</p></td>
+<td class="enum_member_description">
+<p>The composer of the recording, as it should be sorted</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-FIELD-LAST:CAPS"></a>RB_METADATA_FIELD_LAST</p></td>
+<td class="enum_member_description">
+<p>invalid field</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBMetaDataError"></a><h3>enum RBMetaDataError</h3>
+<p>
+</p>
+<div class="refsect3">
+<a name="RBMetaDataError.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-ERROR-IO:CAPS"></a>RB_METADATA_ERROR_IO</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-ERROR-MISSING-PLUGIN:CAPS"></a>RB_METADATA_ERROR_MISSING_PLUGIN</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-ERROR-UNRECOGNIZED:CAPS"></a>RB_METADATA_ERROR_UNRECOGNIZED</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-ERROR-UNSUPPORTED:CAPS"></a>RB_METADATA_ERROR_UNSUPPORTED</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-ERROR-GENERAL:CAPS"></a>RB_METADATA_ERROR_GENERAL</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-ERROR-INTERNAL:CAPS"></a>RB_METADATA_ERROR_INTERNAL</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-METADATA-ERROR-EMPTY-FILE:CAPS"></a>RB_METADATA_ERROR_EMPTY_FILE</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBMetaData-struct"></a><h3>struct RBMetaData</h3>
+<pre class="programlisting">struct RBMetaData;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBMetaDataClass"></a><h3>struct RBMetaDataClass</h3>
+<pre class="programlisting">struct RBMetaDataClass {
+	GObjectClass parent_class;
+};
+</pre>
+<p>
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

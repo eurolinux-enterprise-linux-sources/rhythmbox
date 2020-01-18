@@ -1,0 +1,1852 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBEntryView: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch07.html" title="Widgets">
+<link rel="prev" href="rhythmbox-rb-dialog.html" title="rb-dialog">
+<link rel="next" href="RBHeader.html" title="RBHeader">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBEntryView.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBEntryView.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#RBEntryView.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#RBEntryView.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#RBEntryView.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch07.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="rhythmbox-rb-dialog.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RBHeader.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="RBEntryView"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBEntryView.top_of_page"></a>RBEntryView</span></h2>
+<p>RBEntryView — a <a href="/usr/share/gtk-doc/html/gtk3GtkTreeView.html#GtkTreeView-struct"><span class="type">GtkTreeView</span></a> for displaying track listings</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="RBEntryView.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="RBEntryView.html" title="RBEntryView"><span class="returnvalue">RBEntryView</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-new" title="rb_entry_view_new ()">rb_entry_view_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gtk3GtkTreeViewColumn.html#GtkTreeViewColumn-struct"><span class="returnvalue">GtkTreeViewColumn</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-get-column" title="rb_entry_view_get_column ()">rb_entry_view_get_column</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-append-column" title="rb_entry_view_append_column ()">rb_entry_view_append_column</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-append-column-custom" title="rb_entry_view_append_column_custom ()">rb_entry_view_append_column_custom</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-insert-column-custom" title="rb_entry_view_insert_column_custom ()">rb_entry_view_insert_column_custom</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-set-columns-clickable" title="rb_entry_view_set_columns_clickable ()">rb_entry_view_set_columns_clickable</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-set-model" title="rb_entry_view_set_model ()">rb_entry_view_set_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-set-state" title="rb_entry_view_set_state ()">rb_entry_view_set_state</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-have-selection" title="rb_entry_view_have_selection ()">rb_entry_view_have_selection</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-have-complete-selection" title="rb_entry_view_have_complete_selection ()">rb_entry_view_have_complete_selection</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-get-selected-entries" title="rb_entry_view_get_selected_entries ()">rb_entry_view_get_selected_entries</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-select-all" title="rb_entry_view_select_all ()">rb_entry_view_select_all</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-select-none" title="rb_entry_view_select_none ()">rb_entry_view_select_none</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-select-entry" title="rb_entry_view_select_entry ()">rb_entry_view_select_entry</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-get-entry-contained" title="rb_entry_view_get_entry_contained ()">rb_entry_view_get_entry_contained</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-get-entry-visible" title="rb_entry_view_get_entry_visible ()">rb_entry_view_get_entry_visible</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-scroll-to-entry" title="rb_entry_view_scroll_to_entry ()">rb_entry_view_scroll_to_entry</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-enable-drag-source" title="rb_entry_view_enable_drag_source ()">rb_entry_view_enable_drag_source</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-get-sorting-order" title="rb_entry_view_get_sorting_order ()">rb_entry_view_get_sorting_order</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-set-sorting-order" title="rb_entry_view_set_sorting_order ()">rb_entry_view_set_sorting_order</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-get-sorting-type" title="rb_entry_view_get_sorting_type ()">rb_entry_view_get_sorting_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-set-sorting-type" title="rb_entry_view_set_sorting_type ()">rb_entry_view_set_sorting_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-set-fixed-column-width" title="rb_entry_view_set_fixed_column_width ()">rb_entry_view_set_fixed_column_width</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-set-column-editable" title="rb_entry_view_set_column_editable ()">rb_entry_view_set_column_editable</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-get-time-date-column-sample" title="rb_entry_view_get_time_date_column_sample ()">rb_entry_view_get_time_date_column_sample</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBEntryView.html#rb-entry-view-resort-model" title="rb_entry_view_resort_model ()">rb_entry_view_resort_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBEntryView.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</td>
+<td class="property_name"><a class="link" href="RBEntryView.html#RBEntryView--db" title="The “db” property">db</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="RBEntryView.html#RBEntryView--is-drag-dest" title="The “is-drag-dest” property">is-drag-dest</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="RBEntryView.html#RBEntryView--is-drag-source" title="The “is-drag-source” property">is-drag-source</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *</td>
+<td class="property_name"><a class="link" href="RBEntryView.html#RBEntryView--model" title="The “model” property">model</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="RBEntryView.html#RBEntryView--playing-state" title="The “playing-state” property">playing-state</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> *</td>
+<td class="property_name"><a class="link" href="RBEntryView.html#RBEntryView--shell-player" title="The “shell-player” property">shell-player</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="RBEntryView.html#RBEntryView--sort-order" title="The “sort-order” property">sort-order</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-String-Utility-Functions.html#GStrv"><span class="type">GStrv</span></a></td>
+<td class="property_name"><a class="link" href="RBEntryView.html#RBEntryView--visible-columns" title="The “visible-columns” property">visible-columns</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBEntryView.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBEntryView.html#RBEntryView-entries-replaced" title="The “entries-replaced” signal">entries-replaced</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBEntryView.html#RBEntryView-entry-activated" title="The “entry-activated” signal">entry-activated</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBEntryView.html#RBEntryView-entry-added" title="The “entry-added” signal">entry-added</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBEntryView.html#RBEntryView-entry-deleted" title="The “entry-deleted” signal">entry-deleted</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBEntryView.html#RBEntryView-have-selection-changed" title="The “have-selection-changed” signal">have-selection-changed</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBEntryView.html#RBEntryView-selection-changed" title="The “selection-changed” signal">selection-changed</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBEntryView.html#RBEntryView-show-popup" title="The “show-popup” signal">show-popup</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBEntryView.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="RBEntryView.html#RBEntryViewColumn" title="enum RBEntryViewColumn">RBEntryViewColumn</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="RBEntryView.html#RBEntryViewState" title="enum RBEntryViewState">RBEntryViewState</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBEntryView.html#RBEntryView-struct" title="struct RBEntryView">RBEntryView</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBEntryView.html#RBEntryViewClass" title="struct RBEntryViewClass">RBEntryViewClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBEntryView.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-Enumeration-and-Flag-Types.html">GEnum</a>
+    <span class="lineart">├──</span> RBEntryViewColumn
+    <span class="lineart">╰──</span> RBEntryViewState
+    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct">GtkWidget</a>
+            <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkContainer.html#GtkContainer-struct">GtkContainer</a>
+                <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkBin.html#GtkBin-struct">GtkBin</a>
+                    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkScrolledWindow.html#GtkScrolledWindow-struct">GtkScrolledWindow</a>
+                        <span class="lineart">╰──</span> RBEntryView
+</pre>
+</div>
+<div class="refsect1">
+<a name="RBEntryView.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBEntryView implements
+ AtkImplementorIface and  <a href="/usr/share/gtk-doc/html/gtk3GtkBuildable.html#GtkBuildable-struct">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="RBEntryView.description"></a><h2>Description</h2>
+<p>This class provides a predefined set of columns for displaying the
+common set of <span class="type">RhythmDBEntry</span> properties, but also allows custom columns
+to be appended.  The 'playing' column is always created as the first
+column in the tree view, displaying a playing or paused image next to
+the currently playing entry, and also an error image next to entries for
+which a playback error message has been set.  Clicking on the error
+image opens a dialog displaying the full message.</p>
+<p>All columns added to entry view columns should be expandable, or have a fixed
+minimum width set.  Otherwise, the tree view must measure the contents of each
+row to assign sizes, which is very slow for large track lists.  All the predefined
+column types handle this correctly.</p>
+</div>
+<div class="refsect1">
+<a name="RBEntryView.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-entry-view-new"></a><h3>rb_entry_view_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="returnvalue">RBEntryView</span></a> *
+rb_entry_view_new (<em class="parameter"><code><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *db</code></em>,
+                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct"><span class="type">GObject</span></a> *shell_player</code></em>,
+                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_drag_source</code></em>,
+                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_drag_dest</code></em>);</pre>
+<p>Creates a new entry view.  If it makes sense to allow the user to drag entries
+from this entry view to other sources, <em class="parameter"><code>is_drag_source</code></em>
+ should be TRUE.  If it
+makes sense to allow the user to drag entries from other sources to this view,
+<em class="parameter"><code>is_drag_dest</code></em>
+ should be TRUE.  Drag and drop in this sense is used for two purposes:
+to transfer tracks between the filesystem and removable devices, and to add tracks
+to playlists.</p>
+<div class="refsect3">
+<a name="rb-entry-view-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>db</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>shell_player</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>is_drag_source</p></td>
+<td class="parameter_description"><p>if TRUE, the view should act as a drag and drop data source</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>is_drag_dest</p></td>
+<td class="parameter_description"><p>if TRUE, the view should act as a drag and drop destination</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-entry-view-new.returns"></a><h4>Returns</h4>
+<p> the new entry view</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-get-column"></a><h3>rb_entry_view_get_column ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3GtkTreeViewColumn.html#GtkTreeViewColumn-struct"><span class="returnvalue">GtkTreeViewColumn</span></a> *
+rb_entry_view_get_column (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                          <em class="parameter"><code><a class="link" href="RBEntryView.html#RBEntryViewColumn" title="enum RBEntryViewColumn"><span class="type">RBEntryViewColumn</span></a> coltype</code></em>);</pre>
+<p>Retrieves a predefined column from the entry view.  This can be used
+to insert additional cell renderers into the column.</p>
+<div class="refsect3">
+<a name="rb-entry-view-get-column.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>coltype</p></td>
+<td class="parameter_description"><p>type of column to retrieve</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-entry-view-get-column.returns"></a><h4>Returns</h4>
+<p> a <a href="/usr/share/gtk-doc/html/gtk3GtkTreeViewColumn.html#GtkTreeViewColumn-struct"><span class="type">GtkTreeViewColumn</span></a> instance, or NULL. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-append-column"></a><h3>rb_entry_view_append_column ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_append_column (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                             <em class="parameter"><code><a class="link" href="RBEntryView.html#RBEntryViewColumn" title="enum RBEntryViewColumn"><span class="type">RBEntryViewColumn</span></a> coltype</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> always_visible</code></em>);</pre>
+<p>Appends a predefined column type to the set of columns already present
+in the entry view.  If <em class="parameter"><code>always_visible</code></em>
+ is TRUE, the column will ignore
+the user's coulmn visibility settings and will always be visible.
+This should only be used when it is vital for the purpose of the 
+source that the column be visible.</p>
+<div class="refsect3">
+<a name="rb-entry-view-append-column.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>coltype</p></td>
+<td class="parameter_description"><p>type of column to append</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>always_visible</p></td>
+<td class="parameter_description"><p>if TRUE, ignore the user's column visibility settings</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-append-column-custom"></a><h3>rb_entry_view_append_column_custom ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_append_column_custom (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkTreeViewColumn.html#GtkTreeViewColumn-struct"><span class="type">GtkTreeViewColumn</span></a> *column</code></em>,
+                                    <em class="parameter"><code>const <span class="type">char</span> *title</code></em>,
+                                    <em class="parameter"><code>const <span class="type">char</span> *key</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GCompareDataFunc"><span class="type">GCompareDataFunc</span></a> sort_func</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> data_destroy</code></em>);</pre>
+<p>Appends a custom column to the entry view.</p>
+<div class="refsect3">
+<a name="rb-entry-view-append-column-custom.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>column</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/gtk3GtkTreeViewColumn.html#GtkTreeViewColumn-struct"><span class="type">GtkTreeViewColumn</span></a> to append. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>title</p></td>
+<td class="parameter_description"><p>title for the column (translated)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>sort key for the column (not translated)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_func</p></td>
+<td class="parameter_description"><p>comparison function to use for sorting on the column</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p> data to pass to the sort function. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/closure"><span class="acronym">closure</span></a>][<a href="http://foldoc.org/scope%20notified"><span class="acronym">scope notified</span></a>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data_destroy</p></td>
+<td class="parameter_description"><p>function to use to destroy the sort data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-insert-column-custom"></a><h3>rb_entry_view_insert_column_custom ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_insert_column_custom (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkTreeViewColumn.html#GtkTreeViewColumn-struct"><span class="type">GtkTreeViewColumn</span></a> *column</code></em>,
+                                    <em class="parameter"><code>const <span class="type">char</span> *title</code></em>,
+                                    <em class="parameter"><code>const <span class="type">char</span> *key</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GCompareDataFunc"><span class="type">GCompareDataFunc</span></a> sort_func</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> data_destroy</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> position</code></em>);</pre>
+<p>Inserts a custom column at the specified position.</p>
+<div class="refsect3">
+<a name="rb-entry-view-insert-column-custom.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>column</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/gtk3GtkTreeViewColumn.html#GtkTreeViewColumn-struct"><span class="type">GtkTreeViewColumn</span></a> to append. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>title</p></td>
+<td class="parameter_description"><p>title for the column (translated)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>sort key for the column (not translated)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_func</p></td>
+<td class="parameter_description"><p>comparison function to use for sorting on the column</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p> data to pass to the sort function. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/closure"><span class="acronym">closure</span></a>][<a href="http://foldoc.org/scope%20notified"><span class="acronym">scope notified</span></a>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data_destroy</p></td>
+<td class="parameter_description"><p>function to use to destroy the sort data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>position</p></td>
+<td class="parameter_description"><p>position at which to insert the column (-1 to insert at the end)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-set-columns-clickable"></a><h3>rb_entry_view_set_columns_clickable ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_set_columns_clickable (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> clickable</code></em>);</pre>
+<p>Makes the headers for sortable columns (those for which a sort function was
+provided) clickable, so the user can set the sort order.</p>
+<div class="refsect3">
+<a name="rb-entry-view-set-columns-clickable.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>clickable</p></td>
+<td class="parameter_description"><p>if TRUE, sortable columns will be made clickable</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-set-model"></a><h3>rb_entry_view_set_model ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_set_model (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                         <em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>);</pre>
+<p>Replaces the model backing the entry view.</p>
+<div class="refsect3">
+<a name="rb-entry-view-set-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the new <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> to use for the view</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-set-state"></a><h3>rb_entry_view_set_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_set_state (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                         <em class="parameter"><code><a class="link" href="RBEntryView.html#RBEntryViewState" title="enum RBEntryViewState"><span class="type">RBEntryViewState</span></a> state</code></em>);</pre>
+<p>Sets the icon to be drawn in the 'playing' column next to the
+current playing entry.  RB_ENTRY_VIEW_PLAYING and RB_ENTRY_VIEW_PAUSED
+should be used when the source containing the entry view is playing,
+and RB_ENTRY_VIEW_NOT_PLAYING otherwise.</p>
+<div class="refsect3">
+<a name="rb-entry-view-set-state.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>state</p></td>
+<td class="parameter_description"><p>the new playing entry state</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-have-selection"></a><h3>rb_entry_view_have_selection ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_entry_view_have_selection (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>);</pre>
+<p>Determines whether there is an active selection in the view.</p>
+<div class="refsect3">
+<a name="rb-entry-view-have-selection.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-entry-view-have-selection.returns"></a><h4>Returns</h4>
+<p> TRUE if one or more rows are selected</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-have-complete-selection"></a><h3>rb_entry_view_have_complete_selection ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_entry_view_have_complete_selection (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>);</pre>
+<p>Determines whether all entries in the view are selected.</p>
+<div class="refsect3">
+<a name="rb-entry-view-have-complete-selection.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-entry-view-have-complete-selection.returns"></a><h4>Returns</h4>
+<p> TRUE if all rows in the view are selected</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-get-selected-entries"></a><h3>rb_entry_view_get_selected_entries ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+rb_entry_view_get_selected_entries (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>);</pre>
+<p>Gathers the selected entries from the view.</p>
+<div class="refsect3">
+<a name="rb-entry-view-get-selected-entries.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-entry-view-get-selected-entries.returns"></a><h4>Returns</h4>
+<p> a <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of
+selected entries in the view. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> RhythmDBEntry][<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-select-all"></a><h3>rb_entry_view_select_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_select_all (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>);</pre>
+<p>Selects all rows in the view</p>
+<div class="refsect3">
+<a name="rb-entry-view-select-all.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-select-none"></a><h3>rb_entry_view_select_none ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_select_none (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>);</pre>
+<p>Deselects all rows in the view.</p>
+<div class="refsect3">
+<a name="rb-entry-view-select-none.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-select-entry"></a><h3>rb_entry_view_select_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_select_entry (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                            <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>If the specified entry is present in the view, it is added
+to the selection.</p>
+<div class="refsect3">
+<a name="rb-entry-view-select-entry.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span> to select</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-get-entry-contained"></a><h3>rb_entry_view_get_entry_contained ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_entry_view_get_entry_contained (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                                   <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>Determines whether a specified entry is present in the view.</p>
+<div class="refsect3">
+<a name="rb-entry-view-get-entry-contained.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span> to check</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-entry-view-get-entry-contained.returns"></a><h4>Returns</h4>
+<p> TRUE if the entry is present in the view</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-get-entry-visible"></a><h3>rb_entry_view_get_entry_visible ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_entry_view_get_entry_visible (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                                 <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>Determines whether a specified entry is present in the view
+and is currently visible.</p>
+<div class="refsect3">
+<a name="rb-entry-view-get-entry-visible.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span> to check</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-entry-view-get-entry-visible.returns"></a><h4>Returns</h4>
+<p> TRUE if the entry is visible</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-scroll-to-entry"></a><h3>rb_entry_view_scroll_to_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_scroll_to_entry (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                               <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>If the specified entry is present in the view, the view will be
+scrolled so that the entry is visible.</p>
+<div class="refsect3">
+<a name="rb-entry-view-scroll-to-entry.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span> to scroll to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-enable-drag-source"></a><h3>rb_entry_view_enable_drag_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_enable_drag_source (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                                  <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/gtk3gtk3-Selections.html#GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> *targets</code></em>,
+                                  <em class="parameter"><code><span class="type">int</span> n_targets</code></em>);</pre>
+<p>Enables the entry view to act as a data source for drag an drop operations,
+using a specified set of data targets.</p>
+<div class="refsect3">
+<a name="rb-entry-view-enable-drag-source.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>targets</p></td>
+<td class="parameter_description"><p>an array of <a href="/usr/share/gtk-doc/html/gtk3gtk3-Selections.html#GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> structures defining the drag data targets</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_targets</p></td>
+<td class="parameter_description"><p>the number of entries in the target array</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-get-sorting-order"></a><h3>rb_entry_view_get_sorting_order ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_get_sorting_order (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                                 <em class="parameter"><code><span class="type">char</span> **column_name</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *sort_order</code></em>);</pre>
+<p>Retrieves the sort settings for the view.</p>
+<div class="refsect3">
+<a name="rb-entry-view-get-sorting-order.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>column_name</p></td>
+<td class="parameter_description"><p> returns the sort column name. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/out%20callee-allocates"><span class="acronym">out callee-allocates</span></a>][<a href="http://foldoc.org/allow-none"><span class="acronym">allow-none</span></a>][<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_order</p></td>
+<td class="parameter_description"><p> returns the sort ordering as a <a href="/usr/share/gtk-doc/html/gtk3gtk3-Standard-Enumerations.html#GtkSortType"><span class="type">GtkSortType</span></a> value. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/out"><span class="acronym">out</span></a>][<a href="http://foldoc.org/allow-none"><span class="acronym">allow-none</span></a>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-set-sorting-order"></a><h3>rb_entry_view_set_sorting_order ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_set_sorting_order (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                                 <em class="parameter"><code>const <span class="type">char</span> *column_name</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> sort_order</code></em>);</pre>
+<p>Sets the sort order for the entry view.</p>
+<div class="refsect3">
+<a name="rb-entry-view-set-sorting-order.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>column_name</p></td>
+<td class="parameter_description"><p>name of the column to sort on</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_order</p></td>
+<td class="parameter_description"><p>order to sort in, as a <a href="/usr/share/gtk-doc/html/gtk3gtk3-Standard-Enumerations.html#GtkSortType"><span class="type">GtkSortType</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-get-sorting-type"></a><h3>rb_entry_view_get_sorting_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *
+rb_entry_view_get_sorting_type (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>);</pre>
+<p>Constructs a string that describes the sort settings for the entry view.
+This consists of a column name and an order ('ascending' or 'descending')
+separated by a comma.</p>
+<div class="refsect3">
+<a name="rb-entry-view-get-sorting-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-entry-view-get-sorting-type.returns"></a><h4>Returns</h4>
+<p> sort order description. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-set-sorting-type"></a><h3>rb_entry_view_set_sorting_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_set_sorting_type (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                                <em class="parameter"><code>const <span class="type">char</span> *sorttype</code></em>);</pre>
+<p>Changes the sort order for the entry view.  The sort order
+description must be a column name, followed by a comma, followed
+by an order description ('ascending' or 'descending').</p>
+<div class="refsect3">
+<a name="rb-entry-view-set-sorting-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sorttype</p></td>
+<td class="parameter_description"><p>sort order description</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-set-fixed-column-width"></a><h3>rb_entry_view_set_fixed_column_width ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_set_fixed_column_width (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkTreeViewColumn.html#GtkTreeViewColumn-struct"><span class="type">GtkTreeViewColumn</span></a> *column</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkCellRenderer.html#GtkCellRenderer-struct"><span class="type">GtkCellRenderer</span></a> *renderer</code></em>,
+                                      <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **strings</code></em>);</pre>
+<p>Helper function for calling <em class="parameter"><code>rb_set_tree_view_column_fixed_width</code></em>
+ on
+a column.  This is important for performance reasons, as having the
+tree view measure the strings in each of 20000 rows is very slow.</p>
+<div class="refsect3">
+<a name="rb-entry-view-set-fixed-column-width.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>column</p></td>
+<td class="parameter_description"><p>the column to set the width for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>renderer</p></td>
+<td class="parameter_description"><p>a temporary cell renderer to use</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>strings</p></td>
+<td class="parameter_description"><p> a NULL-terminated array of strings that will be displayed in the column. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/array"><span class="acronym">array</span></a> zero-terminated=1]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-set-column-editable"></a><h3>rb_entry_view_set_column_editable ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_set_column_editable (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>,
+                                   <em class="parameter"><code><a class="link" href="RBEntryView.html#RBEntryViewColumn" title="enum RBEntryViewColumn"><span class="type">RBEntryViewColumn</span></a> column</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> editable</code></em>);</pre>
+<p>Enables in-place editing of the values in a column.
+The underlying <code class="literal">RhythmDBEntry</code> is updated when editing is complete.</p>
+<div class="refsect3">
+<a name="rb-entry-view-set-column-editable.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>column</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html#RBEntryViewColumn" title="enum RBEntryViewColumn"><span class="type">RBEntryViewColumn</span></a> to update</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p><a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> to make the column editable, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-get-time-date-column-sample"></a><h3>rb_entry_view_get_time_date_column_sample ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+rb_entry_view_get_time_date_column_sample
+                               (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Returns a sample string for use in columns displaying times
+and dates in 'friendly' form (see <em class="parameter"><code>rb_utf_friendly_time</code></em>
+).
+For use with <em class="parameter"><code>rb_entry_view_set_fixed_column_width</code></em>
+.</p>
+<div class="refsect3">
+<a name="rb-entry-view-get-time-date-column-sample.returns"></a><h4>Returns</h4>
+<p> sample date string</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-entry-view-resort-model"></a><h3>rb_entry_view_resort_model ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_entry_view_resort_model (<em class="parameter"><code><a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view</code></em>);</pre>
+<p>Resorts the entries in the entry view.  Mostly to be used
+when a new model is associated with the view.</p>
+<div class="refsect3">
+<a name="rb-entry-view-resort-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> to resort</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBEntryView.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RBEntryViewColumn"></a><h3>enum RBEntryViewColumn</h3>
+<p>Predefined column types to use in <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a>s.  Use
+<a class="link" href="RBEntryView.html#rb-entry-view-append-column" title="rb_entry_view_append_column ()"><span class="type">rb_entry_view_append_column</span></a> to add these to an entry view.
+The predefined column names map directly to the <span class="type">RhythmDBEntry</span> properties
+the columns display.</p>
+<div class="refsect3">
+<a name="RBEntryViewColumn.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-TRACK-NUMBER:CAPS"></a>RB_ENTRY_VIEW_COL_TRACK_NUMBER</p></td>
+<td class="enum_member_description">
+<p>the track number column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-TITLE:CAPS"></a>RB_ENTRY_VIEW_COL_TITLE</p></td>
+<td class="enum_member_description">
+<p>the title column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-ARTIST:CAPS"></a>RB_ENTRY_VIEW_COL_ARTIST</p></td>
+<td class="enum_member_description">
+<p>the artist column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-ALBUM:CAPS"></a>RB_ENTRY_VIEW_COL_ALBUM</p></td>
+<td class="enum_member_description">
+<p>the album column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-GENRE:CAPS"></a>RB_ENTRY_VIEW_COL_GENRE</p></td>
+<td class="enum_member_description">
+<p>the genre column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-COMMENT:CAPS"></a>RB_ENTRY_VIEW_COL_COMMENT</p></td>
+<td class="enum_member_description">
+<p>the comment column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-DURATION:CAPS"></a>RB_ENTRY_VIEW_COL_DURATION</p></td>
+<td class="enum_member_description">
+<p>the duration column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-QUALITY:CAPS"></a>RB_ENTRY_VIEW_COL_QUALITY</p></td>
+<td class="enum_member_description">
+<p>the quality (bitrate) column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-RATING:CAPS"></a>RB_ENTRY_VIEW_COL_RATING</p></td>
+<td class="enum_member_description">
+<p>the rating column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-PLAY-COUNT:CAPS"></a>RB_ENTRY_VIEW_COL_PLAY_COUNT</p></td>
+<td class="enum_member_description">
+<p>the play count column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-YEAR:CAPS"></a>RB_ENTRY_VIEW_COL_YEAR</p></td>
+<td class="enum_member_description">
+<p>the year (release date) column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-LAST-PLAYED:CAPS"></a>RB_ENTRY_VIEW_COL_LAST_PLAYED</p></td>
+<td class="enum_member_description">
+<p>the last played time column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-FIRST-SEEN:CAPS"></a>RB_ENTRY_VIEW_COL_FIRST_SEEN</p></td>
+<td class="enum_member_description">
+<p>the first seen (imported) column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-LAST-SEEN:CAPS"></a>RB_ENTRY_VIEW_COL_LAST_SEEN</p></td>
+<td class="enum_member_description">
+<p>the last seen column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-LOCATION:CAPS"></a>RB_ENTRY_VIEW_COL_LOCATION</p></td>
+<td class="enum_member_description">
+<p>the location column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-BPM:CAPS"></a>RB_ENTRY_VIEW_COL_BPM</p></td>
+<td class="enum_member_description">
+<p>the BPM column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-ERROR:CAPS"></a>RB_ENTRY_VIEW_COL_ERROR</p></td>
+<td class="enum_member_description">
+<p>the error column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-COL-COMPOSER:CAPS"></a>RB_ENTRY_VIEW_COL_COMPOSER</p></td>
+<td class="enum_member_description">
+<p>the composer column</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryViewState"></a><h3>enum RBEntryViewState</h3>
+<p>
+</p>
+<div class="refsect3">
+<a name="RBEntryViewState.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-NOT-PLAYING:CAPS"></a>RB_ENTRY_VIEW_NOT_PLAYING</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-PLAYING:CAPS"></a>RB_ENTRY_VIEW_PLAYING</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-ENTRY-VIEW-PAUSED:CAPS"></a>RB_ENTRY_VIEW_PAUSED</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView-struct"></a><h3>struct RBEntryView</h3>
+<pre class="programlisting">struct RBEntryView;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryViewClass"></a><h3>struct RBEntryViewClass</h3>
+<pre class="programlisting">struct RBEntryViewClass {
+	GtkScrolledWindowClass parent;
+
+	void (*entry_added)		(RBEntryView *view, RhythmDBEntry *entry);
+	void (*entry_deleted)		(RBEntryView *view, RhythmDBEntry *entry);
+	void (*entries_replaced) (RBEntryView *view);
+
+	void (*entry_activated)         (RBEntryView *view, RhythmDBEntry *entry);
+
+	void (*have_selection_changed) (RBEntryView *view, gboolean have_selection);
+	void (*selection_changed)       (RBEntryView *view);
+
+	void (*show_popup)             (RBEntryView *view, gboolean over_entry);
+};
+</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBEntryView.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="RBEntryView--db"></a><h3>The <code class="literal">“db”</code> property</h3>
+<pre class="programlisting">  “db”                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</pre>
+<p><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView--is-drag-dest"></a><h3>The <code class="literal">“is-drag-dest”</code> property</h3>
+<pre class="programlisting">  “is-drag-dest”             <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>If TRUE, the view acts as a destination for drag and drop operations.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView--is-drag-source"></a><h3>The <code class="literal">“is-drag-source”</code> property</h3>
+<pre class="programlisting">  “is-drag-source”           <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>If TRUE, the view acts as a data source for drag and drop operations.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView--model"></a><h3>The <code class="literal">“model”</code> property</h3>
+<pre class="programlisting">  “model”                    <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *</pre>
+<p>The <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> backing the view</p>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView--playing-state"></a><h3>The <code class="literal">“playing-state”</code> property</h3>
+<pre class="programlisting">  “playing-state”            <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>Determines the icon to show in the 'playing' column next to the current
+playing entry.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: [0,2]</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView--shell-player"></a><h3>The <code class="literal">“shell-player”</code> property</h3>
+<pre class="programlisting">  “shell-player”             <a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> *</pre>
+<p><a class="link" href="RBShellPlayer.html" title="RBShellPlayer"><span class="type">RBShellPlayer</span></a> instance</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView--sort-order"></a><h3>The <code class="literal">“sort-order”</code> property</h3>
+<pre class="programlisting">  “sort-order”               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>The sort order for the track listing.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView--visible-columns"></a><h3>The <code class="literal">“visible-columns”</code> property</h3>
+<pre class="programlisting">  “visible-columns”          <a href="/usr/share/gtk-doc/html/glibglib-String-Utility-Functions.html#GStrv"><span class="type">GStrv</span></a></pre>
+<p>An array containing the names of the visible columns.</p>
+<p>Flags: Read / Write</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBEntryView.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="RBEntryView-entries-replaced"></a><h3>The <code class="literal">“entries-replaced”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)</pre>
+<p>Emitted when the model backing the entry view is replaced.</p>
+<div class="refsect3">
+<a name="RBEntryView-entries-replaced.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView-entry-activated"></a><h3>The <code class="literal">“entry-activated”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a>   *view,
+               <span class="type">RhythmDBEntry</span> *entry,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>       user_data)</pre>
+<p>Emitted when an entry in the view is activated (by double clicking
+or by various key presses)</p>
+<div class="refsect3">
+<a name="RBEntryView-entry-activated.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>the <span class="type">RhythmDBEntry</span> that was activated</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView-entry-added"></a><h3>The <code class="literal">“entry-added”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a>   *view,
+               <span class="type">RhythmDBEntry</span> *entry,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>       user_data)</pre>
+<p>Emitted when an entry is added to the view</p>
+<div class="refsect3">
+<a name="RBEntryView-entry-added.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>the <span class="type">RhythmDBEntry</span> that was added</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView-entry-deleted"></a><h3>The <code class="literal">“entry-deleted”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a>   *view,
+               <span class="type">RhythmDBEntry</span> *entry,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>       user_data)</pre>
+<p>Emitted when an entry has been removed from the view</p>
+<div class="refsect3">
+<a name="RBEntryView-entry-deleted.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>the <span class="type">RhythmDBEntry</span> that was removed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView-have-selection-changed"></a><h3>The <code class="literal">“have-selection-changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>     have_selection,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)</pre>
+<p>Emitted when the user first selects a row, or when no rows are selected
+any more.</p>
+<div class="refsect3">
+<a name="RBEntryView-have-selection-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>have_selection</p></td>
+<td class="parameter_description"><p>TRUE if one or more rows are selected</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView-selection-changed"></a><h3>The <code class="literal">“selection-changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)</pre>
+<p>Emitted when the set of selected entries changes</p>
+<div class="refsect3">
+<a name="RBEntryView-selection-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBEntryView-show-popup"></a><h3>The <code class="literal">“show-popup”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a> *view,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>     over_entry,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)</pre>
+<p>Emitted when the user performs an action that should result in a
+popup menu appearing.  If the action was a mouse button click,
+
+over_entry is FALSE if the mouse pointer was in the blank space after
+the last row in the view.  If the action was a key press, over_entry
+is FALSE if no rows in the view are selected.</p>
+<div class="refsect3">
+<a name="RBEntryView-show-popup.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBEntryView.html" title="RBEntryView"><span class="type">RBEntryView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>over_entry</p></td>
+<td class="parameter_description"><p>if TRUE, the popup request was made while pointing
+at an entry in the view</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

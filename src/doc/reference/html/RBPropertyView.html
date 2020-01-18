@@ -1,0 +1,815 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBPropertyView: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch07.html" title="Widgets">
+<link rel="prev" href="RBLibraryBrowser.html" title="RBLibraryBrowser">
+<link rel="next" href="RBQueryCreator.html" title="RBQueryCreator">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBPropertyView.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBPropertyView.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#RBPropertyView.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#RBPropertyView.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#RBPropertyView.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch07.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RBLibraryBrowser.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RBQueryCreator.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="RBPropertyView"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBPropertyView.top_of_page"></a>RBPropertyView</span></h2>
+<p>RBPropertyView — a <a href="/usr/share/gtk-doc/html/gtk3GtkTreeView.html#GtkTreeView-struct"><span class="type">GtkTreeView</span></a> backed by a <a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a></p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="RBPropertyView.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="returnvalue">RBPropertyView</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBPropertyView.html#rb-property-view-new" title="rb_property_view_new ()">rb_property_view_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBPropertyView.html#rb-property-view-append-column-custom" title="rb_property_view_append_column_custom ()">rb_property_view_append_column_custom</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBPropertyView.html#rb-property-view-set-selection-mode" title="rb_property_view_set_selection_mode ()">rb_property_view_set_selection_mode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBPropertyView.html#rb-property-view-reset" title="rb_property_view_reset ()">rb_property_view_reset</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBPropertyView.html#rb-property-view-set-selection" title="rb_property_view_set_selection ()">rb_property_view_set_selection</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBPropertyView.html#rb-property-view-get-selection" title="rb_property_view_get_selection ()">rb_property_view_get_selection</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="returnvalue">RhythmDBPropertyModel</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBPropertyView.html#rb-property-view-get-model" title="rb_property_view_get_model ()">rb_property_view_get_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBPropertyView.html#rb-property-view-set-model" title="rb_property_view_set_model ()">rb_property_view_set_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBPropertyView.html#rb-property-view-get-num-properties" title="rb_property_view_get_num_properties ()">rb_property_view_get_num_properties</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBPropertyView.html#rb-property-view-set-search-func" title="rb_property_view_set_search_func ()">rb_property_view_set_search_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBPropertyView.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</td>
+<td class="property_name"><a class="link" href="RBPropertyView.html#RBPropertyView--db" title="The “db” property">db</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="RBPropertyView.html#RBPropertyView--draggable" title="The “draggable” property">draggable</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="RhythmDB.html#RhythmDBPropType" title="enum RhythmDBPropType"><span class="type">RhythmDBPropType</span></a></td>
+<td class="property_name"><a class="link" href="RBPropertyView.html#RBPropertyView--prop" title="The “prop” property">prop</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a> *</td>
+<td class="property_name"><a class="link" href="RBPropertyView.html#RBPropertyView--property-model" title="The “property-model” property">property-model</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="RBPropertyView.html#RBPropertyView--title" title="The “title” property">title</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBPropertyView.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBPropertyView.html#RBPropertyView-properties-selected" title="The “properties-selected” signal">properties-selected</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBPropertyView.html#RBPropertyView-property-activated" title="The “property-activated” signal">property-activated</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBPropertyView.html#RBPropertyView-property-selected" title="The “property-selected” signal">property-selected</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBPropertyView.html#RBPropertyView-property-selection-reset" title="The “property-selection-reset” signal">property-selection-reset</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBPropertyView.html#RBPropertyView-show-popup" title="The “show-popup” signal">show-popup</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBPropertyView.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBPropertyView.html#RBPropertyView-struct" title="struct RBPropertyView">RBPropertyView</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBPropertyView.html#RBPropertyViewClass" title="struct RBPropertyViewClass">RBPropertyViewClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBPropertyView.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct">GtkWidget</a>
+            <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkContainer.html#GtkContainer-struct">GtkContainer</a>
+                <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkBin.html#GtkBin-struct">GtkBin</a>
+                    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkScrolledWindow.html#GtkScrolledWindow-struct">GtkScrolledWindow</a>
+                        <span class="lineart">╰──</span> RBPropertyView
+</pre>
+</div>
+<div class="refsect1">
+<a name="RBPropertyView.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBPropertyView implements
+ AtkImplementorIface and  <a href="/usr/share/gtk-doc/html/gtk3GtkBuildable.html#GtkBuildable-struct">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="RBPropertyView.description"></a><h2>Description</h2>
+<p>A simple <a href="/usr/share/gtk-doc/html/gtk3GtkTreeView.html#GtkTreeView-struct"><span class="type">GtkTreeView</span></a> that displays the contents of a <a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a>.
+The first row in the tree view displays the total number of properties and entries,
+in the form "All 473 artists (6241)".  Each subsequent row in the tree view 
+displays a property value and the number of entries from the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>
+with that value.</p>
+<p>The property view itself creates a single column, but additional columns can be
+added.</p>
+</div>
+<div class="refsect1">
+<a name="RBPropertyView.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-property-view-new"></a><h3>rb_property_view_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="returnvalue">RBPropertyView</span></a> *
+rb_property_view_new (<em class="parameter"><code><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *db</code></em>,
+                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a> propid</code></em>,
+                      <em class="parameter"><code>const <span class="type">char</span> *title</code></em>);</pre>
+<p>Creates a new <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> displaying the specified property.</p>
+<div class="refsect3">
+<a name="rb-property-view-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>db</p></td>
+<td class="parameter_description"><p><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>propid</p></td>
+<td class="parameter_description"><p>property ID to be displayed in the property view</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>title</p></td>
+<td class="parameter_description"><p>title of the property view</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-property-view-new.returns"></a><h4>Returns</h4>
+<p> new property view instance</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-property-view-append-column-custom"></a><h3>rb_property_view_append_column_custom ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_property_view_append_column_custom (<em class="parameter"><code><a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view</code></em>,
+                                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkTreeViewColumn.html#GtkTreeViewColumn-struct"><span class="type">GtkTreeViewColumn</span></a> *column</code></em>);</pre>
+<p>Appends a custom created column to the view.</p>
+<div class="refsect3">
+<a name="rb-property-view-append-column-custom.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>column</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gtk3GtkTreeViewColumn.html#GtkTreeViewColumn-struct"><span class="type">GtkTreeViewColumn</span></a> to append to the view</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-property-view-set-selection-mode"></a><h3>rb_property_view_set_selection_mode ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_property_view_set_selection_mode (<em class="parameter"><code><a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3gtk3-Standard-Enumerations.html#GtkSelectionMode"><span class="type">GtkSelectionMode</span></a> mode</code></em>);</pre>
+<p>Sets the selection mode (single or multiple) for the property view&gt;
+The default selection mode is single.</p>
+<div class="refsect3">
+<a name="rb-property-view-set-selection-mode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>mode</p></td>
+<td class="parameter_description"><p>the new <a href="/usr/share/gtk-doc/html/gtk3gtk3-Standard-Enumerations.html#GtkSelectionMode"><span class="type">GtkSelectionMode</span></a> for the property view</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-property-view-reset"></a><h3>rb_property_view_reset ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_property_view_reset (<em class="parameter"><code><a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view</code></em>);</pre>
+<p>Clears the selection in the property view.</p>
+<div class="refsect3">
+<a name="rb-property-view-reset.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-property-view-set-selection"></a><h3>rb_property_view_set_selection ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_property_view_set_selection (<em class="parameter"><code><a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *vals</code></em>);</pre>
+<p>Replaces the selection in the property view.  All values in the list
+that are present in the view will be selected, and the view will be
+scrolled to show the last value selected.</p>
+<div class="refsect3">
+<a name="rb-property-view-set-selection.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>vals</p></td>
+<td class="parameter_description"><p> the values to be selected. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> utf8]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-property-view-get-selection"></a><h3>rb_property_view_get_selection ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+rb_property_view_get_selection (<em class="parameter"><code><a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view</code></em>);</pre>
+<p>Returns a <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> containing the selected property values.  The list must
+be freed by the caller.</p>
+<div class="refsect3">
+<a name="rb-property-view-get-selection.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-property-view-get-selection.returns"></a><h4>Returns</h4>
+<p> list of selected values. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> utf8][<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-property-view-get-model"></a><h3>rb_property_view_get_model ()</h3>
+<pre class="programlisting"><a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="returnvalue">RhythmDBPropertyModel</span></a> *
+rb_property_view_get_model (<em class="parameter"><code><a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view</code></em>);</pre>
+<p>Returns the <a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a> backing the view; no reference is taken</p>
+<div class="refsect3">
+<a name="rb-property-view-get-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-property-view-get-model.returns"></a><h4>Returns</h4>
+<p> property model. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-property-view-set-model"></a><h3>rb_property_view_set_model ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_property_view_set_model (<em class="parameter"><code><a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view</code></em>,
+                            <em class="parameter"><code><a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a> *model</code></em>);</pre>
+<p>Replaces the model backing the property view.</p>
+<div class="refsect3">
+<a name="rb-property-view-set-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the new <a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a> for the property view</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-property-view-get-num-properties"></a><h3>rb_property_view_get_num_properties ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+rb_property_view_get_num_properties (<em class="parameter"><code><a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view</code></em>);</pre>
+<p>Returns the number of property values present in the view.</p>
+<div class="refsect3">
+<a name="rb-property-view-get-num-properties.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-property-view-get-num-properties.returns"></a><h4>Returns</h4>
+<p> number of properties</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-property-view-set-search-func"></a><h3>rb_property_view_set_search_func ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_property_view_set_search_func (<em class="parameter"><code><a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkTreeView.html#GtkTreeViewSearchEqualFunc"><span class="type">GtkTreeViewSearchEqualFunc</span></a> func</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> func_data</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);</pre>
+<p>Sets the compare function for the interactive search capabilities.
+The function must return FALSE when the search key string matches
+the row it is passed.</p>
+<div class="refsect3">
+<a name="rb-property-view-set-search-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>tree view search function to use for this view</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>func_data</p></td>
+<td class="parameter_description"><p>data to pass to the search function</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>notify</p></td>
+<td class="parameter_description"><p>function to call to dispose of the data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBPropertyView.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RBPropertyView-struct"></a><h3>struct RBPropertyView</h3>
+<pre class="programlisting">struct RBPropertyView;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBPropertyViewClass"></a><h3>struct RBPropertyViewClass</h3>
+<pre class="programlisting">struct RBPropertyViewClass {
+	GtkScrolledWindowClass parent;
+
+	void (*property_selected) (RBPropertyView *view, const char *name);
+	void (*properties_selected) (RBPropertyView *view, GList *properties);
+	void (*property_activated) (RBPropertyView *view, const char *name);
+	void (*selection_reset)		(RBPropertyView *view);
+	void (*show_popup)		(RBPropertyView *view);
+};
+</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBPropertyView.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="RBPropertyView--db"></a><h3>The <code class="literal">“db”</code> property</h3>
+<pre class="programlisting">  “db”                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</pre>
+<p><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBPropertyView--draggable"></a><h3>The <code class="literal">“draggable”</code> property</h3>
+<pre class="programlisting">  “draggable”                <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Whether the property view acts as a data source for drag and drop operations.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBPropertyView--prop"></a><h3>The <code class="literal">“prop”</code> property</h3>
+<pre class="programlisting">  “prop”                     <a class="link" href="RhythmDB.html#RhythmDBPropType" title="enum RhythmDBPropType"><span class="type">RhythmDBPropType</span></a></pre>
+<p>The property that is displayed in this view</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Default value: RHYTHMDB_PROP_TYPE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBPropertyView--property-model"></a><h3>The <code class="literal">“property-model”</code> property</h3>
+<pre class="programlisting">  “property-model”           <a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a> *</pre>
+<p>The <a class="link" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel"><span class="type">RhythmDBPropertyModel</span></a> backing the view.</p>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBPropertyView--title"></a><h3>The <code class="literal">“title”</code> property</h3>
+<pre class="programlisting">  “title”                    <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>The title displayed in the header of the property view</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Default value: ""</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBPropertyView.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="RBPropertyView-properties-selected"></a><h3>The <code class="literal">“properties-selected”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>        properties,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>        user_data)</pre>
+<p>Emitted when the set of selected property values changes.  This is only
+emitted for multiple selection property views.  For single-selection views,
+use the property-selected signal.</p>
+<div class="refsect3">
+<a name="RBPropertyView-properties-selected.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>properties</p></td>
+<td class="parameter_description"><p> a list containing the selected property values. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> utf8]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBPropertyView-property-activated"></a><h3>The <code class="literal">“property-activated”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a>          *name,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>        user_data)</pre>
+<p>Emitted when a row in a property view is activated by double clicking.</p>
+<div class="refsect3">
+<a name="RBPropertyView-property-activated.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the property value that was activated</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBPropertyView-property-selected"></a><h3>The <code class="literal">“property-selected”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a>          *name,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>        user_data)</pre>
+<p>Emitted when an individual property value becomes selected.  This is only
+emitted for single-selection property views.  For multiple-selection views,
+use the properties-selected signal.</p>
+<div class="refsect3">
+<a name="RBPropertyView-property-selected.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the property value that has been selected</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBPropertyView-property-selection-reset"></a><h3>The <code class="literal">“property-selection-reset”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>        user_data)</pre>
+<p>Emitted when the selection is reset.  At this point, no property values
+are selected.</p>
+<div class="refsect3">
+<a name="RBPropertyView-property-selection-reset.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBPropertyView-show-popup"></a><h3>The <code class="literal">“show-popup”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a> *view,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>        user_data)</pre>
+<p>Emitted when a popup menu should be displayed for the property view.
+The source containing the property view should connect a handler to
+this signal that * displays an appropriate popup.</p>
+<div class="refsect3">
+<a name="RBPropertyView-show-popup.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPropertyView.html" title="RBPropertyView"><span class="type">RBPropertyView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

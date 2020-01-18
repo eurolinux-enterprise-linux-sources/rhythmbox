@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBImportErrorsSource: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch06.html" title="Sources">
+<link rel="prev" href="RBDisplayPageTree.html" title="RBDisplayPageTree">
+<link rel="next" href="RBLibrarySource.html" title="RBLibrarySource">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBImportErrorsSource.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBImportErrorsSource.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#RBImportErrorsSource.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#RBImportErrorsSource.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RBDisplayPageTree.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RBLibrarySource.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="RBImportErrorsSource"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBImportErrorsSource.top_of_page"></a>RBImportErrorsSource</span></h2>
+<p>RBImportErrorsSource — source for displaying import errors</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="RBImportErrorsSource.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody><tr>
+<td class="function_type">
+<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBImportErrorsSource.html#rb-import-errors-source-new" title="rb_import_errors_source_new ()">rb_import_errors_source_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBImportErrorsSource.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *</td>
+<td class="property_name"><a class="link" href="RBImportErrorsSource.html#RBImportErrorsSource--ignore-entry-type" title="The “ignore-entry-type” property">ignore-entry-type</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *</td>
+<td class="property_name"><a class="link" href="RBImportErrorsSource.html#RBImportErrorsSource--normal-entry-type" title="The “normal-entry-type” property">normal-entry-type</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBImportErrorsSource.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBImportErrorsSource.html#RBImportErrorsSource-struct" title="struct RBImportErrorsSource">RBImportErrorsSource</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBImportErrorsSource.html#RBImportErrorsSourceClass" title="struct RBImportErrorsSourceClass">RBImportErrorsSourceClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBImportErrorsSource.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct">GtkWidget</a>
+            <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkContainer.html#GtkContainer-struct">GtkContainer</a>
+                <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkBox.html#GtkBox-struct">GtkBox</a>
+                    <span class="lineart">╰──</span> <a class="link" href="RBDisplayPage.html" title="RBDisplayPage">RBDisplayPage</a>
+                        <span class="lineart">╰──</span> <a class="link" href="RBSource.html" title="RBSource">RBSource</a>
+                            <span class="lineart">╰──</span> RBImportErrorsSource
+</pre>
+</div>
+<div class="refsect1">
+<a name="RBImportErrorsSource.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBImportErrorsSource implements
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3GtkBuildable.html#GtkBuildable-struct">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk3gtk3-Orientable.html#GtkOrientable-struct">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="RBImportErrorsSource.description"></a><h2>Description</h2>
+<p>This source is used to display the names of files that could not
+be imported into the library, along with any error messages from
+the import process.  When there are no import errors to display,
+the source is hidden.</p>
+<p>The source allows the user to delete the import error entries,
+and to move the files to the trash.</p>
+<p>When a file import fails, a <span class="type">RhythmDBEntry</span> is created with a
+specific entry type for import errors.  This source uses a query
+model that matches all such import error entries.</p>
+<p>To keep import errors from removable devices separate from those
+from the main library, multiple import error sources can be created,
+with separate entry types.  The generic audio player plugin, for
+example, creates an import error source for each device and inserts
+it into the source list as a child of the main source for the device.</p>
+</div>
+<div class="refsect1">
+<a name="RBImportErrorsSource.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-import-errors-source-new"></a><h3>rb_import_errors_source_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *
+rb_import_errors_source_new (<em class="parameter"><code><a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell</code></em>,
+                             <em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *entry_type</code></em>,
+                             <em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *normal_entry_type</code></em>,
+                             <em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *ignore_entry_type</code></em>);</pre>
+<p>Creates a new source for displaying import errors of the
+specified type.</p>
+<div class="refsect3">
+<a name="rb-import-errors-source-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>shell</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry_type</p></td>
+<td class="parameter_description"><p>the entry type to display in the source</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>normal_entry_type</p></td>
+<td class="parameter_description"><p>entry type for successfully imported entries of this type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ignore_entry_type</p></td>
+<td class="parameter_description"><p>entry type for entries of this type to be ignored</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-import-errors-source-new.returns"></a><h4>Returns</h4>
+<p> a new import error source</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBImportErrorsSource.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RBImportErrorsSource-struct"></a><h3>struct RBImportErrorsSource</h3>
+<pre class="programlisting">struct RBImportErrorsSource;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBImportErrorsSourceClass"></a><h3>struct RBImportErrorsSourceClass</h3>
+<pre class="programlisting">struct RBImportErrorsSourceClass {
+	RBSourceClass parent;
+};
+</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBImportErrorsSource.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="RBImportErrorsSource--ignore-entry-type"></a><h3>The <code class="literal">“ignore-entry-type”</code> property</h3>
+<pre class="programlisting">  “ignore-entry-type”        <a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *</pre>
+<p>Entry type for entries of this type to be ignored.</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBImportErrorsSource--normal-entry-type"></a><h3>The <code class="literal">“normal-entry-type”</code> property</h3>
+<pre class="programlisting">  “normal-entry-type”        <a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *</pre>
+<p>Entry type for successfully imported entries of this type.</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

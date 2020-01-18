@@ -1,0 +1,2017 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RhythmDBQueryModel: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch04.html" title="RhythmDB">
+<link rel="prev" href="RhythmDBPropertyModel.html" title="RhythmDBPropertyModel">
+<link rel="next" href="RhythmDBQueryResults.html" title="RhythmDBQueryResults">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RhythmDBQueryModel.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RhythmDBQueryModel.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#RhythmDBQueryModel.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#RhythmDBQueryModel.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#RhythmDBQueryModel.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch04.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RhythmDBPropertyModel.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RhythmDBQueryResults.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="RhythmDBQueryModel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RhythmDBQueryModel.top_of_page"></a>RhythmDBQueryModel</span></h2>
+<p>RhythmDBQueryModel — a <a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeModel-struct"><span class="type">GtkTreeModel</span></a> containing <span class="type">RhythmDBEntry</span> items</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="RhythmDBQueryModel.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="returnvalue">RhythmDBQueryModel</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-new" title="rhythmdb_query_model_new ()">rhythmdb_query_model_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="returnvalue">RhythmDBQueryModel</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-new-empty" title="rhythmdb_query_model_new_empty ()">rhythmdb_query_model_new_empty</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-copy-contents" title="rhythmdb_query_model_copy_contents ()">rhythmdb_query_model_copy_contents</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-chain" title="rhythmdb_query_model_chain ()">rhythmdb_query_model_chain</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-add-entry" title="rhythmdb_query_model_add_entry ()">rhythmdb_query_model_add_entry</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-remove-entry" title="rhythmdb_query_model_remove_entry ()">rhythmdb_query_model_remove_entry</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-shuffle-entries" title="rhythmdb_query_model_shuffle_entries ()">rhythmdb_query_model_shuffle_entries</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-move-entry" title="rhythmdb_query_model_move_entry ()">rhythmdb_query_model_move_entry</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint64"><span class="returnvalue">guint64</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-get-size" title="rhythmdb_query_model_get_size ()">rhythmdb_query_model_get_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">long</span>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-get-duration" title="rhythmdb_query_model_get_duration ()">rhythmdb_query_model_get_duration</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-entry-to-iter" title="rhythmdb_query_model_entry_to_iter ()">rhythmdb_query_model_entry_to_iter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-has-pending-changes" title="rhythmdb_query_model_has_pending_changes ()">rhythmdb_query_model_has_pending_changes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">RhythmDBEntry</span> *
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-tree-path-to-entry" title="rhythmdb_query_model_tree_path_to_entry ()">rhythmdb_query_model_tree_path_to_entry</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">RhythmDBEntry</span> *
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-iter-to-entry" title="rhythmdb_query_model_iter_to_entry ()">rhythmdb_query_model_iter_to_entry</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">RhythmDBEntry</span> *
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-get-next-from-entry" title="rhythmdb_query_model_get_next_from_entry ()">rhythmdb_query_model_get_next_from_entry</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">RhythmDBEntry</span> *
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-get-previous-from-entry" title="rhythmdb_query_model_get_previous_from_entry ()">rhythmdb_query_model_get_previous_from_entry</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-compute-status-normal" title="rhythmdb_query_model_compute_status_normal ()">rhythmdb_query_model_compute_status_normal</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-set-sort-order" title="rhythmdb_query_model_set_sort_order ()">rhythmdb_query_model_set_sort_order</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-reapply-query" title="rhythmdb_query_model_reapply_query ()">rhythmdb_query_model_reapply_query</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-location-sort-func" title="rhythmdb_query_model_location_sort_func ()">rhythmdb_query_model_location_sort_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-string-sort-func" title="rhythmdb_query_model_string_sort_func ()">rhythmdb_query_model_string_sort_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-title-sort-func" title="rhythmdb_query_model_title_sort_func ()">rhythmdb_query_model_title_sort_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-album-sort-func" title="rhythmdb_query_model_album_sort_func ()">rhythmdb_query_model_album_sort_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-artist-sort-func" title="rhythmdb_query_model_artist_sort_func ()">rhythmdb_query_model_artist_sort_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-genre-sort-func" title="rhythmdb_query_model_genre_sort_func ()">rhythmdb_query_model_genre_sort_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-track-sort-func" title="rhythmdb_query_model_track_sort_func ()">rhythmdb_query_model_track_sort_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-double-ceiling-sort-func" title="rhythmdb_query_model_double_ceiling_sort_func ()">rhythmdb_query_model_double_ceiling_sort_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-ulong-sort-func" title="rhythmdb_query_model_ulong_sort_func ()">rhythmdb_query_model_ulong_sort_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-bitrate-sort-func" title="rhythmdb_query_model_bitrate_sort_func ()">rhythmdb_query_model_bitrate_sort_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBQueryModel.html#rhythmdb-query-model-date-sort-func" title="rhythmdb_query_model_date_sort_func ()">rhythmdb_query_model_date_sort_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBQueryModel.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *</td>
+<td class="property_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel--base-model" title="The “base-model” property">base-model</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</td>
+<td class="property_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel--db" title="The “db” property">db</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModelLimitType" title="enum RhythmDBQueryModelLimitType"><span class="type">RhythmDBQueryModelLimitType</span></a></td>
+<td class="property_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel--limit-type" title="The “limit-type” property">limit-type</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="/usr/share/gtk-doc/html/glibglib-GVariant.html#GVariant"><span class="type">GVariant</span></a> *</td>
+<td class="property_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel--limit-value" title="The “limit-value” property">limit-value</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a></td>
+<td class="property_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel--query" title="The “query” property">query</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel--show-hidden" title="The “show-hidden” property">show-hidden</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a></td>
+<td class="property_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel--sort-data" title="The “sort-data” property">sort-data</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a></td>
+<td class="property_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel--sort-data-destroy" title="The “sort-data-destroy” property">sort-data-destroy</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a></td>
+<td class="property_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel--sort-func" title="The “sort-func” property">sort-func</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel--sort-reverse" title="The “sort-reverse” property">sort-reverse</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBQueryModel.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel-complete" title="The “complete” signal">complete</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel-entry-prop-changed" title="The “entry-prop-changed” signal">entry-prop-changed</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel-entry-removed" title="The “entry-removed” signal">entry-removed</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a></td>
+<td class="signal_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel-filter-entry-drop" title="The “filter-entry-drop” signal">filter-entry-drop</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel-non-entry-dropped" title="The “non-entry-dropped” signal">non-entry-dropped</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel-post-entry-delete" title="The “post-entry-delete” signal">post-entry-delete</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBQueryModel.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModelLimitType" title="enum RhythmDBQueryModelLimitType">RhythmDBQueryModelLimitType</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="RhythmDBQueryModel.html#RHYTHMDB-QUERY-MODEL-SUGGESTED-UPDATE-CHUNK:CAPS" title="RHYTHMDB_QUERY_MODEL_SUGGESTED_UPDATE_CHUNK">RHYTHMDB_QUERY_MODEL_SUGGESTED_UPDATE_CHUNK</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModel-struct" title="struct RhythmDBQueryModel">RhythmDBQueryModel</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModelClass" title="struct RhythmDBQueryModelClass">RhythmDBQueryModelClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBQueryModel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-Enumeration-and-Flag-Types.html">GEnum</a>
+    <span class="lineart">╰──</span> RhythmDBQueryModelLimitType
+    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> RhythmDBQueryModel
+</pre>
+</div>
+<div class="refsect1">
+<a name="RhythmDBQueryModel.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RhythmDBQueryModel implements
+ <a class="link" href="RhythmDBQueryResults.html" title="RhythmDBQueryResults">RhythmDBQueryResults</a>,  <a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeModel-struct">GtkTreeModel</a>,  <a class="link" href="rhythmbox-rb-tree-dnd.html#RbTreeDragSource">RbTreeDragSource</a> and  <a class="link" href="rhythmbox-rb-tree-dnd.html#RbTreeDragDest">RbTreeDragDest</a>.</p>
+</div>
+<div class="refsect1">
+<a name="RhythmDBQueryModel.description"></a><h2>Description</h2>
+<p>A RhythmDBQueryModel contains an ordered set of <span class="type">RhythmDBEntry</span> items,
+either generated by running a query against the database, or populated
+by adding individual entries.</p>
+<p>All sources use a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> to provide their track listing.
+Since most sources provide a search or filtering capacity, there is
+usually a distinction between the source's base query model, which contains
+all entries for the source, and its current query model, which reflects
+the current search terms and filter selections.</p>
+<p>A RhythmDBQueryModel can be populated directly from the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>, or it
+can be chained to another query model.  Chained query models inherit the
+set of entries from the query model they chain to and then restrict the
+set using a query.</p>
+<p>The query model consists of a <a href="/usr/share/gtk-doc/html/glibglib-Sequences.html#GSequence"><span class="type">GSequence</span></a>, which provides ordering of entries,
+and a <a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a>, which allows efficient checks to see if a given entry
+is in the model.  A side effect of this is that an entry can only be placed
+into a query model in one location.</p>
+<p>In addition to the query, a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> can have a sort order and
+a limit, specified in terms of file size, duration, or number of entries.
+A query model can only have a limit if it also has a sort order, as the
+sort order is required to determine which entries fall inside the limit.
+When a limit is applied, entries that match the query but fall outside the
+limit are maintained in a separate <a href="/usr/share/gtk-doc/html/glibglib-Sequences.html#GSequence"><span class="type">GSequence</span></a> and <a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> inside the
+query model.</p>
+</div>
+<div class="refsect1">
+<a name="RhythmDBQueryModel.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rhythmdb-query-model-new"></a><h3>rhythmdb_query_model_new ()</h3>
+<pre class="programlisting"><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="returnvalue">RhythmDBQueryModel</span></a> *
+rhythmdb_query_model_new (<em class="parameter"><code><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *db</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *query</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GCompareDataFunc"><span class="type">GCompareDataFunc</span></a> sort_func</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> sort_data</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> sort_data_destroy</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sort_reverse</code></em>);</pre>
+<p>Constructs a new <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> with the specified query and sorting
+parameters.</p>
+<p><span class="annotation">[<a href="http://foldoc.org/skip"><span class="acronym">skip</span></a>]</span></p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>db</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>query</p></td>
+<td class="parameter_description"><p>the query for the new model</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_func</p></td>
+<td class="parameter_description"><p>the sort function for the new model</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_data</p></td>
+<td class="parameter_description"><p>data to pass to the sort function</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_data_destroy</p></td>
+<td class="parameter_description"><p>function to call when destroying the sort data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_reverse</p></td>
+<td class="parameter_description"><p>if <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, reverse the sort order</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-new.returns"></a><h4>Returns</h4>
+<p> the newly constructed query model</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-new-empty"></a><h3>rhythmdb_query_model_new_empty ()</h3>
+<pre class="programlisting"><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="returnvalue">RhythmDBQueryModel</span></a> *
+rhythmdb_query_model_new_empty (<em class="parameter"><code><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *db</code></em>);</pre>
+<p>Constructs a new empty query model with no query or sorting parameters.
+This should only be used when the query model will be populated by
+explicitly adding entries.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-new-empty.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>db</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-new-empty.returns"></a><h4>Returns</h4>
+<p> the newly constructed query model</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-copy-contents"></a><h3>rhythmdb_query_model_copy_contents ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rhythmdb_query_model_copy_contents (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *dest</code></em>,
+                                    <em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *src</code></em>);</pre>
+<p>Copies all entries from <em class="parameter"><code>src</code></em>
+ to <em class="parameter"><code>dest</code></em>
+.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-copy-contents.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>destination <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>src</p></td>
+<td class="parameter_description"><p>source <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-chain"></a><h3>rhythmdb_query_model_chain ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rhythmdb_query_model_chain (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>,
+                            <em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *base</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> import_entries</code></em>);</pre>
+<p>Chains <em class="parameter"><code>model</code></em>
+ to <em class="parameter"><code>base</code></em>
+.  All changes made to the base model will be reflected in
+the child model, and all changes made to the child model will be passed on to the
+base model.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-chain.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> to chain</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>base</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> to chain it to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>import_entries</p></td>
+<td class="parameter_description"><p>if <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, copy all existing entries from <em class="parameter"><code>base</code></em>
+to <em class="parameter"><code>model</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-add-entry"></a><h3>rhythmdb_query_model_add_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rhythmdb_query_model_add_entry (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>,
+                                <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> index</code></em>);</pre>
+<p>Adds an entry to the query model at the specified position.  Does not check
+if the entry matches the query (if any).</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-add-entry.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span> to add</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>index</p></td>
+<td class="parameter_description"><p>position at which to add it, or -1 to add at the end</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-remove-entry"></a><h3>rhythmdb_query_model_remove_entry ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rhythmdb_query_model_remove_entry (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>,
+                                   <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>Removes an entry from the query model.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-remove-entry.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>the <span class="type">RhythmDBEntry</span> to remove</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-remove-entry.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the entry was removed</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-shuffle-entries"></a><h3>rhythmdb_query_model_shuffle_entries ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rhythmdb_query_model_shuffle_entries (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>);</pre>
+<p>Shuffles the entries in the model into a new random order.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-shuffle-entries.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-move-entry"></a><h3>rhythmdb_query_model_move_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rhythmdb_query_model_move_entry (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>,
+                                 <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> index</code></em>);</pre>
+<p>Moves an entry to a new position in the query model.
+The position must be a between 0 and the number of entries in the model.
+Specifying -1 does not move the entry to the end of the model.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-move-entry.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>the <span class="type">RhythmDBEntry</span> to move</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>index</p></td>
+<td class="parameter_description"><p>position to move to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-get-size"></a><h3>rhythmdb_query_model_get_size ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint64"><span class="returnvalue">guint64</span></a>
+rhythmdb_query_model_get_size (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>);</pre>
+<p>Returns the total size of all entries in the model.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-get-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-get-size.returns"></a><h4>Returns</h4>
+<p> the total size (in bytes) of all entries in the model</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-get-duration"></a><h3>rhythmdb_query_model_get_duration ()</h3>
+<pre class="programlisting"><span class="returnvalue">long</span>
+rhythmdb_query_model_get_duration (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>);</pre>
+<p>Returns the total duration of all entries in the model.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-get-duration.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-get-duration.returns"></a><h4>Returns</h4>
+<p> the total duration (in seconds) of all entries in the model</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-entry-to-iter"></a><h3>rhythmdb_query_model_entry_to_iter ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rhythmdb_query_model_entry_to_iter (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>,
+                                    <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeIter-struct"><span class="type">GtkTreeIter</span></a> *iter</code></em>);</pre>
+<p>Creates a <a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeIter-struct"><span class="type">GtkTreeIter</span></a> pointing to the specified entry in the model.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-entry-to-iter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>the <span class="type">RhythmDBEntry</span> to look up</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>iter</p></td>
+<td class="parameter_description"><p>holds the returned <a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeIter-struct"><span class="type">GtkTreeIter</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-entry-to-iter.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the iterator now points to the entry</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-has-pending-changes"></a><h3>rhythmdb_query_model_has_pending_changes ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rhythmdb_query_model_has_pending_changes
+                               (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>);</pre>
+<p>Checks if a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> has any outstanding changes that are
+yet to be processed.  This is not very useful.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-has-pending-changes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-has-pending-changes.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if there are outstanding changes to the model</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-tree-path-to-entry"></a><h3>rhythmdb_query_model_tree_path_to_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">RhythmDBEntry</span> *
+rhythmdb_query_model_tree_path_to_entry
+                               (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreePath-struct"><span class="type">GtkTreePath</span></a> *path</code></em>);</pre>
+<p>Locates the <span class="type">RhythmDBEntry</span> identified by the specified path in the model.
+The caller owns a reference to the returned entry.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-tree-path-to-entry.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreePath-struct"><span class="type">GtkTreePath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-tree-path-to-entry.returns"></a><h4>Returns</h4>
+<p> the <span class="type">RhythmDBEntry</span>, if any</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-iter-to-entry"></a><h3>rhythmdb_query_model_iter_to_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">RhythmDBEntry</span> *
+rhythmdb_query_model_iter_to_entry (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeIter-struct"><span class="type">GtkTreeIter</span></a> *entry_iter</code></em>);</pre>
+<p>Locates and returns the <span class="type">RhythmDBEntry</span> pointed to by the specified iterator
+in the model.  The caller owns a reference to the returned entry.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-iter-to-entry.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry_iter</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeIter-struct"><span class="type">GtkTreeIter</span></a> to dereference</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-iter-to-entry.returns"></a><h4>Returns</h4>
+<p> the <span class="type">RhythmDBEntry</span>, if any</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-get-next-from-entry"></a><h3>rhythmdb_query_model_get_next_from_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">RhythmDBEntry</span> *
+rhythmdb_query_model_get_next_from_entry
+                               (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>,
+                                <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>Locates and returns the next <span class="type">RhythmDBEntry</span> in the model after the specified
+entry.  The caller owns a reference to the returned entry.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-get-next-from-entry.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-get-next-from-entry.returns"></a><h4>Returns</h4>
+<p> the next <span class="type">RhythmDBEntry</span> in the model, if any</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-get-previous-from-entry"></a><h3>rhythmdb_query_model_get_previous_from_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">RhythmDBEntry</span> *
+rhythmdb_query_model_get_previous_from_entry
+                               (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>,
+                                <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>Locates and returns the  <span class="type">RhythmDBEntry</span> in the model before the specified
+entry.  The caller owns a reference to the returned entry.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-get-previous-from-entry.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-get-previous-from-entry.returns"></a><h4>Returns</h4>
+<p> the previous <span class="type">RhythmDBEntry</span> in the model, if any</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-compute-status-normal"></a><h3>rhythmdb_query_model_compute_status_normal ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *
+rhythmdb_query_model_compute_status_normal
+                               (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>,
+                                <em class="parameter"><code>const <span class="type">char</span> *singular</code></em>,
+                                <em class="parameter"><code>const <span class="type">char</span> *plural</code></em>);</pre>
+<p>Constructs a status string describing the contents of the model.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-compute-status-normal.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>singular</p></td>
+<td class="parameter_description"><p>singular form of the pattern describing the number of entries ("<code class="literal">d</code> song")</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>plural</p></td>
+<td class="parameter_description"><p>plural form of the pattern describing the number of entries ("<code class="literal">d</code> songs")</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-compute-status-normal.returns"></a><h4>Returns</h4>
+<p> allocated status string, to be freed by the caller.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-set-sort-order"></a><h3>rhythmdb_query_model_set_sort_order ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rhythmdb_query_model_set_sort_order (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GCompareDataFunc"><span class="type">GCompareDataFunc</span></a> sort_func</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> sort_data</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> sort_data_destroy</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sort_reverse</code></em>);</pre>
+<p>Sets a new sort order on the model.  This reorders the entries
+in the model to match the new sort order.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-set-sort-order.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_func</p></td>
+<td class="parameter_description"><p>new sort function</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_data</p></td>
+<td class="parameter_description"><p>data to pass to the new sort function</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_data_destroy</p></td>
+<td class="parameter_description"><p>function to call to free the sort data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_reverse</p></td>
+<td class="parameter_description"><p>if <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, reverse the sort order</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-reapply-query"></a><h3>rhythmdb_query_model_reapply_query ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rhythmdb_query_model_reapply_query (<em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> filter</code></em>);</pre>
+<p>Reapplies the existing query to the entries in the model.  This
+is mostly useful when the query contains relative time criteria
+(such as 'not played in the last hour').  This will only remove
+entries that are already in the model, it will not find entries
+that previously did not match the query.</p>
+<p>The 'filter' parameter should be set to TRUE when the query is
+being used as a filter, rather than to define a base set of entries.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-reapply-query.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>filter</p></td>
+<td class="parameter_description"><p>if <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, emit entry-removed signals</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-location-sort-func"></a><h3>rhythmdb_query_model_location_sort_func ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+rhythmdb_query_model_location_sort_func
+                               (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *a</code></em>,
+                                <em class="parameter"><code><span class="type">RhythmDBEntry</span> *b</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>Sort function for sorting by location.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-location-sort-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>nothing</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-location-sort-func.returns"></a><h4>Returns</h4>
+<p> result of sort comparison between a and b.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-string-sort-func"></a><h3>rhythmdb_query_model_string_sort_func ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+rhythmdb_query_model_string_sort_func (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *a</code></em>,
+                                       <em class="parameter"><code><span class="type">RhythmDBEntry</span> *b</code></em>,
+                                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>Sort function for sorting by a single string property
+Falls back to location sort order if the strings are equal.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-string-sort-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>property to sort on</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-string-sort-func.returns"></a><h4>Returns</h4>
+<p> result of sort comparison between a and b.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-title-sort-func"></a><h3>rhythmdb_query_model_title_sort_func ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+rhythmdb_query_model_title_sort_func (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *a</code></em>,
+                                      <em class="parameter"><code><span class="type">RhythmDBEntry</span> *b</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>Sort function for sorting by title.  Falls back to sorting
+by location if the titles are the same.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-title-sort-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>nothing</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-title-sort-func.returns"></a><h4>Returns</h4>
+<p> result of sort comparison between a and b.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-album-sort-func"></a><h3>rhythmdb_query_model_album_sort_func ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+rhythmdb_query_model_album_sort_func (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *a</code></em>,
+                                      <em class="parameter"><code><span class="type">RhythmDBEntry</span> *b</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>Sort function for sorting by album.  Sorts by album, then
+disc number, then track number, then title.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-album-sort-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>nothing</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-album-sort-func.returns"></a><h4>Returns</h4>
+<p> result of sort comparison between a and b.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-artist-sort-func"></a><h3>rhythmdb_query_model_artist_sort_func ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+rhythmdb_query_model_artist_sort_func (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *a</code></em>,
+                                       <em class="parameter"><code><span class="type">RhythmDBEntry</span> *b</code></em>,
+                                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>Sort function for sorting by artist.  Sorts by artist, then
+album, then disc number, then track number, then title.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-artist-sort-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>nothing</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-artist-sort-func.returns"></a><h4>Returns</h4>
+<p> result of sort comparison between a and b.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-genre-sort-func"></a><h3>rhythmdb_query_model_genre_sort_func ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+rhythmdb_query_model_genre_sort_func (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *a</code></em>,
+                                      <em class="parameter"><code><span class="type">RhythmDBEntry</span> *b</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>Sort function for sorting by genre.  Sorts by genre, then artist,
+then album, then disc number, then track number, then title.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-genre-sort-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>nothing</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-genre-sort-func.returns"></a><h4>Returns</h4>
+<p> result of sort comparison between a and b.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-track-sort-func"></a><h3>rhythmdb_query_model_track_sort_func ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+rhythmdb_query_model_track_sort_func (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *a</code></em>,
+                                      <em class="parameter"><code><span class="type">RhythmDBEntry</span> *b</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>Sort function for sorting by track.  Sorts by artist,
+then album, then disc number, then track number, then title.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-track-sort-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>nothing</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-track-sort-func.returns"></a><h4>Returns</h4>
+<p> result of sort comparison between a and b.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-double-ceiling-sort-func"></a><h3>rhythmdb_query_model_double_ceiling_sort_func ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+rhythmdb_query_model_double_ceiling_sort_func
+                               (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *a</code></em>,
+                                <em class="parameter"><code><span class="type">RhythmDBEntry</span> *b</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>Sort function for sorting by a rounded floating point value.
+The property value is rounded up to an integer value for sorting.
+If the values are the same, falls back to sorting by location.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-double-ceiling-sort-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>property to sort on</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-double-ceiling-sort-func.returns"></a><h4>Returns</h4>
+<p> result of sort comparison between a and b.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-ulong-sort-func"></a><h3>rhythmdb_query_model_ulong_sort_func ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+rhythmdb_query_model_ulong_sort_func (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *a</code></em>,
+                                      <em class="parameter"><code><span class="type">RhythmDBEntry</span> *b</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>Sort function for sorting by an unsigned integer property value.
+If the values are the same, falls back to sorting by location.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-ulong-sort-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>property to sort on</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-ulong-sort-func.returns"></a><h4>Returns</h4>
+<p> result of sort comparison between a and b.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-bitrate-sort-func"></a><h3>rhythmdb_query_model_bitrate_sort_func ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+rhythmdb_query_model_bitrate_sort_func
+                               (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *a</code></em>,
+                                <em class="parameter"><code><span class="type">RhythmDBEntry</span> *b</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>Sort function for sorting by bitrate.  Lossless encodings (as identified
+by media type) are considered to have the highest possible bitrate.
+Falls back to sorting by location for equal bitrates.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-bitrate-sort-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>nothing</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-bitrate-sort-func.returns"></a><h4>Returns</h4>
+<p> result of sort comparison between a and b.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-query-model-date-sort-func"></a><h3>rhythmdb_query_model_date_sort_func ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+rhythmdb_query_model_date_sort_func (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *a</code></em>,
+                                     <em class="parameter"><code><span class="type">RhythmDBEntry</span> *b</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>Sort function for sorting by release date.
+Falls back to album sort order for equal dates.</p>
+<div class="refsect3">
+<a name="rhythmdb-query-model-date-sort-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>nothing</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rhythmdb-query-model-date-sort-func.returns"></a><h4>Returns</h4>
+<p> result of sort comparison between a and b.</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBQueryModel.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RhythmDBQueryModelLimitType"></a><h3>enum RhythmDBQueryModelLimitType</h3>
+<p>
+</p>
+<div class="refsect3">
+<a name="RhythmDBQueryModelLimitType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-QUERY-MODEL-LIMIT-NONE:CAPS"></a>RHYTHMDB_QUERY_MODEL_LIMIT_NONE</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-QUERY-MODEL-LIMIT-COUNT:CAPS"></a>RHYTHMDB_QUERY_MODEL_LIMIT_COUNT</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-QUERY-MODEL-LIMIT-SIZE:CAPS"></a>RHYTHMDB_QUERY_MODEL_LIMIT_SIZE</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-QUERY-MODEL-LIMIT-TIME:CAPS"></a>RHYTHMDB_QUERY_MODEL_LIMIT_TIME</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RHYTHMDB-QUERY-MODEL-SUGGESTED-UPDATE-CHUNK:CAPS"></a><h3>RHYTHMDB_QUERY_MODEL_SUGGESTED_UPDATE_CHUNK</h3>
+<pre class="programlisting">#define RHYTHMDB_QUERY_MODEL_SUGGESTED_UPDATE_CHUNK 1024
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel-struct"></a><h3>struct RhythmDBQueryModel</h3>
+<pre class="programlisting">struct RhythmDBQueryModel;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModelClass"></a><h3>struct RhythmDBQueryModelClass</h3>
+<pre class="programlisting">struct RhythmDBQueryModelClass {
+	GObjectClass parent;
+
+	/* signals */
+	void (*complete)		(RhythmDBQueryModel *model);
+	void (*entry_prop_changed) (RhythmDBQueryModel *model,
+					 RhythmDBEntry *entry,
+					 RhythmDBPropType prop,
+					 const GValue *old,
+					 const GValue *new_value);
+	void    (*non_entry_dropped)    (RhythmDBQueryModel *model,
+					 const char *uri,
+					 int position);
+	void    (*entry_removed)        (RhythmDBQueryModel *model,
+					 RhythmDBEntry *entry);
+	void (*post_entry_delete) (RhythmDBQueryModel *model,
+					 RhythmDBEntry *entry);
+	gboolean (*filter_entry_drop) (RhythmDBQueryModel *model,
+					 RhythmDBEntry *entry);
+};
+</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBQueryModel.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="RhythmDBQueryModel--base-model"></a><h3>The <code class="literal">“base-model”</code> property</h3>
+<pre class="programlisting">  “base-model”               <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *</pre>
+<p>base RhythmDBQueryModel.</p>
+<p>Flags: Read / Write / Construct</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel--db"></a><h3>The <code class="literal">“db”</code> property</h3>
+<pre class="programlisting">  “db”                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</pre>
+<p>RhythmDB object.</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel--limit-type"></a><h3>The <code class="literal">“limit-type”</code> property</h3>
+<pre class="programlisting">  “limit-type”               <a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModelLimitType" title="enum RhythmDBQueryModelLimitType"><span class="type">RhythmDBQueryModelLimitType</span></a></pre>
+<p>type of limit.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Default value: RHYTHMDB_QUERY_MODEL_LIMIT_NONE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel--limit-value"></a><h3>The <code class="literal">“limit-value”</code> property</h3>
+<pre class="programlisting">  “limit-value”              <a href="/usr/share/gtk-doc/html/glibglib-GVariant.html#GVariant"><span class="type">GVariant</span></a> *</pre>
+<p>value of limit.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Allowed values: GVariant&lt;t&gt;</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel--query"></a><h3>The <code class="literal">“query”</code> property</h3>
+<pre class="programlisting">  “query”                    <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a></pre>
+<p>RhythmDBQuery.</p>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel--show-hidden"></a><h3>The <code class="literal">“show-hidden”</code> property</h3>
+<pre class="programlisting">  “show-hidden”              <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>if TRUE, include entries that are ordinarily hidden.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel--sort-data"></a><h3>The <code class="literal">“sort-data”</code> property</h3>
+<pre class="programlisting">  “sort-data”                <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a></pre>
+<p>Sort data.</p>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel--sort-data-destroy"></a><h3>The <code class="literal">“sort-data-destroy”</code> property</h3>
+<pre class="programlisting">  “sort-data-destroy”        <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a></pre>
+<p>Sort data destroy function.</p>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel--sort-func"></a><h3>The <code class="literal">“sort-func”</code> property</h3>
+<pre class="programlisting">  “sort-func”                <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a></pre>
+<p>Sort function.</p>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel--sort-reverse"></a><h3>The <code class="literal">“sort-reverse”</code> property</h3>
+<pre class="programlisting">  “sort-reverse”             <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Reverse sort order flag.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBQueryModel.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="RhythmDBQueryModel-complete"></a><h3>The <code class="literal">“complete”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)</pre>
+<p>Emitted when the database query populating the model is complete.</p>
+<div class="refsect3">
+<a name="RhythmDBQueryModel-complete.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel-entry-prop-changed"></a><h3>The <code class="literal">“entry-prop-changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model,
+               <span class="type">RhythmDBEntry</span>      *entry,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a>                prop,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            old,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            new_value,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)</pre>
+<p>Emitted when an entry in the query model is changed.  When multiple
+properties are changed, the entry-prop-changed signals will be emitted
+in the order that the changes were made.  At the point that the
+signal is emitted, all changes have already been applied to the
+<span class="type">RhythmDBEntry</span>.</p>
+<div class="refsect3">
+<a name="RhythmDBQueryModel-entry-prop-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>the <span class="type">RhythmDBEntry</span> that changed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDB.html#RhythmDBPropType" title="enum RhythmDBPropType"><span class="type">RhythmDBPropType</span></a> that was changed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>old</p></td>
+<td class="parameter_description"><p>the previous value for the property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>new_value</p></td>
+<td class="parameter_description"><p>the new value for the property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel-entry-removed"></a><h3>The <code class="literal">“entry-removed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model,
+               <span class="type">RhythmDBEntry</span>      *entry,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)</pre>
+<p>Emitted when an entry is removed from the model.  There is some
+difference between this and the <a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeModel-struct"><span class="type">GtkTreeModel</span></a> row-removed signal
+but I don't know what it is right now.</p>
+<div class="refsect3">
+<a name="RhythmDBQueryModel-entry-removed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>the <span class="type">RhythmDBEntry</span> that was removed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel-filter-entry-drop"></a><h3>The <code class="literal">“filter-entry-drop”</code> signal</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+user_function (<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model,
+               <span class="type">RhythmDBEntry</span>      *entry,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)</pre>
+<p>Emitted when an entry is being added to a model by drag-and-drop.
+This allows the owner of the model to filter out entries that should
+not be added to the model (based on entry type, for instance).
+If the signal handler returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, the entry will not be added.</p>
+<div class="refsect3">
+<a name="RhythmDBQueryModel-filter-entry-drop.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>the <span class="type">RhythmDBEntry</span> being dropped</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel-non-entry-dropped"></a><h3>The <code class="literal">“non-entry-dropped”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a>              *uri,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a>                position,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)</pre>
+<p>Emitted when a URI that does not match an existing <span class="type">RhythmDBEntry</span>
+is dropped into the query model.</p>
+<div class="refsect3">
+<a name="RhythmDBQueryModel-non-entry-dropped.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>the URI that was dropped</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>position</p></td>
+<td class="parameter_description"><p>the position in the query model at which it was dropped</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBQueryModel-post-entry-delete"></a><h3>The <code class="literal">“post-entry-delete”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> *model,
+               <span class="type">RhythmDBEntry</span>      *entry,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)</pre>
+<p>Emitted after an entry has been removed from the model.</p>
+<div class="refsect3">
+<a name="RhythmDBQueryModel-post-entry-delete.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>the <span class="type">RhythmDBEntry</span> that was removed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

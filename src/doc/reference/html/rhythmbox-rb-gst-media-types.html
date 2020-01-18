@@ -1,0 +1,515 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>rb-gst-media-types: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch02.html" title="Lib">
+<link rel="prev" href="rhythmbox-rb-text-helpers.html" title="rb-text-helpers">
+<link rel="next" href="ch03.html" title="Metadata">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#rhythmbox-rb-gst-media-types.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="rhythmbox-rb-text-helpers.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ch03.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="rhythmbox-rb-gst-media-types"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="rhythmbox-rb-gst-media-types.top_of_page"></a>rb-gst-media-types</span></h2>
+<p>rb-gst-media-types</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="rhythmbox-rb-gst-media-types.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-caps-to-media-type" title="rb_gst_caps_to_media_type ()">rb_gst_caps_to_media_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gstreamer-1.0GstCaps.html#GstCaps-struct"><span class="returnvalue">GstCaps</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-media-type-to-caps" title="rb_gst_media_type_to_caps ()">rb_gst_media_type_to_caps</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-media-type-to-extension" title="rb_gst_media_type_to_extension ()">rb_gst_media_type_to_extension</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-mime-type-to-media-type" title="rb_gst_mime_type_to_media_type ()">rb_gst_mime_type_to_media_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-media-type-to-mime-type" title="rb_gst_media_type_to_mime_type ()">rb_gst_media_type_to_mime_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#RBGstMediaType" title="enum RBGstMediaType"><span class="returnvalue">RBGstMediaType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-get-missing-plugin-type" title="rb_gst_get_missing_plugin_type ()">rb_gst_get_missing_plugin_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingTarget-struct"><span class="returnvalue">GstEncodingTarget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-get-default-encoding-target" title="rb_gst_get_default_encoding_target ()">rb_gst_get_default_encoding_target</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingProfile-struct"><span class="returnvalue">GstEncodingProfile</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-get-encoding-profile" title="rb_gst_get_encoding_profile ()">rb_gst_get_encoding_profile</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-media-type-matches-profile" title="rb_gst_media_type_matches_profile ()">rb_gst_media_type_matches_profile</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-encoding-profile-get-media-type" title="rb_gst_encoding_profile_get_media_type ()">rb_gst_encoding_profile_get_media_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-media-type-is-lossless" title="rb_gst_media_type_is_lossless ()">rb_gst_media_type_is_lossless</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> **
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-encoding-profile-get-settings" title="rb_gst_encoding_profile_get_settings ()">rb_gst_encoding_profile_get_settings</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> **
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-encoding-profile-get-presets" title="rb_gst_encoding_profile_get_presets ()">rb_gst_encoding_profile_get_presets</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-encoding-profile-set-preset" title="rb_gst_encoding_profile_set_preset ()">rb_gst_encoding_profile_set_preset</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gstreamer-1.0GstElement.html#GstElement-struct"><span class="returnvalue">GstElement</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-gst-media-types.html#rb-gst-encoding-profile-get-encoder" title="rb_gst_encoding_profile_get_encoder ()">rb_gst_encoding_profile_get_encoder</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-rb-gst-media-types.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="rhythmbox-rb-gst-media-types.html#RB-GST-MEDIA-TYPE-MP3:CAPS" title="RB_GST_MEDIA_TYPE_MP3">RB_GST_MEDIA_TYPE_MP3</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="rhythmbox-rb-gst-media-types.html#RB-GST-MEDIA-TYPE-OGG-VORBIS:CAPS" title="RB_GST_MEDIA_TYPE_OGG_VORBIS">RB_GST_MEDIA_TYPE_OGG_VORBIS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="rhythmbox-rb-gst-media-types.html#RB-GST-MEDIA-TYPE-FLAC:CAPS" title="RB_GST_MEDIA_TYPE_FLAC">RB_GST_MEDIA_TYPE_FLAC</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="rhythmbox-rb-gst-media-types.html#RB-GST-MEDIA-TYPE-AAC:CAPS" title="RB_GST_MEDIA_TYPE_AAC">RB_GST_MEDIA_TYPE_AAC</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="rhythmbox-rb-gst-media-types.html#RBGstMediaType" title="enum RBGstMediaType">RBGstMediaType</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-rb-gst-media-types.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-rb-gst-media-types.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-gst-caps-to-media-type"></a><h3>rb_gst_caps_to_media_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *
+rb_gst_caps_to_media_type (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/gstreamer-1.0GstCaps.html#GstCaps-struct"><span class="type">GstCaps</span></a> *caps</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-media-type-to-caps"></a><h3>rb_gst_media_type_to_caps ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gstreamer-1.0GstCaps.html#GstCaps-struct"><span class="returnvalue">GstCaps</span></a> *
+rb_gst_media_type_to_caps (<em class="parameter"><code>const <span class="type">char</span> *media_type</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-media-type-to-extension"></a><h3>rb_gst_media_type_to_extension ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+rb_gst_media_type_to_extension (<em class="parameter"><code>const <span class="type">char</span> *media_type</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-mime-type-to-media-type"></a><h3>rb_gst_mime_type_to_media_type ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+rb_gst_mime_type_to_media_type (<em class="parameter"><code>const <span class="type">char</span> *mime_type</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-media-type-to-mime-type"></a><h3>rb_gst_media_type_to_mime_type ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+rb_gst_media_type_to_mime_type (<em class="parameter"><code>const <span class="type">char</span> *media_type</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-get-missing-plugin-type"></a><h3>rb_gst_get_missing_plugin_type ()</h3>
+<pre class="programlisting"><a class="link" href="rhythmbox-rb-gst-media-types.html#RBGstMediaType" title="enum RBGstMediaType"><span class="returnvalue">RBGstMediaType</span></a>
+rb_gst_get_missing_plugin_type (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/gstreamer-1.0GstStructure.html#GstStructure-struct"><span class="type">GstStructure</span></a> *structure</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-get-default-encoding-target"></a><h3>rb_gst_get_default_encoding_target ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingTarget-struct"><span class="returnvalue">GstEncodingTarget</span></a> *
+rb_gst_get_default_encoding_target (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="refsect3">
+<a name="rb-gst-get-default-encoding-target.returns"></a><h4>Returns</h4>
+<p> default encoding target. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-get-encoding-profile"></a><h3>rb_gst_get_encoding_profile ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingProfile-struct"><span class="returnvalue">GstEncodingProfile</span></a> *
+rb_gst_get_encoding_profile (<em class="parameter"><code>const <span class="type">char</span> *media_type</code></em>);</pre>
+<div class="refsect3">
+<a name="rb-gst-get-encoding-profile.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>media_type</p></td>
+<td class="parameter_description"><p>media type to get a profile for</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-gst-get-encoding-profile.returns"></a><h4>Returns</h4>
+<p> encoding profile. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-media-type-matches-profile"></a><h3>rb_gst_media_type_matches_profile ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_gst_media_type_matches_profile (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingProfile-struct"><span class="type">GstEncodingProfile</span></a> *profile</code></em>,
+                                   <em class="parameter"><code>const <span class="type">char</span> *media_type</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-encoding-profile-get-media-type"></a><h3>rb_gst_encoding_profile_get_media_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *
+rb_gst_encoding_profile_get_media_type
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingProfile-struct"><span class="type">GstEncodingProfile</span></a> *profile</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-media-type-is-lossless"></a><h3>rb_gst_media_type_is_lossless ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_gst_media_type_is_lossless (<em class="parameter"><code>const <span class="type">char</span> *media_type</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-encoding-profile-get-settings"></a><h3>rb_gst_encoding_profile_get_settings ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **
+rb_gst_encoding_profile_get_settings (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingProfile-struct"><span class="type">GstEncodingProfile</span></a> *profile</code></em>,
+                                      <em class="parameter"><code>const <span class="type">char</span> *style</code></em>);</pre>
+<p>Returns a list of settings for the profile <em class="parameter"><code>profile</code></em>
+ that can usefully
+be exposed to a user.  This usually means just bitrate/quality settings.
+This works by finding the name of the encoder element for the profile
+and retrieving a list specific to that encoder.</p>
+<div class="refsect3">
+<a name="rb-gst-encoding-profile-get-settings.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>profile</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingProfile-struct"><span class="type">GstEncodingProfile</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>style</p></td>
+<td class="parameter_description"><p>encoding style (NULL or "cbr" or "vbr")</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-gst-encoding-profile-get-settings.returns"></a><h4>Returns</h4>
+<p> list of settings. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-encoding-profile-get-presets"></a><h3>rb_gst_encoding_profile_get_presets ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **
+rb_gst_encoding_profile_get_presets (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingProfile-struct"><span class="type">GstEncodingProfile</span></a> *profile</code></em>);</pre>
+<div class="refsect3">
+<a name="rb-gst-encoding-profile-get-presets.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>profile</p></td>
+<td class="parameter_description"><p>profile to return presets for</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-gst-encoding-profile-get-presets.returns"></a><h4>Returns</h4>
+<p> preset names. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>][<a href="http://foldoc.org/array"><span class="acronym">array</span></a> zero-terminated=1][<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> gchar *]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-encoding-profile-set-preset"></a><h3>rb_gst_encoding_profile_set_preset ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_gst_encoding_profile_set_preset (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingProfile-struct"><span class="type">GstEncodingProfile</span></a> *profile</code></em>,
+                                    <em class="parameter"><code>const <span class="type">char</span> *preset</code></em>);</pre>
+<p>Applies the preset <em class="parameter"><code>preset</code></em>
+ to the audio encoding profile within <em class="parameter"><code>profile</code></em>
+.</p>
+<div class="refsect3">
+<a name="rb-gst-encoding-profile-set-preset.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>profile</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingProfile-struct"><span class="type">GstEncodingProfile</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>preset</p></td>
+<td class="parameter_description"><p>preset to apply</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-gst-encoding-profile-get-encoder"></a><h3>rb_gst_encoding_profile_get_encoder ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gstreamer-1.0GstElement.html#GstElement-struct"><span class="returnvalue">GstElement</span></a> *
+rb_gst_encoding_profile_get_encoder (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingProfile-struct"><span class="type">GstEncodingProfile</span></a> *profile</code></em>);</pre>
+<div class="refsect3">
+<a name="rb-gst-encoding-profile-get-encoder.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>profile</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingProfile-struct"><span class="type">GstEncodingProfile</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-gst-encoding-profile-get-encoder.returns"></a><h4>Returns</h4>
+<p> an encoder element instance. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-rb-gst-media-types.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RB-GST-MEDIA-TYPE-MP3:CAPS"></a><h3>RB_GST_MEDIA_TYPE_MP3</h3>
+<pre class="programlisting">#define RB_GST_MEDIA_TYPE_MP3		"audio/mpeg"
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RB-GST-MEDIA-TYPE-OGG-VORBIS:CAPS"></a><h3>RB_GST_MEDIA_TYPE_OGG_VORBIS</h3>
+<pre class="programlisting">#define RB_GST_MEDIA_TYPE_OGG_VORBIS 	"audio/x-vorbis"
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RB-GST-MEDIA-TYPE-FLAC:CAPS"></a><h3>RB_GST_MEDIA_TYPE_FLAC</h3>
+<pre class="programlisting">#define RB_GST_MEDIA_TYPE_FLAC 		"audio/x-flac"
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RB-GST-MEDIA-TYPE-AAC:CAPS"></a><h3>RB_GST_MEDIA_TYPE_AAC</h3>
+<pre class="programlisting">#define RB_GST_MEDIA_TYPE_AAC 		"audio/x-aac"
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBGstMediaType"></a><h3>enum RBGstMediaType</h3>
+<p>
+</p>
+<div class="refsect3">
+<a name="RBGstMediaType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="MEDIA-TYPE-NONE:CAPS"></a>MEDIA_TYPE_NONE</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="MEDIA-TYPE-CONTAINER:CAPS"></a>MEDIA_TYPE_CONTAINER</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="MEDIA-TYPE-AUDIO:CAPS"></a>MEDIA_TYPE_AUDIO</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="MEDIA-TYPE-VIDEO:CAPS"></a>MEDIA_TYPE_VIDEO</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="MEDIA-TYPE-OTHER:CAPS"></a>MEDIA_TYPE_OTHER</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

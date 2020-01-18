@@ -1,0 +1,449 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>rb-debug: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch02.html" title="Lib">
+<link rel="prev" href="rhythmbox-rb-async-queue-watch.html" title="rb-async-queue-watch">
+<link rel="next" href="rhythmbox-rb-file-helpers.html" title="rb-file-helpers">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#rhythmbox-rb-debug.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="rhythmbox-rb-async-queue-watch.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="rhythmbox-rb-file-helpers.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="rhythmbox-rb-debug"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="rhythmbox-rb-debug.top_of_page"></a>rb-debug</span></h2>
+<p>rb-debug — debugging support functions</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="rhythmbox-rb-debug.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-debug.html#rb-debug" title="rb_debug()">rb_debug</a><span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-debug.html#rb-debug-init" title="rb_debug_init ()">rb_debug_init</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-debug.html#rb-debug-init-match" title="rb_debug_init_match ()">rb_debug_init_match</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-debug.html#rb-debug-matches" title="rb_debug_matches ()">rb_debug_matches</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> **
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-debug.html#rb-debug-get-args" title="rb_debug_get_args ()">rb_debug_get_args</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-debug.html#rb-debug-stop-in-debugger" title="rb_debug_stop_in_debugger ()">rb_debug_stop_in_debugger</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="rhythmbox-rb-debug.html#RBProfiler" title="RBProfiler"><span class="returnvalue">RBProfiler</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-debug.html#rb-profiler-new" title="rb_profiler_new ()">rb_profiler_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-debug.html#rb-profiler-dump" title="rb_profiler_dump ()">rb_profiler_dump</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-debug.html#rb-profiler-reset" title="rb_profiler_reset ()">rb_profiler_reset</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-debug.html#rb-profiler-free" title="rb_profiler_free ()">rb_profiler_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-debug.html#rb-profile-start" title="rb_profile_start()">rb_profile_start</a><span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-debug.html#rb-profile-end" title="rb_profile_end()">rb_profile_end</a><span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-rb-debug.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="typedef_keyword">typedef</td>
+<td class="function_name"><a class="link" href="rhythmbox-rb-debug.html#RBProfiler" title="RBProfiler">RBProfiler</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-rb-debug.description"></a><h2>Description</h2>
+<p>In addition to a simple debug output system, we have two distinct
+profiling mechanisms for timing sections of code.</p>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-rb-debug.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-debug"></a><h3>rb_debug()</h3>
+<pre class="programlisting">#define rb_debug(...) rb_debug_realf (__func__, __FILE__, __LINE__, TRUE, __VA_ARGS__)
+</pre>
+<p>If the call site function or file name matches the current debug output
+settings, the message will be formatted and printed to standard error,
+including a timestamp, the thread ID, the file and function names, and
+the line number.  A newline will be appended, so the format string shouldn't
+include one.</p>
+<div class="refsect3">
+<a name="rb-debug.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>...</p></td>
+<td class="parameter_description"><p>printf-style format string followed by any substitution values</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-debug-init"></a><h3>rb_debug_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_debug_init (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> debug</code></em>);</pre>
+<p>Sets up debug output, with either all debug enabled
+or none.</p>
+<div class="refsect3">
+<a name="rb-debug-init.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>debug</p></td>
+<td class="parameter_description"><p>if TRUE, enable all debug output</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-debug-init-match"></a><h3>rb_debug_init_match ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_debug_init_match (<em class="parameter"><code>const <span class="type">char</span> *match</code></em>);</pre>
+<p>Sets up debug output, enabling debug output from file and function
+names that contain the specified match string.</p>
+<p>Also sets up a GLib log handler that will trigger a debugger
+break for critical or warning level output if any debug output
+at all is enabled.</p>
+<div class="refsect3">
+<a name="rb-debug-init-match.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>match</p></td>
+<td class="parameter_description"><p>string to match functions and filenames against</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-debug-matches"></a><h3>rb_debug_matches ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_debug_matches (<em class="parameter"><code>const <span class="type">char</span> *func</code></em>,
+                  <em class="parameter"><code>const <span class="type">char</span> *file</code></em>);</pre>
+<p>Checks if <em class="parameter"><code>file</code></em>
+ or <em class="parameter"><code>func</code></em>
+ matches the current debug output settings.</p>
+<div class="refsect3">
+<a name="rb-debug-matches.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>function to check</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>file</p></td>
+<td class="parameter_description"><p>filename to check</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-debug-matches.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if matched</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-debug-get-args"></a><h3>rb_debug_get_args ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **
+rb_debug_get_args (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Constructs arguments to pass to another process using
+this debug output code that will produce the same debug output
+settings.</p>
+<div class="refsect3">
+<a name="rb-debug-get-args.returns"></a><h4>Returns</h4>
+<p> debug output arguments, must be freed with <a href="/usr/share/gtk-doc/html/glibglib-String-Utility-Functions.html#g-strfreev"><code class="function"><GTKDOCLINK HREF="g-strfreev"><code class="function">g_strfreev()</code></a></code></GTKDOCLINK>. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-debug-stop-in-debugger"></a><h3>rb_debug_stop_in_debugger ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_debug_stop_in_debugger (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Raises a SIGINT signal to get the attention of the debugger.
+When not running under the debugger, we don't want to stop,
+so we ignore the signal for just the moment that we raise it.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-profiler-new"></a><h3>rb_profiler_new ()</h3>
+<pre class="programlisting"><a class="link" href="rhythmbox-rb-debug.html#RBProfiler" title="RBProfiler"><span class="returnvalue">RBProfiler</span></a> *
+rb_profiler_new (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+<p>Creates a new profiler instance.  This can be used to
+time certain sections of code.</p>
+<p><span class="annotation">[<a href="http://foldoc.org/skip"><span class="acronym">skip</span></a>]</span></p>
+<div class="refsect3">
+<a name="rb-profiler-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>profiler name</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-profiler-new.returns"></a><h4>Returns</h4>
+<p> profiler instance</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-profiler-dump"></a><h3>rb_profiler_dump ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_profiler_dump (<em class="parameter"><code><a class="link" href="rhythmbox-rb-debug.html#RBProfiler" title="RBProfiler"><span class="type">RBProfiler</span></a> *profiler</code></em>);</pre>
+<p>Produces debug output for the profiler instance,
+showing the elapsed time.</p>
+<p><span class="annotation">[<a href="http://foldoc.org/skip"><span class="acronym">skip</span></a>]</span></p>
+<div class="refsect3">
+<a name="rb-profiler-dump.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>profiler</p></td>
+<td class="parameter_description"><p>profiler instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-profiler-reset"></a><h3>rb_profiler_reset ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_profiler_reset (<em class="parameter"><code><a class="link" href="rhythmbox-rb-debug.html#RBProfiler" title="RBProfiler"><span class="type">RBProfiler</span></a> *profiler</code></em>);</pre>
+<p>Resets the elapsed time for the profiler</p>
+<p><span class="annotation">[<a href="http://foldoc.org/skip"><span class="acronym">skip</span></a>]</span></p>
+<div class="refsect3">
+<a name="rb-profiler-reset.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>profiler</p></td>
+<td class="parameter_description"><p>profiler instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-profiler-free"></a><h3>rb_profiler_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_profiler_free (<em class="parameter"><code><a class="link" href="rhythmbox-rb-debug.html#RBProfiler" title="RBProfiler"><span class="type">RBProfiler</span></a> *profiler</code></em>);</pre>
+<p>Frees the memory associated with a profiler instance.</p>
+<p><span class="annotation">[<a href="http://foldoc.org/skip"><span class="acronym">skip</span></a>]</span></p>
+<div class="refsect3">
+<a name="rb-profiler-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>profiler</p></td>
+<td class="parameter_description"><p>profiler instance to destroy</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-profile-start"></a><h3>rb_profile_start()</h3>
+<pre class="programlisting">#define rb_profile_start(msg) _rb_profile_log (__func__, __FILE__, __LINE__, RB_PROFILE_INDENTATION, "START", msg)
+</pre>
+<p>Records a start point for profiling.
+This profile mechanism operates by issuing file access
+requests with filenames indicating the profile points.
+Use 'strace -e access' to gather this information.</p>
+<div class="refsect3">
+<a name="rb-profile-start.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>msg</p></td>
+<td class="parameter_description"><p>profile point message</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-profile-end"></a><h3>rb_profile_end()</h3>
+<pre class="programlisting">#define rb_profile_end(msg)   _rb_profile_log (__func__, __FILE__, __LINE__, -RB_PROFILE_INDENTATION, "END", msg)
+</pre>
+<p>Records an end point for profiling.  See <em class="parameter"><code>rb_profile_start</code></em>
+.</p>
+<div class="refsect3">
+<a name="rb-profile-end.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>msg</p></td>
+<td class="parameter_description"><p>profile point message</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-rb-debug.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RBProfiler"></a><h3>RBProfiler</h3>
+<pre class="programlisting">typedef struct RBProfiler RBProfiler;
+</pre>
+<p>
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

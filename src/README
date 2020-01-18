@@ -1,0 +1,37 @@
+General Information
+===================
+
+This is Rhythmbox version 3.4.2. Rhythmbox is your one-stop multimedia
+application, supporting a music library, multiple playlists,
+internet radio, and more.
+
+Rhythmbox is free software, licensed under the GNU GPL.
+
+The official web site is:
+  https://wiki.gnome.org/Apps/Rhythmbox
+
+Information about mailing lists can be found at:
+  https://mail.gnome.org/mailman/listinfo/rhythmbox-devel
+
+Our IRC channel is #rhythmbox on GIMPnet (irc.gimp.org).
+
+Installation
+============
+
+See the files INSTALL.quick and INSTALL.
+
+How to report bugs
+==================
+
+Bugs should be reported to the GNOME bug tracking system.
+(https://bugzilla.gnome.org, product rhythmbox.) You will need to create an
+account for yourself.
+
+Please read the GNOME bug reporting guidelines, documented here:
+https://wiki.gnome.org/Community/GettingInTouch/Bugzilla/Guidelines
+
+Development
+===========
+
+See the HACKING file.
+

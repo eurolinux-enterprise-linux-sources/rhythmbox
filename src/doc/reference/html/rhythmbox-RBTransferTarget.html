@@ -1,0 +1,512 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBTransferTarget: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch06.html" title="Sources">
+<link rel="prev" href="rhythmbox-RBDeviceSource.html" title="RBDeviceSource">
+<link rel="next" href="ch07.html" title="Widgets">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#rhythmbox-RBTransferTarget.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="rhythmbox-RBDeviceSource.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ch07.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="rhythmbox-RBTransferTarget"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="rhythmbox-RBTransferTarget.top_of_page"></a>RBTransferTarget</span></h2>
+<p>RBTransferTarget — interface for sources that can receive track transfers</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="rhythmbox-RBTransferTarget.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-RBTransferTarget.html#rb-transfer-target-build-dest-uri" title="rb_transfer_target_build_dest_uri ()">rb_transfer_target_build_dest_uri</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-RBTransferTarget.html#rb-transfer-target-track-added" title="rb_transfer_target_track_added ()">rb_transfer_target_track_added</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-RBTransferTarget.html#rb-transfer-target-track-add-error" title="rb_transfer_target_track_add_error ()">rb_transfer_target_track_add_error</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-RBTransferTarget.html#rb-transfer-target-should-transfer" title="rb_transfer_target_should_transfer ()">rb_transfer_target_should_transfer</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-RBTransferTarget.html#rb-transfer-target-get-format-descriptions" title="rb_transfer_target_get_format_descriptions ()">rb_transfer_target_get_format_descriptions</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-RBTransferTarget.html#rb-transfer-target-check-category" title="rb_transfer_target_check_category ()">rb_transfer_target_check_category</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-RBTransferTarget.html#rb-transfer-target-check-duplicate" title="rb_transfer_target_check_duplicate ()">rb_transfer_target_check_duplicate</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="RBTrackTransferBatch.html" title="RBTrackTransferBatch"><span class="returnvalue">RBTrackTransferBatch</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-RBTransferTarget.html#rb-transfer-target-transfer" title="rb_transfer_target_transfer ()">rb_transfer_target_transfer</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-RBTransferTarget.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="rhythmbox-RBTransferTarget.html#RBTransferTargetInterface" title="struct RBTransferTargetInterface">RBTransferTargetInterface</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-RBTransferTarget.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;rb-transfer-target.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-RBTransferTarget.description"></a><h2>Description</h2>
+<p>Sources that can accept track transfers should implement this interface
+and call the associated functions to perform transfers.  The source
+needs to be able to construct target URIs for transfers, and can optionally
+perform its own processing after transfers have finished.  The source
+must also provide a <a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0GstEncodingProfile.html#GstEncodingTarget-struct"><span class="type">GstEncodingTarget</span></a> that describes the formats it
+accepts.</p>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-RBTransferTarget.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-transfer-target-build-dest-uri"></a><h3>rb_transfer_target_build_dest_uri ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *
+rb_transfer_target_build_dest_uri (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>,
+                                   <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
+                                   <em class="parameter"><code>const <span class="type">char</span> *media_type</code></em>,
+                                   <em class="parameter"><code>const <span class="type">char</span> *extension</code></em>);</pre>
+<p>Constructs a URI to use as the destination for a transfer or transcoding
+operation.  The URI may be on the device itself, if the device is mounted
+into the normal filesystem or through gvfs, or it may be a temporary
+location used to store the file before uploading it to the device.</p>
+<p>The destination URI should conform to the device's normal URI format,
+and should use the provided extension instead of the extension from
+the source entry.</p>
+<div class="refsect3">
+<a name="rb-transfer-target-build-dest-uri.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>an <span class="type">RBTransferTarget</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span> being transferred</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>media_type</p></td>
+<td class="parameter_description"><p>destination media type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>extension associated with destination media type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-transfer-target-build-dest-uri.returns"></a><h4>Returns</h4>
+<p> constructed URI</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-transfer-target-track-added"></a><h3>rb_transfer_target_track_added ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_transfer_target_track_added (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>,
+                                <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
+                                <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint64"><span class="type">guint64</span></a> filesize</code></em>,
+                                <em class="parameter"><code>const <span class="type">char</span> *media_type</code></em>);</pre>
+<p>This is called when a transfer to the target has completed.
+If the source's <em class="parameter"><code>track_added</code></em>
+ method returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the destination
+URI will be added to the database using the entry type for the device.</p>
+<p>If the target uses a temporary area as the destination for transfers,
+it can instead upload the destination file to the device and create an
+entry for it, then return <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+<div class="refsect3">
+<a name="rb-transfer-target-track-added.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>an <span class="type">RBTransferTarget</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>the source <span class="type">RhythmDBEntry</span> for the transfer</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>the destination URI</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>filesize</p></td>
+<td class="parameter_description"><p>size of the destination file</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>media_type</p></td>
+<td class="parameter_description"><p>media type of the destination file</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-transfer-target-track-add-error"></a><h3>rb_transfer_target_track_add_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_transfer_target_track_add_error (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>,
+                                    <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
+                                    <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);</pre>
+<p>This is called when a transfer fails.  If the source's
+impl_track_add_error implementation returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, an error dialog
+will be displayed to the user containing the error message, unless
+the error indicates that the destination file already exists.</p>
+<div class="refsect3">
+<a name="rb-transfer-target-track-add-error.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>an <span class="type">RBTransferTarget</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>the source <span class="type">RhythmDBEntry</span> for the transfer</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>the destination URI</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>the transfer error information</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-transfer-target-should-transfer"></a><h3>rb_transfer_target_should_transfer ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_transfer_target_should_transfer (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>,
+                                    <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>Checks whether <em class="parameter"><code>entry</code></em>
+ should be transferred to the target.
+The target can check whether a matching entry already exists on the device,
+for instance.  <em class="parameter"><code>rb_transfer_target_check_duplicate</code></em>
+ may form part of
+an implementation.  If this method returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, the entry
+will be skipped.</p>
+<div class="refsect3">
+<a name="rb-transfer-target-should-transfer.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>an <span class="type">RBTransferTarget</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span> to consider transferring</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-transfer-target-should-transfer.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the entry should be transferred to the target</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-transfer-target-get-format-descriptions"></a><h3>rb_transfer_target_get_format_descriptions ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+rb_transfer_target_get_format_descriptions
+                               (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>);</pre>
+<p>Returns a <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of allocated media format descriptions for
+the formats supported by the target.  The list and the strings
+it holds must be freed by the caller.</p>
+<div class="refsect3">
+<a name="rb-transfer-target-get-format-descriptions.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>an <span class="type">RBTransferTarget</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-transfer-target-get-format-descriptions.returns"></a><h4>Returns</h4>
+<p> list of descriptions. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> utf8][<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-transfer-target-check-category"></a><h3>rb_transfer_target_check_category ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_transfer_target_check_category (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>,
+                                   <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>This checks that the entry type of <em class="parameter"><code>entry</code></em>
+ is in a suitable
+category for transfer.  This can be used to implement
+<em class="parameter"><code>should_transfer</code></em>
+.</p>
+<div class="refsect3">
+<a name="rb-transfer-target-check-category.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>an <span class="type">RBTransferTarget</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span> to check</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-transfer-target-check-category.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the entry is in a suitable category</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-transfer-target-check-duplicate"></a><h3>rb_transfer_target_check_duplicate ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_transfer_target_check_duplicate (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>,
+                                    <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>This checks for an existing entry in the target that matches
+the title, album, artist, and track number of the entry being
+considered.  This can be used to implement <em class="parameter"><code>should_transfer</code></em>
+.</p>
+<div class="refsect3">
+<a name="rb-transfer-target-check-duplicate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>an <span class="type">RBTransferTarget</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span> to check</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-transfer-target-check-duplicate.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the entry already exists on the target.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-transfer-target-transfer"></a><h3>rb_transfer_target_transfer ()</h3>
+<pre class="programlisting"><a class="link" href="RBTrackTransferBatch.html" title="RBTrackTransferBatch"><span class="returnvalue">RBTrackTransferBatch</span></a> *
+rb_transfer_target_transfer (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGSettings.html#GSettings-struct"><span class="type">GSettings</span></a> *settings</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *entries</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> defer</code></em>);</pre>
+<p>Starts tranferring <em class="parameter"><code>entries</code></em>
+ to the target.  This returns the
+<a class="link" href="RBTrackTransferBatch.html" title="RBTrackTransferBatch"><span class="type">RBTrackTransferBatch</span></a> that it starts, so the caller can track
+the progress of the transfer, or NULL if the target doesn't
+want any of the entries.</p>
+<div class="refsect3">
+<a name="rb-transfer-target-transfer.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>an <span class="type">RBTransferTarget</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entries</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of entries to transfer. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> RB.RhythmDBEntry]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>defer</p></td>
+<td class="parameter_description"><p>if <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, don't start the transfer until</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-transfer-target-transfer.returns"></a><h4>Returns</h4>
+<p> an <a class="link" href="RBTrackTransferBatch.html" title="RBTrackTransferBatch"><span class="type">RBTrackTransferBatch</span></a>, or NULL. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-RBTransferTarget.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RBTransferTargetInterface"></a><h3>struct RBTransferTargetInterface</h3>
+<pre class="programlisting">struct RBTransferTargetInterface {
+	GTypeInterface g_iface;
+
+	char*		(*build_dest_uri) (RBTransferTarget *target,
+						 RhythmDBEntry *entry,
+						 const char *media_type,
+						 const char *extension);
+	gboolean (*track_added)		(RBTransferTarget *target,
+						 RhythmDBEntry *entry,
+						 const char *uri,
+						 guint64 dest_size,
+						 const char *media_type);
+	gboolean (*track_add_error) (RBTransferTarget *target,
+						 RhythmDBEntry *entry,
+						 const char *uri,
+						 GError *error);
+	gboolean (*should_transfer) (RBTransferTarget *target,
+						 RhythmDBEntry *entry);
+};
+</pre>
+<p>
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Application: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch05.html" title="Shell">
+<link rel="prev" href="ch05.html" title="Shell">
+<link rel="next" href="RBHistory.html" title="RBHistory">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBApplication.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBApplication.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#RBApplication.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#RBApplication.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch05.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch05.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RBHistory.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="RBApplication"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBApplication.top_of_page"></a>Application</span></h2>
+<p>Application — the rhythmbox subclass of GtkApplication</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="RBApplication.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gioGApplication.html#GApplication-struct"><span class="returnvalue">GApplication</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBApplication.html#rb-application-new" title="rb_application_new ()">rb_application_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">int</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBApplication.html#rb-application-run" title="rb_application_run ()">rb_application_run</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBApplication.html#rb-application-link-shared-menus" title="rb_application_link_shared_menus ()">rb_application_link_shared_menus</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBApplication.html#rb-application-add-shared-menu" title="rb_application_add_shared_menu ()">rb_application_add_shared_menu</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gioGMenuModel.html#GMenuModel-struct"><span class="returnvalue">GMenuModel</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBApplication.html#rb-application-get-shared-menu" title="rb_application_get_shared_menu ()">rb_application_get_shared_menu</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gioGMenuModel.html#GMenuModel-struct"><span class="returnvalue">GMenuModel</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBApplication.html#rb-application-get-plugin-menu" title="rb_application_get_plugin_menu ()">rb_application_get_plugin_menu</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBApplication.html#rb-application-add-plugin-menu-item" title="rb_application_add_plugin_menu_item ()">rb_application_add_plugin_menu_item</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBApplication.html#rb-application-remove-plugin-menu-item" title="rb_application_remove_plugin_menu_item ()">rb_application_remove_plugin_menu_item</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBApplication.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody><tr>
+<td class="property_type">
+<a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *</td>
+<td class="property_name"><a class="link" href="RBApplication.html#RBApplication--shell" title="The “shell” property">shell</a></td>
+<td class="property_flags">Read</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBApplication.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBApplication.html#RBApplication-struct" title="struct RBApplication">RBApplication</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBApplication.html#RBApplicationClass" title="struct RBApplicationClass">RBApplicationClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBApplication.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gioGApplication.html#GApplication-struct">GApplication</a>
+        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkApplication.html#GtkApplication-struct">GtkApplication</a>
+            <span class="lineart">╰──</span> RBApplication
+</pre>
+</div>
+<div class="refsect1">
+<a name="RBApplication.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBApplication implements
+ <a href="/usr/share/gtk-doc/html/gioGActionGroup.html#GActionGroup-struct">GActionGroup</a> and  <a href="/usr/share/gtk-doc/html/gioGActionMap.html#GActionMap-struct">GActionMap</a>.</p>
+</div>
+<div class="refsect1">
+<a name="RBApplication.description"></a><h2>Description</h2>
+<p>RBApplication contains some interactions with the desktop
+environment, such as the app menu and processing of files specified
+on the command line.</p>
+</div>
+<div class="refsect1">
+<a name="RBApplication.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-application-new"></a><h3>rb_application_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gioGApplication.html#GApplication-struct"><span class="returnvalue">GApplication</span></a> *
+rb_application_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates the application instance.</p>
+<div class="refsect3">
+<a name="rb-application-new.returns"></a><h4>Returns</h4>
+<p> application instance</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-application-run"></a><h3>rb_application_run ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>
+rb_application_run (<em class="parameter"><code><a class="link" href="RBApplication.html" title="Application"><span class="type">RBApplication</span></a> *app</code></em>,
+                    <em class="parameter"><code><span class="type">int</span> argc</code></em>,
+                    <em class="parameter"><code><span class="type">char</span> **argv</code></em>);</pre>
+<p>Runs the application</p>
+<div class="refsect3">
+<a name="rb-application-run.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>app</p></td>
+<td class="parameter_description"><p>the application instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>argc</p></td>
+<td class="parameter_description"><p>arg count</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>argv</p></td>
+<td class="parameter_description"><p>arg values</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-application-run.returns"></a><h4>Returns</h4>
+<p> exit code</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-application-link-shared-menus"></a><h3>rb_application_link_shared_menus ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_application_link_shared_menus (<em class="parameter"><code><a class="link" href="RBApplication.html" title="Application"><span class="type">RBApplication</span></a> *app</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGMenu.html#GMenu-struct"><span class="type">GMenu</span></a> *menu</code></em>);</pre>
+<p>Processes shared menu links in the given menu.  Menu links take the
+form of items with "rb-menu-link" or "rb-plugin-menu-link" and "rb-menu-link-type" attributes.
+"rb-menu-link" specifies the name of a shared menu to link in,
+"rb-plugin-menu-link" specifies the name of a plugin menu to link in,
+"rb-menu-link-type" specifies the link type, either "section" or
+"submenu".  A link item must have "rb-menu-link-type" and one of
+"rb-menu-link" or "rb-plugin-menu-link".</p>
+<div class="refsect3">
+<a name="rb-application-link-shared-menus.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>app</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBApplication.html" title="Application"><span class="type">RBApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>menu</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGMenu.html#GMenu-struct"><span class="type">GMenu</span></a> to process</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-application-add-shared-menu"></a><h3>rb_application_add_shared_menu ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_application_add_shared_menu (<em class="parameter"><code><a class="link" href="RBApplication.html" title="Application"><span class="type">RBApplication</span></a> *app</code></em>,
+                                <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGMenuModel.html#GMenuModel-struct"><span class="type">GMenuModel</span></a> *menu</code></em>);</pre>
+<p>Adds a menu model to the set of shared menus
+available for linking into other menus.</p>
+<div class="refsect3">
+<a name="rb-application-add-shared-menu.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>app</p></td>
+<td class="parameter_description"><p>the application instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>a name for the menu</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>menu</p></td>
+<td class="parameter_description"><p><a href="/usr/share/gtk-doc/html/gioGMenuModel.html#GMenuModel-struct"><span class="type">GMenuModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-application-get-shared-menu"></a><h3>rb_application_get_shared_menu ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gioGMenuModel.html#GMenuModel-struct"><span class="returnvalue">GMenuModel</span></a> *
+rb_application_get_shared_menu (<em class="parameter"><code><a class="link" href="RBApplication.html" title="Application"><span class="type">RBApplication</span></a> *app</code></em>,
+                                <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+<p>Returns a shared menu instance added with <em class="parameter"><code>rb_application_add_shared_menu</code></em>
+</p>
+<div class="refsect3">
+<a name="rb-application-get-shared-menu.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>app</p></td>
+<td class="parameter_description"><p>the application instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>name of menu to return</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-application-get-shared-menu.returns"></a><h4>Returns</h4>
+<p> menu model instance, or NULL if not found. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-application-get-plugin-menu"></a><h3>rb_application_get_plugin_menu ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gioGMenuModel.html#GMenuModel-struct"><span class="returnvalue">GMenuModel</span></a> *
+rb_application_get_plugin_menu (<em class="parameter"><code><a class="link" href="RBApplication.html" title="Application"><span class="type">RBApplication</span></a> *app</code></em>,
+                                <em class="parameter"><code>const <span class="type">char</span> *menu</code></em>);</pre>
+<p>Returns a plugin menu instance.  Plugin menus are like shared menus except
+they are created empty on first access, and they consist solely of entries
+added through <em class="parameter"><code>rb_application_add_plugin_item</code></em>
+.</p>
+<div class="refsect3">
+<a name="rb-application-get-plugin-menu.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>app</p></td>
+<td class="parameter_description"><p>the application instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>menu</p></td>
+<td class="parameter_description"><p>name of plugin menu to return</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-application-get-plugin-menu.returns"></a><h4>Returns</h4>
+<p> plugin menu instance. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-application-add-plugin-menu-item"></a><h3>rb_application_add_plugin_menu_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_application_add_plugin_menu_item (<em class="parameter"><code><a class="link" href="RBApplication.html" title="Application"><span class="type">RBApplication</span></a> *app</code></em>,
+                                     <em class="parameter"><code>const <span class="type">char</span> *menu</code></em>,
+                                     <em class="parameter"><code>const <span class="type">char</span> *id</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGMenu.html#GMenuItem-struct"><span class="type">GMenuItem</span></a> *item</code></em>);</pre>
+<p>Adds an item to a plugin menu.  The id can be used to remove the item.</p>
+<div class="refsect3">
+<a name="rb-application-add-plugin-menu-item.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>app</p></td>
+<td class="parameter_description"><p>the application instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>menu</p></td>
+<td class="parameter_description"><p>name of the menu to add to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>id</p></td>
+<td class="parameter_description"><p>id of the item to add (used to remove it, must be unique within the menu)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>item</p></td>
+<td class="parameter_description"><p>menu item to add</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-application-remove-plugin-menu-item"></a><h3>rb_application_remove_plugin_menu_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_application_remove_plugin_menu_item
+                               (<em class="parameter"><code><a class="link" href="RBApplication.html" title="Application"><span class="type">RBApplication</span></a> *app</code></em>,
+                                <em class="parameter"><code>const <span class="type">char</span> *menu</code></em>,
+                                <em class="parameter"><code>const <span class="type">char</span> *id</code></em>);</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBApplication.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RBApplication-struct"></a><h3>struct RBApplication</h3>
+<pre class="programlisting">struct RBApplication;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBApplicationClass"></a><h3>struct RBApplicationClass</h3>
+<pre class="programlisting">struct RBApplicationClass {
+	GtkApplicationClass parent_class;
+};
+</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBApplication.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="RBApplication--shell"></a><h3>The <code class="literal">“shell”</code> property</h3>
+<pre class="programlisting">  “shell”                    <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *</pre>
+<p>RBShell instance.</p>
+<p>Flags: Read</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

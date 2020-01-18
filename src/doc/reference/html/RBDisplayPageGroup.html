@@ -1,0 +1,456 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RBDisplayPageGroup: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
+<link rel="up" href="ch06.html" title="Sources">
+<link rel="prev" href="RBDisplayPage.html" title="RBDisplayPage">
+<link rel="next" href="RBDisplayPageModel.html" title="RBDisplayPageModel">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBDisplayPageGroup.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBDisplayPageGroup.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#RBDisplayPageGroup.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#RBDisplayPageGroup.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RBDisplayPage.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RBDisplayPageModel.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="RBDisplayPageGroup"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="RBDisplayPageGroup.top_of_page"></a>RBDisplayPageGroup</span></h2>
+<p>RBDisplayPageGroup — Display page grouping</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="RBDisplayPageGroup.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageGroup.html#rb-display-page-group-add-core-groups" title="rb_display_page_group_add_core_groups ()">rb_display_page_group_add_core_groups</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="RBDisplayPageGroup.html" title="RBDisplayPageGroup"><span class="returnvalue">RBDisplayPageGroup</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageGroup.html#rb-display-page-group-get-by-id" title="rb_display_page_group_get_by_id ()">rb_display_page_group_get_by_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="RBDisplayPageGroup.html" title="RBDisplayPageGroup"><span class="returnvalue">RBDisplayPageGroup</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageGroup.html#rb-display-page-group-new" title="rb_display_page_group_new ()">rb_display_page_group_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageGroup.html#rb-display-page-group-loaded" title="rb_display_page_group_loaded ()">rb_display_page_group_loaded</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageGroup.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">RBDisplayPageGroupType</span></td>
+<td class="property_name"><a class="link" href="RBDisplayPageGroup.html#RBDisplayPageGroup--category" title="The “category” property">category</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="RBDisplayPageGroup.html#RBDisplayPageGroup--id" title="The “id” property">id</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="RBDisplayPageGroup.html#RBDisplayPageGroup--loaded" title="The “loaded” property">loaded</a></td>
+<td class="property_flags">Read</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageGroup.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="RBDisplayPageGroup.html#RBDisplayPageGroupCategory" title="enum RBDisplayPageGroupCategory">RBDisplayPageGroupCategory</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBDisplayPageGroup.html#RBDisplayPageGroup-struct" title="struct RBDisplayPageGroup">RBDisplayPageGroup</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBDisplayPageGroup.html#RBDisplayPageGroupClass" title="struct RBDisplayPageGroupClass">RBDisplayPageGroupClass</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-LIBRARY:CAPS" title="RB_DISPLAY_PAGE_GROUP_LIBRARY">RB_DISPLAY_PAGE_GROUP_LIBRARY</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-PLAYLISTS:CAPS" title="RB_DISPLAY_PAGE_GROUP_PLAYLISTS">RB_DISPLAY_PAGE_GROUP_PLAYLISTS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-DEVICES:CAPS" title="RB_DISPLAY_PAGE_GROUP_DEVICES">RB_DISPLAY_PAGE_GROUP_DEVICES</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-SHARED:CAPS" title="RB_DISPLAY_PAGE_GROUP_SHARED">RB_DISPLAY_PAGE_GROUP_SHARED</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-STORES:CAPS" title="RB_DISPLAY_PAGE_GROUP_STORES">RB_DISPLAY_PAGE_GROUP_STORES</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-TOOLS:CAPS" title="RB_DISPLAY_PAGE_GROUP_TOOLS">RB_DISPLAY_PAGE_GROUP_TOOLS</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageGroup.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct">GtkWidget</a>
+            <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkContainer.html#GtkContainer-struct">GtkContainer</a>
+                <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkBox.html#GtkBox-struct">GtkBox</a>
+                    <span class="lineart">╰──</span> <a class="link" href="RBDisplayPage.html" title="RBDisplayPage">RBDisplayPage</a>
+                        <span class="lineart">╰──</span> RBDisplayPageGroup
+</pre>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageGroup.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+RBDisplayPageGroup implements
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3GtkBuildable.html#GtkBuildable-struct">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk3gtk3-Orientable.html#GtkOrientable-struct">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageGroup.description"></a><h2>Description</h2>
+<p>Page groups define sections of the display page tree.  A page group
+consists of an internal name, a display name, and a category.
+The internal name can be used to locate a registered page group.
+The category is used to sort the page groups.</p>
+<p>While <a class="link" href="RBDisplayPageGroup.html" title="RBDisplayPageGroup"><span class="type">RBDisplayPageGroup</span></a> is a subclass of <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a>, by default page
+groups are never selectable so they have no content.</p>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageGroup.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-display-page-group-add-core-groups"></a><h3>rb_display_page_group_add_core_groups ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_display_page_group_add_core_groups (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct"><span class="type">GObject</span></a> *shell</code></em>,
+                                       <em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>);</pre>
+<p>Registers core page groups.</p>
+<div class="refsect3">
+<a name="rb-display-page-group-add-core-groups.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>shell</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page_model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-display-page-group-get-by-id"></a><h3>rb_display_page_group_get_by_id ()</h3>
+<pre class="programlisting"><a class="link" href="RBDisplayPageGroup.html" title="RBDisplayPageGroup"><span class="returnvalue">RBDisplayPageGroup</span></a> *
+rb_display_page_group_get_by_id (<em class="parameter"><code>const <span class="type">char</span> *id</code></em>);</pre>
+<p>Locates a page group by name.  If the page group has not been registered yet,
+returns NULL instead.</p>
+<div class="refsect3">
+<a name="rb-display-page-group-get-by-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>id</p></td>
+<td class="parameter_description"><p>name of page group to find</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-display-page-group-get-by-id.returns"></a><h4>Returns</h4>
+<p> existing page group, or NULL. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-display-page-group-new"></a><h3>rb_display_page_group_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBDisplayPageGroup.html" title="RBDisplayPageGroup"><span class="returnvalue">RBDisplayPageGroup</span></a> *
+rb_display_page_group_new (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct"><span class="type">GObject</span></a> *shell</code></em>,
+                           <em class="parameter"><code>const <span class="type">char</span> *id</code></em>,
+                           <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                           <em class="parameter"><code><a class="link" href="RBDisplayPageGroup.html#RBDisplayPageGroupCategory" title="enum RBDisplayPageGroupCategory"><span class="type">RBDisplayPageGroupCategory</span></a> category</code></em>);</pre>
+<p>Creates a new page group object.  The group will be registered
+before it is returned.</p>
+<div class="refsect3">
+<a name="rb-display-page-group-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>shell</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>id</p></td>
+<td class="parameter_description"><p>name of the page group (untranslated, used in code)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>display name of the page group (translated)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>category for the page group</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="rb-display-page-group-new.returns"></a><h4>Returns</h4>
+<p> new page group</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-display-page-group-loaded"></a><h3>rb_display_page_group_loaded ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_display_page_group_loaded (<em class="parameter"><code><a class="link" href="RBDisplayPageGroup.html" title="RBDisplayPageGroup"><span class="type">RBDisplayPageGroup</span></a> *group</code></em>);</pre>
+<p>Called when the page group is fully loaded, that is, all initial pages have
+been added.</p>
+<div class="refsect3">
+<a name="rb-display-page-group-loaded.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>group</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RBDisplayPageGroup.html" title="RBDisplayPageGroup"><span class="type">RBDisplayPageGroup</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageGroup.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RBDisplayPageGroupCategory"></a><h3>enum RBDisplayPageGroupCategory</h3>
+<p>
+</p>
+<div class="refsect3">
+<a name="RBDisplayPageGroupCategory.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="RB-DISPLAY-PAGE-GROUP-CATEGORY-FIXED:CAPS"></a>RB_DISPLAY_PAGE_GROUP_CATEGORY_FIXED</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-DISPLAY-PAGE-GROUP-CATEGORY-REMOVABLE:CAPS"></a>RB_DISPLAY_PAGE_GROUP_CATEGORY_REMOVABLE</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-DISPLAY-PAGE-GROUP-CATEGORY-PERSISTENT:CAPS"></a>RB_DISPLAY_PAGE_GROUP_CATEGORY_PERSISTENT</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-DISPLAY-PAGE-GROUP-CATEGORY-TRANSIENT:CAPS"></a>RB_DISPLAY_PAGE_GROUP_CATEGORY_TRANSIENT</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-DISPLAY-PAGE-GROUP-CATEGORY-TOOLS:CAPS"></a>RB_DISPLAY_PAGE_GROUP_CATEGORY_TOOLS</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-DISPLAY-PAGE-GROUP-CATEGORY-LAST:CAPS"></a>RB_DISPLAY_PAGE_GROUP_CATEGORY_LAST</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBDisplayPageGroup-struct"></a><h3>struct RBDisplayPageGroup</h3>
+<pre class="programlisting">struct RBDisplayPageGroup;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBDisplayPageGroupClass"></a><h3>struct RBDisplayPageGroupClass</h3>
+<pre class="programlisting">struct RBDisplayPageGroupClass {
+	RBDisplayPageClass parent_class;
+};
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RB-DISPLAY-PAGE-GROUP-LIBRARY:CAPS"></a><h3>RB_DISPLAY_PAGE_GROUP_LIBRARY</h3>
+<pre class="programlisting">#define RB_DISPLAY_PAGE_GROUP_LIBRARY           (RB_DISPLAY_PAGE (rb_display_page_group_get_by_id ("library")))
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RB-DISPLAY-PAGE-GROUP-PLAYLISTS:CAPS"></a><h3>RB_DISPLAY_PAGE_GROUP_PLAYLISTS</h3>
+<pre class="programlisting">#define RB_DISPLAY_PAGE_GROUP_PLAYLISTS         (RB_DISPLAY_PAGE (rb_display_page_group_get_by_id ("playlists")))
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RB-DISPLAY-PAGE-GROUP-DEVICES:CAPS"></a><h3>RB_DISPLAY_PAGE_GROUP_DEVICES</h3>
+<pre class="programlisting">#define RB_DISPLAY_PAGE_GROUP_DEVICES           (RB_DISPLAY_PAGE (rb_display_page_group_get_by_id ("devices")))
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RB-DISPLAY-PAGE-GROUP-SHARED:CAPS"></a><h3>RB_DISPLAY_PAGE_GROUP_SHARED</h3>
+<pre class="programlisting">#define RB_DISPLAY_PAGE_GROUP_SHARED            (RB_DISPLAY_PAGE (rb_display_page_group_get_by_id ("shared")))
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RB-DISPLAY-PAGE-GROUP-STORES:CAPS"></a><h3>RB_DISPLAY_PAGE_GROUP_STORES</h3>
+<pre class="programlisting">#define RB_DISPLAY_PAGE_GROUP_STORES            (RB_DISPLAY_PAGE (rb_display_page_group_get_by_id ("stores")))
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RB-DISPLAY-PAGE-GROUP-TOOLS:CAPS"></a><h3>RB_DISPLAY_PAGE_GROUP_TOOLS</h3>
+<pre class="programlisting">#define RB_DISPLAY_PAGE_GROUP_TOOLS             (RB_DISPLAY_PAGE (rb_display_page_group_get_by_id ("tools")))
+</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageGroup.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="RBDisplayPageGroup--category"></a><h3>The <code class="literal">“category”</code> property</h3>
+<pre class="programlisting">  “category”                 <span class="type">RBDisplayPageGroupType</span></pre>
+<p>Page group category that the group falls into</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Default value: RB_DISPLAY_PAGE_GROUP_CATEGORY_FIXED</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBDisplayPageGroup--id"></a><h3>The <code class="literal">“id”</code> property</h3>
+<pre class="programlisting">  “id”                       <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>Internal (untranslated) name for the page group</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RBDisplayPageGroup--loaded"></a><h3>The <code class="literal">“loaded”</code> property</h3>
+<pre class="programlisting">  “loaded”                   <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Whether the group is loaded.</p>
+<p>Flags: Read</p>
+<p>Default value: FALSE</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>
