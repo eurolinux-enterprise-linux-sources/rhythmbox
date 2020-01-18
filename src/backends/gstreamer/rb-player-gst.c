@@ -47,18 +47,15 @@
 #include "rb-player-gst.h"
 #include "rb-player-gst-helper.h"
 #include "rb-player-gst-filter.h"
-#include "rb-player-gst-tee.h"
 
 static void rb_player_init (RBPlayerIface *iface);
 static void rb_player_gst_filter_init (RBPlayerGstFilterIface *iface);
-static void rb_player_gst_tee_init (RBPlayerGstTeeIface *iface);
 
 static void state_change_finished (RBPlayerGst *mp, GError *error);
 
 G_DEFINE_TYPE_WITH_CODE(RBPlayerGst, rb_player_gst, G_TYPE_OBJECT,
 			G_IMPLEMENT_INTERFACE(RB_TYPE_PLAYER, rb_player_init)
 			G_IMPLEMENT_INTERFACE(RB_TYPE_PLAYER_GST_FILTER, rb_player_gst_filter_init)
-			G_IMPLEMENT_INTERFACE(RB_TYPE_PLAYER_GST_TEE, rb_player_gst_tee_init)
 			)
 
 #define RB_PLAYER_GST_TICK_HZ 5
@@ -110,6 +107,7 @@ struct _RBPlayerGstPrivate
 	gboolean current_track_finishing;
 	gboolean playbin_stream_changing;
 	gboolean track_change;
+	gboolean emitted_image;
 
 	gboolean emitted_error;
 
@@ -120,13 +118,13 @@ struct _RBPlayerGstPrivate
 	float cur_volume;
 
 	guint tick_timeout_id;
-
-	GList *waiting_tees;
-	GstElement *sinkbin;
-	GstElement *tee;
+	guint emit_stream_idle_id;
 
 	GList *waiting_filters; /* in reverse order */
 	GstElement *filterbin;
+
+	GMutex eos_lock;
+	GCond eos_cond;
 };
 
 static void
@@ -149,6 +147,17 @@ _destroy_next_stream_data (RBPlayerGst *player)
 	player->priv->next_stream_data_destroy = NULL;
 }
 
+static gboolean
+about_to_finish_idle (RBPlayerGst *player)
+{
+	_rb_player_emit_eos (RB_PLAYER (player), player->priv->stream_data, TRUE);
+
+	g_mutex_lock (&player->priv->eos_lock);
+	g_cond_signal (&player->priv->eos_cond);
+	g_mutex_unlock (&player->priv->eos_lock);
+	return FALSE;
+}
+
 static void
 about_to_finish_cb (GstElement *playbin, RBPlayerGst *player)
 {
@@ -164,10 +173,13 @@ about_to_finish_cb (GstElement *playbin, RBPlayerGst *player)
 		return;
 	}
 
-	/* emit EOS now and hope we get something to play */
 	player->priv->current_track_finishing = TRUE;
 
-	_rb_player_emit_eos (RB_PLAYER (player), player->priv->stream_data, TRUE);
+	g_mutex_lock (&player->priv->eos_lock);
+	g_idle_add_full (G_PRIORITY_HIGH, (GSourceFunc) about_to_finish_idle, player, NULL);
+
+	g_cond_wait (&player->priv->eos_cond, &player->priv->eos_lock);
+	g_mutex_unlock (&player->priv->eos_lock);
 }
 
 static gboolean
@@ -204,13 +216,16 @@ process_tag (const GstTagList *list, const gchar *tag, RBPlayerGst *player)
 
 	/* process embedded images */
 	if (!g_strcmp0 (tag, GST_TAG_IMAGE) || !g_strcmp0 (tag, GST_TAG_PREVIEW_IMAGE)) {
-		GdkPixbuf *pixbuf;
-		pixbuf = rb_gst_process_embedded_image (list, tag);
-		if (pixbuf != NULL) {
-			_rb_player_emit_image (RB_PLAYER (player),
-					       player->priv->stream_data,
-					       pixbuf);
-			g_object_unref (pixbuf);
+		if (player->priv->stream_change_pending || (player->priv->emitted_image == FALSE)) {
+			GdkPixbuf *pixbuf;
+			pixbuf = rb_gst_process_embedded_image (list, tag);
+			if (pixbuf != NULL) {
+				_rb_player_emit_image (RB_PLAYER (player),
+						       player->priv->stream_data,
+						       pixbuf);
+				g_object_unref (pixbuf);
+				player->priv->emitted_image = TRUE;
+			}
 		}
 	} else if (rb_gst_process_tag_string (list, tag, &field, &value)) {
 		rb_debug ("emitting info field %d", field);
@@ -222,19 +237,10 @@ process_tag (const GstTagList *list, const gchar *tag, RBPlayerGst *player)
 	}
 }
 
-static void
-emit_playing_stream_and_tags (RBPlayerGst *player, gboolean track_change)
+static gboolean
+actually_emit_stream_and_tags (RBPlayerGst *player)
 {
 	GList *t;
-
-	if (track_change) {
-		/* swap stream data */
-		_destroy_stream_data (player);
-		player->priv->stream_data = player->priv->next_stream_data;
-		player->priv->stream_data_destroy = player->priv->next_stream_data_destroy;
-		player->priv->next_stream_data = NULL;
-		player->priv->next_stream_data_destroy = NULL;
-	}
 
 	_rb_player_emit_playing_stream (RB_PLAYER (player), player->priv->stream_data);
 
@@ -249,6 +255,31 @@ emit_playing_stream_and_tags (RBPlayerGst *player, gboolean track_change)
 	}
 	g_list_free (player->priv->stream_tags);
 	player->priv->stream_tags = NULL;
+
+	player->priv->emit_stream_idle_id = 0;
+	return FALSE;
+}
+
+static void
+emit_playing_stream_and_tags (RBPlayerGst *player, gboolean track_change)
+{
+	if (track_change) {
+		/* swap stream data */
+		_destroy_stream_data (player);
+		player->priv->stream_data = player->priv->next_stream_data;
+		player->priv->stream_data_destroy = player->priv->next_stream_data_destroy;
+		player->priv->next_stream_data = NULL;
+		player->priv->next_stream_data_destroy = NULL;
+	}
+
+	if (rb_is_main_thread ()) {
+		if (player->priv->emit_stream_idle_id != 0) {
+			g_source_remove (player->priv->emit_stream_idle_id);
+		}
+		actually_emit_stream_and_tags (player);
+	} else if (player->priv->emit_stream_idle_id == 0) {
+		player->priv->emit_stream_idle_id = g_idle_add ((GSourceFunc) actually_emit_stream_and_tags, player);
+	}
 }
 
 static void
@@ -287,22 +318,9 @@ static gboolean
 tick_timeout (RBPlayerGst *mp)
 {
 	if (mp->priv->playing) {
-		gint64 position;
-
-		position = rb_player_get_time (RB_PLAYER (mp));
-
-		/* if we don't have stream-changed messages, do the track change when
-		 * the playback position is less than one second into the current track,
-		 * which pretty much has to be the new one.
-		 */
-		if (mp->priv->playbin_stream_changing && (position < GST_SECOND)) {
-			emit_playing_stream_and_tags (mp, TRUE);
-			mp->priv->playbin_stream_changing = FALSE;
-		}
-
 		_rb_player_emit_tick (RB_PLAYER (mp),
 				      mp->priv->stream_data,
-				      position,
+				      rb_player_get_time (RB_PLAYER (mp)),
 				      -1);
 	}
 	return TRUE;
@@ -407,6 +425,16 @@ state_change_finished (RBPlayerGst *mp, GError *error)
 		if (error != NULL) {
 			g_warning ("unable to stop playback: %s\n", error->message);
 		} else {
+			GstBus *bus;
+
+			/* flush bus to ensure tags from the previous stream don't
+			 * get applied to the new one
+			 */
+			bus = gst_element_get_bus (mp->priv->playbin);
+			gst_bus_set_flushing (bus, TRUE);
+			gst_bus_set_flushing (bus, FALSE);
+			gst_object_unref (bus);
+
 			rb_debug ("setting new playback URI %s", mp->priv->uri);
 			g_object_set (mp->priv->playbin, "uri", mp->priv->uri, NULL);
 			start_state_change (mp, GST_STATE_PLAYING, FINISH_TRACK_CHANGE);
@@ -463,7 +491,7 @@ bus_cb (GstBus *bus, GstMessage *message, RBPlayerGst *mp)
 
 	switch (GST_MESSAGE_TYPE (message)) {
 	case GST_MESSAGE_ERROR: {
-		char *debug;
+		char *debug = NULL;
 		GError *error = NULL;
 		GError *sig_error = NULL;
 		int code;
@@ -543,9 +571,15 @@ bus_cb (GstBus *bus, GstMessage *message, RBPlayerGst *mp)
 
 	case GST_MESSAGE_TAG: {
 		GstTagList *tags;
+
+		if (mp->priv->playbin_stream_changing) {
+			rb_debug ("ignoring tags during playbin stream change");
+			break;
+		}
+
 		gst_message_parse_tag (message, &tags);
 
-		if (mp->priv->stream_change_pending || mp->priv->playbin_stream_changing) {
+		if (mp->priv->stream_change_pending) {
 			mp->priv->stream_tags = g_list_append (mp->priv->stream_tags, tags);
 		} else {
 			gst_tag_list_foreach (tags, (GstTagForeachFunc) process_tag, mp);
@@ -626,6 +660,7 @@ static gboolean
 construct_pipeline (RBPlayerGst *mp, GError **error)
 {
 	GstElement *sink;
+	GList *l;
 
 	mp->priv->playbin = gst_element_factory_make ("playbin", NULL);
 	if (mp->priv->playbin == NULL) {
@@ -681,45 +716,18 @@ construct_pipeline (RBPlayerGst *mp, GError **error)
 		rb_debug ("existing audio sink found");
 		g_object_unref (mp->priv->audio_sink);
 	}
+	g_object_set (mp->priv->playbin, "audio-sink", mp->priv->audio_sink, NULL);
 
-	{
-		GstPad *pad;
-		GList *l;
-		GstElement *queue;
-		GstPad *ghostpad;
+	/* setup filterbin */
+	mp->priv->filterbin = rb_gst_create_filter_bin ();
+	g_object_set (mp->priv->playbin, "audio-filter", mp->priv->filterbin, NULL);
 
-		/* setup filterbin */
-		mp->priv->filterbin = rb_gst_create_filter_bin ();
-
-		/* set up the sinkbin with its tee element */
-		mp->priv->sinkbin = gst_bin_new (NULL);
-		mp->priv->tee = gst_element_factory_make ("tee", NULL);
-		queue = gst_element_factory_make ("queue", NULL);
-
-		/* link it all together and insert */
-		gst_bin_add_many (GST_BIN (mp->priv->sinkbin), mp->priv->filterbin, mp->priv->tee, queue, mp->priv->audio_sink, NULL);
-		gst_element_link_many (mp->priv->filterbin, mp->priv->tee, queue, mp->priv->audio_sink, NULL);
-
-		pad = gst_element_get_static_pad (mp->priv->filterbin, "sink");
-		ghostpad = gst_ghost_pad_new ("sink", pad);
-		gst_element_add_pad (mp->priv->sinkbin, ghostpad);
-		gst_object_unref (pad);
-
-		g_object_set (G_OBJECT (mp->priv->playbin), "audio-sink", mp->priv->sinkbin, NULL);
-
-		/* add any tees and filters that were waiting for us */
-		for (l = mp->priv->waiting_tees; l != NULL; l = g_list_next (l)) {
-			rb_player_gst_tee_add_tee (RB_PLAYER_GST_TEE (mp), GST_ELEMENT (l->data));
-		}
-		g_list_free (mp->priv->waiting_tees);
-		mp->priv->waiting_tees = NULL;
-
-		for (l = mp->priv->waiting_filters; l != NULL; l = g_list_next (l)) {
-			rb_player_gst_filter_add_filter (RB_PLAYER_GST_FILTER(mp), GST_ELEMENT (l->data));
-		}
-		g_list_free (mp->priv->waiting_filters);
-		mp->priv->waiting_filters = NULL;
+	/* add any filters that have already been added */
+	for (l = mp->priv->waiting_filters; l != NULL; l = g_list_next (l)) {
+		rb_player_gst_filter_add_filter (RB_PLAYER_GST_FILTER(mp), GST_ELEMENT (l->data));
 	}
+	g_list_free (mp->priv->waiting_filters);
+	mp->priv->waiting_filters = NULL;
 
 	/* Use fakesink for video if there's no video sink yet */
 	g_object_get (mp->priv->playbin, "video-sink", &sink, NULL);
@@ -802,6 +810,7 @@ impl_open (RBPlayer *player,
 	mp->priv->next_stream_data_destroy = stream_data_destroy;
 	mp->priv->emitted_error = FALSE;
 	mp->priv->stream_change_pending = TRUE;
+	mp->priv->emitted_image = FALSE;
 
 	return TRUE;
 }
@@ -984,33 +993,6 @@ need_pad_blocking (RBPlayerGst *mp)
 }
 
 static gboolean
-impl_add_tee (RBPlayerGstTee *player, GstElement *element)
-{
-	RBPlayerGst *mp = RB_PLAYER_GST (player);
-
-	if (mp->priv->tee == NULL) {
-		mp->priv->waiting_tees = g_list_prepend (mp->priv->waiting_tees, element);
-		return TRUE;
-	}
-
-	return rb_gst_add_tee (RB_PLAYER (player), mp->priv->tee, element, need_pad_blocking (mp));
-}
-
-static gboolean
-impl_remove_tee (RBPlayerGstTee *player, GstElement *element)
-{
-	RBPlayerGst *mp = RB_PLAYER_GST (player);
-
-	if (mp->priv->tee == NULL) {
-		gst_object_ref_sink (element);
-		mp->priv->waiting_tees = g_list_remove (mp->priv->waiting_tees, element);
-		return TRUE;
-	}
-
-	return rb_gst_remove_tee (RB_PLAYER (mp), mp->priv->tee, element, need_pad_blocking (mp));
-}
-
-static gboolean
 impl_add_filter (RBPlayerGstFilter *player, GstElement *element)
 {
 	RBPlayerGst *mp = RB_PLAYER_GST (player);
@@ -1043,13 +1025,6 @@ rb_player_gst_filter_init (RBPlayerGstFilterIface *iface)
 	iface->remove_filter = impl_remove_filter;
 }
 
-static void
-rb_player_gst_tee_init (RBPlayerGstTeeIface *iface)
-{
-	iface->add_tee = impl_add_tee;
-	iface->remove_tee = impl_remove_tee;
-}
-
 
 
 RBPlayer *
@@ -1065,6 +1040,9 @@ rb_player_gst_init (RBPlayerGst *mp)
 	mp->priv = (G_TYPE_INSTANCE_GET_PRIVATE ((mp),
 		    RB_TYPE_PLAYER_GST,
 		    RBPlayerGstPrivate));
+
+	g_mutex_init (&mp->priv->eos_lock);
+	g_cond_init (&mp->priv->eos_cond);
 }
 
 static void
@@ -1120,17 +1098,16 @@ impl_dispose (GObject *object)
 		mp->priv->tick_timeout_id = 0;
 	}
 
+	if (mp->priv->emit_stream_idle_id != 0) {
+		g_source_remove (mp->priv->emit_stream_idle_id);
+		mp->priv->emit_stream_idle_id = 0;
+	}
+
 	if (mp->priv->playbin != NULL) {
 		gst_element_set_state (mp->priv->playbin, GST_STATE_NULL);
 		g_object_unref (mp->priv->playbin);
 		mp->priv->playbin = NULL;
 		mp->priv->audio_sink = NULL;
-	}
-
-	if (mp->priv->waiting_tees != NULL) {
-		g_list_foreach (mp->priv->waiting_tees, (GFunc)gst_object_ref_sink, NULL);
-		g_list_free (mp->priv->waiting_tees);
-		mp->priv->waiting_tees = NULL;
 	}
 
 	if (mp->priv->waiting_filters != NULL) {

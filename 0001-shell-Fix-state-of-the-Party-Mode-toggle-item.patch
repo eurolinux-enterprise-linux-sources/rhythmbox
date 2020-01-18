@@ -1,0 +1,42 @@
+From 033f56ef82e06f35a8a9be8f1ce8a7fa1cf9a16b Mon Sep 17 00:00:00 2001
+From: Bastien Nocera <hadess@hadess.net>
+Date: Fri, 20 May 2016 15:57:12 +0200
+Subject: [PATCH] shell: Fix state of the "Party Mode" toggle item
+
+The "Party Mode" menu item is a toggle menu item. If we only listen to
+the "activate" signal, we'll listen for clicks, but we won't change the
+state. So when the gear menu appears, the old state would be shown.
+
+Listen to the state change instead, and update the action state.
+
+http://bugzilla.gnome.org/show_bug.cgi?id=703910
+---
+ shell/rb-shell.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/shell/rb-shell.c b/shell/rb-shell.c
+index b69d01a..a9c34f0 100644
+--- a/shell/rb-shell.c
++++ b/shell/rb-shell.c
+@@ -1742,7 +1742,7 @@ rb_shell_constructed (GObject *object)
+ 							 NULL,
+ 							 g_variant_new_boolean (FALSE)));
+ 	g_action_map_add_action (G_ACTION_MAP (shell->priv->window), action);
+-	g_signal_connect (action, "activate", G_CALLBACK (view_party_mode_changed_cb), shell);
++	g_signal_connect (action, "change-state", G_CALLBACK (view_party_mode_changed_cb), shell);
+ 
+ 	action = G_ACTION (g_simple_action_new ("library-import", NULL));
+ 	g_signal_connect (action, "activate", G_CALLBACK (add_music_action_cb), shell);
+@@ -2415,7 +2415,8 @@ rb_shell_set_window_title (RBShell *shell,
+ static void
+ view_party_mode_changed_cb (GAction *action, GVariant *parameter, RBShell *shell)
+ {
+-	shell->priv->party_mode = (shell->priv->party_mode == FALSE);
++	shell->priv->party_mode = g_variant_get_boolean (parameter);
++	g_simple_action_set_state (G_SIMPLE_ACTION (action), parameter);
+ 	rb_shell_sync_party_mode (shell);
+ }
+ 
+-- 
+2.7.4
+

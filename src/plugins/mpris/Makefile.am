@@ -15,7 +15,7 @@ libmpris_la_LIBADD =					\
 	$(top_builddir)/shell/librhythmbox-core.la	\
 	$(NULL)
 
-INCLUDES = 						\
+AM_CPPFLAGS = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -24,7 +24,6 @@ INCLUDES = 						\
 	-DSHARE_DIR=\"$(pkgdatadir)\"                   \
 	-DDATADIR=\""$(datadir)"\"			\
 	$(RHYTHMBOX_CFLAGS)				\
-	-D_BSD_SOURCE			\
 	$(NULL)
 
 plugin_in_files = mpris.plugin.in

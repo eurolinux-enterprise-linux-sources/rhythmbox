@@ -46,10 +46,16 @@ rb_introspection_sources = \
 		lib/rb-debug.c \
 		lib/rb-file-helpers.h \
 		lib/rb-file-helpers.c \
+		lib/rb-list-model.h \
+		lib/rb-list-model.c \
 		lib/rb-stock-icons.h \
 		lib/rb-stock-icons.c \
 		lib/rb-string-value-map.h \
 		lib/rb-string-value-map.c \
+		lib/rb-task-progress.h \
+		lib/rb-task-progress.c \
+		lib/rb-task-progress-simple.h \
+		lib/rb-task-progress-simple.c \
 		lib/rb-util.h \
 		lib/rb-util.c \
 		metadata/rb-ext-db.h \
@@ -62,6 +68,8 @@ rb_introspection_sources = \
 		podcast/rb-podcast-manager.c \
 		podcast/rb-podcast-parse.h \
 		podcast/rb-podcast-parse.c \
+		podcast/rb-podcast-search.h \
+		podcast/rb-podcast-search.c \
 		rhythmdb/rhythmdb.h \
 		rhythmdb/rhythmdb.c \
 		rhythmdb/rhythmdb-entry.h \
@@ -97,6 +105,8 @@ rb_introspection_sources = \
 		shell/rb-history.c \
 		shell/rb-play-order.h \
 		shell/rb-play-order.c \
+		shell/rb-task-list.h \
+		shell/rb-task-list.c \
 		shell/rb-track-transfer-batch.c \
 		shell/rb-track-transfer-batch.h \
 		shell/rb-track-transfer-queue.c \
@@ -157,7 +167,9 @@ rb_introspection_sources = \
 		widgets/rb-song-info.h \
 		widgets/rb-song-info.c \
 		widgets/rb-uri-dialog.h \
-		widgets/rb-uri-dialog.c
+		widgets/rb-uri-dialog.c \
+		widgets/rb-fading-image.h \
+		widgets/rb-fading-image.c
 
 MPID-3.0.gir: $(top_builddir)/shell/librhythmbox-core.la
 MPID_3_0_gir_INCLUDES = GObject-2.0

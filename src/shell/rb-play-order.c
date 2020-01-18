@@ -395,7 +395,7 @@ rb_play_order_set_playing_entry (RBPlayOrder *porder,
  *
  * Returns the current playing entry in the play order.
  *
- * Returns: (transfer full) playing entry
+ * Returns: (transfer full): playing entry
  */
 RhythmDBEntry *
 rb_play_order_get_playing_entry (RBPlayOrder *porder)
@@ -635,8 +635,6 @@ sync_playing_entry_cb (RBPlayOrder *porder)
 {
 	RBShellPlayer *player;
 
-	GDK_THREADS_ENTER ();
-	
 	player = rb_play_order_get_player (porder);
 
 	if (porder->priv->playing_entry) {
@@ -655,8 +653,6 @@ sync_playing_entry_cb (RBPlayOrder *porder)
 		}
 	}
 	porder->priv->sync_playing_entry_id = 0;
-
-	GDK_THREADS_LEAVE ();
 	return FALSE;
 }
 
@@ -880,19 +876,3 @@ rb_play_order_update_have_next_previous (RBPlayOrder *porder)
 		porder->priv->have_previous = have_previous;
 	}
 }
-
-/* annotations for methods */
-
-/**
- * get_next:
- * @porder: the play order
- *
- * Return value: (transfer full): the next entry
- */
-
-/**
- * get_previous:
- * @porder: the play order
- *
- * Return value: (transfer full): the previous entry
- */

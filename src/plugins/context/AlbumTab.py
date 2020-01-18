@@ -26,9 +26,9 @@
 
 import os
 import cgi
-import urllib
+import urllib.request, urllib.parse
 from mako.template import Template
-import xml.dom.minidom as dom
+import json
 
 import LastFM
 
@@ -102,7 +102,7 @@ class AlbumView (GObject.GObject):
         self.file    = ""
 
         plugindir = plugin.plugin_info.get_data_dir()
-        self.basepath = "file://" + urllib.pathname2url (plugindir)
+        self.basepath = "file://" + urllib.request.pathname2url (plugindir)
 
         self.load_tmpl ()
         self.connect_signals ()
@@ -131,7 +131,7 @@ class AlbumView (GObject.GObject):
 
     def album_list_ready (self, ds):
         self.file = self.album_template.render (error = ds.get_error(), 
-                                                list = ds.get_top_albums(), 
+                                                albums = ds.get_top_albums(), 
                                                 artist = ds.get_artist(),
                                                 datasource = LastFM.datasource_link (self.basepath),
                                                 stylesheet = self.styles)
@@ -150,18 +150,9 @@ class AlbumDataSource (GObject.GObject):
         self.error = None
         self.artist = None
         self.max_albums_fetched = 8
+        self.fetching = 0
         self.info_cache = info_cache
         self.ranking_cache = ranking_cache
-
-    def extract (self, data, position):
-        """
-        Safely extract the data from an xml node. Returns data
-        at position or None if position does not exist
-        """
-        try:
-            return data[position].firstChild.data
-        except Exception, e:
-            return None
 
     def get_artist (self):
         return self.artist
@@ -176,108 +167,82 @@ class AlbumDataSource (GObject.GObject):
             return
 
         self.artist = artist
-        qartist = urllib.quote_plus (artist)
+        qartist = urllib.parse.quote_plus(artist)
         self.error  = None
-        url = "%sartist.gettopalbums&artist=%s&api_key=%s" % (LastFM.URL_PREFIX,
-                                                              qartist,
-                                                              LastFM.API_KEY)
-        cachekey = 'lastfm:artist:gettopalbums:%s' % qartist
+        url = "%sartist.gettopalbums&artist=%s&api_key=%s&format=json" % (
+		LastFM.URL_PREFIX, qartist, LastFM.API_KEY)
+        cachekey = 'lastfm:artist:gettopalbumsjson:%s' % qartist
         self.ranking_cache.fetch(cachekey, url, self.parse_album_list, artist)
 
     def parse_album_list (self, data, artist):
         if data is None:
-            print "Nothing fetched for %s top albums" % artist
-            return
-
-        try:
-            parsed = dom.parseString (data)
-        except Exception, e:
-            print "Error parsing album list: %s" % e
+            print("Nothing fetched for %s top albums" % artist)
             return False
 
-        lfm = parsed.getElementsByTagName ('lfm')[0]
-        if lfm.attributes['status'].value == 'failed':
-            self.error = lfm.childNodes[1].firstChild.data
-            self.emit ('albums-ready')
-            return
+        try:
+            parsed = json.loads(data.decode("utf-8"))
+        except Exception as e:
+            print("Error parsing album list: %s" % e)
+            return False
 
-        self.albums = []
-        album_nodes = parsed.getElementsByTagName ('album') 
-        print "num albums: %d" % len(album_nodes)
-        if len(album_nodes) == 0:
+        self.error = parsed.get('error')
+        if self.error:
+            self.emit ('albums-ready')
+            return False
+
+        albums = parsed['topalbums'].get('album', [])
+        if len(albums) == 0:
             self.error = "No albums found for %s" % artist
             self.emit('albums-ready')
-            return
-            
-        self.album_info_fetched = min (len (album_nodes) - 1, self.max_albums_fetched)
+            return True
+        
+        self.albums = []
+        albums = parsed['topalbums'].get('album', [])[:self.max_albums_fetched]
+        self.fetching = len(albums)
+        for i, a in enumerate(albums):
+            images = [img['#text'] for img in a.get('image', [])]
+            self.albums.append({'title': a.get('name'), 'images': images[:3]})
+            self.fetch_album_info(artist, a.get('name'), i)
 
-        for i, album in enumerate (album_nodes): 
-            if i >= self.album_info_fetched:
-                break
-
-            album_name = self.extract(album.getElementsByTagName ('name'), 0)
-            imgs = album.getElementsByTagName ('image')
-            images = (self.extract(imgs, 0), self.extract(imgs, 1), self.extract(imgs, 2))
-            self.albums.append ({'title' : album_name, 'images' : images })
-            self.fetch_album_info (artist, album_name, i)
+        return True
 
     def get_top_albums (self):
         return self.albums
 
     def fetch_album_info (self, artist, album, index):
-        qartist = urllib.quote_plus (artist)
-        qalbum = urllib.quote_plus (album.encode('utf-8'))
-        cachekey = "lastfm:album:getinfo:%s:%s" % (qartist, qalbum)
-        url = "%salbum.getinfo&artist=%s&album=%s&api_key=%s" % (LastFM.URL_PREFIX,
-                                                                 qartist,
-                                                                 qalbum,
-                                                                 LastFM.API_KEY)
-        self.info_cache.fetch(cachekey, url, self.fetch_album_tracklist, album, index)
+        qartist = urllib.parse.quote_plus(artist)
+        qalbum = urllib.parse.quote_plus(album)
+        cachekey = "lastfm:album:getinfojson:%s:%s" % (qartist, qalbum)
+        url = "%salbum.getinfo&artist=%s&album=%s&api_key=%s&format=json" % (
+		LastFM.URL_PREFIX, qartist, qalbum, LastFM.API_KEY)
+        self.info_cache.fetch(cachekey, url, self.parse_album_info, album, index)
 
-    def fetch_album_tracklist (self, data, album, index):
-        if data is None:
-            self.assemble_info(None, None, None)
-
-        try:
-            parsed = dom.parseString (data)
-            self.albums[index]['id'] = parsed.getElementsByTagName ('id')[0].firstChild.data
-        except Exception, e:
-            print "Error parsing album tracklist: %s" % e
-            return False
-
-        self.albums[index]['releasedate'] = self.extract(parsed.getElementsByTagName ('releasedate'),0)
-        self.albums[index]['summary'] = self.extract(parsed.getElementsByTagName ('summary'), 0)
-
-        cachekey = "lastfm:album:tracks:%s" % self.albums[index]['id']
-        url = "%splaylist.fetch&playlistURL=lastfm://playlist/album/%s&api_key=%s" % (
-                     LastFM.URL_PREFIX, self.albums[index]['id'], LastFM.API_KEY)
-
-        self.info_cache.fetch(cachekey, url, self.assemble_info, album, index)
-
-    def assemble_info (self, data, album, index):
+    def parse_album_info (self, data, album, index):
         rv = True
-        if data is None:
-            print "nothing fetched for %s tracklist" % album
-        else:
-            try:
-                parsed = dom.parseString (data)
-                list = parsed.getElementsByTagName ('track')
-                tracklist = []
-                album_length = 0
-                for i, track in enumerate(list):
-                    title = track.getElementsByTagName ('title')[0].firstChild.data
-                    duration = int(track.getElementsByTagName ('duration')[0].firstChild.data) / 1000
-                    album_length += duration
-                    tracklist.append ((i, title, duration))
-                self.albums[index]['tracklist'] = tracklist
-                self.albums[index]['duration']  = album_length
-            except Exception, e:
-                print "Error parsing album playlist: %s" % e
-                rv = False
+        try:
+            parsed = json.loads(data.decode('utf-8'))
+            self.albums[index]['id'] = parsed['album']['id']
 
-        self.album_info_fetched -= 1
-        print "%s albums left to process" % self.album_info_fetched
-        if self.album_info_fetched == 0:
+            for k in ('releasedate', 'summary'):
+                self.albums[index][k] = parsed['album'].get(k)
+
+            tracklist = []
+            tracks = parsed['album']['tracks'].get('track', [])
+            for i, t in enumerate(tracks):
+                title = t['name']
+                duration = int(t['duration'])
+                tracklist.append((i, title, duration))
+
+            self.albums[index]['tracklist'] = tracklist
+            self.albums[index]['duration']  = sum([t[2] for t in tracklist])
+
+        except Exception as e:
+            print("Error parsing album tracklist: %s" % e)
+            rv = False
+
+        self.fetching -= 1
+        print("%s albums left to process" % self.fetching)
+        if self.fetching == 0:
             self.emit('albums-ready')
 
         return rv

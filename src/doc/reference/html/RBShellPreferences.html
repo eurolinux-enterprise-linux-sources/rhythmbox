@@ -2,34 +2,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RBShellPreferences</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<title>RBShellPreferences: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch05.html" title="Shell">
 <link rel="prev" href="RBShellPlayer.html" title="RBShellPlayer">
 <link rel="next" href="RBShell.html" title="RBShell">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
-<tr valign="middle">
-<td><a accesskey="p" href="RBShellPlayer.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch05.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
-<td><a accesskey="n" href="RBShell.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
-</tr>
-<tr><td colspan="5" class="shortcuts">
-<a href="#RBShellPreferences.synopsis" class="shortcut">Top</a>
-                   | 
-                  <a href="#RBShellPreferences.description" class="shortcut">Description</a>
-                   | 
-                  <a href="#RBShellPreferences.object-hierarchy" class="shortcut">Object Hierarchy</a>
-                   | 
-                  <a href="#RBShellPreferences.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
-</td></tr>
-</table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBShellPreferences.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBShellPreferences.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#RBShellPreferences.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch05.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RBShellPlayer.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RBShell.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
 <div class="refentry">
 <a name="RBShellPreferences"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -37,38 +31,84 @@
 <h2><span class="refentrytitle"><a name="RBShellPreferences.top_of_page"></a>RBShellPreferences</span></h2>
 <p>RBShellPreferences — preferences dialog</p>
 </td>
-<td valign="top" align="right"></td>
+<td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
-<a name="RBShellPreferences.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">enum                <a class="link" href="RBShellPreferences.html#RBShellPrefsUILocation" title="enum RBShellPrefsUILocation">RBShellPrefsUILocation</a>;
-struct              <a class="link" href="RBShellPreferences.html#RBShellPreferences-struct" title="struct RBShellPreferences">RBShellPreferences</a>;
-struct              <a class="link" href="RBShellPreferences.html#RBShellPreferencesClass" title="struct RBShellPreferencesClass">RBShellPreferencesClass</a>;
-<span class="returnvalue">GtkWidget</span> *         <a class="link" href="RBShellPreferences.html#rb-shell-preferences-new" title="rb_shell_preferences_new ()">rb_shell_preferences_new</a>            (<em class="parameter"><code><span class="type">GList</span> *views</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBShellPreferences.html#rb-shell-preferences-append-page" title="rb_shell_preferences_append_page ()">rb_shell_preferences_append_page</a>    (<em class="parameter"><code><a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> *prefs</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkWidget</span> *widget</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBShellPreferences.html#rb-shell-preferences-add-widget" title="rb_shell_preferences_add_widget ()">rb_shell_preferences_add_widget</a>     (<em class="parameter"><code><a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> *prefs</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkWidget</span> *widget</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBShellPreferences.html#RBShellPrefsUILocation" title="enum RBShellPrefsUILocation"><span class="type">RBShellPrefsUILocation</span></a> location</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> expand</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> fill</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBShellPreferences.html#rb-shell-preferences-remove-widget" title="rb_shell_preferences_remove_widget ()">rb_shell_preferences_remove_widget</a>  (<em class="parameter"><code><a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> *prefs</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkWidget</span> *widget</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBShellPreferences.html#RBShellPrefsUILocation" title="enum RBShellPrefsUILocation"><span class="type">RBShellPrefsUILocation</span></a> location</code></em>);
-</pre>
+<div class="refsect1">
+<a name="RBShellPreferences.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GtkWidget</span> *
+</td>
+<td class="function_name">
+<a class="link" href="RBShellPreferences.html#rb-shell-preferences-new" title="rb_shell_preferences_new ()">rb_shell_preferences_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBShellPreferences.html#rb-shell-preferences-append-page" title="rb_shell_preferences_append_page ()">rb_shell_preferences_append_page</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBShellPreferences.html#rb-shell-preferences-add-widget" title="rb_shell_preferences_add_widget ()">rb_shell_preferences_add_widget</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBShellPreferences.html#rb-shell-preferences-remove-widget" title="rb_shell_preferences_remove_widget ()">rb_shell_preferences_remove_widget</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBShellPreferences.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="RBShellPreferences.html#RBShellPrefsUILocation" title="enum RBShellPrefsUILocation">RBShellPrefsUILocation</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBShellPreferences.html#RBShellPreferences-struct" title="struct RBShellPreferences">RBShellPreferences</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBShellPreferences.html#RBShellPreferencesClass" title="struct RBShellPreferencesClass">RBShellPreferencesClass</a></td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="refsect1">
 <a name="RBShellPreferences.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="synopsis">
-  GObject
-   +----GInitiallyUnowned
-         +----GtkWidget
-               +----GtkContainer
-                     +----GtkBin
-                           +----GtkWindow
-                                 +----GtkDialog
-                                       +----RBShellPreferences
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> GtkWidget
+            <span class="lineart">╰──</span> GtkContainer
+                <span class="lineart">╰──</span> GtkBin
+                    <span class="lineart">╰──</span> GtkWindow
+                        <span class="lineart">╰──</span> GtkDialog
+                            <span class="lineart">╰──</span> RBShellPreferences
 </pre>
 </div>
 <div class="refsect1">
@@ -79,55 +119,199 @@ RBShellPreferences implements
 </div>
 <div class="refsect1">
 <a name="RBShellPreferences.description"></a><h2>Description</h2>
-<p>
-The preferences dialog is built around a <span class="type">GtkNotebook</span> widget, with two built-in
-pages and additional pages for various sources.
-</p>
-<p>
-The 'general' preferences page controls the set of browser views that are visible
+<p>The preferences dialog is built around a <span class="type">GtkNotebook</span> widget, with two built-in
+pages and additional pages for various sources.</p>
+<p>The 'general' preferences page controls the set of browser views that are visible
 (artist and album; genre and artist; or genre, artist, and album), the columns
 that are visible, and the appearance of buttons in the main toolbar.  The browser
-and column settings apply to all sources.
-</p>
-<p>
-The 'playback' preferences page controls whether the crossfading player backend is used,
-and if enabled, the crossfade duration and network buffer size.
-</p>
-<p>
-Currently, the library and podcast sources add pages to the notebook, for configuring the
-location and layout of the library and the podcast download location and update frequency.
-</p>
+and column settings apply to all sources.</p>
+<p>The 'playback' preferences page controls whether the crossfading player backend is used,
+and if enabled, the crossfade duration and network buffer size.</p>
+<p>Currently, the library and podcast sources add pages to the notebook, for configuring the
+location and layout of the library and the podcast download location and update frequency.</p>
 </div>
 <div class="refsect1">
-<a name="RBShellPreferences.details"></a><h2>Details</h2>
+<a name="RBShellPreferences.functions_details"></a><h2>Functions</h2>
 <div class="refsect2">
-<a name="RBShellPrefsUILocation"></a><h3>enum RBShellPrefsUILocation</h3>
-<pre class="programlisting">typedef enum {
-	RB_SHELL_PREFS_UI_LOCATION_GENERAL,
-	RB_SHELL_PREFS_UI_LOCATION_PLAYBACK
-} RBShellPrefsUILocation;
-</pre>
-<p>
-Locations available for adding new widgets to the preferences dialog.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="rb-shell-preferences-new"></a><h3>rb_shell_preferences_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *
+rb_shell_preferences_new (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *views</code></em>);</pre>
+<p>Creates the <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> instance, populating it with the
+preferences pages for the sources in the list.</p>
+<div class="refsect3">
+<a name="id-1.6.10.8.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>views</p></td>
+<td class="parameter_description"><p> list of sources to check for preferences pages. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> RB.Source][<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.10.8.2.6"></a><h4>Returns</h4>
+<p> the <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> instance</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-shell-preferences-append-page"></a><h3>rb_shell_preferences_append_page ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_shell_preferences_append_page (<em class="parameter"><code><a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> *prefs</code></em>,
+                                  <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                  <em class="parameter"><code><span class="type">GtkWidget</span> *widget</code></em>);</pre>
+<p>Appends a new page to the preferences dialog notebook.</p>
+<div class="refsect3">
+<a name="id-1.6.10.8.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><a name="RB-SHELL-PREFS-UI-LOCATION-GENERAL:CAPS"></a><span class="term"><code class="literal">RB_SHELL_PREFS_UI_LOCATION_GENERAL</code></span></p></td>
-<td>The "general" preferences page
-</td>
+<td class="parameter_name"><p>prefs</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><a name="RB-SHELL-PREFS-UI-LOCATION-PLAYBACK:CAPS"></a><span class="term"><code class="literal">RB_SHELL_PREFS_UI_LOCATION_PLAYBACK</code></span></p></td>
-<td>THe "playback" preferences page
-</td>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>name of the page to append</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the <span class="type">GtkWidget</span> to use as the contents of the page</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-shell-preferences-add-widget"></a><h3>rb_shell_preferences_add_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_shell_preferences_add_widget (<em class="parameter"><code><a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> *prefs</code></em>,
+                                 <em class="parameter"><code><span class="type">GtkWidget</span> *widget</code></em>,
+                                 <em class="parameter"><code><a class="link" href="RBShellPreferences.html#RBShellPrefsUILocation" title="enum RBShellPrefsUILocation"><span class="type">RBShellPrefsUILocation</span></a> location</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> expand</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> fill</code></em>);</pre>
+<p>Adds a widget to the preferences window.  See <span class="type">gtk_box_pack_start</span> for
+details on how the expand and fill parameters work.  This function can be
+used to add widgets to the 'general' and 'playback' pages.</p>
+<div class="refsect3">
+<a name="id-1.6.10.8.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prefs</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the <span class="type">GtkWidget</span> to insert into the preferences window</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>location</p></td>
+<td class="parameter_description"><p>the location at which to insert the widget</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>expand</p></td>
+<td class="parameter_description"><p>whether the widget should be given extra space</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>fill</p></td>
+<td class="parameter_description"><p>whether the widget should fill all space allocated to it</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-shell-preferences-remove-widget"></a><h3>rb_shell_preferences_remove_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_shell_preferences_remove_widget (<em class="parameter"><code><a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> *prefs</code></em>,
+                                    <em class="parameter"><code><span class="type">GtkWidget</span> *widget</code></em>,
+                                    <em class="parameter"><code><a class="link" href="RBShellPreferences.html#RBShellPrefsUILocation" title="enum RBShellPrefsUILocation"><span class="type">RBShellPrefsUILocation</span></a> location</code></em>);</pre>
+<p>Removes a widget added with <a class="link" href="RBShellPreferences.html#rb-shell-preferences-add-widget" title="rb_shell_preferences_add_widget ()"><span class="type">rb_shell_preferences_add_widget</span></a> from the preferences window.</p>
+<div class="refsect3">
+<a name="id-1.6.10.8.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prefs</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the <span class="type">GtkWidget</span> to remove from the preferences window</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>location</p></td>
+<td class="parameter_description"><p>the UI location to which the widget was originally added</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBShellPreferences.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RBShellPrefsUILocation"></a><h3>enum RBShellPrefsUILocation</h3>
+<p>Locations available for adding new widgets to the preferences dialog.</p>
+<div class="refsect3">
+<a name="id-1.6.10.9.2.4"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="RB-SHELL-PREFS-UI-LOCATION-GENERAL:CAPS"></a>RB_SHELL_PREFS_UI_LOCATION_GENERAL</p></td>
+<td class="enum_member_description">
+<p>The "general" preferences page</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-SHELL-PREFS-UI-LOCATION-PLAYBACK:CAPS"></a>RB_SHELL_PREFS_UI_LOCATION_PLAYBACK</p></td>
+<td class="enum_member_description">
+<p>THe "playback" preferences page</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
 </div>
 <hr>
 <div class="refsect2">
@@ -146,140 +330,9 @@ Locations available for adding new widgets to the preferences dialog.
 <p>
 </p>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rb-shell-preferences-new"></a><h3>rb_shell_preferences_new ()</h3>
-<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *         rb_shell_preferences_new            (<em class="parameter"><code><span class="type">GList</span> *views</code></em>);</pre>
-<p>
-Creates the <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> instance, populating it with the
-preferences pages for the sources in the list.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>views</code></em> :</span></p></td>
-<td>list of sources to check for preferences pages. <span class="annotation">[<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> RB.Source][<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> instance</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-shell-preferences-append-page"></a><h3>rb_shell_preferences_append_page ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_shell_preferences_append_page    (<em class="parameter"><code><a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> *prefs</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkWidget</span> *widget</code></em>);</pre>
-<p>
-Appends a new page to the preferences dialog notebook.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>prefs</code></em> :</span></p></td>
-<td>the <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> instance</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
-<td>name of the page to append</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>the <span class="type">GtkWidget</span> to use as the contents of the page</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-shell-preferences-add-widget"></a><h3>rb_shell_preferences_add_widget ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_shell_preferences_add_widget     (<em class="parameter"><code><a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> *prefs</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkWidget</span> *widget</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBShellPreferences.html#RBShellPrefsUILocation" title="enum RBShellPrefsUILocation"><span class="type">RBShellPrefsUILocation</span></a> location</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> expand</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> fill</code></em>);</pre>
-<p>
-Adds a widget to the preferences window.  See <span class="type">gtk_box_pack_start</span> for
-details on how the expand and fill parameters work.  This function can be
-used to add widgets to the 'general' and 'playback' pages.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>prefs</code></em> :</span></p></td>
-<td>the <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>the <span class="type">GtkWidget</span> to insert into the preferences window</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>location</code></em> :</span></p></td>
-<td>the location at which to insert the widget</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>expand</code></em> :</span></p></td>
-<td>whether the widget should be given extra space</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>fill</code></em> :</span></p></td>
-<td>whether the widget should fill all space allocated to it</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-shell-preferences-remove-widget"></a><h3>rb_shell_preferences_remove_widget ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_shell_preferences_remove_widget  (<em class="parameter"><code><a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a> *prefs</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkWidget</span> *widget</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBShellPreferences.html#RBShellPrefsUILocation" title="enum RBShellPrefsUILocation"><span class="type">RBShellPrefsUILocation</span></a> location</code></em>);</pre>
-<p>
-Removes a widget added with <a class="link" href="RBShellPreferences.html#rb-shell-preferences-add-widget" title="rb_shell_preferences_add_widget ()"><span class="type">rb_shell_preferences_add_widget</span></a> from the preferences window.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>prefs</code></em> :</span></p></td>
-<td>the <a class="link" href="RBShellPreferences.html" title="RBShellPreferences"><span class="type">RBShellPreferences</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>the <span class="type">GtkWidget</span> to remove from the preferences window</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>location</code></em> :</span></p></td>
-<td>the UI location to which the widget was originally added</td>
-</tr>
-</tbody>
-</table></div>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.18.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

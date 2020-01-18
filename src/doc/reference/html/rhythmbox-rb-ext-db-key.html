@@ -2,30 +2,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>rb-ext-db-key</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<title>rb-ext-db-key: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch03.html" title="Metadata">
 <link rel="prev" href="rhythmbox-RBExtDB.html" title="RBExtDB">
 <link rel="next" href="ch04.html" title="RhythmDB">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
-<tr valign="middle">
-<td><a accesskey="p" href="rhythmbox-RBExtDB.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
-<td><a accesskey="n" href="ch04.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
-</tr>
-<tr><td colspan="5" class="shortcuts">
-<a href="#rhythmbox-rb-ext-db-key.synopsis" class="shortcut">Top</a>
-                   | 
-                  <a href="#rhythmbox-rb-ext-db-key.description" class="shortcut">Description</a>
-</td></tr>
-</table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#rhythmbox-rb-ext-db-key.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="rhythmbox-RBExtDB.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ch04.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
 <div class="refentry">
 <a name="rhythmbox-rb-ext-db-key"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -33,489 +29,727 @@
 <h2><span class="refentrytitle"><a name="rhythmbox-rb-ext-db-key.top_of_page"></a>rb-ext-db-key</span></h2>
 <p>rb-ext-db-key — key for external metadata lookups</p>
 </td>
-<td valign="top" align="right"></td>
+<td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
-<a name="rhythmbox-rb-ext-db-key.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis"><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="returnvalue">RBExtDBKey</span></a> *        <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-copy" title="rb_ext_db_key_copy ()">rb_ext_db_key_copy</a>                  (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-free" title="rb_ext_db_key_free ()">rb_ext_db_key_free</a>                  (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);
-<a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="returnvalue">RBExtDBKey</span></a> *        <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-create-lookup" title="rb_ext_db_key_create_lookup ()">rb_ext_db_key_create_lookup</a>         (<em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);
-<a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="returnvalue">RBExtDBKey</span></a> *        <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-create-storage" title="rb_ext_db_key_create_storage ()">rb_ext_db_key_create_storage</a>        (<em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-is-lookup" title="rb_ext_db_key_is_lookup ()">rb_ext_db_key_is_lookup</a>             (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-add-field" title="rb_ext_db_key_add_field ()">rb_ext_db_key_add_field</a>             (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);
-<span class="returnvalue">char</span> **             <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-get-field-names" title="rb_ext_db_key_get_field_names ()">rb_ext_db_key_get_field_names</a>       (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);
-const <span class="returnvalue">char</span> *        <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-get-field" title="rb_ext_db_key_get_field ()">rb_ext_db_key_get_field</a>             (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>);
-<span class="returnvalue">char</span> **             <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-get-field-values" title="rb_ext_db_key_get_field_values ()">rb_ext_db_key_get_field_values</a>      (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-field-matches" title="rb_ext_db_key_field_matches ()">rb_ext_db_key_field_matches</a>         (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-add-info" title="rb_ext_db_key_add_info ()">rb_ext_db_key_add_info</a>              (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);
-<span class="returnvalue">char</span> **             <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-get-info-names" title="rb_ext_db_key_get_info_names ()">rb_ext_db_key_get_info_names</a>        (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);
-const <span class="returnvalue">char</span> *        <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-get-info" title="rb_ext_db_key_get_info ()">rb_ext_db_key_get_info</a>              (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-matches" title="rb_ext_db_key_matches ()">rb_ext_db_key_matches</a>               (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *a</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *b</code></em>);
-<span class="returnvalue">gboolean</span>            (<a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKeyLookupCallback" title="RBExtDBKeyLookupCallback ()">*RBExtDBKeyLookupCallback</a>)         (<em class="parameter"><code><span class="type">TDB_DATA</span> data</code></em>,
-                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-lookups" title="rb_ext_db_key_lookups ()">rb_ext_db_key_lookups</a>               (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKeyLookupCallback" title="RBExtDBKeyLookupCallback ()"><span class="type">RBExtDBKeyLookupCallback</span></a> callback</code></em>,
-                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);
-<span class="returnvalue">TDB_DATA</span>            <a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-to-store-key" title="rb_ext_db_key_to_store_key ()">rb_ext_db_key_to_store_key</a>          (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);
-                    <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey">RBExtDBKey</a>;
-</pre>
-</div>
 <div class="refsect1">
-<a name="rhythmbox-rb-ext-db-key.description"></a><h2>Description</h2>
-<p>
-An external metadata key consists of one or more required fields (such as
-the album name for album art lookups), zero or more optional fields
-(such as the artist name), and zero or more informational fields (such as
-the musicbrainz album ID).
-</p>
-</div>
-<div class="refsect1">
-<a name="rhythmbox-rb-ext-db-key.details"></a><h2>Details</h2>
-<div class="refsect2">
-<a name="rb-ext-db-key-copy"></a><h3>rb_ext_db_key_copy ()</h3>
-<pre class="programlisting"><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="returnvalue">RBExtDBKey</span></a> *        rb_ext_db_key_copy                  (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);</pre>
-<p>
-Copies a key.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="rhythmbox-rb-ext-db-key.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="functions_return">
+<col class="functions_name">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a>
+<td class="function_type">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="returnvalue">RBExtDBKey</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-copy" title="rb_ext_db_key_copy ()">rb_ext_db_key_copy</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>copied key</td>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-free" title="rb_ext_db_key_free ()">rb_ext_db_key_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="returnvalue">RBExtDBKey</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-create-lookup" title="rb_ext_db_key_create_lookup ()">rb_ext_db_key_create_lookup</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="returnvalue">RBExtDBKey</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-create-storage" title="rb_ext_db_key_create_storage ()">rb_ext_db_key_create_storage</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-is-lookup" title="rb_ext_db_key_is_lookup ()">rb_ext_db_key_is_lookup</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-add-field" title="rb_ext_db_key_add_field ()">rb_ext_db_key_add_field</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> **
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-get-field-names" title="rb_ext_db_key_get_field_names ()">rb_ext_db_key_get_field_names</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-get-field" title="rb_ext_db_key_get_field ()">rb_ext_db_key_get_field</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> **
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-get-field-values" title="rb_ext_db_key_get_field_values ()">rb_ext_db_key_get_field_values</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-field-matches" title="rb_ext_db_key_field_matches ()">rb_ext_db_key_field_matches</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-add-info" title="rb_ext_db_key_add_info ()">rb_ext_db_key_add_info</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> **
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-get-info-names" title="rb_ext_db_key_get_info_names ()">rb_ext_db_key_get_info_names</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-get-info" title="rb_ext_db_key_get_info ()">rb_ext_db_key_get_info</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-matches" title="rb_ext_db_key_matches ()">rb_ext_db_key_matches</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKeyLookupCallback" title="RBExtDBKeyLookupCallback ()">*RBExtDBKeyLookupCallback</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-lookups" title="rb_ext_db_key_lookups ()">rb_ext_db_key_lookups</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">TDB_DATA</span>
+</td>
+<td class="function_name">
+<a class="link" href="rhythmbox-rb-ext-db-key.html#rb-ext-db-key-to-store-key" title="rb_ext_db_key_to_store_key ()">rb_ext_db_key_to_store_key</a> <span class="c_punctuation">()</span>
+</td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rb-ext-db-key-free"></a><h3>rb_ext_db_key_free ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_ext_db_key_free                  (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);</pre>
-<p>
-Frees a key
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<div class="refsect1">
+<a name="rhythmbox-rb-ext-db-key.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="name">
+<col class="description">
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a>
-</td>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey">RBExtDBKey</a></td>
 </tr></tbody>
 </table></div>
 </div>
+<div class="refsect1">
+<a name="rhythmbox-rb-ext-db-key.description"></a><h2>Description</h2>
+<p>An external metadata key consists of one or more required fields (such as
+the album name for album art lookups), zero or more optional fields
+(such as the artist name), and zero or more informational fields (such as
+the musicbrainz album ID).</p>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-rb-ext-db-key.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-ext-db-key-copy"></a><h3>rb_ext_db_key_copy ()</h3>
+<pre class="programlisting"><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="returnvalue">RBExtDBKey</span></a> *
+rb_ext_db_key_copy (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);</pre>
+<p>Copies a key.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.4.6.2.6"></a><h4>Returns</h4>
+<p> copied key</p>
+</div>
+</div>
 <hr>
 <div class="refsect2">
-<a name="rb-ext-db-key-create-lookup"></a><h3>rb_ext_db_key_create_lookup ()</h3>
-<pre class="programlisting"><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="returnvalue">RBExtDBKey</span></a> *        rb_ext_db_key_create_lookup         (<em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);</pre>
-<p>
-Creates a new metadata lookup key with a single field.
-Use <em class="parameter"><code>rb_ext_db_key_add_field</code></em> to add more.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="rb-ext-db-key-free"></a><h3>rb_ext_db_key_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_ext_db_key_free (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);</pre>
+<p>Frees a key</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-ext-db-key-create-lookup"></a><h3>rb_ext_db_key_create_lookup ()</h3>
+<pre class="programlisting"><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="returnvalue">RBExtDBKey</span></a> *
+rb_ext_db_key_create_lookup (<em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                             <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);</pre>
+<p>Creates a new metadata lookup key with a single field.
+Use <em class="parameter"><code>rb_ext_db_key_add_field</code></em>
+ to add more.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
-<td>required field name</td>
+<td class="parameter_name"><p>field</p></td>
+<td class="parameter_description"><p>required field name</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
-<td>value for field</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the new key</td>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>value for field</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<div class="refsect3">
+<a name="id-1.4.4.6.4.6"></a><h4>Returns</h4>
+<p> the new key</p>
+</div>
+</div>
 <hr>
 <div class="refsect2">
-<a name="rb-ext-db-key-create-storage"></a><h3>rb_ext_db_key_create_storage ()</h3>
-<pre class="programlisting"><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="returnvalue">RBExtDBKey</span></a> *        rb_ext_db_key_create_storage        (<em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);</pre>
-<p>
-Creates a new metadata storage key with a single field.
-Use <em class="parameter"><code>rb_ext_db_key_add_field</code></em> to add more.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="rb-ext-db-key-create-storage"></a><h3>rb_ext_db_key_create_storage ()</h3>
+<pre class="programlisting"><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="returnvalue">RBExtDBKey</span></a> *
+rb_ext_db_key_create_storage (<em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                              <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);</pre>
+<p>Creates a new metadata storage key with a single field.
+Use <em class="parameter"><code>rb_ext_db_key_add_field</code></em>
+ to add more.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
-<td>required field name</td>
+<td class="parameter_name"><p>field</p></td>
+<td class="parameter_description"><p>required field name</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
-<td>value for field</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the new key</td>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>value for field</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<div class="refsect3">
+<a name="id-1.4.4.6.5.6"></a><h4>Returns</h4>
+<p> the new key</p>
+</div>
+</div>
 <hr>
 <div class="refsect2">
-<a name="rb-ext-db-key-is-lookup"></a><h3>rb_ext_db_key_is_lookup ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_ext_db_key_is_lookup             (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);</pre>
-<p>
-Returns <code class="literal">TRUE</code> if the key is a lookup key
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="rb-ext-db-key-is-lookup"></a><h3>rb_ext_db_key_is_lookup ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_ext_db_key_is_lookup (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);</pre>
+<p>Returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the key is a lookup key</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.4.6.6.6"></a><h4>Returns</h4>
+<p> whether the key is a lookup key</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-ext-db-key-add-field"></a><h3>rb_ext_db_key_add_field ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_ext_db_key_add_field (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
+                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                         <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);</pre>
+<p>Adds a field to the key, or an additional value to an existing field.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a>
-</td>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>whether the key is a lookup key</td>
+<td class="parameter_name"><p>field</p></td>
+<td class="parameter_description"><p>name of the field to add</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>field value</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+</div>
 <hr>
 <div class="refsect2">
-<a name="rb-ext-db-key-add-field"></a><h3>rb_ext_db_key_add_field ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_ext_db_key_add_field             (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);</pre>
-<p>
-Adds a field to the key, or an additional value to an existing field.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="rb-ext-db-key-get-field-names"></a><h3>rb_ext_db_key_get_field_names ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **
+rb_ext_db_key_get_field_names (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);</pre>
+<p>Returns a NULL-terminated array containing the names of the fields
+present in the key.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.8.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.4.6.8.6"></a><h4>Returns</h4>
+<p> array of field names. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-ext-db-key-get-field"></a><h3>rb_ext_db_key_get_field ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+rb_ext_db_key_get_field (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
+                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>);</pre>
+<p>Extracts the value for a single-valued field.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.9.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a>
-</td>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
-<td>name of the field to add</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
-<td>field value</td>
+<td class="parameter_name"><p>field</p></td>
+<td class="parameter_description"><p>field to retrieve</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<div class="refsect3">
+<a name="id-1.4.4.6.9.6"></a><h4>Returns</h4>
+<p> field value, or NULL</p>
+</div>
+</div>
 <hr>
 <div class="refsect2">
-<a name="rb-ext-db-key-get-field-names"></a><h3>rb_ext_db_key_get_field_names ()</h3>
-<pre class="programlisting"><span class="returnvalue">char</span> **             rb_ext_db_key_get_field_names       (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);</pre>
-<p>
-Returns a NULL-terminated array containing the names of the fields
-present in the key.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="rb-ext-db-key-get-field-values"></a><h3>rb_ext_db_key_get_field_values ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **
+rb_ext_db_key_get_field_values (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
+                                <em class="parameter"><code>const <span class="type">char</span> *field</code></em>);</pre>
+<p>Extracts the values for the specified field.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.10.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a>
-</td>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>array of field names. <span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span>
-</td>
+<td class="parameter_name"><p>field</p></td>
+<td class="parameter_description"><p>field to retrieve</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rb-ext-db-key-get-field"></a><h3>rb_ext_db_key_get_field ()</h3>
-<pre class="programlisting">const <span class="returnvalue">char</span> *        rb_ext_db_key_get_field             (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>);</pre>
-<p>
-Extracts the value for a single-valued field.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
-<td>field to retrieve</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>field value, or NULL</td>
-</tr>
-</tbody>
-</table></div>
+<div class="refsect3">
+<a name="id-1.4.4.6.10.6"></a><h4>Returns</h4>
+<p> field values, or NULL. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
+</div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="rb-ext-db-key-get-field-values"></a><h3>rb_ext_db_key_get_field_values ()</h3>
-<pre class="programlisting"><span class="returnvalue">char</span> **             rb_ext_db_key_get_field_values      (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>);</pre>
-<p>
-Extracts the values for the specified field.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
-<td>field to retrieve</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>field values, or NULL. <span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-ext-db-key-field-matches"></a><h3>rb_ext_db_key_field_matches ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_ext_db_key_field_matches         (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);</pre>
-<p>
-Checks whether a specified field in <em class="parameter"><code>key</code></em> matches a value.
+<a name="rb-ext-db-key-field-matches"></a><h3>rb_ext_db_key_field_matches ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_ext_db_key_field_matches (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
+                             <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                             <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);</pre>
+<p>Checks whether a specified field in <em class="parameter"><code>key</code></em>
+ matches a value.
 This can be used to match keys against other types of data.
-To match keys against each other, use <em class="parameter"><code>rb_ext_db_key_matches</code></em>.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+To match keys against each other, use <em class="parameter"><code>rb_ext_db_key_matches</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.11.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>an <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a>
-</td>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>an <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
-<td>a field to check</td>
+<td class="parameter_name"><p>field</p></td>
+<td class="parameter_description"><p>a field to check</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
-<td>a value to match against</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
-<code class="literal">TRUE</code> if the field matches the value</td>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>a value to match against</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<div class="refsect3">
+<a name="id-1.4.4.6.11.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the field matches the value</p>
+</div>
+</div>
 <hr>
 <div class="refsect2">
-<a name="rb-ext-db-key-add-info"></a><h3>rb_ext_db_key_add_info ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_ext_db_key_add_info              (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);</pre>
-<p>
-Adds an information field to the key.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="rb-ext-db-key-add-info"></a><h3>rb_ext_db_key_add_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_ext_db_key_add_info (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
+                        <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                        <em class="parameter"><code>const <span class="type">char</span> *value</code></em>);</pre>
+<p>Adds an information field to the key.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.12.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a>
-</td>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
-<td>name of the field to add</td>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>name of the field to add</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
-<td>field value</td>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>field value</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+</div>
 <hr>
 <div class="refsect2">
-<a name="rb-ext-db-key-get-info-names"></a><h3>rb_ext_db_key_get_info_names ()</h3>
-<pre class="programlisting"><span class="returnvalue">char</span> **             rb_ext_db_key_get_info_names        (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);</pre>
-<p>
-Returns a NULL-terminated array containing the names of the info
-fields * present in the key.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="rb-ext-db-key-get-info-names"></a><h3>rb_ext_db_key_get_info_names ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **
+rb_ext_db_key_get_info_names (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);</pre>
+<p>Returns a NULL-terminated array containing the names of the info
+fields * present in the key.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.13.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.4.6.13.6"></a><h4>Returns</h4>
+<p> array of info field names. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-ext-db-key-get-info"></a><h3>rb_ext_db_key_get_info ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+rb_ext_db_key_get_info (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
+                        <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+<p>Extracts the value for the specified info field.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.14.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a>
-</td>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>array of info field names. <span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span>
-</td>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>info field to retrieve</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rb-ext-db-key-get-info"></a><h3>rb_ext_db_key_get_info ()</h3>
-<pre class="programlisting">const <span class="returnvalue">char</span> *        rb_ext_db_key_get_info              (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
-<p>
-Extracts the value for the specified info field.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
-<td>info field to retrieve</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>field value, or NULL</td>
-</tr>
-</tbody>
-</table></div>
+<div class="refsect3">
+<a name="id-1.4.4.6.14.6"></a><h4>Returns</h4>
+<p> field value, or NULL</p>
+</div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="rb-ext-db-key-matches"></a><h3>rb_ext_db_key_matches ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_ext_db_key_matches               (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *a</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *b</code></em>);</pre>
-<p>
-Checks whether the fields specified in <em class="parameter"><code>a</code></em> match <em class="parameter"><code>b</code></em>.
+<a name="rb-ext-db-key-matches"></a><h3>rb_ext_db_key_matches ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_ext_db_key_matches (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *a</code></em>,
+                       <em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *b</code></em>);</pre>
+<p>Checks whether the fields specified in <em class="parameter"><code>a</code></em>
+ match <em class="parameter"><code>b</code></em>
+.
 For keys to match, they must have the same set of required fields,
 and the values for all must match.  Optional fields must have the
-same values if present in both.  Informational fields are ignored.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+same values if present in both.  Informational fields are ignored.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.15.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
-<td>first <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a>
-</td>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>first <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
-<td>second <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
-<code class="literal">TRUE</code> if the keys match</td>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>second <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<div class="refsect3">
+<a name="id-1.4.4.6.15.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the keys match</p>
+</div>
+</div>
 <hr>
 <div class="refsect2">
-<a name="RBExtDBKeyLookupCallback"></a><h3>RBExtDBKeyLookupCallback ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            (*RBExtDBKeyLookupCallback)         (<em class="parameter"><code><span class="type">TDB_DATA</span> data</code></em>,
-                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<a name="RBExtDBKeyLookupCallback"></a><h3>RBExtDBKeyLookupCallback ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<span class="c_punctuation">(</span>*RBExtDBKeyLookupCallback<span class="c_punctuation">)</span> (<em class="parameter"><code><span class="type">TDB_DATA</span> data</code></em>,
+                             <em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
+                             <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
 <p>
 </p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="rb-ext-db-key-lookups"></a><h3>rb_ext_db_key_lookups ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_ext_db_key_lookups               (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKeyLookupCallback" title="RBExtDBKeyLookupCallback ()"><span class="type">RBExtDBKeyLookupCallback</span></a> callback</code></em>,
-                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
-<p>
-</p>
+<a name="rb-ext-db-key-lookups"></a><h3>rb_ext_db_key_lookups ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_ext_db_key_lookups (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>,
+                       <em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKeyLookupCallback" title="RBExtDBKeyLookupCallback ()"><span class="type">RBExtDBKeyLookupCallback</span></a> callback</code></em>,
+                       <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Generates the set of possible lookup keys for <em class="parameter"><code>key</code></em>
+ and
+passes them to <em class="parameter"><code>callback</code></em>
+ in order.  If the callback returns
+<a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, processing will stop.</p>
+<p>This should only be used by the metadata store itself.
+Metadata providers and consumers shouldn't need to do this.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.17.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>a <a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p> a callback to process lookup keys. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/scope%20call"><span class="acronym">scope call</span></a>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>data to pass to <em class="parameter"><code>callback</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="rb-ext-db-key-to-store-key"></a><h3>rb_ext_db_key_to_store_key ()</h3>
-<pre class="programlisting"><span class="returnvalue">TDB_DATA</span>            rb_ext_db_key_to_store_key          (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);</pre>
-<p>
-</p>
+<a name="rb-ext-db-key-to-store-key"></a><h3>rb_ext_db_key_to_store_key ()</h3>
+<pre class="programlisting"><span class="returnvalue">TDB_DATA</span>
+rb_ext_db_key_to_store_key (<em class="parameter"><code><a class="link" href="rhythmbox-rb-ext-db-key.html#RBExtDBKey" title="RBExtDBKey"><span class="type">RBExtDBKey</span></a> *key</code></em>);</pre>
+<p>Generates the storage key for <em class="parameter"><code>key</code></em>
+.  This is the value that should
+be used to store an item identified by this key in the store.
+The storage key includes all optional fields, so keys passed to
+this function should be constructed using only the optional fields
+that were used to locate the item.  The caller must free the data
+pointer inside <em class="parameter"><code>data</code></em>
+.</p>
+<p>This should only be used by the metadata store itself.
+Metadata providers and consumers shouldn't need to do this.</p>
+<p><span class="annotation">[<a href="http://foldoc.org/skip"><span class="acronym">skip</span></a>]</span></p>
+<div class="refsect3">
+<a name="id-1.4.4.6.18.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>a <em class="parameter"><code>RBExtDBKey</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
 </div>
-<hr>
+<div class="refsect3">
+<a name="id-1.4.4.6.18.8"></a><h4>Returns</h4>
+<p> TDB_DATA structure containing storage key</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="rhythmbox-rb-ext-db-key.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
 <a name="RBExtDBKey"></a><h3>RBExtDBKey</h3>
 <pre class="programlisting">typedef struct _RBExtDBKey RBExtDBKey;</pre>
@@ -525,7 +759,6 @@ same values if present in both.  Informational fields are ignored.
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.18.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

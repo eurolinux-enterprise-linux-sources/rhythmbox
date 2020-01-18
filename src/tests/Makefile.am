@@ -37,9 +37,12 @@ test_rb_lib_SOURCES = \
 
 test_audioscrobbler_SOURCES = \
 	test-audioscrobbler.c								\
-	$(top_srcdir)/plugins/audioscrobbler/rb-audioscrobbler-entry.c			\
-	$(top_srcdir)/plugins/audioscrobbler/rb-audioscrobbler-radio-track-entry-type.c	\
 	$(test_utils)
+
+test_audioscrobbler_LDADD = \
+	$(LDADD) \
+	$(top_builddir)/plugins/audioscrobbler/libaudioscrobblertest.la \
+	$(RHYTHMBOX_LIBS)
 
 test_widgets_SOURCES = \
 	test-widgets.c						\
@@ -47,7 +50,7 @@ test_widgets_SOURCES = \
 
 bench_rhythmdb_load_SOURCES = bench-rhythmdb-load.c
 
-INCLUDES = 							\
+AM_CPPFLAGS = 							\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"	        \
 	-DG_LOG_DOMAIN=\"Rhythmbox-tests\"			\
 	-I$(top_srcdir) 					\
@@ -57,8 +60,7 @@ INCLUDES = 							\
 	-I$(top_srcdir)/widgets					\
 	-I$(top_srcdir)/rhythmdb				\
 	-I$(top_srcdir)/podcast					\
-	-I$(top_srcdir)/plugins/audioscrobbler			\
-	-D_BSD_SOURCE
+	-I$(top_srcdir)/plugins/audioscrobbler
 
 if HAVE_CHECK
 TESTS += \

@@ -23,8 +23,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -104,9 +103,6 @@ struct _RBDaapPlugin
 	GSettings *settings;
 	GSettings *dacp_settings;
 
-	GdkPixbuf *daap_share_pixbuf;
-	GdkPixbuf *daap_share_locked_pixbuf;
-
 	GDBusConnection *bus;
 	guint dbus_intf_id;
 };
@@ -123,7 +119,6 @@ static void rb_daap_plugin_init (RBDaapPlugin *plugin);
 
 static void new_share_action_cb (GSimpleAction *, GVariant *, gpointer);
 
-static void create_pixbufs (RBDaapPlugin *plugin);
 static void start_browsing (RBDaapPlugin *plugin);
 static void stop_browsing (RBDaapPlugin *plugin);
 static void settings_changed_cb (GSettings *settings,
@@ -190,8 +185,6 @@ impl_activate (PeasActivatable *bplugin)
 		start_browsing (plugin);
 	}
 
-	create_pixbufs (plugin);
-
 	app = g_application_get_default ();
 	plugin->new_share_action = g_simple_action_new ("daap-new-share", NULL);
 	g_signal_connect (plugin->new_share_action, "activate", G_CALLBACK (new_share_action_cb), plugin);
@@ -252,16 +245,6 @@ impl_deactivate	(PeasActivatable *bplugin)
 
 	g_object_unref (plugin->dacp_share);
 
-	if (plugin->daap_share_pixbuf != NULL) {
-		g_object_unref (plugin->daap_share_pixbuf);
-		plugin->daap_share_pixbuf = NULL;
-	}
-
-	if (plugin->daap_share_locked_pixbuf != NULL) {
-		g_object_unref (plugin->daap_share_locked_pixbuf);
-		plugin->daap_share_locked_pixbuf = NULL;
-	}
-
 	if (plugin->preferences) {
 		gtk_widget_destroy (plugin->preferences);
 		plugin->preferences = NULL;
@@ -282,102 +265,16 @@ impl_deactivate	(PeasActivatable *bplugin)
 
 /* DAAP share icons */
 
-static GdkPixbuf *
-composite_icons (const GdkPixbuf *src1,
-		 const GdkPixbuf *src2)
-{
-	GdkPixbuf *dest;
-	GdkPixbuf *scaled;
-	gint       w1, w2, h1, h2;
-	gint       dest_x, dest_y;
-	gboolean   do_scale;
-
-	if (! src1) {
-		return NULL;
-	}
-
-	dest = gdk_pixbuf_copy (src1);
-
-	if (! src2) {
-		return dest;
-	}
-
-	w1 = gdk_pixbuf_get_width (src1);
-	h1 = gdk_pixbuf_get_height (src1);
-	w2 = gdk_pixbuf_get_width (src2);
-	h2 = gdk_pixbuf_get_height (src2);
-
-	do_scale = ((float)w1 * 0.8) < w2;
-
-	/* scale the emblem down if it will obscure the entire bottom image */
-	if (do_scale) {
-		scaled = gdk_pixbuf_scale_simple (src2, w1 / 2, h1 / 2, GDK_INTERP_BILINEAR);
-	} else {
-		scaled = (GdkPixbuf *)src2;
-	}
-
-	w2 = gdk_pixbuf_get_width (scaled);
-	h2 = gdk_pixbuf_get_height (scaled);
-
-	dest_x = w1 - w2;
-	dest_y = h1 - h2;
-
-	gdk_pixbuf_composite (scaled, dest,
-			      dest_x, dest_y,
-			      w2, h2,
-			      dest_x, dest_y,
-			      1.0, 1.0,
-			      GDK_INTERP_BILINEAR, 0xFF);
-
-	if (do_scale) {
-		g_object_unref (scaled);
-	}
-
-	return dest;
-}
-
-static void
-create_pixbufs (RBDaapPlugin *plugin)
-{
-	GdkPixbuf    *emblem;
-	GtkIconTheme *theme;
-	gint          size;
-
-	theme = gtk_icon_theme_get_default ();
-
-	gtk_icon_size_lookup (RB_SOURCE_ICON_SIZE, &size, NULL);
-	plugin->daap_share_pixbuf =
-		gtk_icon_theme_load_icon (theme, "gnome-fs-network", size, 0, NULL);
-
-	gtk_icon_size_lookup (GTK_ICON_SIZE_MENU, &size, NULL);
-	emblem = gtk_icon_theme_load_icon (theme, "stock_lock", size, 0, NULL);
-
-	plugin->daap_share_locked_pixbuf = composite_icons (plugin->daap_share_pixbuf, emblem);
-
-	if (emblem != NULL) {
-		g_object_unref (emblem);
-	}
-}
-
-GdkPixbuf *
+GIcon *
 rb_daap_plugin_get_icon (RBDaapPlugin *plugin,
 			 gboolean password_protected,
 			 gboolean connected)
 {
-	GdkPixbuf *icon;
-
-	g_return_val_if_fail (plugin->daap_share_pixbuf != NULL, NULL);
-	g_return_val_if_fail (plugin->daap_share_locked_pixbuf != NULL, NULL);
-
-	if (password_protected == FALSE) {
-		icon = g_object_ref (plugin->daap_share_pixbuf);
-	} else if (connected) {
-		icon = g_object_ref (plugin->daap_share_pixbuf);
+	if (connected || (password_protected == FALSE)) {
+		return g_themed_icon_new ("folder-remote-symbolic");
 	} else {
-		icon = g_object_ref (plugin->daap_share_locked_pixbuf);
+		return g_themed_icon_new ("dialog-password-symbolic");
 	}
-
-	return icon;
 }
 
 /* mDNS browsing */
@@ -408,8 +305,6 @@ mdns_service_added (DMAPMdnsBrowser *browser,
 		   service->port,
 		   service->password_protected);
 
-	GDK_THREADS_ENTER ();
-
 	source = find_source_by_service_name (plugin, service->service_name);
 
 	if (source == NULL) {
@@ -436,8 +331,6 @@ mdns_service_added (DMAPMdnsBrowser *browser,
 			      "password-protected", service->password_protected,
 			      NULL);
 	}
-
-	GDK_THREADS_LEAVE ();
 }
 
 static void
@@ -446,17 +339,12 @@ mdns_service_removed (DMAPMdnsBrowser *browser,
 		      RBDaapPlugin	*plugin)
 {
 	RBSource *source;
-
-	GDK_THREADS_ENTER ();
-
 	source = find_source_by_service_name (plugin, service_name);
 
 	rb_debug ("DAAP source '%s' went away", service_name);
 	if (source != NULL) {
 		g_hash_table_remove (plugin->source_lookup, service_name);
 	}
-
-	GDK_THREADS_LEAVE ();
 }
 
 static void
@@ -641,21 +529,29 @@ new_share_action_cb (GSimpleAction *action, GVariant *parameter, gpointer data)
 /* daap:// URI -> RBDAAPSource mapping */
 
 static gboolean
-source_host_find (const char *key,
-		  RBDAAPSource *source,
-		  const char *host)
+source_host_and_port_find (const char *key,
+		           RBDAAPSource *source,
+		           const char *host_and_port)
 {
-	char *source_host;
-	gboolean result;
+	guint    source_port          = 0;
+	char    *source_host          = NULL;
+	char    *source_host_and_port = NULL;
+	gboolean result               = FALSE;
 
-	if (source == NULL || host == NULL) {
-		return FALSE;
+	if (source == NULL || host_and_port == NULL) {
+		goto out;
 	}
 
 	g_object_get (source, "host", &source_host, NULL);
+	g_object_get (source, "port", &source_port, NULL);
 
-	result = (strcmp (host, source_host) == 0);
+	source_host_and_port = g_strdup_printf ("%s:%d", source_host, source_port);
+
+	result = (strcmp (host_and_port, source_host_and_port) == 0);
+
+out:
 	g_free (source_host);
+	g_free (source_host_and_port);
 
 	return result;
 }
@@ -663,21 +559,28 @@ source_host_find (const char *key,
 RBDAAPSource *
 rb_daap_plugin_find_source_for_uri (RBDaapPlugin *plugin, const char *uri)
 {
-	char *ip;
-	char *s;
-	RBDAAPSource *source = NULL;
+	char         *host_and_port = NULL;
+	char         *s             = NULL;
+	RBDAAPSource *source        = NULL;
 
-	if (uri == NULL) {
-		return NULL;
+	if (NULL == uri) {
+		goto out;
 	}
 
-	ip = strdup (uri + 7); /* daap:// */
-	s = strchr (ip, ':');
-	*s = '\0';
+	host_and_port = g_strdup (uri + 7); /* Skip daap://. */
+	if (NULL == host_and_port) {
+		goto out;
+	}
 
-	source = (RBDAAPSource *)g_hash_table_find (plugin->source_lookup, (GHRFunc)source_host_find, ip);
+	s = strchr (host_and_port, '/');  /* Include through port, but not path. */
+	if (NULL != s) {
+		*s = '\0';
+	}
 
-	g_free (ip);
+	source = (RBDAAPSource *)g_hash_table_find (plugin->source_lookup, (GHRFunc)source_host_and_port_find, host_and_port);
+
+out:
+	g_free (host_and_port);
 
 	return source;
 }

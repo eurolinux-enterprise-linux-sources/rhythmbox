@@ -25,7 +25,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-import urllib
 import zipfile
 import sys, os.path
 import xml
@@ -59,7 +58,7 @@ class MagnatuneEntryType(RB.RhythmDBEntryType):
 		if account_type != "none":
 			uri = self.URIre.sub("http://%s:%s@%s.magnatune.com/" % (username, password, account_type), uri)
 			uri = self.nsre.sub(r"_nospeech.\1", uri)
-			print "converted track uri: %s" % uri
+			print("converted track uri: %s" % uri)
 
 		return uri
 
@@ -86,24 +85,16 @@ class Magnatune(GObject.GObject, Peas.Activatable):
 		shell = self.object
 		shell.props.selected_page.display_artist_info()
 	
-	def cancel_download_action_cb(self, action, parameter):
-		shell = self.object
-		shell.props.selected_page.cancel_downloads()
-
 	def do_activate(self):
 		shell = self.object
 		self.db = shell.props.db
+
+		rb.append_plugin_source_path(self, "icons")
 
 		self.entry_type = MagnatuneEntryType()
 		self.db.register_entry_type(self.entry_type)
 
 		self.settings = Gio.Settings("org.gnome.rhythmbox.plugins.magnatune")
-
-		theme = Gtk.IconTheme.get_default()
-		rb.append_plugin_source_path(theme, "/icons")
-
-		what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.LARGE_TOOLBAR)
-		icon = rb.try_load_icon(theme, "magnatune", width, 0)
 
 		app = Gio.Application.get_default()
 		action = Gio.SimpleAction(name="magnatune-album-download")
@@ -112,11 +103,6 @@ class Magnatune(GObject.GObject, Peas.Activatable):
 
 		action = Gio.SimpleAction(name="magnatune-artist-info")
 		action.connect("activate", self.artist_info_action_cb)
-		app.add_action(action)
-
-		action = Gio.SimpleAction(name="magnatune-download-cancel")
-		action.connect("activate", self.cancel_download_action_cb)
-		action.set_enabled(False)
 		app.add_action(action)
 
 		builder = Gtk.Builder()
@@ -129,7 +115,7 @@ class Magnatune(GObject.GObject, Peas.Activatable):
 		self.source = GObject.new(MagnatuneSource,
 					  shell=shell,
 					  entry_type=self.entry_type,
-					  pixbuf=icon,
+					  icon=Gio.ThemedIcon.new("magnatune-symbolic"),
 					  plugin=self,
 					  settings=settings.get_child("source"),
 					  name=_("Magnatune"),
@@ -197,7 +183,7 @@ class MagnatuneConfig(GObject.GObject, PeasGtk.Configurable):
 
 
 		def account_type_toggled(button):
-			print "account type radiobutton toggled: " + button.get_name()
+			print("account type radiobutton toggled: " + button.get_name())
 			account_type = {"no_account_radio": 'none', "stream_account_radio": 'stream', "download_account_radio": 'download'} 
 			if button.get_active():
 				self.settings['account-type'] = account_type[button.get_name()]
@@ -208,7 +194,7 @@ class MagnatuneConfig(GObject.GObject, PeasGtk.Configurable):
 			password = builder.get_object("password_entry").get_text()
 
 			if username == "" or password == "":
-				print "missing something"
+				print("missing something")
 				return
 
 			# should actually try a request to http://username:password@account-type.magnatune.com/

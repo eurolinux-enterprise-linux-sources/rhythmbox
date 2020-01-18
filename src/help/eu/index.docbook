@@ -713,7 +713,11 @@
   </sect1>
   <sect1 id="podcast">
   	<title>Podcast-iturburua</title>
-    <para>Podcastak audio-edukia webean zabaltzeko modu berria dira; autore batek saio bat argitaratzen duenean, podcast-harpidedunei horren berri ematen zaie XML jario baten bidez.</para>
+    <para lang="en">
+		Podcasting is a new way to broadcast audio content over the web; when an
+		author publishes an episode, podcast subscribers are informed, through an
+		XML feed.
+	</para>
     <para>Rhythmbox musika-erreproduzitzaileak aukera ematen dizu podcast-jarioetara harpidetzeko, eta, beraz, saio berri bat erabilgarri dagoenean horren berri jasoko duzu, saioa deskargatuko du eta erreproduzituko du.</para>
     <tip>
       	<para>Podcastei edo podcastak banatzeari buruzko informazio gehiago lortzeko, bisitatu <ulink url="http://en.wikipedia.org/wiki/Podcast">Podcast</ulink>, <ulink url="http://en.wikipedia.org/">Wikipedia</ulink> webgunean.</para>
@@ -1196,7 +1200,7 @@
               <entry lang="en">
                 <keycombo>
                   <keycap>Ctrl</keycap>
-                  <keycap>Space</keycap>
+                  <keycap>p</keycap>
                 </keycombo>
               </entry>
               <entry>
@@ -1206,7 +1210,7 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Alt</keycap>
+                  <keycap>Ctrl</keycap>
                   <keycap>Left</keycap>
                 </keycombo>
               </entry>
@@ -1217,12 +1221,34 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Alt</keycap>
+                  <keycap>Ctrl</keycap>
                   <keycap>Right</keycap>
                 </keycombo>
               </entry>
               <entry>
                 <para>Hurrengo pistara jauzi egin</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>Up</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para lang="en">Increase playback volume</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>Down</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para lang="en">Decrease playback volume</para>
               </entry>
             </row>
             <row>
@@ -1295,30 +1321,21 @@
               <entry>
                 <para>Jauzi egin erreproduzitzen ari den abestira</para>
               </entry>
-            </row>
+	    </row>
+	    <!--
             <row>
-              <entry lang="en">
+              <entry>
                 <keycombo>
                   <keycap>Ctrl</keycap>
                   <keycap>Y</keycap>
                 </keycombo>
               </entry>
               <entry>
-                <para>Garbitu bilaketa-eremua eta kendu arakatzailearen iragazki guztiak</para>
+                <para>Clear the search field text and remove all filters in the browser</para>
               </entry>
-            </row>
+	    </row>
+            -->
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>N</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Sortu erreprodukzio-zerrenda berri bat</para>
-              </entry>
-            </row>
-           <row>
               <entry lang="en">
                 <keycombo>
                   <keycap>Alt</keycap>
@@ -1327,17 +1344,6 @@
               </entry>
               <entry>
                 <para lang="en">Jump to search field</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>O</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Gehitu karpeta bat liburutegian</para>
               </entry>
             </row>
             <row>
@@ -1366,17 +1372,6 @@
             </row>
           </thead>
           <tbody>
-			<row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>W</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Itxi <application>Rhythmbox musika-erreproduzitzailea</application>ren leihoa</para>
-              </entry>
-            </row>
             <row>
               <entry lang="en">
                 <keycombo>
@@ -1402,17 +1397,6 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>D</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Erakutsi / Ezkutatu ikustaile txikiaren modua</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
                   <keycap>F9</keycap>
                 </keycombo>
               </entry>
@@ -1429,17 +1413,6 @@
               </entry>
               <entry>
                 <para>Erakutsi / Ezkutatu ilararen alboko barra</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>S</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Erakutsi / Ezkutatu abestiaren kokalekuaren graduatzailea</para>
               </entry>
             </row>
             <row>

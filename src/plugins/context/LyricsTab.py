@@ -24,7 +24,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-import urllib
+import urllib.request
 import re, os
 import cgi
 from mako.template import Template
@@ -62,12 +62,12 @@ class LyricsTab (GObject.GObject):
         toolbar.pack_start (self.button, True, True, 0)
 
     def activate (self):
-        print "activating Lyrics Tab"
+        print("activating Lyrics Tab")
         self.button.set_active(True)
         self.reload ()
 
     def deactivate (self):
-        print "deactivating Lyrics Tab"
+        print("deactivating Lyrics Tab")
         self.button.set_active(False)
 
     def reload (self):
@@ -87,7 +87,7 @@ class LyricsView (GObject.GObject):
         self.plugin  = plugin
         self.file    = ""
         plugindir = plugin.plugin_info.get_data_dir()
-        self.basepath = "file://" + urllib.pathname2url (plugindir)
+        self.basepath = "file://" + urllib.request.pathname2url(plugindir)
 
         self.load_tmpl ()
         self.connect_signals ()
@@ -105,7 +105,7 @@ class LyricsView (GObject.GObject):
             song     = song,
             basepath = self.basepath)
         self.webview.load_string (self.loading_file, 'text/html', 'utf-8', self.basepath)
-        print "loading screen loaded"
+        print("loading screen loaded")
 
     def load_tmpl (self):
         self.path = rb.find_plugin_file(self.plugin, 'tmpl/lyrics-tmpl.html')
@@ -115,7 +115,7 @@ class LyricsView (GObject.GObject):
         self.styles = self.basepath + '/tmpl/main.css'
 
     def lyrics_ready (self, ds, entry, lyrics):
-        print "loading lyrics into webview"
+        print("loading lyrics into webview")
         if lyrics is None:
             lyrics = _("Lyrics not found")
         else:

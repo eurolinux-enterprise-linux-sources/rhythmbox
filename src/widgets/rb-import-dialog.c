@@ -41,6 +41,8 @@
 #include "rhythmdb-entry-type.h"
 #include "rb-device-source.h"
 #include "rb-file-helpers.h"
+#include "rb-task-list.h"
+#include "rhythmdb-import-job.h"
 
 /* normal entries */
 typedef struct _RhythmDBEntryType RBImportDialogEntryType;
@@ -69,7 +71,6 @@ static void rb_import_dialog_init (RBImportDialog *dialog);
 enum {
 	PROP_0,
 	PROP_SHELL,
-	PROP_STATUS
 };
 
 enum {
@@ -89,25 +90,21 @@ struct RBImportDialogPrivate
 
 	GtkWidget *info_bar;
 	GtkWidget *info_bar_container;
-	GtkWidget *import_progress;
 	GtkWidget *file_chooser;
-	GtkWidget *add_button;
-	GtkWidget *copy_button;
-	GtkWidget *remove_button;
+	GtkWidget *copy_check;
+	GtkWidget *import_button;
 
 	RhythmDBEntryType *entry_type;
 	RhythmDBEntryType *ignore_type;
 	RhythmDBImportJob *import_job;
 	int entry_count;
-	gboolean can_copy;
-	gboolean can_add;
 
 	GList *add_entry_list;
 	guint add_entries_id;
 	guint added_entries_id;
+	guint update_status_id;
 
 	char *current_uri;
-	guint pulse_id;
 };
 
 static guint signals[LAST_SIGNAL] = {0,};
@@ -142,8 +139,24 @@ sort_changed_cb (GObject *object, GParamSpec *pspec, RBImportDialog *dialog)
 }
 
 static void
+hide_import_job (RBImportDialog *dialog)
+{
+	if (dialog->priv->import_job) {
+		RBTaskList *tasklist;
+		g_object_get (dialog->priv->shell, "task-list", &tasklist, NULL);
+		rb_task_list_remove_task (tasklist, RB_TASK_PROGRESS (dialog->priv->import_job));
+		g_object_unref (tasklist);
+	}
+}
+
+static void
 impl_close (RBImportDialog *dialog)
 {
+	hide_import_job (dialog);
+
+	if (dialog->priv->import_job) {
+		rhythmdb_import_job_cancel (dialog->priv->import_job);
+	}
 	g_signal_emit (dialog, signals[CLOSED], 0);
 }
 
@@ -197,6 +210,7 @@ add_entries_done (RBImportDialog *dialog)
 {
 	/* if we added all the tracks, close the dialog */
 	if (dialog->priv->entry_count == 0) {
+		hide_import_job (dialog);
 		g_signal_emit (dialog, signals[CLOSED], 0);
 	}
 
@@ -240,19 +254,6 @@ add_entries (RBImportDialog *dialog)
 }
 
 static void
-add_clicked_cb (GtkButton *button, RBImportDialog *dialog)
-{
-	GList *entries;
-
-	entries = get_entries (dialog);
-	dialog->priv->add_entry_list = g_list_concat (dialog->priv->add_entry_list, entries);
-
-	if (dialog->priv->add_entries_id == 0) {
-		dialog->priv->add_entries_id = g_idle_add ((GSourceFunc) add_entries, dialog);
-	}
-}
-
-static void
 copy_track_done_cb (RBTrackTransferBatch *batch,
 		    RhythmDBEntry *entry,
 		    const char *dest,
@@ -261,13 +262,6 @@ copy_track_done_cb (RBTrackTransferBatch *batch,
 		    GError *error,
 		    RBImportDialog *dialog)
 {
-	int total;
-	int done;
-
-	g_object_get (batch, "total-entries", &total, "done-entries", &done, NULL);
-	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (dialog->priv->import_progress),
-				       (float)done / total);
-
 	rhythmdb_entry_delete (dialog->priv->db, entry);
 	rhythmdb_commit (dialog->priv->db);
 }
@@ -275,91 +269,50 @@ copy_track_done_cb (RBTrackTransferBatch *batch,
 static void
 copy_complete_cb (RBTrackTransferBatch *batch, RBImportDialog *dialog)
 {
-	clear_info_bar (dialog);
-
 	/* if we copied everything, close the dialog */
 	if (dialog->priv->entry_count == 0) {
+		hide_import_job (dialog);
 		g_signal_emit (dialog, signals[CLOSED], 0);
 	}
 }
 
 static void
-copy_clicked_cb (GtkButton *button, RBImportDialog *dialog)
+import_clicked_cb (GtkButton *button, RBImportDialog *dialog)
 {
+	GList *entries;
 	RBSource *library_source;
 	RBTrackTransferBatch *batch;
-	GList *entries;
-	GtkWidget *content;
-	GtkWidget *label;
-       
-	g_object_get (dialog->priv->shell, "library-source", &library_source, NULL);
 
 	entries = get_entries (dialog);
-	batch = rb_source_paste (library_source, entries);
-	g_list_free_full (entries, (GDestroyNotify) rhythmdb_entry_unref);
-	g_object_unref (library_source);
 
-	/* delete source entries as they finish being copied */
-	g_signal_connect (batch, "track-done", G_CALLBACK (copy_track_done_cb), dialog);
-	g_signal_connect (batch, "complete", G_CALLBACK (copy_complete_cb), dialog);
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->copy_check)) == FALSE) {
+		dialog->priv->add_entry_list = g_list_concat (dialog->priv->add_entry_list, entries);
 
-	/* set up info bar for copy progress */
-	clear_info_bar (dialog);
+		if (dialog->priv->add_entries_id == 0) {
+			dialog->priv->add_entries_id = g_idle_add ((GSourceFunc) add_entries, dialog);
+		}
+	} else {
+		g_object_get (dialog->priv->shell, "library-source", &library_source, NULL);
 
-	dialog->priv->info_bar = gtk_info_bar_new ();
-	g_object_set (dialog->priv->info_bar, "hexpand", TRUE, NULL);
-	gtk_info_bar_set_message_type (GTK_INFO_BAR (dialog->priv->info_bar), GTK_MESSAGE_INFO);
-	content = gtk_info_bar_get_content_area (GTK_INFO_BAR (dialog->priv->info_bar));
+		batch = rb_source_paste (library_source, entries);
+		g_list_free_full (entries, (GDestroyNotify) rhythmdb_entry_unref);
+		g_object_unref (library_source);
 
-	label = gtk_label_new (_("Copying..."));
-	gtk_container_add (GTK_CONTAINER (content), label);
-
-	dialog->priv->import_progress = gtk_progress_bar_new ();
-	content = gtk_info_bar_get_action_area (GTK_INFO_BAR (dialog->priv->info_bar));
-	gtk_container_add (GTK_CONTAINER (content), dialog->priv->import_progress);
-
-	gtk_container_add (GTK_CONTAINER (dialog->priv->info_bar_container), dialog->priv->info_bar);
-	gtk_widget_show_all (dialog->priv->info_bar);
-}
-
-static void
-remove_clicked_cb (GtkButton *button, RBImportDialog *dialog)
-{
-	GList *entries;
-	GList *l;
-
-	entries = rb_entry_view_get_selected_entries (dialog->priv->entry_view);
-	for (l = entries; l != NULL; l = l->next) {
-		rhythmdb_entry_delete (dialog->priv->db, l->data);
+		/* delete source entries as they finish being copied */
+		g_signal_connect (batch, "track-done", G_CALLBACK (copy_track_done_cb), dialog);
+		g_signal_connect (batch, "complete", G_CALLBACK (copy_complete_cb), dialog);
 	}
-	rhythmdb_commit (dialog->priv->db);
-	g_list_free_full (entries, (GDestroyNotify) rhythmdb_entry_unref);
+
 }
 
 static void
 close_clicked_cb (GtkButton *button, RBImportDialog *dialog)
 {
+	hide_import_job (dialog);
+	if (dialog->priv->import_job) {
+		rhythmdb_import_job_cancel (dialog->priv->import_job);
+	}
 	g_signal_emit (dialog, signals[CLOSED], 0);
-}
-
-static void
-import_status_changed_cb (RhythmDBImportJob *job, int total, int imported, RBImportDialog *dialog)
-{
-	if (dialog->priv->pulse_id == 0) {
-		gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (dialog->priv->import_progress),
-					       (float)imported / total);
-	}
-}
-
-static void
-import_scan_complete_cb (RhythmDBImportJob *job, int total, RBImportDialog *dialog)
-{
-	if (dialog->priv->pulse_id != 0) {
-		g_source_remove (dialog->priv->pulse_id);
-		dialog->priv->pulse_id = 0;
-	}
-
-	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (dialog->priv->import_progress), 0.0);
 }
 
 static void
@@ -367,32 +320,30 @@ import_complete_cb (RhythmDBImportJob *job, int total, RBImportDialog *dialog)
 {
 	g_object_unref (job);
 	dialog->priv->import_job = NULL;
-
-	clear_info_bar (dialog);
-}
-
-static gboolean
-pulse_cb (RBImportDialog *dialog)
-{
-	gtk_progress_bar_pulse (GTK_PROGRESS_BAR (dialog->priv->import_progress));
-	return TRUE;
 }
 
 static void
 start_scanning (RBImportDialog *dialog)
 {
+	RBTaskList *tasklist;
+
+	rhythmdb_entry_delete_by_type (dialog->priv->db, dialog->priv->entry_type);
+	rhythmdb_entry_delete_by_type (dialog->priv->db, dialog->priv->ignore_type);
+	rhythmdb_commit (dialog->priv->db);
+
 	rb_debug ("starting %s", dialog->priv->current_uri);
 	dialog->priv->import_job = rhythmdb_import_job_new (dialog->priv->db,
 							    dialog->priv->entry_type,
 							    dialog->priv->ignore_type,
 							    dialog->priv->ignore_type);
-	g_signal_connect (dialog->priv->import_job, "status-changed", G_CALLBACK (import_status_changed_cb), dialog);
-	g_signal_connect (dialog->priv->import_job, "scan-complete", G_CALLBACK (import_scan_complete_cb), dialog);
+	g_object_set (dialog->priv->import_job, "task-label", _("Examining files"), NULL);
 	g_signal_connect (dialog->priv->import_job, "complete", G_CALLBACK (import_complete_cb), dialog);
 	rhythmdb_import_job_add_uri (dialog->priv->import_job, dialog->priv->current_uri);
 	rhythmdb_import_job_start (dialog->priv->import_job);
 
-	dialog->priv->pulse_id = g_timeout_add (100, (GSourceFunc) pulse_cb, dialog);
+	g_object_get (dialog->priv->shell, "task-list", &tasklist, NULL);
+	rb_task_list_add_task (tasklist, RB_TASK_PROGRESS (dialog->priv->import_job));
+	g_object_unref (tasklist);
 }
 
 static void
@@ -403,11 +354,12 @@ start_deferred_scan (RhythmDBImportJob *job, int total, RBImportDialog *dialog)
 }
 
 static void
-info_bar_response_cb (GtkInfoBar *bar, gint response, RBImportDialog *dialog)
+device_info_bar_response_cb (GtkInfoBar *bar, gint response, RBImportDialog *dialog)
 {
 	RBSource *source;
 	const char *uri;
 
+	hide_import_job (dialog);
 	g_signal_emit (dialog, signals[CLOSED], 0);
 	uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog->priv->file_chooser));
 	source = rb_shell_guess_source_for_uri (dialog->priv->shell, uri);
@@ -421,7 +373,6 @@ current_folder_changed_cb (GtkFileChooser *chooser, RBImportDialog *dialog)
 	GSettings *settings;
 	RBSource *source;
 	GtkWidget *label;
-	GtkWidget *content;
 	const char *uri;
 	char **locations;
 	int i;
@@ -433,42 +384,21 @@ current_folder_changed_cb (GtkFileChooser *chooser, RBImportDialog *dialog)
 	dialog->priv->current_uri = g_strdup (uri);
 
 	if (dialog->priv->import_job != NULL) {
-		g_signal_handlers_disconnect_by_func (dialog->priv->import_job, G_CALLBACK (import_status_changed_cb), dialog);
-		g_signal_handlers_disconnect_by_func (dialog->priv->import_job, G_CALLBACK (import_scan_complete_cb), dialog);
-		g_signal_handlers_disconnect_by_func (dialog->priv->import_job, G_CALLBACK (import_complete_cb), dialog);
 		rhythmdb_import_job_cancel (dialog->priv->import_job);
 	}
-	if (dialog->priv->pulse_id != 0) {
-		g_source_remove (dialog->priv->pulse_id);
-		dialog->priv->pulse_id = 0;
-	}
-
-	rhythmdb_entry_delete_by_type (dialog->priv->db, dialog->priv->entry_type);
-	rhythmdb_entry_delete_by_type (dialog->priv->db, dialog->priv->ignore_type);
-	rhythmdb_commit (dialog->priv->db);
 
 	clear_info_bar (dialog);
-
-	/* disable copy if the selected location is already inside the library */
-	settings = g_settings_new ("org.gnome.rhythmbox.rhythmdb");
-	locations = g_settings_get_strv (settings, "locations");
-	dialog->priv->can_copy = TRUE;
-	for (i = 0; locations[i] != NULL; i++) {
-		if (g_str_has_prefix (uri, locations[i])) {
-			dialog->priv->can_copy = FALSE;
-			break;
-		}
-	}
-	g_strfreev (locations);
-	g_object_unref (settings);
-
-	dialog->priv->can_add = TRUE;
 
 	source = rb_shell_guess_source_for_uri (dialog->priv->shell, uri);
 	if (source != NULL) {
 		if (RB_IS_DEVICE_SOURCE (source)) {
 			char *msg;
 			char *name;
+			GtkWidget *content;
+
+			rhythmdb_entry_delete_by_type (dialog->priv->db, dialog->priv->entry_type);
+			rhythmdb_entry_delete_by_type (dialog->priv->db, dialog->priv->ignore_type);
+			rhythmdb_commit (dialog->priv->db);
 
 			dialog->priv->info_bar = gtk_info_bar_new ();
 			g_object_set (dialog->priv->info_bar, "hexpand", TRUE, NULL);
@@ -486,7 +416,7 @@ current_folder_changed_cb (GtkFileChooser *chooser, RBImportDialog *dialog)
 			gtk_info_bar_add_button (GTK_INFO_BAR (dialog->priv->info_bar), msg, GTK_RESPONSE_ACCEPT);
 			g_free (msg);
 
-			g_signal_connect (dialog->priv->info_bar, "response", G_CALLBACK (info_bar_response_cb), dialog);
+			g_signal_connect (dialog->priv->info_bar, "response", G_CALLBACK (device_info_bar_response_cb), dialog);
 
 			gtk_widget_show_all (dialog->priv->info_bar);
 			gtk_container_add (GTK_CONTAINER (dialog->priv->info_bar_container), dialog->priv->info_bar);
@@ -494,20 +424,18 @@ current_folder_changed_cb (GtkFileChooser *chooser, RBImportDialog *dialog)
 		}
 	}
 
-	dialog->priv->info_bar = gtk_info_bar_new ();
-	g_object_set (dialog->priv->info_bar, "hexpand", TRUE, NULL);
-	gtk_info_bar_set_message_type (GTK_INFO_BAR (dialog->priv->info_bar), GTK_MESSAGE_INFO);
-	content = gtk_info_bar_get_content_area (GTK_INFO_BAR (dialog->priv->info_bar));
-
-	label = gtk_label_new (_("Scanning..."));
-	gtk_container_add (GTK_CONTAINER (content), label);
-
-	dialog->priv->import_progress = gtk_progress_bar_new ();
-	content = gtk_info_bar_get_action_area (GTK_INFO_BAR (dialog->priv->info_bar));
-	gtk_container_add (GTK_CONTAINER (content), dialog->priv->import_progress);
-
-	gtk_container_add (GTK_CONTAINER (dialog->priv->info_bar_container), dialog->priv->info_bar);
-	gtk_widget_show_all (dialog->priv->info_bar);
+	/* disable copy if the selected location is already inside the library */
+	settings = g_settings_new ("org.gnome.rhythmbox.rhythmdb");
+	locations = g_settings_get_strv (settings, "locations");
+	gtk_widget_set_sensitive (dialog->priv->copy_check, TRUE);
+	for (i = 0; locations[i] != NULL; i++) {
+		if (g_str_has_prefix (uri, locations[i])) {
+			gtk_widget_set_sensitive (dialog->priv->copy_check, FALSE);
+			break;
+		}
+	}
+	g_strfreev (locations);
+	g_object_unref (settings);
 
 	if (dialog->priv->import_job != NULL) {
 		/* wait for the previous job to finish up */
@@ -518,16 +446,52 @@ current_folder_changed_cb (GtkFileChooser *chooser, RBImportDialog *dialog)
 	}
 }
 
+static gboolean
+update_status_idle (RBImportDialog *dialog)
+{
+	int count;
+	const char *fmt;
+	char *text;
+
+	if (rb_entry_view_have_selection (dialog->priv->entry_view)) {
+		GList *sel;
+
+		sel = rb_entry_view_get_selected_entries (dialog->priv->entry_view);
+		count = g_list_length (sel);
+		g_list_free_full (sel, (GDestroyNotify) rhythmdb_entry_unref);
+
+		fmt = ngettext ("Import %d selected track", "Import %d selected tracks", count);
+	} else {
+		count = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (dialog->priv->query_model), NULL);
+		fmt = ngettext ("Import %d listed track", "Import %d listed tracks", count);
+	}
+	text = g_strdup_printf (fmt, count);
+	gtk_button_set_label (GTK_BUTTON (dialog->priv->import_button), text);
+	g_free (text);
+
+	dialog->priv->update_status_id = 0;
+	return FALSE;
+}
+
+static void
+update_status (RBImportDialog *dialog)
+{
+	if (dialog->priv->update_status_id != 0)
+		return;
+
+	dialog->priv->update_status_id = g_idle_add ((GSourceFunc) update_status_idle, dialog);
+}
+
+
 static void
 entry_inserted_cb (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, RBImportDialog *dialog)
 {
 	if (dialog->priv->entry_count == 0) {
-		gtk_widget_set_sensitive (dialog->priv->add_button, dialog->priv->can_add);
-		gtk_widget_set_sensitive (dialog->priv->copy_button, dialog->priv->can_copy);
+		gtk_widget_set_sensitive (dialog->priv->import_button, TRUE);
 	}
 
 	dialog->priv->entry_count++;
-	g_object_notify (G_OBJECT (dialog), "status");
+	update_status (dialog);
 }
 
 static void
@@ -535,17 +499,16 @@ entry_deleted_cb (GtkTreeModel *model, RhythmDBEntry *entry, RBImportDialog *dia
 {
 	dialog->priv->entry_count--;
 	if (dialog->priv->entry_count == 0) {
-		gtk_widget_set_sensitive (dialog->priv->add_button, FALSE);
-		gtk_widget_set_sensitive (dialog->priv->copy_button, FALSE);
+		gtk_widget_set_sensitive (dialog->priv->import_button, FALSE);
 	}
 
-	g_object_notify (G_OBJECT (dialog), "status");
+	update_status (dialog);
 }
 
 static void
-have_selection_changed_cb (RBEntryView *view, gboolean have_selection, RBImportDialog *dialog)
+selection_changed_cb (RBEntryView *view, RBImportDialog *dialog)
 {
-	gtk_widget_set_sensitive (dialog->priv->remove_button, have_selection);
+	update_status (dialog);
 }
 
 static void
@@ -580,17 +543,11 @@ impl_constructed (GObject *object)
 
 	builder = rb_builder_load ("import-dialog.ui", NULL);
 
-	dialog->priv->add_button = GTK_WIDGET (gtk_builder_get_object (builder, "add-button"));
-	g_signal_connect_object (dialog->priv->add_button, "clicked", G_CALLBACK (add_clicked_cb), dialog, 0);
-	gtk_widget_set_sensitive (dialog->priv->add_button, FALSE);
-	
-	dialog->priv->copy_button = GTK_WIDGET (gtk_builder_get_object (builder, "copy-button"));
-	g_signal_connect_object (dialog->priv->copy_button, "clicked", G_CALLBACK (copy_clicked_cb), dialog, 0);
-	gtk_widget_set_sensitive (dialog->priv->copy_button, FALSE);
+	dialog->priv->import_button = GTK_WIDGET (gtk_builder_get_object (builder, "import-button"));
+	g_signal_connect_object (dialog->priv->import_button, "clicked", G_CALLBACK (import_clicked_cb), dialog, 0);
+	gtk_widget_set_sensitive (dialog->priv->import_button, FALSE);
 
-	dialog->priv->remove_button = GTK_WIDGET (gtk_builder_get_object (builder, "remove-button"));
-	g_signal_connect_object (dialog->priv->remove_button, "clicked", G_CALLBACK (remove_clicked_cb), dialog, 0);
-	gtk_widget_set_sensitive (dialog->priv->remove_button, FALSE);
+	dialog->priv->copy_check = GTK_WIDGET (gtk_builder_get_object (builder, "copy-check"));
 
 	g_signal_connect (gtk_builder_get_object (builder, "close-button"),
 			  "clicked",
@@ -598,6 +555,7 @@ impl_constructed (GObject *object)
 			  dialog);
 
 	dialog->priv->file_chooser = GTK_WIDGET (gtk_builder_get_object (builder, "file-chooser-button"));
+	
 	/* select the first library location, since the default may be
 	 * the user's home dir or / or something that will take forever to scan.
 	 */
@@ -613,7 +571,7 @@ impl_constructed (GObject *object)
 	g_strfreev (locations);
 	g_object_unref (settings);
 
-	g_signal_connect_object (dialog->priv->file_chooser, "current-folder-changed", G_CALLBACK (current_folder_changed_cb), dialog, 0);
+	g_signal_connect_object (dialog->priv->file_chooser, "selection-changed", G_CALLBACK (current_folder_changed_cb), dialog, 0);
 
 	/* not sure why we have to set this, it should be the default */
 	gtk_widget_set_vexpand (gtk_widget_get_parent (dialog->priv->file_chooser), FALSE);
@@ -624,7 +582,7 @@ impl_constructed (GObject *object)
 	dialog->priv->entry_view = rb_entry_view_new (dialog->priv->db, G_OBJECT (dialog->priv->shell_player), TRUE, FALSE);
 
 	g_signal_connect (dialog->priv->entry_view, "entry-activated", G_CALLBACK (entry_activated_cb), dialog);
-	g_signal_connect (dialog->priv->entry_view, "have-selection-changed", G_CALLBACK (have_selection_changed_cb), dialog);
+	g_signal_connect (dialog->priv->entry_view, "selection-changed", G_CALLBACK (selection_changed_cb), dialog);
 
 	rb_entry_view_append_column (dialog->priv->entry_view, RB_ENTRY_VIEW_COL_TRACK_NUMBER, FALSE);
 	rb_entry_view_append_column (dialog->priv->entry_view, RB_ENTRY_VIEW_COL_TITLE, TRUE);
@@ -674,10 +632,6 @@ impl_dispose (GObject *object)
 {
 	RBImportDialog *dialog = RB_IMPORT_DIALOG (object);
 
-	if (dialog->priv->pulse_id) {
-		g_source_remove (dialog->priv->pulse_id);
-		dialog->priv->pulse_id = 0;
-	}
 	if (dialog->priv->add_entries_id) {
 		g_source_remove (dialog->priv->add_entries_id);
 		dialog->priv->add_entries_id = 0;
@@ -685,6 +639,10 @@ impl_dispose (GObject *object)
 	if (dialog->priv->added_entries_id) {
 		g_source_remove (dialog->priv->added_entries_id);
 		dialog->priv->added_entries_id = 0;
+	}
+	if (dialog->priv->update_status_id) {
+		g_source_remove (dialog->priv->update_status_id);
+		dialog->priv->update_status_id = 0;
 	}
 
 	if (dialog->priv->query_model != NULL) {
@@ -722,15 +680,6 @@ impl_set_property (GObject *object, guint prop_id, const GValue *value, GParamSp
 	}
 }
 
-static char *
-get_status (RBImportDialog *dialog)
-{
-	if (dialog->priv->query_model == NULL)
-		return NULL;
-
-	return rhythmdb_query_model_compute_status_normal (dialog->priv->query_model, "%d song", "%d songs");
-}
-
 static void
 impl_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
 {
@@ -739,9 +688,6 @@ impl_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *ps
 	switch (prop_id) {
 	case PROP_SHELL:
 		g_value_set_object (value, dialog->priv->shell);
-		break;
-	case PROP_STATUS:
-		g_value_take_string (value, get_status (dialog));
 		break;
 	default:
 		g_assert_not_reached ();
@@ -776,13 +722,6 @@ rb_import_dialog_class_init (RBImportDialogClass *klass)
 							      "RBShell instance",
 							      RB_TYPE_SHELL,
 							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
-	g_object_class_install_property (object_class,
-					 PROP_STATUS,
-					 g_param_spec_string ("status",
-							      "status",
-							      "status text",
-							      NULL,
-							      G_PARAM_READABLE));
 
 	signals[CLOSE] = g_signal_new ("close",
 				       RB_TYPE_IMPORT_DIALOG,

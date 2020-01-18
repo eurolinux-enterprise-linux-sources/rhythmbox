@@ -2,34 +2,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RBShellClipboard</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<title>RBShellClipboard: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch05.html" title="Shell">
 <link rel="prev" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager">
 <link rel="next" href="RBShellPlayer.html" title="RBShellPlayer">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
-<tr valign="middle">
-<td><a accesskey="p" href="RBRemovableMediaManager.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch05.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
-<td><a accesskey="n" href="RBShellPlayer.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
-</tr>
-<tr><td colspan="5" class="shortcuts">
-<a href="#RBShellClipboard.synopsis" class="shortcut">Top</a>
-                   | 
-                  <a href="#RBShellClipboard.description" class="shortcut">Description</a>
-                   | 
-                  <a href="#RBShellClipboard.object-hierarchy" class="shortcut">Object Hierarchy</a>
-                   | 
-                  <a href="#RBShellClipboard.properties" class="shortcut">Properties</a>
-</td></tr>
-</table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBShellClipboard.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBShellClipboard.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#RBShellClipboard.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch05.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RBRemovableMediaManager.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RBShellPlayer.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
 <div class="refentry">
 <a name="RBShellClipboard"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -37,52 +31,162 @@
 <h2><span class="refentrytitle"><a name="RBShellClipboard.top_of_page"></a>RBShellClipboard</span></h2>
 <p>RBShellClipboard — cut and paste handling</p>
 </td>
-<td valign="top" align="right"></td>
+<td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
-<a name="RBShellClipboard.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">struct              <a class="link" href="RBShellClipboard.html#RBShellClipboard-struct" title="struct RBShellClipboard">RBShellClipboard</a>;
-struct              <a class="link" href="RBShellClipboard.html#RBShellClipboardClass" title="struct RBShellClipboardClass">RBShellClipboardClass</a>;
-<a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="returnvalue">RBShellClipboard</span></a> *  <a class="link" href="RBShellClipboard.html#rb-shell-clipboard-new" title="rb_shell_clipboard_new ()">rb_shell_clipboard_new</a>              (<em class="parameter"><code><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *db</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBShellClipboard.html#rb-shell-clipboard-set-source" title="rb_shell_clipboard_set_source ()">rb_shell_clipboard_set_source</a>       (<em class="parameter"><code><a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="type">RBShellClipboard</span></a> *clipboard</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>);
-</pre>
-</div>
 <div class="refsect1">
-<a name="RBShellClipboard.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="synopsis">
-  GObject
-   +----RBShellClipboard
-</pre>
+<a name="RBShellClipboard.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="returnvalue">RBShellClipboard</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBShellClipboard.html#rb-shell-clipboard-new" title="rb_shell_clipboard_new ()">rb_shell_clipboard_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBShellClipboard.html#rb-shell-clipboard-set-source" title="rb_shell_clipboard_set_source ()">rb_shell_clipboard_set_source</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="refsect1">
 <a name="RBShellClipboard.properties"></a><h2>Properties</h2>
-<pre class="synopsis">
-  "<a class="link" href="RBShellClipboard.html#RBShellClipboard--db" title='The "db" property'>db</a>"                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>*             : Read / Write / Construct Only
-  "<a class="link" href="RBShellClipboard.html#RBShellClipboard--queue-source" title='The "queue-source" property'>queue-source</a>"             <a class="link" href="RBPlaylistSource.html" title="RBPlaylistSource"><span class="type">RBPlaylistSource</span></a>*     : Read / Write
-  "<a class="link" href="RBShellClipboard.html#RBShellClipboard--source" title='The "source" property'>source</a>"                   <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>*             : Read / Write
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</td>
+<td class="property_name"><a class="link" href="RBShellClipboard.html#RBShellClipboard--db" title="The “db” property">db</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="RBPlaylistSource.html" title="RBPlaylistSource"><span class="type">RBPlaylistSource</span></a> *</td>
+<td class="property_name"><a class="link" href="RBShellClipboard.html#RBShellClipboard--queue-source" title="The “queue-source” property">queue-source</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *</td>
+<td class="property_name"><a class="link" href="RBShellClipboard.html#RBShellClipboard--source" title="The “source” property">source</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBShellClipboard.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBShellClipboard.html#RBShellClipboard-struct" title="struct RBShellClipboard">RBShellClipboard</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBShellClipboard.html#RBShellClipboardClass" title="struct RBShellClipboardClass">RBShellClipboardClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBShellClipboard.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> RBShellClipboard
 </pre>
 </div>
 <div class="refsect1">
 <a name="RBShellClipboard.description"></a><h2>Description</h2>
-<p>
-The clipboard is primarily responsible for handling cut and paste actions,
+<p>The clipboard is primarily responsible for handling cut and paste actions,
 as well as various other actions that relate to a selected set of entries
-from a source, such as move to trash, delete, and add to playlist.
-</p>
-<p>
-It updates the sensitivity of the various actions it handles when the selected
+from a source, such as move to trash, delete, and add to playlist.</p>
+<p>It updates the sensitivity of the various actions it handles when the selected
 source changes, and when the track list selection changes.  The actual action
-handlers are fairly simple, mostly calling <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> methods.
-</p>
-<p>
-For the 'add to playlist' action, the clipboard builds a menu containing
+handlers are fairly simple, mostly calling <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> methods.</p>
+<p>For the 'add to playlist' action, the clipboard builds a menu containing
 the available playlists that entries can be added to from the current selected
-source.
-</p>
+source.</p>
 </div>
 <div class="refsect1">
-<a name="RBShellClipboard.details"></a><h2>Details</h2>
+<a name="RBShellClipboard.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-shell-clipboard-new"></a><h3>rb_shell_clipboard_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="returnvalue">RBShellClipboard</span></a> *
+rb_shell_clipboard_new (<em class="parameter"><code><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *db</code></em>);</pre>
+<p>Creates the <a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="type">RBShellClipboard</span></a> instance</p>
+<div class="refsect3">
+<a name="id-1.6.8.8.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>db</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.8.8.2.6"></a><h4>Returns</h4>
+<p> the <a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="type">RBShellClipboard</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-shell-clipboard-set-source"></a><h3>rb_shell_clipboard_set_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_shell_clipboard_set_source (<em class="parameter"><code><a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="type">RBShellClipboard</span></a> *clipboard</code></em>,
+                               <em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>);</pre>
+<p>Updates the clipboard to reflect a newly selected source.</p>
+<div class="refsect3">
+<a name="id-1.6.8.8.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>clipboard</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="type">RBShellClipboard</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>the new selected <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBShellClipboard.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
 <a name="RBShellClipboard-struct"></a><h3>struct RBShellClipboard</h3>
 <pre class="programlisting">struct RBShellClipboard;</pre>
@@ -99,82 +203,32 @@ source.
 <p>
 </p>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rb-shell-clipboard-new"></a><h3>rb_shell_clipboard_new ()</h3>
-<pre class="programlisting"><a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="returnvalue">RBShellClipboard</span></a> *  rb_shell_clipboard_new              (<em class="parameter"><code><a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *db</code></em>);</pre>
-<p>
-Creates the <a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="type">RBShellClipboard</span></a> instance
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>db</code></em> :</span></p></td>
-<td>the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the <a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="type">RBShellClipboard</span></a>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-shell-clipboard-set-source"></a><h3>rb_shell_clipboard_set_source ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_shell_clipboard_set_source       (<em class="parameter"><code><a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="type">RBShellClipboard</span></a> *clipboard</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>);</pre>
-<p>
-Updates the clipboard to reflect a newly selected source.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>clipboard</code></em> :</span></p></td>
-<td>the <a class="link" href="RBShellClipboard.html" title="RBShellClipboard"><span class="type">RBShellClipboard</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
-<td>the new selected <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
 </div>
 <div class="refsect1">
 <a name="RBShellClipboard.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
-<a name="RBShellClipboard--db"></a><h3>The <code class="literal">"db"</code> property</h3>
-<pre class="programlisting">  "db"                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>*             : Read / Write / Construct Only</pre>
+<a name="RBShellClipboard--db"></a><h3>The <code class="literal">“db”</code> property</h3>
+<pre class="programlisting">  “db”                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</pre>
 <p>RhythmDB database.</p>
+<p>Flags: Read / Write / Construct Only</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RBShellClipboard--queue-source"></a><h3>The <code class="literal">"queue-source"</code> property</h3>
-<pre class="programlisting">  "queue-source"             <a class="link" href="RBPlaylistSource.html" title="RBPlaylistSource"><span class="type">RBPlaylistSource</span></a>*     : Read / Write</pre>
+<a name="RBShellClipboard--queue-source"></a><h3>The <code class="literal">“queue-source”</code> property</h3>
+<pre class="programlisting">  “queue-source”             <a class="link" href="RBPlaylistSource.html" title="RBPlaylistSource"><span class="type">RBPlaylistSource</span></a> *</pre>
 <p>RBPlaylistSource object.</p>
+<p>Flags: Read / Write</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RBShellClipboard--source"></a><h3>The <code class="literal">"source"</code> property</h3>
-<pre class="programlisting">  "source"                   <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>*             : Read / Write</pre>
+<a name="RBShellClipboard--source"></a><h3>The <code class="literal">“source”</code> property</h3>
+<pre class="programlisting">  “source”                   <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *</pre>
 <p>RBSource object.</p>
+<p>Flags: Read / Write</p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.18.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

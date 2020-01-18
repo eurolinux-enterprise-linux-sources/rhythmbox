@@ -8,15 +8,16 @@ rbinclude_HEADERS =					\
 	rb-builder-helpers.h				\
 	rb-debug.h					\
 	rb-file-helpers.h				\
+	rb-list-model.h					\
 	rb-stock-icons.h				\
 	rb-string-value-map.h				\
-	rb-util.h
+	rb-util.h					\
+	rb-task-progress.h				\
+	rb-task-progress-simple.h
 
 librb_la_SOURCES =					\
 	$(rbinclude_HEADERS)				\
 	rb-debug.c					\
-	eggdesktopfile.c				\
-	eggdesktopfile.h				\
 	rb-file-helpers.c				\
 	rb-builder-helpers.c				\
 	rb-stock-icons.c				\
@@ -37,19 +38,19 @@ librb_la_SOURCES =					\
 	rb-async-copy.c					\
 	rb-async-copy.h					\
 	rb-chunk-loader.c				\
-	rb-chunk-loader.h
+	rb-chunk-loader.h				\
+	rb-task-progress.c				\
+	rb-task-progress-simple.c			\
+	rb-list-model.c
 
-INCLUDES =						\
+AM_CPPFLAGS =						\
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-DSHARE_DIR=\"$(pkgdatadir)\"			\
 	-DDATADIR=\""$(datadir)"\"			\
-	-DEGG_SM_CLIENT_BACKEND_XSMP			\
 	-I$(top_srcdir) 				\
 	-I$(top_srcdir)/widgets				\
 	$(RHYTHMBOX_CFLAGS)
-
-librb_la_LIBADD = -lSM -lICE
 
 BUILT_SOURCES=
 

@@ -494,14 +494,6 @@ extern void rb_marshal_VOID__STRING_STRING_POINTER_POINTER (GClosure     *closur
                                                             gpointer      invocation_hint,
                                                             gpointer      marshal_data);
 
-/* VOID:STRING,UINT,UINT,STRING (./rb-marshal.list:62) */
-extern void rb_marshal_VOID__STRING_UINT_UINT_STRING (GClosure     *closure,
-                                                      GValue       *return_value,
-                                                      guint         n_param_values,
-                                                      const GValue *param_values,
-                                                      gpointer      invocation_hint,
-                                                      gpointer      marshal_data);
-
 G_END_DECLS
 
 #endif /* __rb_marshal_MARSHAL_H__ */

@@ -24,7 +24,7 @@ bin_PROGRAMS = rhythmbox
 rhythmbox_SOURCES = main.c
 lib_LTLIBRARIES = librhythmbox-core.la
 
-INCLUDES = 						\
+AM_CPPFLAGS = 						\
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -47,7 +47,7 @@ INCLUDES = 						\
 	$(DBUS_CFLAGS)					\
 	$(GUDEV_CFLAGS)					\
 	$(WEBKIT_FLAGS)				\
-	-D__EXTENSIONS__ -D_BSD_SOURCE
+	-D__EXTENSIONS__
 
 
 shellincludedir = $(includedir)/rhythmbox/shell
@@ -96,6 +96,8 @@ librhythmbox_core_la_SOURCES =				\
 	rb-shell-preferences.h				\
 	rb-statusbar.c					\
 	rb-statusbar.h					\
+	rb-task-list.c					\
+	rb-task-list.h					\
 	rb-track-transfer-batch.c			\
 	rb-track-transfer-queue.c
 

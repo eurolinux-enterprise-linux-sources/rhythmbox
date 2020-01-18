@@ -37,8 +37,8 @@ from zeitgeist.datamodel import Event, Subject, Interpretation, Manifestation
 
 try:
     IFACE = ZeitgeistClient()
-except RuntimeError, e:
-    print "Unable to connect to Zeitgeist, won't send events. Reason: '%s'" %e
+except RuntimeError as e:
+    print("Unable to connect to Zeitgeist, won't send events. Reason: '%s'" % e)
     IFACE = None
 
 class ZeitgeistPlugin(GObject.Object, Peas.Activatable):
@@ -46,12 +46,12 @@ class ZeitgeistPlugin(GObject.Object, Peas.Activatable):
     object = GObject.property(type=GObject.Object)
 
     def __init__(self):
-	GObject.Object.__init__(self)
+        GObject.Object.__init__(self)
 
     def do_activate(self):
-        print "Loading Zeitgeist plugin..."
+        print("Loading Zeitgeist plugin...")
         if IFACE is not None:
-	    shell = self.object
+            shell = self.object
             shell_player = shell.props.shell_player
             self.__psc_id = shell_player.connect("playing-song-changed", self.playing_song_changed)
 
@@ -91,7 +91,7 @@ class ZeitgeistPlugin(GObject.Object, Peas.Activatable):
             self.send_to_zeitgeist_async(entry, Interpretation.ACCESS_EVENT)
 
         self.__current_song = entry
-        GObject.idle_add(self.reset_manual_switch)
+        GLib.idle_add(self.reset_manual_switch)
 
     def reset_manual_switch(self):
         """
@@ -109,9 +109,9 @@ class ZeitgeistPlugin(GObject.Object, Peas.Activatable):
         idle, it means there are no more signals scheduled, so we
         will have already received the eos if it was coming.
         """
-	shell = self.object
+        shell = self.object
         db = shell.props.db
-        GObject.idle_add(self.send_to_zeitgeist, db, entry, event_type)
+        GLib.idle_add(self.send_to_zeitgeist, db, entry, event_type)
 
     def send_to_zeitgeist(self, db, entry, event_type):
         song = self.get_song_info(db, entry)
@@ -150,9 +150,9 @@ class ZeitgeistPlugin(GObject.Object, Peas.Activatable):
         f.query_info_async(Gio.FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE, Gio.FileQueryInfoFlags.NONE, GLib.PRIORITY_DEFAULT, None, file_info_complete, None)
 
     def do_deactivate(self):
-        print "Deactivating Zeitgeist plugin..."
+        print("Deactivating Zeitgeist plugin...")
         if IFACE is not None:
-	    shell = self.object
+            shell = self.object
             shell_player = shell.props.shell_player
             shell_player.disconnect(self.__psc_id)
             self.__psc_id = None

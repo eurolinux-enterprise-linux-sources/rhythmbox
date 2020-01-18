@@ -63,6 +63,8 @@ struct _RBFadingImagePrivate
 	guint64 start;
 	guint64 end;
 	gulong render_timer_id;
+
+	gboolean use_tooltip;
 };
 
 G_DEFINE_TYPE (RBFadingImage, rb_fading_image, GTK_TYPE_WIDGET)
@@ -78,7 +80,8 @@ G_DEFINE_TYPE (RBFadingImage, rb_fading_image, GTK_TYPE_WIDGET)
 enum
 {
 	PROP_0,
-	PROP_FALLBACK
+	PROP_FALLBACK,
+	PROP_USE_TOOLTIP
 };
 
 enum
@@ -282,6 +285,9 @@ impl_query_tooltip (GtkWidget *widget, int x, int y, gboolean keyboard_mode, Gtk
 	GdkPixbuf *scaled;
 	GdkPixbuf *full;
 
+	if (image->priv->use_tooltip == FALSE)
+		return FALSE;
+
 	if (image->priv->render_timer_id != 0) {
 		full = image->priv->next_full;
 		scaled = image->priv->next;
@@ -401,9 +407,6 @@ impl_constructed (GObject *object)
 
 	image = RB_FADING_IMAGE (object);
 
-	gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (image)),
-				     GTK_STYLE_CLASS_SPINNER);
-
 	if (image->priv->fallback_icon != NULL) {
 		GError *error = NULL;
 		image->priv->fallback =
@@ -440,6 +443,9 @@ impl_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *ps
 	case PROP_FALLBACK:
 		g_value_set_string (value, image->priv->fallback_icon);
 		break;
+	case PROP_USE_TOOLTIP:
+		g_value_set_boolean (value, image->priv->use_tooltip);
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -454,6 +460,9 @@ impl_set_property (GObject *object, guint prop_id, const GValue *value, GParamSp
 	switch (prop_id) {
 	case PROP_FALLBACK:
 		image->priv->fallback_icon = g_value_dup_string (value);
+		break;
+	case PROP_USE_TOOLTIP:
+		image->priv->use_tooltip = g_value_get_boolean (value);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -497,6 +506,18 @@ rb_fading_image_class_init (RBFadingImageClass *klass)
 							      "fallback icon name",
 							      NULL,
 							      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+	/**
+	 * RBFadingImage:use-tooltip:
+	 *
+	 * Whether to display a tooltip on the image
+	 */
+	g_object_class_install_property (object_class,
+					 PROP_USE_TOOLTIP,
+					 g_param_spec_boolean ("use-tooltip",
+							       "use tooltip",
+							       "use tooltip",
+							       TRUE,
+							       G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
 	/**
 	 * RBFadingImage::uri-dropped
@@ -546,6 +567,10 @@ scale_thumbnail_if_necessary (RBFadingImage *image, GdkPixbuf *pixbuf)
 
 	w = gtk_widget_get_allocated_width (GTK_WIDGET (image)) - 2 * BORDER_WIDTH;
 	h = gtk_widget_get_allocated_height (GTK_WIDGET (image)) - 2 * BORDER_WIDTH;
+	if (w < 1 || h < 1) {
+		return NULL;
+	}
+
 	pw = gdk_pixbuf_get_width (pixbuf);
 	ph = gdk_pixbuf_get_height (pixbuf);
 
@@ -646,6 +671,16 @@ composite_into_current (RBFadingImage *image)
 
 	width = gtk_widget_get_allocated_width (GTK_WIDGET (image)) - 2 * BORDER_WIDTH;
 	height = gtk_widget_get_allocated_height (GTK_WIDGET (image)) - 2 * BORDER_WIDTH;
+	if (width < 1 || height < 1) {
+		if (image->priv->current_pat != NULL) {
+			cairo_pattern_destroy (image->priv->current_pat);
+		}
+		image->priv->current_pat = NULL;
+		image->priv->current_width = 0;
+		image->priv->current_height = 0;
+		return;
+	}
+
 	dest = cairo_image_surface_create (CAIRO_FORMAT_RGB24, width, height);
 
 	cr = cairo_create (dest);
@@ -666,7 +701,7 @@ composite_into_current (RBFadingImage *image)
 /**
  * rb_fading_image_set_pixbuf:
  * @image: a #RBFadingImage
- * @pixbuf: (transfer none): the next pixbuf to display
+ * @pixbuf: (transfer none) (allow-none): the next pixbuf to display
  *
  * Sets the next image to be displayed.
  */

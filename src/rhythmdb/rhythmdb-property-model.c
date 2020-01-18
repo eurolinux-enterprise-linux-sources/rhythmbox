@@ -136,6 +136,7 @@ enum {
 	TARGET_LOCATION,
 	TARGET_ENTRIES,
 	TARGET_URIS,
+	TARGET_COMPOSERS
 };
 
 static const GtkTargetEntry targets_album  [] = {
@@ -158,11 +159,17 @@ static const GtkTargetEntry targets_location [] = {
 	{ "application/x-rhythmbox-entry", 0, TARGET_ENTRIES },
 	{ "text/uri-list", 0, TARGET_URIS },
 };
+static const GtkTargetEntry targets_composer [] = {
+	{ "text/x-rhythmbox-composer", 0, TARGET_COMPOSERS },
+	{ "application/x-rhythmbox-entry", 0, TARGET_ENTRIES },
+	{ "text/uri-list", 0, TARGET_URIS },
+};
 
 static GtkTargetList *rhythmdb_property_model_album_drag_target_list = NULL;
 static GtkTargetList *rhythmdb_property_model_artist_drag_target_list = NULL;
 static GtkTargetList *rhythmdb_property_model_genre_drag_target_list = NULL;
 static GtkTargetList *rhythmdb_property_model_location_drag_target_list = NULL;
+static GtkTargetList *rhythmdb_property_model_composer_drag_target_list = NULL;
 
 struct RhythmDBPropertyModelPrivate
 {
@@ -219,23 +226,6 @@ static void
 rhythmdb_property_model_class_init (RhythmDBPropertyModelClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-	if (!rhythmdb_property_model_artist_drag_target_list)
-		rhythmdb_property_model_artist_drag_target_list =
-			gtk_target_list_new (targets_artist,
-					     G_N_ELEMENTS (targets_artist));
-	if (!rhythmdb_property_model_album_drag_target_list)
-		rhythmdb_property_model_album_drag_target_list =
-			gtk_target_list_new (targets_album,
-					     G_N_ELEMENTS (targets_album));
-	if (!rhythmdb_property_model_genre_drag_target_list)
-		rhythmdb_property_model_genre_drag_target_list =
-			gtk_target_list_new (targets_genre,
-					     G_N_ELEMENTS (targets_genre));
-	if (!rhythmdb_property_model_location_drag_target_list)
-		rhythmdb_property_model_location_drag_target_list =
-			gtk_target_list_new (targets_location,
-					     G_N_ELEMENTS (targets_location));
 
 	object_class->set_property = rhythmdb_property_model_set_property;
 	object_class->get_property = rhythmdb_property_model_get_property;
@@ -443,6 +433,10 @@ rhythmdb_property_model_set_property (GObject *object,
 		case RHYTHMDB_PROP_LOCATION:
 			append_sort_property (model, RHYTHMDB_PROP_TITLE);
 			break;
+		case RHYTHMDB_PROP_COMPOSER:
+			append_sort_property (model, RHYTHMDB_PROP_COMPOSER_SORTNAME);
+			append_sort_property (model, RHYTHMDB_PROP_COMPOSER);
+			break;
 		default:
 			g_assert_not_reached ();
 			break;
@@ -484,6 +478,27 @@ rhythmdb_property_model_get_property (GObject *object,
 static void
 rhythmdb_property_model_init (RhythmDBPropertyModel *model)
 {
+	if (!rhythmdb_property_model_artist_drag_target_list)
+		rhythmdb_property_model_artist_drag_target_list =
+			gtk_target_list_new (targets_artist,
+					     G_N_ELEMENTS (targets_artist));
+	if (!rhythmdb_property_model_album_drag_target_list)
+		rhythmdb_property_model_album_drag_target_list =
+			gtk_target_list_new (targets_album,
+					     G_N_ELEMENTS (targets_album));
+	if (!rhythmdb_property_model_genre_drag_target_list)
+		rhythmdb_property_model_genre_drag_target_list =
+			gtk_target_list_new (targets_genre,
+					     G_N_ELEMENTS (targets_genre));
+	if (!rhythmdb_property_model_location_drag_target_list)
+		rhythmdb_property_model_location_drag_target_list =
+			gtk_target_list_new (targets_location,
+					     G_N_ELEMENTS (targets_location));
+	if (!rhythmdb_property_model_composer_drag_target_list)
+		rhythmdb_property_model_composer_drag_target_list =
+			gtk_target_list_new (targets_composer,
+					     G_N_ELEMENTS (targets_composer));
+
 	model->priv = RHYTHMDB_PROPERTY_MODEL_GET_PRIVATE (model);
 
 	model->priv->stamp = g_random_int ();
@@ -1215,6 +1230,9 @@ rhythmdb_property_model_drag_data_get (RbTreeDragSource *dragsource,
 	case RHYTHMDB_PROP_LOCATION:
 		drag_target_list = rhythmdb_property_model_location_drag_target_list;
 		break;
+	case RHYTHMDB_PROP_COMPOSER:
+		drag_target_list = rhythmdb_property_model_composer_drag_target_list;
+		break;
 	default:
 		g_assert_not_reached ();
 	}
@@ -1267,9 +1285,9 @@ rhythmdb_property_model_drag_data_get (RbTreeDragSource *dragsource,
 			GPtrArray *subquery = g_ptr_array_new ();
 
  			for (row = paths; row; row = row->next) {
- 				char* name;
 				path = gtk_tree_row_reference_get_path (row->data);
  				if (path && gtk_tree_model_get_iter (GTK_TREE_MODEL (model), &iter, path)) {
+					char *name;
 	 				gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
 	 						    RHYTHMDB_PROPERTY_MODEL_COLUMN_TITLE,
 							    &name, -1);
@@ -1285,10 +1303,10 @@ rhythmdb_property_model_drag_data_get (RbTreeDragSource *dragsource,
 	 							       model->priv->propid, name,
 	 							       RHYTHMDB_QUERY_END);
 	 				}
+					g_free (name);
 				}
 
 				gtk_tree_path_free (path);
- 				g_free (name);
  			}
 
 			g_object_set (query_model,
@@ -1385,6 +1403,10 @@ rhythmdb_property_model_enable_drag (RhythmDBPropertyModel *model,
 		targets = targets_location;
 		n_elements = G_N_ELEMENTS (targets_location);
 		break;
+	case RHYTHMDB_PROP_COMPOSER:
+		targets = targets_composer;
+		n_elements = G_N_ELEMENTS (targets_composer);
+		break;
 	default:
 		g_assert_not_reached ();
 	}
@@ -1401,8 +1423,6 @@ rhythmdb_property_model_perform_sync (RhythmDBPropertyModel *model)
 	GtkTreeIter iter;
 	GtkTreePath *path;
 
-	GDK_THREADS_ENTER ();
-
 	iter.stamp = model->priv->stamp;
 	iter.user_data = model->priv->all;
 	path = rhythmdb_property_model_get_path (GTK_TREE_MODEL (model), &iter);
@@ -1410,7 +1430,6 @@ rhythmdb_property_model_perform_sync (RhythmDBPropertyModel *model)
 	gtk_tree_path_free (path);
 
 	model->priv->syncing_id = 0;
-	GDK_THREADS_LEAVE ();
 	return FALSE;
 }
 

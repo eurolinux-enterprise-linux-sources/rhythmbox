@@ -23,7 +23,7 @@ libmtpdevice_la_LIBADD = 				\
 	$(HAL_LIBS)					\
 	$(MTP_LIBS)
 
-INCLUDES = 						\
+AM_CPPFLAGS = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -44,8 +44,7 @@ INCLUDES = 						\
 	$(RHYTHMBOX_CFLAGS)				\
 	$(GUDEV_CFLAGS)					\
 	$(HAL_CFLAGS)					\
-	$(MTP_CFLAGS)					\
-	-D_BSD_SOURCE
+	$(MTP_CFLAGS)
 
 plugin_in_files = mtpdevice.plugin.in
 

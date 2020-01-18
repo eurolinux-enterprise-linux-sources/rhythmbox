@@ -30,10 +30,14 @@
 
 #include <locale.h>
 #include <stdlib.h>
+#include <termios.h>
+#include <math.h>
+
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gio/gio.h>
+#include <gio/gunixinputstream.h>
 
 #include "rb-debug.h"
 
@@ -78,7 +82,11 @@ static gboolean print_volume = FALSE;
 static gboolean unmute = FALSE; */
 static gdouble set_rating = -1.0;
 
+static gboolean interactive = FALSE;
+
 static gchar **other_stuff = NULL;
+
+static GMainLoop *mainloop = NULL;
 
 static GOptionEntry args[] = {
 	{ "debug", 0, 0, G_OPTION_ARG_NONE, &debug, NULL, NULL },
@@ -96,7 +104,7 @@ static GOptionEntry args[] = {
 	{ "play", 0, 0, G_OPTION_ARG_NONE, &play, N_("Resume playback if currently paused"), NULL },
 	{ "pause", 0, 0, G_OPTION_ARG_NONE, &do_pause, N_("Pause playback if currently playing"), NULL },
 	{ "play-pause", 0, 0, G_OPTION_ARG_NONE, &play_pause, N_("Toggle play/pause mode"), NULL },
-/*	{ "stop", 0, 0, G_OPTION_ARG_NONE, &stop, N_("Stop playback"), NULL }, */
+	{ "stop", 0, 0, G_OPTION_ARG_NONE, &stop, N_("Stop playback"), NULL },
 
 	{ "play-uri", 0, 0, G_OPTION_ARG_FILENAME, &play_uri, N_("Play a specified URI, importing it if necessary"), N_("URI to play")},
 	{ "enqueue", 0, 0, G_OPTION_ARG_NONE, &enqueue, N_("Add specified tracks to the play queue"), NULL },
@@ -120,11 +128,51 @@ static GOptionEntry args[] = {
 /*	{ "mute", 0, 0, G_OPTION_ARG_NONE, &mute, N_("Mute playback"), NULL },
 	{ "unmute", 0, 0, G_OPTION_ARG_NONE, &unmute, N_("Unmute playback"), NULL }, */
 	{ "set-rating", 0, 0, G_OPTION_ARG_DOUBLE, &set_rating, N_("Set the rating of the current song"), NULL },
+	{ "interactive", 'i', 0, G_OPTION_ARG_NONE, &interactive, N_("Start interactive mode"), NULL },
 
 	{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &other_stuff, NULL, NULL },
 
 	{ NULL }
 };
+
+typedef struct {
+	GApplication *app;
+	GDBusProxy *mpris_player;
+	GDBusProxy *mpris_playlists;
+
+	char *playing_track;
+	gdouble volume;
+	gint64 position;
+} InteractData;
+
+static void interact_quit (InteractData *data, int ch);
+static void interact_next (InteractData *data, int ch);
+static void interact_prev (InteractData *data, int ch);
+static void interact_playpause (InteractData *data, int ch);
+static void interact_print_state (InteractData *data, int ch);
+static void interact_volume (InteractData *data, int ch);
+static void interact_help (InteractData *data, int ch);
+
+struct {
+	int ch;
+	void (*handler)(InteractData *, int);
+	const char *help;
+} interact_keys[] = {
+	{ 'n', 	interact_next,		N_("n - Next track") },
+	{ 'p', 	interact_prev,		N_("p - Previous track") },
+	{ ' ', 	interact_playpause,	N_("space - Play/pause") },
+	{ 's', 	interact_print_state,	N_("s - Show playing track details") },
+	{ 'v', 	interact_volume,	N_("v - Decrease volume") },
+	{ 'V', 	interact_volume,	N_("V - Increase volume") },
+	{ '?', 	interact_help,		NULL },
+	{ 'h', 	interact_help,		N_("h/? - Help") },
+	{ 'q', 	interact_quit,		N_("q - Quit") },
+	{ 3, 	interact_quit, 		NULL },	/* ctrl-c */
+	{ 4, 	interact_quit, 		NULL }, /* ctrl-d */
+	/* seeking? */
+	/* quit rhythmbox? */
+};
+
 
 static gboolean
 annoy (GError **error)
@@ -140,7 +188,7 @@ annoy (GError **error)
 
 
 static char *
-rb_make_duration_string (gint64 duration)
+rb_make_duration_string (gint64 duration, gboolean show_zero)
 {
 	char *str;
 	int hours, minutes, seconds;
@@ -150,7 +198,7 @@ rb_make_duration_string (gint64 duration)
 	minutes = (duration - (hours * 60 * 60)) / 60;
 	seconds = duration % 60;
 
-	if (hours == 0 && minutes == 0 && seconds == 0)
+	if (hours == 0 && minutes == 0 && seconds == 0 && show_zero)
 		str = g_strdup (_("Unknown"));
 	else if (hours == 0)
 		str = g_strdup_printf (_("%d:%02d"), minutes, seconds);
@@ -188,7 +236,7 @@ rb_make_duration_string (gint64 duration)
  * %st -- stream title
  */
 static char *
-parse_pattern (const char *pattern, GHashTable *properties, gint64 elapsed)
+parse_pattern (const char *pattern, GHashTable *properties, gint64 elapsed, gboolean bold)
 {
 	/* p is the pattern iterator, i is a general purpose iterator */
 	const char *p;
@@ -367,11 +415,11 @@ parse_pattern (const char *pattern, GHashTable *properties, gint64 elapsed)
 				/* Track duration */
 				value = g_hash_table_lookup (properties, "mpris:length");
 				if (value)
-					string = rb_make_duration_string (g_variant_get_int64 (value));
+					string = rb_make_duration_string (g_variant_get_int64 (value), TRUE);
 				break;
 			case 'e':
 				/* Track elapsed time */
-				string = rb_make_duration_string (elapsed);
+				string = rb_make_duration_string (elapsed, FALSE);
 				break;
 			case 'b':
 				/* Track bitrate */
@@ -409,8 +457,13 @@ parse_pattern (const char *pattern, GHashTable *properties, gint64 elapsed)
 			string = g_strdup_printf ("%%%c", *p);
 		}
 
-		if (string)
+		if (string) {
+			if (bold)
+				g_string_append (s, "\033[1m");
 			g_string_append (s, string);
+			if (bold)
+				g_string_append (s, "\033[0m");
+		}
 		g_free (string);
 
 		++p;
@@ -421,6 +474,22 @@ parse_pattern (const char *pattern, GHashTable *properties, gint64 elapsed)
 	return temp;
 }
 
+static GHashTable *
+metadata_to_properties (GVariant *metadata)
+{
+	GHashTable *properties;
+	GVariant *value;
+	GVariantIter iter;
+	char *key;
+
+	properties = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify) g_variant_unref);
+	g_variant_iter_init (&iter, metadata);
+	while (g_variant_iter_loop (&iter, "{sv}", &key, &value)) {
+		g_hash_table_insert (properties, g_strdup (key), g_variant_ref (value));
+	}
+
+	return properties;
+}
 
 static GHashTable *
 get_playing_song_info (GDBusProxy *mpris)
@@ -428,9 +497,6 @@ get_playing_song_info (GDBusProxy *mpris)
 	GHashTable *properties;
 	GVariant *prop;
 	GVariant *metadata;
-	GVariantIter iter;
-	GVariant *value;
-	char *key;
 	GError *error = NULL;
 
 	prop = g_dbus_proxy_call_sync (mpris,
@@ -445,13 +511,7 @@ get_playing_song_info (GDBusProxy *mpris)
 	}
 
 	g_variant_get (prop, "(v)", &metadata);
-
-	properties = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify) g_variant_unref);
-	g_variant_iter_init (&iter, metadata);
-	while (g_variant_iter_loop (&iter, "{sv}", &key, &value)) {
-		g_hash_table_insert (properties, g_strdup (key), g_variant_ref (value));
-	}
-
+	properties = metadata_to_properties (metadata);
 	g_variant_unref (prop);
 	return properties;
 }
@@ -476,7 +536,7 @@ print_playing_song (GDBusProxy *mpris, const char *format)
 		g_variant_unref (v);
 	}
 
-	string = parse_pattern (format, properties, elapsed);
+	string = parse_pattern (format, properties, elapsed, FALSE);
 	g_print ("%s\n", string);
 	g_hash_table_destroy (properties);
 	g_free (string);
@@ -487,6 +547,8 @@ print_playing_song_default (GDBusProxy *mpris)
 {
 	GHashTable *properties;
 	char *string;
+	GVariant *v;
+	gint64 elapsed = 0;
 
 	properties = get_playing_song_info (mpris);
 	if (properties == NULL) {
@@ -494,10 +556,16 @@ print_playing_song_default (GDBusProxy *mpris)
 		return;
 	}
 
+	v = g_dbus_proxy_get_cached_property (mpris, "Position");
+	if (v != NULL) {
+		elapsed = g_variant_get_int64 (v);
+		g_variant_unref (v);
+	}
+
 	if (g_hash_table_lookup (properties, "rhythmbox:streamTitle") != NULL) {
-		string = parse_pattern ("%st (%tt)", properties, 0);
+		string = parse_pattern ("%st (%tt)", properties, elapsed, FALSE);
 	} else {
-		string = parse_pattern ("%ta - %tt", properties, 0);
+		string = parse_pattern ("%ta - %tt", properties, elapsed, FALSE);
 	}
 
 	g_print ("%s\n", string);
@@ -549,35 +617,372 @@ rate_song (GDBusProxy *mpris, gdouble song_rating)
 }
 
 static void
-state_changed_cb (GActionGroup *action, const char *action_name, GVariant *state, GMainLoop *loop)
+interact_quit (InteractData *data, int ch)
 {
-	if (g_strcmp0 (action_name, "load-uri") == 0) {
-		gboolean loaded, scanned;
+	g_main_loop_quit (mainloop);
+}
 
-		g_variant_get (state, "(bb)", &loaded, &scanned);
-		if (loaded && scanned) {
-			/* give it a tiny bit longer to populate sources etc. */
-			g_timeout_add (1500, (GSourceFunc) g_main_loop_quit, loop);
+static void
+interact_next (InteractData *data, int ch)
+{
+	GError *error = NULL;
+	g_dbus_proxy_call_sync (data->mpris_player, "Next", NULL, G_DBUS_CALL_FLAGS_NONE, -1, NULL, &error);
+	annoy (&error);
+}
+
+static void
+interact_prev (InteractData *data, int ch)
+{
+	GError *error = NULL;
+	g_dbus_proxy_call_sync (data->mpris_player, "Previous", NULL, G_DBUS_CALL_FLAGS_NONE, -1, NULL, &error);
+	annoy (&error);
+}
+
+static void
+interact_playpause (InteractData *data, int ch)
+{
+	GError *error = NULL;
+	g_dbus_proxy_call_sync (data->mpris_player, "PlayPause", NULL, G_DBUS_CALL_FLAGS_NONE, -1, NULL, &error);
+	annoy (&error);
+}
+
+static void
+interact_help (InteractData *data, int ch)
+{
+	int i;
+
+	for (i = 0; i < G_N_ELEMENTS (interact_keys); i++) {
+		if (interact_keys[i].help != NULL) {
+			g_print ("%s\r\n", _(interact_keys[i].help));
 		}
+	}
+	g_print ("\r\n");
+}
+
+static void
+interact_volume (InteractData *data, int ch)
+{
+	gdouble set_volume;
+	GError *error = NULL;
+
+	if (data->volume < 0.0) {
+		GVariant *prop;
+		GVariant *val;
+		prop = g_dbus_proxy_call_sync (data->mpris_player,
+					       "org.freedesktop.DBus.Properties.Get",
+					       g_variant_new ("(ss)", "org.mpris.MediaPlayer2.Player", "Volume"),
+					       G_DBUS_CALL_FLAGS_NONE,
+					       -1,
+					       NULL,
+					       &error);
+		if (annoy (&error)) {
+			return;
+		}
+
+		g_variant_get (prop, "(v)", &val);
+		data->volume = g_variant_get_double (val);
+		g_variant_unref (prop);
+	}
+
+	set_volume = data->volume + (ch == 'V' ? 0.1 : -0.1);
+	g_dbus_proxy_call_sync (data->mpris_player,
+				"org.freedesktop.DBus.Properties.Set",
+				g_variant_new ("(ssv)", "org.mpris.MediaPlayer2.Player", "Volume", g_variant_new_double (set_volume)),
+				G_DBUS_CALL_FLAGS_NONE,
+				-1,
+				NULL,
+				&error);
+	annoy (&error);
+}
+
+static gboolean
+has_useful_value (GHashTable *properties, const char *property, gboolean multi)
+{
+	GVariant *var;
+	const char *v;
+
+	var = g_hash_table_lookup (properties, property);
+	if (var == NULL)
+		return FALSE;
+
+	if (multi) {
+		const char **strv = g_variant_get_strv (var, NULL);
+		v = strv[0];
+	} else {
+		v = g_variant_get_string (var, NULL);
+	}
+
+	return (v != NULL && (g_str_equal (v, _("Unknown")) == FALSE));
+}
+
+static char *
+now_playing_string (GHashTable *properties)
+{
+	gboolean has_artist = has_useful_value (properties, "xesam:artist", TRUE);
+	gboolean has_album = has_useful_value (properties, "xesam:album", FALSE);
+
+	if (g_hash_table_lookup (properties, "rhythmbox:streamTitle") != NULL) {
+		return parse_pattern ("%st (%tt)", properties, 0, TRUE);
+	} else if (has_artist && has_album) {
+		/* Translators: title by artist from album */
+		return parse_pattern (_("%tt by %ta from %at"), properties, 0, TRUE);
+	} else if (has_artist) {
+		/* Translators: title by artist */
+		return parse_pattern (_("%tt by %ta"), properties, 0, TRUE);
+	} else if (has_album) {
+		/* Translators: title from album */
+		return parse_pattern (_("%tt from %ta"), properties, 0, TRUE);
+	} else {
+		return parse_pattern ("%tt", properties, 0, TRUE);
+	}
+}
+
+static char *
+playing_time_string (GHashTable *properties, gint64 elapsed)
+{
+	if (g_hash_table_lookup (properties, "mpris:length") != NULL) {
+		/* Translators: %te is replaced with elapsed time, %td is replaced with track duration */
+		return parse_pattern (_("[%te of %td]"), properties, elapsed, FALSE);
+	} else {
+		return parse_pattern ("[%te]", properties, elapsed, FALSE);
 	}
 }
 
 static void
-state_changed_signal_cb (GDBusProxy *proxy, const char *sender_name, const char *signal_name, GVariant *parameters, GMainLoop *loop)
+interact_print_state (InteractData *data, int ch)
 {
-	const char *action;
-	GVariant *state;
-	if (g_strcmp0 (signal_name, "StateChanged") != 0) {
+	GHashTable *properties;
+	GVariant *prop;
+	GVariant *val;
+	char *string;
+	char *timestr;
+	const char *s;
+	GError *error = NULL;
+	gboolean playing;
+	gint64 elapsed;
+
+	prop = g_dbus_proxy_call_sync (data->mpris_player,
+				       "org.freedesktop.DBus.Properties.Get",
+				       g_variant_new ("(ss)", "org.mpris.MediaPlayer2.Player", "PlaybackStatus"),
+				       G_DBUS_CALL_FLAGS_NONE,
+				       -1,
+				       NULL,
+				       &error);
+	if (annoy (&error)) {
 		return;
 	}
 
-	g_variant_get (parameters, "(sv)", &action, &state);
-	if (g_strcmp0 (action, "load-uri") == 0) {
-		GApplication *app;
-		app = g_object_get_data (G_OBJECT (proxy), "actual-app");
-		state_changed_cb (G_ACTION_GROUP (app), action, state, loop);
+	g_variant_get (prop, "(v)", &val);
+	s = g_variant_get_string (val, NULL);
+	if (g_str_equal(s, "Stopped")) {
+		g_print ("%s\r\n", _("Not playing"));
+		return;
 	}
-	g_variant_unref (state);
+	playing = g_str_equal (s, "Playing");
+	g_variant_unref (prop);
+
+	prop = g_dbus_proxy_call_sync (data->mpris_player,
+				       "org.freedesktop.DBus.Properties.Get",
+				       g_variant_new ("(ss)", "org.mpris.MediaPlayer2.Player", "Position"),
+				       G_DBUS_CALL_FLAGS_NONE,
+				       -1,
+				       NULL,
+				       &error);
+	if (annoy (&error)) {
+		return;
+	}
+	g_variant_get (prop, "(v)", &val);
+	elapsed = g_variant_get_int64 (val);
+
+	properties = get_playing_song_info (data->mpris_player);
+	string = now_playing_string (properties);
+	timestr = playing_time_string (properties, elapsed);
+
+	g_print ("%s: %s %s\r\n", playing ? _("Playing") : _("Paused"), string, timestr);
+	g_hash_table_destroy (properties);
+	g_free (string);
+	g_free (timestr);
+}
+
+
+static gboolean
+interact_input (GObject *stream, gpointer user_data)
+{
+	GInputStream *in = G_INPUT_STREAM (stream);
+	InteractData *data = user_data;
+	GError *error = NULL;
+	char b[2];
+	int k;
+
+	switch (g_pollable_input_stream_read_nonblocking (G_POLLABLE_INPUT_STREAM (in), b, 1, NULL, &error)) {
+	case -1:
+		annoy(&error);
+		g_main_loop_quit (mainloop);
+		break;
+	case 0:
+		break;
+	default:
+		for (k = 0; k < G_N_ELEMENTS (interact_keys); k++) {
+			if (interact_keys[k].ch == b[0]) {
+				interact_keys[k].handler(data, b[0]);
+				break;
+			}
+		}
+		break;
+	}
+	return TRUE;
+}
+
+static void
+interact_mpris_player_signal (GDBusProxy *proxy, char *sender, char *signal_name, GVariant *parameters, InteractData *data)
+{
+	if (g_str_equal (signal_name, "Seeked")) {
+		gint64 pos;
+		char *str;
+		g_variant_get (parameters, "(x)", &pos);
+		if (abs(pos - data->position) >= G_USEC_PER_SEC) {
+			str = rb_make_duration_string (pos, FALSE);
+			g_print (_("Seeked to %s"), str);
+			g_print ("\r\n");
+			g_free (str);
+		}
+		data->position = pos;
+	}
+}
+
+static void
+interact_mpris_player_properties (GDBusProxy *proxy, GVariant *changed, GStrv invalidated, InteractData *data)
+{
+	GVariant *metadata;
+	char *status = NULL;
+	gdouble volume;
+
+	if (g_variant_lookup (changed, "PlaybackStatus", "s", &status)) {
+		if (g_str_equal (status, "Stopped")) {
+			g_print (_("Not playing"));
+			g_print ("\r\n");
+			return;
+		}
+	}
+
+	metadata = g_variant_lookup_value (changed, "Metadata", NULL);
+	if (metadata) {
+		GHashTable *properties;
+		char *string;
+
+		properties = metadata_to_properties (metadata);
+		string = now_playing_string (properties);
+
+		if (data->playing_track == NULL || g_str_equal (string, data->playing_track) == FALSE) {
+			char *timestr;
+			timestr = playing_time_string (properties, 0);
+			g_print (_("Now playing: %s %s"), string, timestr);
+			g_print ("\r\n");
+			g_free (timestr);
+			g_free (data->playing_track);
+			data->playing_track = string;
+			data->position = 0;
+		} else {
+			g_free (string);
+		}
+	} else if (status != NULL) {
+		/* include elapsed/duration here? */
+		if (g_str_equal (status, "Playing")) {
+			g_print (_("Playing"));
+		} else if (g_str_equal (status, "Paused")) {
+			g_print (_("Paused"));
+		} else {
+			g_print (_("Unknown playback state: %s"), status);
+		}
+		g_print ("\r\n");
+		g_free (status);
+	}
+
+	if (g_variant_lookup (changed, "Volume", "d", &volume)) {
+		if (data->volume < -0.1) {
+			data->volume = volume;
+		} else if (fabs(volume - data->volume) > 0.001) {
+			g_print (_("Volume is now %.02f"), volume);
+			g_print ("\r\n");
+			data->volume = volume;
+		}
+	}
+}
+
+static gboolean
+interact_print_state_idle (InteractData *data)
+{
+	interact_print_state (data, 's');
+	return FALSE;
+}
+
+static void
+interact (InteractData *data)
+{
+	GInputStream *in;
+	GSource *insrc;
+	struct termios orig_tt, tt;
+
+	if (mainloop == NULL)
+		mainloop = g_main_loop_new (NULL, FALSE);
+
+	tcgetattr(0, &orig_tt);
+	tt = orig_tt;
+	cfmakeraw(&tt);
+	tt.c_lflag &= ~ECHO;
+	tcsetattr(0, TCSAFLUSH, &tt);
+
+	g_signal_connect (data->mpris_player, "g-signal", G_CALLBACK (interact_mpris_player_signal), data);
+	g_signal_connect (data->mpris_player, "g-properties-changed", G_CALLBACK (interact_mpris_player_properties), data);
+
+	in = g_unix_input_stream_new (0, FALSE);
+	insrc = g_pollable_input_stream_create_source (G_POLLABLE_INPUT_STREAM (in), NULL);
+	g_source_set_callback (insrc, (GSourceFunc) interact_input, data, NULL);
+
+	/* should print this before dbus setup, really */
+	g_print (_("Press 'h' for help."));
+	g_print ("\r\n\r\n");
+	g_source_attach (insrc, g_main_loop_get_context (mainloop));
+
+	g_idle_add ((GSourceFunc) interact_print_state_idle, data);
+
+	g_main_loop_run (mainloop);
+
+	g_signal_handlers_disconnect_by_func (data->mpris_player, G_CALLBACK (interact_mpris_player_signal), data);
+	g_signal_handlers_disconnect_by_func (data->mpris_player, G_CALLBACK (interact_mpris_player_properties), data);
+
+	tcsetattr(0, TCSAFLUSH, &orig_tt);
+}
+
+
+static void
+check_loaded_state (GVariant *state)
+{
+	gboolean loaded, scanned;
+
+	g_variant_get (state, "(bb)", &loaded, &scanned);
+	if (loaded && scanned) {
+		/* give it a tiny bit longer to populate sources etc. */
+		g_timeout_add (1500, (GSourceFunc) g_main_loop_quit, mainloop);
+	}
+}
+
+static void
+state_changed_cb (GActionGroup *group, const char *action_name, GVariant *state, gpointer data)
+{
+	if (g_strcmp0 (action_name, "load-uri") == 0) {
+		check_loaded_state (state);
+	}
+}
+
+static void
+action_added_cb (GActionGroup *group, const char *action_name, gpointer data)
+{
+	if (g_strcmp0 (action_name, "load-uri") == 0) {
+		GVariant *state = g_action_group_get_action_state (group, "load-uri");
+		check_loaded_state (state);
+		g_variant_unref (state);
+	}
 }
 
 static gboolean
@@ -671,29 +1076,18 @@ main (int argc, char **argv)
 
 	g_variant_get (state, "(bb)", &loaded, &scanned);
 	if ((loaded && scanned) == FALSE) {
-		GMainLoop *loop;
-		GDBusProxy *app_proxy;
+		GDBusActionGroup *group;
 
 		rb_debug ("waiting for app startup");
-		loop = g_main_loop_new (NULL, FALSE);
-		g_signal_connect (app, "action-state-changed", G_CALLBACK (state_changed_cb), loop);
-
-		/* dbus implementation of GApplication doesn't do action state updates yet */
-		app_proxy = g_dbus_proxy_new_sync (bus, G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START, NULL,
-						   "org.gnome.Rhythmbox3",
-						   "/org/gnome/Rhythmbox3",
-						   "org.gtk.Actions",
-						   NULL,
-						   &error);
-		if (app_proxy == NULL || proxy_has_name_owner (app_proxy) == FALSE) {
-			g_warning ("unable to wait for app startup: %s", error->message);
-			g_clear_error (&error);
-		} else {
-			g_object_set_data (G_OBJECT (app_proxy), "actual-app", app);
-			g_signal_connect (app_proxy, "g-signal", G_CALLBACK (state_changed_signal_cb), loop);
-			g_main_loop_run (loop);
-			rb_debug ("app is now started enough");
-		}
+		mainloop = g_main_loop_new (NULL, FALSE);
+		group = g_dbus_action_group_get (bus, "org.gnome.Rhythmbox3", "/org/gnome/Rhythmbox3");
+		/* make sure the group gets initialised and put in strict mode */
+		g_action_group_has_action (G_ACTION_GROUP (group), "load-uri");
+		g_signal_connect (group, "action-state-changed", G_CALLBACK (state_changed_cb), NULL);
+		g_signal_connect (group, "action-added", G_CALLBACK (action_added_cb), NULL);
+		g_main_loop_run (mainloop);
+		rb_debug ("app is now started enough");
+		g_object_unref (group);
 	}
 
 	/* create proxies */
@@ -711,7 +1105,8 @@ main (int argc, char **argv)
 		    play   || do_pause  || play_pause  ||
 		    stop   || volume_up || volume_down ||
 		    repeat || no_repeat || shuffle     ||
-		    no_shuffle || (set_volume > -0.01)) {
+		    no_shuffle || (set_volume > -0.01) ||
+		    interactive) {
 			exit (1);
 		}
 	}
@@ -731,10 +1126,29 @@ main (int argc, char **argv)
 		}
 	}
 
+	/* interactive mode takes precedence over anything else */
+	if (interactive) {
+		InteractData data;
+		rb_debug ("entering interactive mode");
+		if (!isatty(1)) {
+			g_warning ("interactive mode only works on ttys");
+			exit (1);
+		}
+		data.app = app;
+		data.mpris_player = mpris;
+		data.mpris_playlists = NULL;
+		data.playing_track = NULL;
+		data.volume = -1.0;
+		/* more things? */
+
+		interact (&data);
+		exit (0);
+	}
+
 	/* activate or quit */
 	if (quit) {
 		rb_debug ("quitting existing instance");
-		g_action_group_activate_action (G_ACTION_GROUP (app), "Quit", NULL);
+		g_action_group_activate_action (G_ACTION_GROUP (app), "quit", NULL);
 		exit (0);
 	}
 
@@ -822,9 +1236,12 @@ main (int argc, char **argv)
 		if (properties != NULL) {
 			GVariant *v = g_hash_table_lookup (properties, "mpris:trackid");
 			if (v != NULL) {
+				gint64 useek;
+
+				useek = seek * 1000000;
 				g_dbus_proxy_call_sync (mpris,
 							"SetPosition",
-							g_variant_new ("(ox)", g_variant_get_string (v, NULL), seek),
+							g_variant_new ("(ox)", g_variant_get_string (v, NULL), useek),
 							G_DBUS_CALL_FLAGS_NONE,
 							-1,
 							NULL,
@@ -915,7 +1332,8 @@ main (int argc, char **argv)
 				rb_debug ("no need to change playback state");
 			}
 		} else if (stop) {
-			g_warning ("not implemented yet");
+			g_dbus_proxy_call_sync (mpris, "Stop", NULL, G_DBUS_CALL_FLAGS_NONE, -1, NULL, &error);
+			annoy (&error);
 		}
 	}
 

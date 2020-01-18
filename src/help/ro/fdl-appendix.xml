@@ -9,20 +9,14 @@
 -->
 <appendix id="fdl">
   <appendixinfo>
-    <releaseinfo>
-      Version 1.1, March 2000
-    </releaseinfo>
+    <releaseinfo>Versiunea 1.1, Martie 2000</releaseinfo>
     <copyright>
       <year>2000</year><holder>Free Software Foundation, Inc.</holder>
     </copyright>
     <legalnotice id="fdl-legalnotice">
-      <para>
-	<address>Free Software Foundation, Inc. <street>51 Franklin St, 
+      <para><address>Free Software Foundation, Inc. <street>51 Franklin St, 
         Fifth Floor</street>, <city>Boston</city>, <state>MA</state>  
-        <postcode>02110-1301</postcode>  <country>USA</country></address> 
-	Everyone is permitted to copy and distribute verbatim copies of this 
-        license document, but changing it is not allowed.
-      </para>
+        <postcode>02110-1301</postcode>  <country>USA</country></address> Oricui îi este permis să copieze și să distribuie cópii exacte ale acestui document de licență, dar modificarea lui nu este permisă.</para>
     </legalnotice>
   </appendixinfo>
   <title>GNU Free Documentation License</title>
@@ -496,7 +490,7 @@
     
     <para>
       You may extract a single document from such a collection, and
-      dispbibute it individually under this License, provided you
+      distribute it individually under this License, provided you
       insert a copy of this License into the extracted document, and
       follow this License in all other respects regarding verbatim
       copying of that document.

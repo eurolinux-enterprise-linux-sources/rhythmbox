@@ -19,7 +19,7 @@ libgeneric_player_la_LDFLAGS = 				\
 	$(TOTEM_PLPARSER_LIBS)				\
 	$(PLUGIN_LIBTOOL_FLAGS)
 
-INCLUDES = 						\
+AM_CPPFLAGS = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -37,8 +37,7 @@ INCLUDES = 						\
 	-DSHARE_DIR=\"$(pkgdatadir)\"                   \
 	-DDATADIR=\""$(datadir)"\"			\
 	$(TOTEM_PLPARSER_CFLAGS)			\
-	$(RHYTHMBOX_CFLAGS)				\
-	-D_BSD_SOURCE
+	$(RHYTHMBOX_CFLAGS)
 
 gtkbuilderdir = $(plugindatadir)
 gtkbuilder_DATA = generic-player-info.ui generic-player-toolbar.ui

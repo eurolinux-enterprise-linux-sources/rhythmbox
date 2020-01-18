@@ -51,16 +51,13 @@
 #define RB_GRILO_PLUGIN_GET_CLASS(o)	(G_TYPE_INSTANCE_GET_CLASS ((o), RB_TYPE_GRILO_PLUGIN, RBGriloPluginClass))
 
 static const char *ignored_plugins[] = {
-	"grl-apple-trailers",
-	"grl-bliptv",
 	"grl-bookmarks",
+	"grl-dmap",
 	"grl-filesystem",
-	"grl-flickr",
+	"grl-magnatune",
 	"grl-optical-media",
 	"grl-podcasts",
-	"grl-tracker",
-	"grl-vimeo",
-	"grl-youtube"
+	"grl-tracker"
 };
 
 typedef struct
@@ -112,12 +109,18 @@ grilo_source_added_cb (GrlRegistry *registry, GrlSource *grilo_source, RBGriloPl
 	RBShell *shell;
 	int i;
 
+	if (!(grl_source_get_supported_media (grilo_source) & GRL_MEDIA_TYPE_AUDIO)) {
+		rb_debug ("grilo source %s doesn't support audio",
+			  grl_source_get_name (grilo_source));
+		goto ignore;
+	}
+
 	grilo_plugin = grl_source_get_plugin (grilo_source);
 	for (i = 0; i < G_N_ELEMENTS (ignored_plugins); i++) {
 		if (g_str_equal (ignored_plugins[i], grl_plugin_get_id (grilo_plugin))) {
 			rb_debug ("grilo source %s is blacklisted",
 				  grl_source_get_name (grilo_source));
-			return;
+			goto ignore;
 		}
 	}
 
@@ -125,13 +128,13 @@ grilo_source_added_cb (GrlRegistry *registry, GrlSource *grilo_source, RBGriloPl
 	if (((ops & GRL_OP_BROWSE) == 0) && ((ops & GRL_OP_SEARCH) == 0)) {
 		rb_debug ("grilo source %s is not interesting",
 			  grl_source_get_name (grilo_source));
-		return;
+		goto ignore;
 	}
 
 	keys = grl_source_supported_keys (grilo_source);
 	if (g_list_find ((GList *)keys, GINT_TO_POINTER (GRL_METADATA_KEY_URL)) == NULL) {
 		rb_debug ("grilo source %s doesn't do urls", grl_source_get_name (grilo_source));
-		return;
+		goto ignore;
 	}
 
 	rb_debug ("new grilo source: %s", grl_source_get_name (grilo_source));
@@ -143,6 +146,24 @@ grilo_source_added_cb (GrlRegistry *registry, GrlSource *grilo_source, RBGriloPl
 	g_object_get (plugin, "object", &shell, NULL);
 	rb_shell_append_display_page (shell, RB_DISPLAY_PAGE (source), RB_DISPLAY_PAGE_GROUP_SHARED);
 	g_object_unref (shell);
+
+	return;
+
+ignore:
+	grl_registry_unregister_source (registry, grilo_source, NULL);
+}
+
+static void
+grilo_source_removed_cb (GrlRegistry *registry, GrlSource *grilo_source, RBGriloPlugin *plugin)
+{
+	RBSource *source;
+
+	source = g_hash_table_lookup (plugin->sources, grilo_source);
+
+	if (source) {
+		rb_display_page_delete_thyself (RB_DISPLAY_PAGE (source));
+		g_hash_table_remove (plugin->sources, grilo_source);
+	}
 }
 
 static void
@@ -191,6 +212,7 @@ impl_activate (PeasActivatable *plugin)
 	grl_init (0, NULL);
 	pi->registry = grl_registry_get_default ();
 	g_signal_connect (pi->registry, "source-added", G_CALLBACK (grilo_source_added_cb), pi);
+	g_signal_connect (pi->registry, "source-removed", G_CALLBACK (grilo_source_removed_cb), pi);
 	if (grl_registry_load_all_plugins (pi->registry, &error) == FALSE) {
 		g_warning ("Failed to load Grilo plugins: %s", error->message);
 		g_clear_error (&error);
@@ -226,7 +248,6 @@ impl_deactivate	(PeasActivatable *bplugin)
 	g_hash_table_destroy (plugin->sources);
 	plugin->sources = NULL;
 
-	g_object_unref (plugin->registry);
 	plugin->registry = NULL;
 
 	if (plugin->emit_cover_art_id != 0) {

@@ -2,37 +2,29 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RBURIDialog</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<title>RBURIDialog: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch07.html" title="Widgets">
 <link rel="prev" href="RBSongInfo.html" title="RBSongInfo">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
-<tr valign="middle">
-<td><a accesskey="p" href="RBSongInfo.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch07.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
-<td> </td>
-</tr>
-<tr><td colspan="5" class="shortcuts">
-<a href="#RBURIDialog.synopsis" class="shortcut">Top</a>
-                   | 
-                  <a href="#RBURIDialog.description" class="shortcut">Description</a>
-                   | 
-                  <a href="#RBURIDialog.object-hierarchy" class="shortcut">Object Hierarchy</a>
-                   | 
-                  <a href="#RBURIDialog.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
-                   | 
-                  <a href="#RBURIDialog.properties" class="shortcut">Properties</a>
-                   | 
-                  <a href="#RBURIDialog.signals" class="shortcut">Signals</a>
-</td></tr>
-</table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBURIDialog.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBURIDialog.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#RBURIDialog.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#RBURIDialog.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#RBURIDialog.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch07.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RBSongInfo.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><img src="right-insensitive.png" width="16" height="16" border="0"></td>
+</tr></table>
 <div class="refentry">
 <a name="RBURIDialog"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -40,30 +32,85 @@
 <h2><span class="refentrytitle"><a name="RBURIDialog.top_of_page"></a>RBURIDialog</span></h2>
 <p>RBURIDialog — simple URI entry dialog</p>
 </td>
-<td valign="top" align="right"></td>
+<td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
-<a name="RBURIDialog.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">
-#include &lt;rb-uri-dialog.h&gt;
-
-struct              <a class="link" href="RBURIDialog.html#RBURIDialog-struct" title="struct RBURIDialog">RBURIDialog</a>;
-struct              <a class="link" href="RBURIDialog.html#RBURIDialogClass" title="struct RBURIDialogClass">RBURIDialogClass</a>;
-<span class="returnvalue">GtkWidget</span> *         <a class="link" href="RBURIDialog.html#rb-uri-dialog-new" title="rb_uri_dialog_new ()">rb_uri_dialog_new</a>                   (<em class="parameter"><code>const <span class="type">char</span> *title</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *label</code></em>);
-</pre>
+<div class="refsect1">
+<a name="RBURIDialog.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody><tr>
+<td class="function_type">
+<span class="returnvalue">GtkWidget</span> *
+</td>
+<td class="function_name">
+<a class="link" href="RBURIDialog.html#rb-uri-dialog-new" title="rb_uri_dialog_new ()">rb_uri_dialog_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBURIDialog.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody><tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="RBURIDialog.html#RBURIDialog--label" title="The “label” property">label</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBURIDialog.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody><tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBURIDialog.html#RBURIDialog-location-added" title="The “location-added” signal">location-added</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBURIDialog.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBURIDialog.html#RBURIDialog-struct" title="struct RBURIDialog">RBURIDialog</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBURIDialog.html#RBURIDialogClass" title="struct RBURIDialogClass">RBURIDialogClass</a></td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="refsect1">
 <a name="RBURIDialog.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="synopsis">
-  GObject
-   +----GInitiallyUnowned
-         +----GtkWidget
-               +----GtkContainer
-                     +----GtkBin
-                           +----GtkWindow
-                                 +----GtkDialog
-                                       +----RBURIDialog
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> GtkWidget
+            <span class="lineart">╰──</span> GtkContainer
+                <span class="lineart">╰──</span> GtkBin
+                    <span class="lineart">╰──</span> GtkWindow
+                        <span class="lineart">╰──</span> GtkDialog
+                            <span class="lineart">╰──</span> RBURIDialog
 </pre>
 </div>
 <div class="refsect1">
@@ -73,25 +120,52 @@ RBURIDialog implements
  AtkImplementorIface and  GtkBuildable.</p>
 </div>
 <div class="refsect1">
-<a name="RBURIDialog.properties"></a><h2>Properties</h2>
-<pre class="synopsis">
-  "<a class="link" href="RBURIDialog.html#RBURIDialog--label" title='The "label" property'>label</a>"                    <span class="type">gchar</span>*                : Read / Write / Construct Only
-</pre>
-</div>
-<div class="refsect1">
-<a name="RBURIDialog.signals"></a><h2>Signals</h2>
-<pre class="synopsis">
-  "<a class="link" href="RBURIDialog.html#RBURIDialog-location-added" title='The "location-added" signal'>location-added</a>"                                 : <code class="literal">Run Last</code>
+<a name="RBURIDialog.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;rb-uri-dialog.h&gt;
 </pre>
 </div>
 <div class="refsect1">
 <a name="RBURIDialog.description"></a><h2>Description</h2>
-<p>
-A simple dialog used to request a single URI from the user.
-</p>
+<p>A simple dialog used to request a single URI from the user.</p>
 </div>
 <div class="refsect1">
-<a name="RBURIDialog.details"></a><h2>Details</h2>
+<a name="RBURIDialog.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-uri-dialog-new"></a><h3>rb_uri_dialog_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *
+rb_uri_dialog_new (<em class="parameter"><code>const <span class="type">char</span> *title</code></em>,
+                   <em class="parameter"><code>const <span class="type">char</span> *label</code></em>);</pre>
+<p>Creates a URI entry dialog.</p>
+<div class="refsect3">
+<a name="id-1.8.14.11.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>title</p></td>
+<td class="parameter_description"><p>Window title for the dialog</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>label</p></td>
+<td class="parameter_description"><p>Label to display in the dialog</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.8.14.11.2.6"></a><h4>Returns</h4>
+<p> URI dialog instance.</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBURIDialog.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
 <a name="RBURIDialog-struct"></a><h3>struct RBURIDialog</h3>
 <pre class="programlisting">struct RBURIDialog;</pre>
@@ -111,83 +185,58 @@ A simple dialog used to request a single URI from the user.
 <p>
 </p>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rb-uri-dialog-new"></a><h3>rb_uri_dialog_new ()</h3>
-<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *         rb_uri_dialog_new                   (<em class="parameter"><code>const <span class="type">char</span> *title</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *label</code></em>);</pre>
-<p>
-Creates a URI entry dialog.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>title</code></em> :</span></p></td>
-<td>Window title for the dialog</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>label</code></em> :</span></p></td>
-<td>Label to display in the dialog</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>URI dialog instance.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
 </div>
 <div class="refsect1">
 <a name="RBURIDialog.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
-<a name="RBURIDialog--label"></a><h3>The <code class="literal">"label"</code> property</h3>
-<pre class="programlisting">  "label"                    <span class="type">gchar</span>*                : Read / Write / Construct Only</pre>
-<p>
-The label displayed in the dialog.
-</p>
+<a name="RBURIDialog--label"></a><h3>The <code class="literal">“label”</code> property</h3>
+<pre class="programlisting">  “label”                    <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>The label displayed in the dialog.</p>
+<p>Flags: Read / Write / Construct Only</p>
 <p>Default value: ""</p>
 </div>
 </div>
 <div class="refsect1">
 <a name="RBURIDialog.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
-<a name="RBURIDialog-location-added"></a><h3>The <code class="literal">"location-added"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBURIDialog.html" title="RBURIDialog"><span class="type">RBURIDialog</span></a> *dialog,
-                                                        <span class="type">gchar</span>       *uri,
-                                                        <span class="type">gpointer</span>     user_data)      : <code class="literal">Run Last</code></pre>
-<p>
-Emitted when the user has entered a URI into the dialog.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="RBURIDialog-location-added"></a><h3>The <code class="literal">“location-added”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBURIDialog.html" title="RBURIDialog"><span class="type">RBURIDialog</span></a> *dialog,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>       *uri,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)</pre>
+<p>Emitted when the user has entered a URI into the dialog.</p>
+<div class="refsect3">
+<a name="id-1.8.14.14.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>dialog</code></em> :</span></p></td>
-<td>the <a class="link" href="RBURIDialog.html" title="RBURIDialog"><span class="type">RBURIDialog</span></a>
-</td>
+<td class="parameter_name"><p>dialog</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBURIDialog.html" title="RBURIDialog"><span class="type">RBURIDialog</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
-<td>URI entered</td>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>URI entered</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.18.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

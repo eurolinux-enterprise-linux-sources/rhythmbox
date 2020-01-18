@@ -2,34 +2,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RBPlayerGstFilter</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<title>RBPlayerGstFilter: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch01.html" title="Backends">
-<link rel="prev" href="RBPlayerGstDataTee.html" title="RBPlayerGstDataTee">
+<link rel="prev" href="RBPlayer.html" title="RBPlayer">
 <link rel="next" href="RBPlayerGstTee.html" title="RBPlayerGstTee">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
-<tr valign="middle">
-<td><a accesskey="p" href="RBPlayerGstDataTee.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
-<td><a accesskey="n" href="RBPlayerGstTee.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
-</tr>
-<tr><td colspan="5" class="shortcuts">
-<a href="#RBPlayerGstFilter.synopsis" class="shortcut">Top</a>
-                   | 
-                  <a href="#RBPlayerGstFilter.description" class="shortcut">Description</a>
-                   | 
-                  <a href="#RBPlayerGstFilter.object-hierarchy" class="shortcut">Object Hierarchy</a>
-                   | 
-                  <a href="#RBPlayerGstFilter.signals" class="shortcut">Signals</a>
-</td></tr>
-</table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBPlayerGstFilter.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBPlayerGstFilter.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#RBPlayerGstFilter.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RBPlayer.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RBPlayerGstTee.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
 <div class="refentry">
 <a name="RBPlayerGstFilter"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -37,44 +31,168 @@
 <h2><span class="refentrytitle"><a name="RBPlayerGstFilter.top_of_page"></a>RBPlayerGstFilter</span></h2>
 <p>RBPlayerGstFilter — player interface for inserting filter elements</p>
 </td>
-<td valign="top" align="right"></td>
+<td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
-<a name="RBPlayerGstFilter.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">
-#include &lt;rb-player-gst-filter.h&gt;
-
-                    <a class="link" href="RBPlayerGstFilter.html#RBPlayerGstFilter-struct" title="RBPlayerGstFilter">RBPlayerGstFilter</a>;
-struct              <a class="link" href="RBPlayerGstFilter.html#RBPlayerGstFilterIface" title="struct RBPlayerGstFilterIface">RBPlayerGstFilterIface</a>;
-<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlayerGstFilter.html#rb-player-gst-filter-add-filter" title="rb_player_gst_filter_add_filter ()">rb_player_gst_filter_add_filter</a>     (<em class="parameter"><code><a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> *player</code></em>,
-                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlayerGstFilter.html#rb-player-gst-filter-remove-filter" title="rb_player_gst_filter_remove_filter ()">rb_player_gst_filter_remove_filter</a>  (<em class="parameter"><code><a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> *player</code></em>,
-                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);
-</pre>
-</div>
 <div class="refsect1">
-<a name="RBPlayerGstFilter.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="synopsis">
-  GInterface
-   +----RBPlayerGstFilter
-</pre>
+<a name="RBPlayerGstFilter.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlayerGstFilter.html#rb-player-gst-filter-add-filter" title="rb_player_gst_filter_add_filter ()">rb_player_gst_filter_add_filter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlayerGstFilter.html#rb-player-gst-filter-remove-filter" title="rb_player_gst_filter_remove_filter ()">rb_player_gst_filter_remove_filter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="refsect1">
 <a name="RBPlayerGstFilter.signals"></a><h2>Signals</h2>
-<pre class="synopsis">
-  "<a class="link" href="RBPlayerGstFilter.html#RBPlayerGstFilter-filter-inserted" title='The "filter-inserted" signal'>filter-inserted</a>"                                : <code class="literal">No Recursion</code>
-  "<a class="link" href="RBPlayerGstFilter.html#RBPlayerGstFilter-filter-pre-remove" title='The "filter-pre-remove" signal'>filter-pre-remove</a>"                              : <code class="literal">No Recursion</code>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBPlayerGstFilter.html#RBPlayerGstFilter-filter-inserted" title="The “filter-inserted” signal">filter-inserted</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-NO-RECURSE:CAPS">No Recursion</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBPlayerGstFilter.html#RBPlayerGstFilter-filter-pre-remove" title="The “filter-pre-remove” signal">filter-pre-remove</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-NO-RECURSE:CAPS">No Recursion</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBPlayerGstFilter.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="RBPlayerGstFilter.html#RBPlayerGstFilter-struct" title="RBPlayerGstFilter">RBPlayerGstFilter</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBPlayerGstFilter.html#RBPlayerGstFilterIface" title="struct RBPlayerGstFilterIface">RBPlayerGstFilterIface</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBPlayerGstFilter.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/GTypeModule.html">GInterface</a>
+    <span class="lineart">╰──</span> RBPlayerGstFilter
+</pre>
+</div>
+<div class="refsect1">
+<a name="RBPlayerGstFilter.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;rb-player-gst-filter.h&gt;
 </pre>
 </div>
 <div class="refsect1">
 <a name="RBPlayerGstFilter.description"></a><h2>Description</h2>
-<p>
-This interface allows a caller to add filter elements to the GStreamer playback
-pipeline.
-</p>
+<p>This interface allows a caller to add filter elements to the GStreamer playback
+pipeline.</p>
 </div>
 <div class="refsect1">
-<a name="RBPlayerGstFilter.details"></a><h2>Details</h2>
+<a name="RBPlayerGstFilter.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-player-gst-filter-add-filter"></a><h3>rb_player_gst_filter_add_filter ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_player_gst_filter_add_filter (<em class="parameter"><code><a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> *player</code></em>,
+                                 <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);</pre>
+<p>Adds a new filter to the playback pipeline.  The filter may not be
+inserted immediately.  The 'filter-inserted' signal will be emitted
+when this actually happens.</p>
+<div class="refsect3">
+<a name="id-1.2.3.9.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>player</p></td>
+<td class="parameter_description"><p><a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> implementation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>element</p></td>
+<td class="parameter_description"><p>new filter element (or bin) to add</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.9.2.6"></a><h4>Returns</h4>
+<p> TRUE if the filter will be added</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-player-gst-filter-remove-filter"></a><h3>rb_player_gst_filter_remove_filter ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_player_gst_filter_remove_filter (<em class="parameter"><code><a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> *player</code></em>,
+                                    <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);</pre>
+<p>Removes a filter from the playback pipeline.  The filter may not be
+removed immediately.  The 'filter-pre-remove' signal will be emitted
+immediately before this actually happens.</p>
+<div class="refsect3">
+<a name="id-1.2.3.9.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>player</p></td>
+<td class="parameter_description"><p><a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> implementation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>element</p></td>
+<td class="parameter_description"><p>the filter element (or bin) to remove</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.9.3.6"></a><h4>Returns</h4>
+<p> TRUE if the filter was found and will be removed</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBPlayerGstFilter.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
 <a name="RBPlayerGstFilter-struct"></a><h3>RBPlayerGstFilter</h3>
 <pre class="programlisting">typedef struct _RBPlayerGstFilter RBPlayerGstFilter;</pre>
@@ -99,138 +217,87 @@ pipeline.
 <p>
 </p>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rb-player-gst-filter-add-filter"></a><h3>rb_player_gst_filter_add_filter ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_player_gst_filter_add_filter     (<em class="parameter"><code><a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> *player</code></em>,
-                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);</pre>
-<p>
-Adds a new filter to the playback pipeline.  The filter may not be
-inserted immediately.  The 'filter-inserted' signal will be emitted
-when this actually happens.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>player</code></em> :</span></p></td>
-<td>
-<a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> implementation</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
-<td>new filter element (or bin) to add</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>TRUE if the filter will be added</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-player-gst-filter-remove-filter"></a><h3>rb_player_gst_filter_remove_filter ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_player_gst_filter_remove_filter  (<em class="parameter"><code><a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> *player</code></em>,
-                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);</pre>
-<p>
-Removes a filter from the playback pipeline.  The filter may not be
-removed immediately.  The 'filter-pre-remove' signal will be emitted
-immediately before this actually happens.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>player</code></em> :</span></p></td>
-<td>
-<a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> implementation</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
-<td>the filter element (or bin) to remove</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>TRUE if the filter was found and will be removed</td>
-</tr>
-</tbody>
-</table></div>
-</div>
 </div>
 <div class="refsect1">
 <a name="RBPlayerGstFilter.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
-<a name="RBPlayerGstFilter-filter-inserted"></a><h3>The <code class="literal">"filter-inserted"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> *player,
-                                                        <span class="type">GObject</span>           *filter,
-                                                        <span class="type">gpointer</span>           user_data)      : <code class="literal">No Recursion</code></pre>
-<p>
-The 'filter-inserted' signal is emitted when the tee element has been
-inserted into the pipeline and fully linked
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="RBPlayerGstFilter-filter-inserted"></a><h3>The <code class="literal">“filter-inserted”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> *player,
+               <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>           *filter,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>The 'filter-inserted' signal is emitted when the tee element has been
+inserted into the pipeline and fully linked</p>
+<div class="refsect3">
+<a name="id-1.2.3.11.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>player</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> implementation</td>
+<td class="parameter_name"><p>player</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> implementation</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>filter</code></em> :</span></p></td>
-<td>the element which has been inserted</td>
+<td class="parameter_name"><p>filter</p></td>
+<td class="parameter_description"><p>the element which has been inserted</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-NO-RECURSE:CAPS">No Recursion</a></p>
+</div>
 <hr>
 <div class="refsect2">
-<a name="RBPlayerGstFilter-filter-pre-remove"></a><h3>The <code class="literal">"filter-pre-remove"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> *player,
-                                                        <span class="type">GObject</span>           *filter,
-                                                        <span class="type">gpointer</span>           user_data)      : <code class="literal">No Recursion</code></pre>
-<p>
-The 'filter-pre-remove' signal is emitted immediately before the element
-is unlinked and removed from the pipeline
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="RBPlayerGstFilter-filter-pre-remove"></a><h3>The <code class="literal">“filter-pre-remove”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> *player,
+               <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>           *filter,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>The 'filter-pre-remove' signal is emitted immediately before the element
+is unlinked and removed from the pipeline</p>
+<div class="refsect3">
+<a name="id-1.2.3.11.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>player</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> implementation</td>
+<td class="parameter_name"><p>player</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter"><span class="type">RBPlayerGstFilter</span></a> implementation</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>filter</code></em> :</span></p></td>
-<td>the element which is about to be removed</td>
+<td class="parameter_name"><p>filter</p></td>
+<td class="parameter_description"><p>the element which is about to be removed</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-NO-RECURSE:CAPS">No Recursion</a></p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.18.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

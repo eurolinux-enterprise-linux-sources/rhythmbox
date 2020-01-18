@@ -101,6 +101,10 @@ RhythmDBQueryModel *	rhythmdb_query_model_new		(RhythmDB *db,
 
 RhythmDBQueryModel *	rhythmdb_query_model_new_empty		(RhythmDB *db);
 
+RhythmDBQueryModel *	rhythmdb_query_model_new_for_entry_type (RhythmDB *db,
+								 RhythmDBEntryType *entry_type,
+								 gboolean show_hidden);
+
 void			rhythmdb_query_model_copy_contents	(RhythmDBQueryModel *dest,
 								 RhythmDBQueryModel *src);
 
@@ -169,6 +173,10 @@ gint 			rhythmdb_query_model_album_sort_func	(RhythmDBEntry *a,
 								 gpointer data);
 
 gint 			rhythmdb_query_model_artist_sort_func	(RhythmDBEntry *a,
+								 RhythmDBEntry *b,
+								 gpointer data);
+
+gint 			rhythmdb_query_model_composer_sort_func	(RhythmDBEntry *a,
 								 RhythmDBEntry *b,
 								 gpointer data);
 

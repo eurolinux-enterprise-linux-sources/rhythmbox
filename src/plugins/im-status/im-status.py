@@ -32,7 +32,7 @@ from gi.repository import Gio, GLib, GObject, Peas
 from gi.repository import RB
 
 import gettext
-gettext.install('rhythmbox', RB.locale_dir(), unicode=True)
+gettext.install('rhythmbox', RB.locale_dir())
 
 NORMAL_SONG_ARTIST = 'artist'
 NORMAL_SONG_TITLE  = 'title'
@@ -159,9 +159,9 @@ class IMStatusPlugin (GObject.Object, Peas.Activatable):
 
   def set_status (self):
     subs = {
-        'artist': unicode (self.current_artist, encoding='utf-8'),
-        'album': unicode (self.current_album, encoding='utf-8'),
-        'title': unicode (self.current_title, encoding='utf-8')
+        'artist': self.current_artist,
+        'album': self.current_album,
+        'title': self.current_title
     }
     if self.current_artist:
       if self.current_title:
@@ -212,8 +212,8 @@ class IMStatusPlugin (GObject.Object, Peas.Activatable):
         vstatus = GLib.Variant("(uss)", (status[0], status[1], new_status))
         # Set the status!
         acct_proxy.Set("(ssv)", MC5_ACCT_IFACE_NAME, "RequestedPresence", vstatus)
-    except gi._glib.GError as e:
-      print ("GError while setting status: " + str(e))
+    except GLib.GError as e:
+      print("GError while setting status: " + str(e))
 
   def get_mc5_status (self):
     try:
@@ -234,8 +234,8 @@ class IMStatusPlugin (GObject.Object, Peas.Activatable):
       # if all accounts have empty status, return that
       if got_status:
         return ""
-    except gi._glib.GError as e:
-      print ("GError while setting status: " + str(e))
+    except GLib.GError as e:
+      print("GError while setting status: " + str(e))
     return None
 
   def set_purple_status (self, new_status):
@@ -244,14 +244,14 @@ class IMStatusPlugin (GObject.Object, Peas.Activatable):
       status = proxy.PurpleSavedstatusGetCurrent()
       proxy.PurpleSavedstatusSetMessage("(is)", status, new_status)
       proxy.PurpleSavedstatusActivate("(i)", status)
-    except gi._glib.GError as e:
-      print ("GError while setting status: " + str(e))
+    except GLib.GError as e:
+      print("GError while setting status: " + str(e))
 
   def get_purple_status (self):
     try:
       proxy = self.proxies["purple"]
       status = proxy.PurpleSavedstatusGetCurrent()
       return proxy.PurpleSavedstatusGetMessage("(i)", status)
-    except gi._glib.GError as e:
-      print ("GError while setting status: " + str(e))
+    except GLib.GError as e:
+      print("GError while setting status: " + str(e))
     return None

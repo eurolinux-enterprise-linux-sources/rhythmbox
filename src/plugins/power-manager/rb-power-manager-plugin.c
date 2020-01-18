@@ -34,7 +34,7 @@
 #include <config.h>
 
 #include <glib/gi18n.h>
-#include <gdk/gdkx.h>
+#include <gdk/gdk.h>
 #include <gio/gio.h>
 
 #include "rb-plugin-macros.h"
@@ -94,7 +94,7 @@ inhibit (RBGPMPlugin *plugin)
 		      NULL);
 	g_object_unref (shell);
 
-	plugin->cookie = gtk_application_inhibit (app, window, GTK_APPLICATION_INHIBIT_IDLE, _("Playing"));
+	plugin->cookie = gtk_application_inhibit (app, window, GTK_APPLICATION_INHIBIT_SUSPEND, _("Playing"));
 
 	g_object_unref (window);
 	g_object_unref (app);

@@ -2,34 +2,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RBPlayerGstTee</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<title>RBPlayerGstTee: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch01.html" title="Backends">
 <link rel="prev" href="RBPlayerGstFilter.html" title="RBPlayerGstFilter">
 <link rel="next" href="rhythmbox-RBEncoder.html" title="RBEncoder">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
-<tr valign="middle">
-<td><a accesskey="p" href="RBPlayerGstFilter.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
-<td><a accesskey="n" href="rhythmbox-RBEncoder.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
-</tr>
-<tr><td colspan="5" class="shortcuts">
-<a href="#RBPlayerGstTee.synopsis" class="shortcut">Top</a>
-                   | 
-                  <a href="#RBPlayerGstTee.description" class="shortcut">Description</a>
-                   | 
-                  <a href="#RBPlayerGstTee.object-hierarchy" class="shortcut">Object Hierarchy</a>
-                   | 
-                  <a href="#RBPlayerGstTee.signals" class="shortcut">Signals</a>
-</td></tr>
-</table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBPlayerGstTee.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBPlayerGstTee.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#RBPlayerGstTee.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RBPlayerGstFilter.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="rhythmbox-RBEncoder.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
 <div class="refentry">
 <a name="RBPlayerGstTee"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -37,44 +31,168 @@
 <h2><span class="refentrytitle"><a name="RBPlayerGstTee.top_of_page"></a>RBPlayerGstTee</span></h2>
 <p>RBPlayerGstTee — player interface for inserting additional sinks</p>
 </td>
-<td valign="top" align="right"></td>
+<td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
-<a name="RBPlayerGstTee.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">
-#include &lt;rb-player-gst-tee.h&gt;
-
-                    <a class="link" href="RBPlayerGstTee.html#RBPlayerGstTee-struct" title="RBPlayerGstTee">RBPlayerGstTee</a>;
-struct              <a class="link" href="RBPlayerGstTee.html#RBPlayerGstTeeIface" title="struct RBPlayerGstTeeIface">RBPlayerGstTeeIface</a>;
-<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlayerGstTee.html#rb-player-gst-tee-add-tee" title="rb_player_gst_tee_add_tee ()">rb_player_gst_tee_add_tee</a>           (<em class="parameter"><code><a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> *player</code></em>,
-                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlayerGstTee.html#rb-player-gst-tee-remove-tee" title="rb_player_gst_tee_remove_tee ()">rb_player_gst_tee_remove_tee</a>        (<em class="parameter"><code><a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> *player</code></em>,
-                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);
-</pre>
-</div>
 <div class="refsect1">
-<a name="RBPlayerGstTee.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="synopsis">
-  GInterface
-   +----RBPlayerGstTee
-</pre>
+<a name="RBPlayerGstTee.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlayerGstTee.html#rb-player-gst-tee-add-tee" title="rb_player_gst_tee_add_tee ()">rb_player_gst_tee_add_tee</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlayerGstTee.html#rb-player-gst-tee-remove-tee" title="rb_player_gst_tee_remove_tee ()">rb_player_gst_tee_remove_tee</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="refsect1">
 <a name="RBPlayerGstTee.signals"></a><h2>Signals</h2>
-<pre class="synopsis">
-  "<a class="link" href="RBPlayerGstTee.html#RBPlayerGstTee-tee-inserted" title='The "tee-inserted" signal'>tee-inserted</a>"                                   : <code class="literal">No Recursion</code>
-  "<a class="link" href="RBPlayerGstTee.html#RBPlayerGstTee-tee-pre-remove" title='The "tee-pre-remove" signal'>tee-pre-remove</a>"                                 : <code class="literal">No Recursion</code>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBPlayerGstTee.html#RBPlayerGstTee-tee-inserted" title="The “tee-inserted” signal">tee-inserted</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-NO-RECURSE:CAPS">No Recursion</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBPlayerGstTee.html#RBPlayerGstTee-tee-pre-remove" title="The “tee-pre-remove” signal">tee-pre-remove</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-NO-RECURSE:CAPS">No Recursion</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBPlayerGstTee.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="RBPlayerGstTee.html#RBPlayerGstTee-struct" title="RBPlayerGstTee">RBPlayerGstTee</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBPlayerGstTee.html#RBPlayerGstTeeIface" title="struct RBPlayerGstTeeIface">RBPlayerGstTeeIface</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBPlayerGstTee.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/GTypeModule.html">GInterface</a>
+    <span class="lineart">╰──</span> RBPlayerGstTee
+</pre>
+</div>
+<div class="refsect1">
+<a name="RBPlayerGstTee.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;rb-player-gst-tee.h&gt;
 </pre>
 </div>
 <div class="refsect1">
 <a name="RBPlayerGstTee.description"></a><h2>Description</h2>
-<p>
-This interface allows a caller to add a new sink to the GStreamer playback
-pipeline.
-</p>
+<p>This interface allows a caller to add a new sink to the GStreamer playback
+pipeline.</p>
 </div>
 <div class="refsect1">
-<a name="RBPlayerGstTee.details"></a><h2>Details</h2>
+<a name="RBPlayerGstTee.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-player-gst-tee-add-tee"></a><h3>rb_player_gst_tee_add_tee ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_player_gst_tee_add_tee (<em class="parameter"><code><a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> *player</code></em>,
+                           <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);</pre>
+<p>Adds a new sink to the playback pipeline.  The sink may not be
+inserted immediately.  The 'tee-inserted' signal will be emitted
+when this actually happens.</p>
+<div class="refsect3">
+<a name="id-1.2.4.9.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>player</p></td>
+<td class="parameter_description"><p><a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> implementation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>element</p></td>
+<td class="parameter_description"><p>new sink element (or bin) to add</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.4.9.2.6"></a><h4>Returns</h4>
+<p> TRUE if the sink will be added</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-player-gst-tee-remove-tee"></a><h3>rb_player_gst_tee_remove_tee ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_player_gst_tee_remove_tee (<em class="parameter"><code><a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> *player</code></em>,
+                              <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);</pre>
+<p>Removes a sink from the playback pipeline.  The sink may not be
+removed immediately.  The 'tee-pre-remove' signal will be emitted
+immediately before this actually happens.</p>
+<div class="refsect3">
+<a name="id-1.2.4.9.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>player</p></td>
+<td class="parameter_description"><p><a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> implementation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>element</p></td>
+<td class="parameter_description"><p>the sink element (or bin) to remove</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.4.9.3.6"></a><h4>Returns</h4>
+<p> TRUE if the sink was found and will be removed</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBPlayerGstTee.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
 <a name="RBPlayerGstTee-struct"></a><h3>RBPlayerGstTee</h3>
 <pre class="programlisting">typedef struct _RBPlayerGstTee RBPlayerGstTee;</pre>
@@ -99,138 +217,87 @@ pipeline.
 <p>
 </p>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rb-player-gst-tee-add-tee"></a><h3>rb_player_gst_tee_add_tee ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_player_gst_tee_add_tee           (<em class="parameter"><code><a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> *player</code></em>,
-                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);</pre>
-<p>
-Adds a new sink to the playback pipeline.  The sink may not be
-inserted immediately.  The 'tee-inserted' signal will be emitted
-when this actually happens.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>player</code></em> :</span></p></td>
-<td>
-<a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> implementation</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
-<td>new sink element (or bin) to add</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>TRUE if the sink will be added</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-player-gst-tee-remove-tee"></a><h3>rb_player_gst_tee_remove_tee ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_player_gst_tee_remove_tee        (<em class="parameter"><code><a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> *player</code></em>,
-                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);</pre>
-<p>
-Removes a sink from the playback pipeline.  The sink may not be
-removed immediately.  The 'tee-pre-remove' signal will be emitted
-immediately before this actually happens.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>player</code></em> :</span></p></td>
-<td>
-<a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> implementation</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
-<td>the sink element (or bin) to remove</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>TRUE if the sink was found and will be removed</td>
-</tr>
-</tbody>
-</table></div>
-</div>
 </div>
 <div class="refsect1">
 <a name="RBPlayerGstTee.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
-<a name="RBPlayerGstTee-tee-inserted"></a><h3>The <code class="literal">"tee-inserted"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> *player,
-                                                        <span class="type">GObject</span>        *tee,
-                                                        <span class="type">gpointer</span>        user_data)      : <code class="literal">No Recursion</code></pre>
-<p>
-The 'tee-inserted' signal is emitted when the tee element has been
-inserted into the pipeline and fully linked
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="RBPlayerGstTee-tee-inserted"></a><h3>The <code class="literal">“tee-inserted”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> *player,
+               <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>        *tee,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>        user_data)</pre>
+<p>The 'tee-inserted' signal is emitted when the tee element has been
+inserted into the pipeline and fully linked</p>
+<div class="refsect3">
+<a name="id-1.2.4.11.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>player</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> implementation</td>
+<td class="parameter_name"><p>player</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> implementation</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>tee</code></em> :</span></p></td>
-<td>the element which has been inserted</td>
+<td class="parameter_name"><p>tee</p></td>
+<td class="parameter_description"><p>the element which has been inserted</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-NO-RECURSE:CAPS">No Recursion</a></p>
+</div>
 <hr>
 <div class="refsect2">
-<a name="RBPlayerGstTee-tee-pre-remove"></a><h3>The <code class="literal">"tee-pre-remove"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> *player,
-                                                        <span class="type">GObject</span>        *tee,
-                                                        <span class="type">gpointer</span>        user_data)      : <code class="literal">No Recursion</code></pre>
-<p>
-The 'tee-pre-remove' signal is emitted immediately before the element
-is unlinked and removed from the pipeline
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="RBPlayerGstTee-tee-pre-remove"></a><h3>The <code class="literal">“tee-pre-remove”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> *player,
+               <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>        *tee,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>        user_data)</pre>
+<p>The 'tee-pre-remove' signal is emitted immediately before the element
+is unlinked and removed from the pipeline</p>
+<div class="refsect3">
+<a name="id-1.2.4.11.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>player</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> implementation</td>
+<td class="parameter_name"><p>player</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlayerGstTee.html" title="RBPlayerGstTee"><span class="type">RBPlayerGstTee</span></a> implementation</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>tee</code></em> :</span></p></td>
-<td>the element which is about to be removed</td>
+<td class="parameter_name"><p>tee</p></td>
+<td class="parameter_description"><p>the element which is about to be removed</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-NO-RECURSE:CAPS">No Recursion</a></p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.18.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

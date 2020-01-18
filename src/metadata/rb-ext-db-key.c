@@ -502,22 +502,46 @@ rb_ext_db_key_field_matches (RBExtDBKey *key, const char *field, const char *val
 	return FALSE;
 }
 
-static gboolean
-create_store_key (RBExtDBKey *key, int option, TDB_DATA *data)
+static void
+flatten_store_key (RBExtDBKey *key, TDB_DATA *data)
 {
 	GByteArray *k;
 	GList *l;
 	guint8 nul = '\0';
 
+	g_assert (key->lookup == FALSE);
+
+	k = g_byte_array_sized_new (512);
+	for (l = key->fields; l != NULL; l = l->next) {
+		RBExtDBField *f = l->data;
+		const char *value;
+
+		value = g_ptr_array_index (f->values, 0);
+		g_byte_array_append (k, (guint8 *)f->name, strlen (f->name));
+		g_byte_array_append (k, &nul, 1);
+		g_byte_array_append (k, (guint8 *)value, strlen (value));
+		g_byte_array_append (k, &nul, 1);
+	}
+
+	data->dsize = k->len;
+	data->dptr = g_byte_array_free (k, FALSE);
+}
+
+static RBExtDBKey *
+create_store_key (RBExtDBKey *key, int option)
+{
+	RBExtDBKey *skey = NULL;
+	GList *l;
+
+	g_assert (key->lookup);
 	if (key->multi_field != NULL &&
 	    option > key->multi_field->values->len &&
 	    key->multi_field->match_null == FALSE) {
-		return FALSE;
+		return NULL;
 	} else if (key->multi_field == NULL && option != 0) {
-		return FALSE;
+		return NULL;
 	}
 
-	k = g_byte_array_sized_new (512);
 	for (l = key->fields; l != NULL; l = l->next) {
 		RBExtDBField *f = l->data;
 		const char *value;
@@ -529,21 +553,19 @@ create_store_key (RBExtDBKey *key, int option, TDB_DATA *data)
 		} else {
 			continue;
 		}
-		g_byte_array_append (k, (guint8 *)f->name, strlen (f->name));
-		g_byte_array_append (k, &nul, 1);
-		g_byte_array_append (k, (guint8 *)value, strlen (value));
-		g_byte_array_append (k, &nul, 1);
+		if (skey == NULL)
+			skey = rb_ext_db_key_create_storage (f->name, value);
+		else
+			rb_ext_db_key_add_field (skey, f->name, value);
 	}
 
-	data->dsize = k->len;
-	data->dptr = g_byte_array_free (k, FALSE);
-	return TRUE;
+	return skey;
 }
 
 /**
- * rb_ext_db_key_lookups: (skip):
+ * rb_ext_db_key_lookups:
  * @key: a #RBExtDBKey
- * @callback: a callback to process lookup keys
+ * @callback: (scope call): a callback to process lookup keys
  * @user_data: data to pass to @callback
  *
  * Generates the set of possible lookup keys for @key and
@@ -560,14 +582,18 @@ rb_ext_db_key_lookups (RBExtDBKey *key,
 {
 	int i = 0;
 	while (TRUE) {
+		RBExtDBKey *s;
 		TDB_DATA sk;
 		gboolean result;
 
-		if (create_store_key (key, i, &sk) == FALSE)
+		s = create_store_key (key, i);
+		if (s == NULL)
 			break;
 
-		result = callback (sk, user_data);
+		flatten_store_key (s, &sk);
+		result = callback (sk, s, user_data);
 		g_free (sk.dptr);
+		rb_ext_db_key_free (s);
 
 		if (result == FALSE)
 			break;
@@ -577,7 +603,7 @@ rb_ext_db_key_lookups (RBExtDBKey *key,
 }
 
 /**
- * rb_ext_db_key_to_store_key: (skip):
+ * rb_ext_db_key_to_store_key: (skip)
  * @key: a @RBExtDBKey
  *
  * Generates the storage key for @key.  This is the value that should
@@ -596,6 +622,66 @@ TDB_DATA
 rb_ext_db_key_to_store_key (RBExtDBKey *key)
 {
 	TDB_DATA k = {0,};
-	create_store_key (key, 0, &k);
+	RBExtDBKey *sk;
+
+	if (key->lookup) {
+		sk = create_store_key (key, 0);
+		if (sk != NULL) {
+			flatten_store_key (sk, &k);
+			rb_ext_db_key_free (sk);
+		}
+	} else {
+		flatten_store_key (key, &k);
+	}
+
 	return k;
+}
+
+static void
+append_field (GString *s, RBExtDBField *f)
+{
+	int i;
+
+	g_string_append_printf (s, " %s%s{", f->name, f->match_null ? "~" : "=");
+	for (i = 0; i < f->values->len; i++) {
+		if (i != 0)
+			g_string_append (s, "\",\"");
+		else
+			g_string_append (s, "\"");
+		g_string_append (s, g_ptr_array_index (f->values, i));
+	}
+	if (i != 0)
+		g_string_append (s, "\"}");
+	else
+		g_string_append (s, "}");
+}
+
+/**
+ * rb_ext_db_key_to_string:
+ * @key: a @RBExtDBKey
+ *
+ * Generates a readable string format from the key.
+ *
+ * Return value: (transfer full): string form of the key
+ */
+char *
+rb_ext_db_key_to_string (RBExtDBKey *key)
+{
+	GString *s;
+	GList *l;
+
+	s = g_string_sized_new (100);
+	g_string_append (s, key->lookup ? "[lookup]" : "[storage]");
+	for (l = key->fields; l != NULL; l = l->next) {
+		append_field (s, l->data);
+	}
+
+	if (key->lookup && key->info != NULL) {
+		g_string_append (s, " info: ");
+		for (l = key->info; l != NULL; l = l->next) {
+			append_field (s, l->data);
+		}
+	}
+
+	return g_string_free (s, FALSE);
 }

@@ -40,7 +40,6 @@
 #include "rb-debug.h"
 #include "rhythmdb.h"
 #include "rhythmdb-property-model.h"
-#include "rb-stock-icons.h"
 #include "rb-util.h"
 
 static void rb_property_view_class_init (RBPropertyViewClass *klass);
@@ -84,6 +83,7 @@ struct RBPropertyViewPrivate
 	char *title;
 
 	GtkWidget *treeview;
+	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
 
 	gboolean draggable;
@@ -248,7 +248,7 @@ rb_property_view_class_init (RBPropertyViewClass *klass)
 	/**
 	 * RBPropertyView::properties-selected:
 	 * @view: the #RBPropertyView
-	 * @properties: a list containing the selected property values
+	 * @properties: (element-type utf8): a list containing the selected property values
 	 *
 	 * Emitted when the set of selected property values changes.  This is only
 	 * emitted for multiple selection property views.  For single-selection views,
@@ -478,7 +478,7 @@ rb_property_view_new (RhythmDB *db,
 					       "vscrollbar_policy", GTK_POLICY_AUTOMATIC,
 					       "hexpand", TRUE,
 					       "vexpand", TRUE,
-					       "shadow_type", GTK_SHADOW_IN,
+					       "shadow_type", GTK_SHADOW_NONE,
 					       "db", db,
 					       "prop", propid,
 					       "title", title,
@@ -686,7 +686,6 @@ rb_property_view_cell_data_func (GtkTreeViewColumn *column,
 static void
 rb_property_view_constructed (GObject *object)
 {
-	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 	RBPropertyView *view;
 
@@ -731,16 +730,16 @@ rb_property_view_constructed (GObject *object)
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (view->priv->treeview), TRUE);
 	gtk_tree_selection_set_mode (view->priv->selection, GTK_SELECTION_SINGLE);
 
-	column = gtk_tree_view_column_new ();
+	view->priv->column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_set_cell_data_func (column, renderer,
+	gtk_tree_view_column_pack_start (view->priv->column, renderer, TRUE);
+	gtk_tree_view_column_set_cell_data_func (view->priv->column, renderer,
 						 (GtkTreeCellDataFunc) rb_property_view_cell_data_func,
 						 view, NULL);
-	gtk_tree_view_column_set_title (column, view->priv->title);
-	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_FIXED);
+	gtk_tree_view_column_set_title (view->priv->column, view->priv->title);
+	gtk_tree_view_column_set_sizing (view->priv->column, GTK_TREE_VIEW_COLUMN_FIXED);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (view->priv->treeview),
-				     column);
+				     view->priv->column);
 }
 
 static void
@@ -934,6 +933,20 @@ rb_property_view_append_column_custom (RBPropertyView *view,
 	g_return_if_fail (RB_IS_PROPERTY_VIEW (view));
 
 	gtk_tree_view_append_column (GTK_TREE_VIEW (view->priv->treeview), column);
+}
+
+/**
+ * rb_property_view_set_column_visible:
+ * @view: a #RBPropertyView
+ * @visible: whether the property column should be visible
+ *
+ * Sets the visibility of the property column.
+ */
+void
+rb_property_view_set_column_visible (RBPropertyView *view, gboolean visible)
+{
+	g_return_if_fail (RB_IS_PROPERTY_VIEW (view));
+	gtk_tree_view_column_set_visible (view->priv->column, visible);
 }
 
 static gboolean

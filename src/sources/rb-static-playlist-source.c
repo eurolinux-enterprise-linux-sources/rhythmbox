@@ -54,7 +54,6 @@
 #include "rb-library-browser.h"
 #include "rb-util.h"
 #include "rb-debug.h"
-#include "rb-stock-icons.h"
 #include "rb-file-helpers.h"
 #include "rb-playlist-xml.h"
 #include "rb-source-search-basic.h"
@@ -77,7 +76,7 @@ static void rb_static_playlist_source_get_property (GObject *object,
 /* source methods */
 static GList * impl_cut (RBSource *source);
 static RBTrackTransferBatch *impl_paste (RBSource *asource, GList *entries);
-static void impl_delete (RBSource *source);
+static void impl_delete_selected (RBSource *source);
 static void impl_search (RBSource *asource, RBSourceSearch *search, const char *cur_text, const char *new_text);
 static void impl_reset_filters (RBSource *asource);
 static gboolean impl_receive_drag (RBDisplayPage *page, GtkSelectionData *data);
@@ -147,8 +146,6 @@ typedef struct
 
 } RBStaticPlaylistSourcePrivate;
 
-static gpointer playlist_pixbuf = NULL;
-
 static void
 rb_static_playlist_source_class_init (RBStaticPlaylistSourceClass *klass)
 {
@@ -166,17 +163,17 @@ rb_static_playlist_source_class_init (RBStaticPlaylistSourceClass *klass)
 	page_class->receive_drag = impl_receive_drag;
 
 	source_class->reset_filters = impl_reset_filters;
-	source_class->impl_can_cut = (RBSourceFeatureFunc) rb_true_function;
-	source_class->impl_can_paste = (RBSourceFeatureFunc) rb_true_function;
-	source_class->impl_can_delete = (RBSourceFeatureFunc) rb_true_function;
-	source_class->impl_cut = impl_cut;
-	source_class->impl_paste = impl_paste;
-	source_class->impl_delete = impl_delete;
-	source_class->impl_search = impl_search;
-	source_class->impl_get_property_views = impl_get_property_views;
-	source_class->impl_want_uri = impl_want_uri;
+	source_class->can_cut = (RBSourceFeatureFunc) rb_true_function;
+	source_class->can_paste = (RBSourceFeatureFunc) rb_true_function;
+	source_class->can_delete = (RBSourceFeatureFunc) rb_true_function;
+	source_class->cut = impl_cut;
+	source_class->paste = impl_paste;
+	source_class->delete_selected = impl_delete_selected;
+	source_class->search = impl_search;
+	source_class->get_property_views = impl_get_property_views;
+	source_class->want_uri = impl_want_uri;
 
-	playlist_class->impl_save_contents_to_xml = impl_save_contents_to_xml;
+	playlist_class->save_contents_to_xml = impl_save_contents_to_xml;
 
 	g_object_class_override_property (object_class,
 					  PROP_BASE_QUERY_MODEL,
@@ -186,30 +183,6 @@ rb_static_playlist_source_class_init (RBStaticPlaylistSourceClass *klass)
 					  "show-browser");
 
 	g_type_class_add_private (klass, sizeof (RBStaticPlaylistSourcePrivate));
-}
-
-static void
-set_playlist_pixbuf (RBStaticPlaylistSource *source)
-{
-	if (playlist_pixbuf == NULL) {
-		gint size;
-		gtk_icon_size_lookup (RB_SOURCE_ICON_SIZE, &size, NULL);
-		playlist_pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
-							    RB_STOCK_PLAYLIST,
-							    size,
-							    0, NULL);
-		if (playlist_pixbuf) {
-			g_object_add_weak_pointer (playlist_pixbuf,
-					   (gpointer *) &playlist_pixbuf);
-
-			g_object_set (source, "pixbuf", playlist_pixbuf, NULL);
-
-			/* drop the initial reference to the icon */
-			g_object_unref (playlist_pixbuf);
-		}
-	} else {
-		g_object_set (source, "pixbuf", playlist_pixbuf, NULL);
-	}
 }
 
 static void
@@ -269,7 +242,7 @@ rb_static_playlist_source_constructed (GObject *object)
 	priv = RB_STATIC_PLAYLIST_SOURCE_GET_PRIVATE (source);
 	psource = RB_PLAYLIST_SOURCE (source);
 
-	set_playlist_pixbuf (source);
+	rb_display_page_set_icon_name (RB_DISPLAY_PAGE (source), "folder-documents-symbolic");
 
 	priv->base_model = rb_playlist_source_get_query_model (RB_PLAYLIST_SOURCE (psource));
 	g_object_set (priv->base_model, "show-hidden", TRUE, NULL);
@@ -297,6 +270,7 @@ rb_static_playlist_source_constructed (GObject *object)
 	}
 
 	gtk_paned_pack1 (GTK_PANED (paned), GTK_WIDGET (priv->browser), TRUE, FALSE);
+	gtk_widget_set_no_show_all (GTK_WIDGET (priv->browser), TRUE);
 	g_signal_connect_object (priv->browser, "notify::output-model",
 				 G_CALLBACK (rb_static_playlist_source_browser_changed_cb),
 				 source, 0);
@@ -320,12 +294,16 @@ rb_static_playlist_source_constructed (GObject *object)
 
 	rb_source_search_basic_register (RHYTHMDB_PROP_SEARCH_MATCH, "search-match", _("Search all fields"));
 	rb_source_search_basic_register (RHYTHMDB_PROP_ARTIST_FOLDED, "artist", _("Search artists"));
+	rb_source_search_basic_register (RHYTHMDB_PROP_COMPOSER_FOLDED, "composer", _("Search composers"));
 	rb_source_search_basic_register (RHYTHMDB_PROP_ALBUM_FOLDED, "album", _("Search albums"));
 	rb_source_search_basic_register (RHYTHMDB_PROP_TITLE_FOLDED, "title", _("Search titles"));
+	rb_source_search_basic_register (RHYTHMDB_PROP_GENRE_FOLDED, "genre", _("Search genres"));
 	
 	section = g_menu_new ();
 	rb_source_search_add_to_menu (section, "app", priv->search_action, "search-match");
+	rb_source_search_add_to_menu (section, "app", priv->search_action, "genre");
 	rb_source_search_add_to_menu (section, "app", priv->search_action, "artist");
+	rb_source_search_add_to_menu (section, "app", priv->search_action, "composer");
 	rb_source_search_add_to_menu (section, "app", priv->search_action, "album");
 	rb_source_search_add_to_menu (section, "app", priv->search_action, "title");
 
@@ -342,7 +320,7 @@ rb_static_playlist_source_constructed (GObject *object)
 	gtk_grid_attach (GTK_GRID (grid), paned, 0, 1, 1, 1);
 	gtk_container_add (GTK_CONTAINER (source), grid);
 
-	rb_source_bind_settings (RB_SOURCE (source), GTK_WIDGET (songs), paned, GTK_WIDGET (priv->browser));
+	rb_source_bind_settings (RB_SOURCE (source), GTK_WIDGET (songs), paned, GTK_WIDGET (priv->browser), FALSE);
 	g_object_unref (songs);
 
 	/* set up playlist menu */
@@ -368,7 +346,7 @@ rb_static_playlist_source_constructed (GObject *object)
  * rb_static_playlist_source_new:
  * @shell: the #RBShell
  * @name: the playlist name
- * @settings_name: the settings name for the playlist (GSettings path friendly)
+ * @settings: GSettings instance, or NULL to have one created
  * @local: if %TRUE, the playlist is local to the library
  * @entry_type: type of database entries that can be added to the playlist.
  *
@@ -377,24 +355,14 @@ rb_static_playlist_source_constructed (GObject *object)
  * Return value: new playlist.
  */
 RBSource *
-rb_static_playlist_source_new (RBShell *shell, const char *name, const char *settings_name, gboolean local, RhythmDBEntryType *entry_type)
+rb_static_playlist_source_new (RBShell *shell, const char *name, GSettings *settings, gboolean local, RhythmDBEntryType *entry_type)
 {
 	RBSource *source;
-	GSettings *settings;
 	GtkBuilder *builder;
 	GMenu *toolbar;
 
 	if (name == NULL)
 		name = "";
-
-	if (settings_name != NULL) {
-		char *path;
-		path = g_strdup_printf ("/org/gnome/rhythmbox/playlist/%s/", settings_name);
-		settings = g_settings_new_with_path ("org.gnome.rhythmbox.source", path);
-		g_free (path);
-	} else {
-		settings = NULL;
-	}
 
 	builder = rb_builder_load ("playlist-toolbar.ui", NULL);
 	toolbar = G_MENU (gtk_builder_get_object (builder, "playlist-toolbar"));
@@ -485,6 +453,7 @@ rb_static_playlist_source_load_from_xml (RBStaticPlaylistSource *source, xmlNode
 /**
  * rb_static_playlist_source_new_from_xml:
  * @shell: the #RBShell
+ * @name: playlist name
  * @node: XML node containing playlist entries
  *
  * Constructs a new playlist from the given XML document node.
@@ -492,10 +461,10 @@ rb_static_playlist_source_load_from_xml (RBStaticPlaylistSource *source, xmlNode
  * Return value: playlist read from XML
  */
 RBSource *
-rb_static_playlist_source_new_from_xml (RBShell *shell, xmlNodePtr node)
+rb_static_playlist_source_new_from_xml (RBShell *shell, const char *name, xmlNodePtr node)
 {
 	RBSource *psource = rb_static_playlist_source_new (shell,
-							   NULL,
+							   name,
 							   NULL,
 							   TRUE,
 							   RHYTHMDB_ENTRY_TYPE_SONG);
@@ -532,7 +501,7 @@ impl_paste (RBSource *asource, GList *entries)
 }
 
 static void
-impl_delete (RBSource *asource)
+impl_delete_selected (RBSource *asource)
 {
 	RBEntryView *songs = rb_source_get_entry_view (asource);
 	RBStaticPlaylistSource *source = RB_STATIC_PLAYLIST_SOURCE (asource);

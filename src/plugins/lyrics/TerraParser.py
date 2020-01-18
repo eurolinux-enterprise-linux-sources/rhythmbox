@@ -26,15 +26,15 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 
-import urllib
+import urllib.parse
 import rb
 import re
 import sys
 
-# Deal with html entitys and utf-8
+# Deal with html entities and utf-8
 # code taken from django/utils/text.py
 
-from htmlentitydefs import name2codepoint
+from html.entities import name2codepoint
 
 pattern = re.compile("&(#?\w+?);")
 
@@ -47,12 +47,12 @@ def _replace_entity(match):
 				c = int(text[1:], 16)
 			else:
 				c = int(text)
-			return unichr(c)
+			return chr(c)
 		except ValueError:
 			return match.group(0)
 	else:
 		try:
-			return unichr(name2codepoint[text])
+			return chr(name2codepoint[text])
 		except (ValueError, KeyError):
 			return match.group(0)
 
@@ -65,14 +65,14 @@ class TerraParser (object):
 		self.title = title
 
 	def search(self, callback, *data):
-		path = 'http://letras.terra.com.br/'
+		path = 'http://letras.mus.br/'
 
-		artist = urllib.quote(self.artist)
-		title = urllib.quote(self.title)
-		join = urllib.quote(' - ')
+		artist = urllib.parse.quote(self.artist)
+		title = urllib.parse.quote(self.title)
+		join = urllib.parse.quote(' - ')
 
 		wurl = 'winamp.php?t=%s%s%s' % (artist, join, title)
-		print "search URL: " + wurl
+		print("search URL: " + wurl)
 
 		loader = rb.Loader()
 		loader.get_url (path + wurl, self.got_lyrics, callback, *data)
@@ -83,9 +83,9 @@ class TerraParser (object):
 			return
 
 		if result is not None:
-			result = result.decode('iso-8859-1').encode('UTF-8')
+			result = result.decode('utf-8')
 			if re.search('M&uacute;sica n&atilde;o encontrada', result):
-				print "not found"
+				print("not found")
 				callback (None, *data)
 			elif re.search('<div id="letra">', result):
 				callback(self.parse_lyrics(result), *data)
@@ -96,17 +96,21 @@ class TerraParser (object):
 
 
 	def parse_lyrics(self, source):
+		def unspace(x):
+			return " ".join(x.split())
+		def untag(x):
+			return re.sub('<.*?>', '', x)
+
 		source = re.split('<div id="letra">', source)[1]
-		source = re.split('<p>', source)
-		# Parse artist and title
-		artistitle = re.sub('<.*?>', '', source[0])
-		rx = re.compile('^(\t|\n)+',re.M | re.S)
-		artistitle = rx.sub('', artistitle)
-		# Parse lyrics
-		lyrics = re.split('</p>', source[1])[0]
-		lyrics = re.sub('<[Bb][Rr]/>', '', lyrics)
+		source = re.split('</?div.*?>', source)
+		# source[1] = artist+title
+		# source[2] = lyrics
 
-		lyrics = unescape_entities(artistitle) + "\n" + unescape_entities(lyrics)
-		lyrics += "\n\nEsta letra foi disponibilizada pelo site\nhttp://letras.terra.com.br"
+		header = "".join(source[1].splitlines())
+		# <h1><a>title</a></h1> <h2><a>artist</a></h2>
+		bits = re.findall('<h.>(.*?)</h.>', header)
+		artistitle = unspace(untag(" - ".join(bits)))
 
+		lyrics = unescape_entities(artistitle) + "\n" + unescape_entities(untag(source[2]))
+		lyrics += "\n\nEsta letra foi disponibilizada pelo site\nhttp://letras.mus.br"
 		return lyrics

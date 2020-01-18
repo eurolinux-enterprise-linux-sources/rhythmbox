@@ -22,7 +22,7 @@ libvisualizer_la_LIBADD = 			\
 	$(CLUTTER_LIBS)					\
 	$(RHYTHMBOX_LIBS)
 
-INCLUDES = 						\
+AM_CPPFLAGS = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -32,8 +32,7 @@ INCLUDES = 						\
 	-DDATADIR=\""$(datadir)"\"			\
 	-DPLUGIN_SRC_DIR=\""$(ROOT_UNINSTALLED_DIR)/plugins/visualizer"\" \
 	$(RHYTHMBOX_CFLAGS)				\
-	$(CLUTTER_CFLAGS)					\
-	-D_BSD_SOURCE
+	$(CLUTTER_CFLAGS)
 
 mxthemedir = $(plugindatadir)
 mxtheme_DATA = 						\

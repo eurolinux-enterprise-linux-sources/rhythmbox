@@ -92,6 +92,7 @@ struct RBPodcastAddDialogPrivate
 
 	int running_searches;
 	gboolean search_successful;
+	int reset_count;
 };
 
 /* various prefixes that identify things we treat as feed URLs rather than search terms */
@@ -103,6 +104,7 @@ static const char *podcast_uri_prefixes[] = {
 	"zune://",
 	"itpc://",
 	"itms://",
+	"itmss://",
 	"www.",
 };
 
@@ -263,11 +265,22 @@ typedef struct {
 	gboolean existing;
 	gboolean single;
 	GError *error;
+	int reset_count;
 } ParseThreadData;
 
 static gboolean
 parse_finished (ParseThreadData *data)
 {
+	if (data->reset_count != data->dialog->priv->reset_count) {
+		rb_debug ("dialog reset while parsing");
+		rb_podcast_parse_channel_free (data->channel);
+		g_object_unref (data->dialog);
+		g_clear_error (&data->error);
+		g_free (data->url);
+		g_free (data);
+		return FALSE;
+	}
+
 	if (data->error != NULL) {
 		gtk_label_set_label (GTK_LABEL (data->dialog->priv->info_bar_message),
 				     _("Unable to load the feed. Check your network connection."));
@@ -315,7 +328,9 @@ parse_finished (ParseThreadData *data)
 		}
 
 		/* if the row is selected, create entries for the channel contents */
-		if (data->dialog->priv->have_selection && found) {
+		if (found == FALSE) {
+			rb_podcast_parse_channel_free (data->channel);
+		} else if (data->dialog->priv->have_selection) {
 			GtkTreePath *a;
 			GtkTreePath *b;
 
@@ -327,8 +342,6 @@ parse_finished (ParseThreadData *data)
 
 			gtk_tree_path_free (a);
 			gtk_tree_path_free (b);
-		} else {
-			rb_podcast_parse_channel_free (data->channel);
 		}
 	} else {
 		/* model owns data->channel now */
@@ -368,6 +381,7 @@ parse_in_thread (RBPodcastAddDialog *dialog, const char *text, gboolean existing
 	data->channel = g_new0 (RBPodcastChannel, 1);
 	data->existing = existing;
 	data->single = single;
+	data->reset_count = dialog->priv->reset_count;
 
 	g_thread_new ("podcast parser", (GThreadFunc) parse_thread, data);
 }
@@ -728,7 +742,7 @@ impl_constructed (GObject *object)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (dialog->priv->feed_view), column);
 
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "podcast-add-dialog"));
-	gtk_box_pack_start (GTK_BOX (dialog), widget, TRUE, TRUE, 12);
+	gtk_box_pack_start (GTK_BOX (dialog), widget, TRUE, TRUE, 0);
 
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (dialog->priv->feed_view), TRUE);
 
@@ -913,6 +927,7 @@ rb_podcast_add_dialog_class_init (RBPodcastAddDialogClass *klass)
 void
 rb_podcast_add_dialog_reset (RBPodcastAddDialog *dialog, const char *text, gboolean load)
 {
+	dialog->priv->reset_count++;
 	remove_all_feeds (dialog);
 	rhythmdb_entry_delete_by_type (dialog->priv->db, RHYTHMDB_ENTRY_TYPE_PODCAST_SEARCH);
 	rhythmdb_commit (dialog->priv->db);

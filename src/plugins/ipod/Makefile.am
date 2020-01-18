@@ -19,7 +19,7 @@ libipod_la_LIBADD = 					\
 	$(top_builddir)/shell/librhythmbox-core.la	\
 	$(IPOD_LIBS)
 
-INCLUDES = 						\
+AM_CPPFLAGS = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -37,8 +37,7 @@ INCLUDES = 						\
 	-DSHARE_DIR=\"$(pkgdatadir)\"                   \
 	-DDATADIR=\""$(datadir)"\"			\
 	$(RHYTHMBOX_CFLAGS)				\
-	$(IPOD_CFLAGS)					\
-	-D_BSD_SOURCE
+	$(IPOD_CFLAGS)
 
 plugin_in_files = ipod.plugin.in
 

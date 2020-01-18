@@ -33,7 +33,6 @@
 #include "rb-debug.h"
 #include "rb-thread-helpers.h"
 #include "rb-file-helpers.h"
-#include "rb-stock-icons.h"
 #include "rb-entry-view.h"
 
 static RhythmDBEntry *
@@ -105,13 +104,10 @@ main (int argc, char **argv)
 	RhythmDBEntry *entry;
 
 	gtk_init (&argc, &argv);
-	gdk_threads_init ();
 	rb_thread_helpers_init ();
 	rb_file_helpers_init (TRUE);
 	rb_stock_icons_init ();
 	rb_debug_init (TRUE);
-
-	GDK_THREADS_ENTER ();
 
 	db = rhythmdb_tree_new ("test");
 
@@ -150,7 +146,6 @@ main (int argc, char **argv)
 	
 	rhythmdb_shutdown (db);
 	g_object_unref (G_OBJECT (db));
-	GDK_THREADS_LEAVE ();
 	
 	exit (0);
 }

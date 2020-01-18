@@ -156,22 +156,22 @@ rb_source_class_init (RBSourceClass *klass)
 	page_class->get_status = default_get_status;
 
 	klass->reset_filters = default_reset_filters;
-	klass->impl_get_property_views = default_get_property_views;
-	klass->impl_can_rename = default_can_rename;
-	klass->impl_can_cut = (RBSourceFeatureFunc) rb_false_function;
-	klass->impl_can_paste = (RBSourceFeatureFunc) rb_false_function;
-	klass->impl_can_delete = (RBSourceFeatureFunc) rb_false_function;
-	klass->impl_can_copy = (RBSourceFeatureFunc) rb_false_function;
-	klass->impl_can_add_to_queue = (RBSourceFeatureFunc) rb_false_function;
-	klass->impl_can_move_to_trash = (RBSourceFeatureFunc) rb_false_function;
-	klass->impl_can_pause = (RBSourceFeatureFunc) rb_true_function;
-	klass->impl_get_entry_view = default_get_entry_view;
-	klass->impl_copy = default_copy;
-	klass->impl_handle_eos = default_handle_eos;
-	klass->impl_try_playlist = default_try_playlist;
-	klass->impl_add_to_queue = default_add_to_queue;
-	klass->impl_get_delete_label = default_get_delete_label;
-	klass->impl_move_to_trash = default_move_to_trash;
+	klass->get_property_views = default_get_property_views;
+	klass->can_rename = default_can_rename;
+	klass->can_cut = (RBSourceFeatureFunc) rb_false_function;
+	klass->can_paste = (RBSourceFeatureFunc) rb_false_function;
+	klass->can_delete = (RBSourceFeatureFunc) rb_false_function;
+	klass->can_copy = (RBSourceFeatureFunc) rb_false_function;
+	klass->can_add_to_queue = (RBSourceFeatureFunc) rb_false_function;
+	klass->can_move_to_trash = (RBSourceFeatureFunc) rb_false_function;
+	klass->can_pause = (RBSourceFeatureFunc) rb_true_function;
+	klass->get_entry_view = default_get_entry_view;
+	klass->copy = default_copy;
+	klass->handle_eos = default_handle_eos;
+	klass->try_playlist = default_try_playlist;
+	klass->add_to_queue = default_add_to_queue;
+	klass->get_delete_label = default_get_delete_label;
+	klass->move_to_trash = default_move_to_trash;
 
 	/**
 	 * RBSource:hidden-when-empty:
@@ -419,13 +419,10 @@ update_visibility_idle (RBSource *source)
 {
 	gint count;
 
-	GDK_THREADS_ENTER ();
-
 	count = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (source->priv->query_model), NULL);
 	g_object_set (source, "visibility", (count > 0), NULL);
 
 	source->priv->update_visibility_id = 0;
-	GDK_THREADS_LEAVE ();
 	return FALSE;
 }
 
@@ -675,7 +672,7 @@ rb_source_get_entry_view (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	return klass->impl_get_entry_view (source);
+	return klass->get_entry_view (source);
 }
 
 static GList *
@@ -698,7 +695,7 @@ rb_source_get_property_views (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	return klass->impl_get_property_views (source);
+	return klass->get_property_views (source);
 }
 
 static gboolean
@@ -736,7 +733,7 @@ rb_source_can_rename (RBSource *source)
 	if (is_party_mode (source)) {
 		return FALSE;
 	} else {
-		return klass->impl_can_rename (source);
+		return klass->can_rename (source);
 	}
 }
 
@@ -760,8 +757,8 @@ rb_source_search (RBSource *source,
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 	g_assert (new_text != NULL);
 
-	if (klass->impl_search != NULL)
-		klass->impl_search (source, search, cur_text, new_text);
+	if (klass->search != NULL)
+		klass->search (source, search, cur_text, new_text);
 }
 
 
@@ -779,7 +776,7 @@ rb_source_can_cut (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	return klass->impl_can_cut (source);
+	return klass->can_cut (source);
 }
 
 /**
@@ -795,7 +792,7 @@ rb_source_can_paste (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	return klass->impl_can_paste (source);
+	return klass->can_paste (source);
 }
 
 /**
@@ -814,7 +811,7 @@ rb_source_can_delete (RBSource *source)
 	if (is_party_mode (source)) {
 		return FALSE;
 	} else {
-		return klass->impl_can_delete (source);
+		return klass->can_delete (source);
 	}
 }
 
@@ -834,7 +831,7 @@ rb_source_can_move_to_trash (RBSource *source)
 	if (is_party_mode (source)) {
 		return FALSE;
 	} else {
-		return klass->impl_can_move_to_trash (source);
+		return klass->can_move_to_trash (source);
 	}
 }
 
@@ -852,7 +849,7 @@ rb_source_can_copy (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	return klass->impl_can_copy (source);
+	return klass->can_copy (source);
 }
 
 /**
@@ -870,7 +867,7 @@ rb_source_cut (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	return klass->impl_cut (source);
+	return klass->cut (source);
 }
 
 static GList *
@@ -898,7 +895,7 @@ rb_source_copy (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	return klass->impl_copy (source);
+	return klass->copy (source);
 }
 
 /**
@@ -922,7 +919,7 @@ rb_source_paste (RBSource *source, GList *entries)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	return klass->impl_paste (source, entries);
+	return klass->paste (source, entries);
 }
 
 /**
@@ -938,7 +935,7 @@ gboolean
 rb_source_can_add_to_queue (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
-	return klass->impl_can_add_to_queue (source);
+	return klass->can_add_to_queue (source);
 }
 
 static void
@@ -979,21 +976,21 @@ rb_source_add_to_queue (RBSource *source,
 			RBSource *queue)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
-	klass->impl_add_to_queue (source, queue);
+	klass->add_to_queue (source, queue);
 }
 
 /**
- * rb_source_delete:
+ * rb_source_delete_selected:
  * @source: a #RBSource
  *
  * Deletes the currently selected entries from the source.
  */
 void
-rb_source_delete (RBSource *source)
+rb_source_delete_selected (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	klass->impl_delete (source);
+	klass->delete_selected (source);
 }
 
 static void
@@ -1034,7 +1031,7 @@ rb_source_move_to_trash (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	klass->impl_move_to_trash (source);
+	klass->move_to_trash (source);
 }
 
 static void
@@ -1057,7 +1054,7 @@ rb_source_can_show_properties (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	return (klass->impl_song_properties != NULL);
+	return (klass->song_properties != NULL);
 }
 
 /**
@@ -1071,8 +1068,8 @@ rb_source_song_properties (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	g_assert (klass->impl_song_properties);
-	klass->impl_song_properties (source);
+	g_assert (klass->song_properties);
+	klass->song_properties (source);
 }
 
 /**
@@ -1089,7 +1086,7 @@ rb_source_try_playlist (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	return klass->impl_try_playlist (source);
+	return klass->try_playlist (source);
 }
 
 /**
@@ -1109,8 +1106,8 @@ guint
 rb_source_want_uri (RBSource *source, const char *uri)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
-	if (klass->impl_want_uri)
-		return klass->impl_want_uri (source, uri);
+	if (klass->want_uri)
+		return klass->want_uri (source, uri);
 	return 0;
 }
 
@@ -1129,8 +1126,8 @@ gboolean
 rb_source_uri_is_source (RBSource *source, const char *uri)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
-	if (klass->impl_uri_is_source)
-		return klass->impl_uri_is_source (source, uri);
+	if (klass->uri_is_source)
+		return klass->uri_is_source (source, uri);
 	return FALSE;
 }
 
@@ -1157,8 +1154,8 @@ rb_source_add_uri (RBSource *source,
 		   GDestroyNotify destroy_data)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
-	if (klass->impl_add_uri)
-		klass->impl_add_uri (source, uri, title, genre, callback, data, destroy_data);
+	if (klass->add_uri)
+		klass->add_uri (source, uri, title, genre, callback, data, destroy_data);
 }
 
 /**
@@ -1175,7 +1172,7 @@ rb_source_can_pause (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	return klass->impl_can_pause (source);
+	return klass->can_pause (source);
 }
 
 static gboolean
@@ -1204,7 +1201,7 @@ rb_source_handle_eos (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	return klass->impl_handle_eos (source);
+	return klass->handle_eos (source);
 }
 
 static RBEntryView*
@@ -1233,7 +1230,7 @@ char *
 rb_source_get_delete_label (RBSource *source)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
-	return klass->impl_get_delete_label (source);
+	return klass->get_delete_label (source);
 }
 
 static gboolean
@@ -1343,30 +1340,6 @@ _rb_source_check_entry_type (RBSource *source, RhythmDBEntry *entry)
 	return ret;
 }
 
-/**
- * _rb_source_set_import_status:
- * @source: an #RBSource
- * @job: a #RhythmDBImportJob
- * @progress_text: used to return progress text
- * @progress: used to return progress fraction
- *
- * Used in implementations of the get_status method to provide source
- * status information based on a #RhythmDBImportJob.
- */
-void
-_rb_source_set_import_status (RBSource *source, RhythmDBImportJob *job, char **progress_text, float *progress)
-{
-	int total;
-	int imported;
-
-	total = rhythmdb_import_job_get_total (job);
-	imported = rhythmdb_import_job_get_imported (job);
-
-	g_free (*progress_text);
-	*progress_text = g_strdup_printf (_("Importing (%d/%d)"), imported, total);
-	*progress = ((float)imported / (float)total);
-}
-
 static gboolean
 sort_order_get_mapping (GValue *value, GVariant *variant, gpointer data)
 {
@@ -1428,6 +1401,7 @@ paned_position_changed_cb (GObject *paned, GParamSpec *pspec, GSettings *setting
  * @entry_view: (allow-none): the #RBEntryView for the source
  * @paned: (allow-none): the #GtkPaned containing the entry view and the browser
  * @browser: (allow-none):  the browser (typically a #RBLibraryBrowser) for the source
+ * @sort_order: whether to bind the entry view sort order
  *
  * Binds the source's #GSettings instance to the given widgets.  Should be called
  * from the source's constructed method.
@@ -1436,7 +1410,7 @@ paned_position_changed_cb (GObject *paned, GParamSpec *pspec, GSettings *setting
  * browser-views settings key.
  */
 void
-rb_source_bind_settings (RBSource *source, GtkWidget *entry_view, GtkWidget *paned, GtkWidget *browser)
+rb_source_bind_settings (RBSource *source, GtkWidget *entry_view, GtkWidget *paned, GtkWidget *browser, gboolean sort_order)
 {
 	char *name;
 	GSettings *common_settings;
@@ -1445,8 +1419,8 @@ rb_source_bind_settings (RBSource *source, GtkWidget *entry_view, GtkWidget *pan
 	g_object_get (source, "name", &name, NULL);
 
 	if (entry_view != NULL) {
-		rb_debug ("binding entry view sort order for %s", name);
-		if (source->priv->settings) {
+		if (sort_order && source->priv->settings) {
+			rb_debug ("binding entry view sort order for %s", name);
 			g_settings_bind_with_mapping (source->priv->settings, "sorting", entry_view, "sort-order",
 						      G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET | G_SETTINGS_BIND_NO_SENSITIVITY,
 						      (GSettingsBindGetMapping) sort_order_get_mapping,
@@ -1508,8 +1482,8 @@ rb_source_get_playback_status (RBSource *source, char **text, float *progress)
 {
 	RBSourceClass *klass = RB_SOURCE_GET_CLASS (source);
 
-	if (klass->impl_get_playback_status)
-		klass->impl_get_playback_status (source, text, progress);
+	if (klass->get_playback_status)
+		klass->get_playback_status (source, text, progress);
 }
 
 
@@ -1556,38 +1530,3 @@ rb_source_load_status_get_type (void)
 	return etype;
 }
 
-/* introspection annotations for vmethods */
-
-/**
- * impl_get_entry_view:
- * @source: a #RBSource
- *
- * Return value: (transfer none): the RBEntryView for the source
- */
-
-/**
- * impl_get_property_views:
- * @source: a #RBSource
- *
- * Return value: (element-type RB.PropertyView) (transfer container): list of property views
- */
-
-/**
- * impl_cut:
- * @source: a #RBSource
- *
- * Return value: (element-type RB.RhythmDBEntry) (transfer full): list of entries
- */
-
-/**
- * impl_copy:
- * @source: a #RBSource
- *
- * Return value: (element-type RB.RhythmDBEntry) (transfer full): list of entries
- */
-
-/**
- * impl_paste:
- * @source: a #RBSource
- * @entries: (element-type RB.RhythmDBEntry) (transfer none): list of entries to paste
- */

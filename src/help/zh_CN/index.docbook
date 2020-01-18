@@ -747,7 +747,11 @@
   </sect1>
   <sect1 id="podcast">
   	<title>播客源</title>
-    <para>Podcasting (播客)是在全网络播放音频内容的新方法。通过一个XML飞递源，当一个作家发布一段节目时，播客订阅者将被通达到。</para>
+    <para lang="en">
+		Podcasting is a new way to broadcast audio content over the web; when an
+		author publishes an episode, podcast subscribers are informed, through an
+		XML feed.
+	</para>
     <para lang="en">
 		Rhythmbox Music Player enables you to subscribe to podcast feeds, so when a new episode
 		is available you'll be informed, it will download this episode and it
@@ -1332,7 +1336,7 @@
               <entry lang="en">
                 <keycombo>
                   <keycap>Ctrl</keycap>
-                  <keycap>Space</keycap>
+                  <keycap>p</keycap>
                 </keycombo>
               </entry>
               <entry>
@@ -1342,7 +1346,7 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Alt</keycap>
+                  <keycap>Ctrl</keycap>
                   <keycap>Left</keycap>
                 </keycombo>
               </entry>
@@ -1353,12 +1357,34 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Alt</keycap>
+                  <keycap>Ctrl</keycap>
                   <keycap>Right</keycap>
                 </keycombo>
               </entry>
               <entry>
                 <para>跳转到下条音轨</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>Up</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para lang="en">Increase playback volume</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>Down</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para lang="en">Decrease playback volume</para>
               </entry>
             </row>
             <row>
@@ -1431,30 +1457,21 @@
               <entry>
                 <para>跳转到正在播放的歌曲</para>
               </entry>
-            </row>
+	    </row>
+	    <!--
             <row>
-              <entry lang="en">
+              <entry>
                 <keycombo>
                   <keycap>Ctrl</keycap>
                   <keycap>Y</keycap>
                 </keycombo>
               </entry>
               <entry>
-                <para>清除搜索框文本并删除浏览器中的全部过滤器</para>
+                <para>Clear the search field text and remove all filters in the browser</para>
               </entry>
-            </row>
+	    </row>
+            -->
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>N</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>创建新的播放列表</para>
-              </entry>
-            </row>
-           <row>
               <entry lang="en">
                 <keycombo>
                   <keycap>Alt</keycap>
@@ -1463,17 +1480,6 @@
               </entry>
               <entry>
                 <para lang="en">Jump to search field</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>O</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>在库中添加文件夹</para>
               </entry>
             </row>
             <row>
@@ -1502,17 +1508,6 @@
             </row>
           </thead>
           <tbody>
-			<row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>W</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>关闭 <application>Rhythmbox 音乐播放器</application>窗口</para>
-              </entry>
-            </row>
             <row>
               <entry lang="en">
                 <keycombo>
@@ -1538,17 +1533,6 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>D</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>切换小巧界面模式</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
                   <keycap>F9</keycap>
                 </keycombo>
               </entry>
@@ -1565,17 +1549,6 @@
               </entry>
               <entry>
                 <para>显示隐藏/队列侧边栏</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>S</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>显示/隐藏歌曲位置滑块</para>
               </entry>
             </row>
             <row>

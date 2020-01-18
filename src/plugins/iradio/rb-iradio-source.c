@@ -38,7 +38,6 @@
 #include "rb-iradio-source-search.h"
 
 #include "rhythmdb-query-model.h"
-#include "rb-stock-icons.h"
 #include "rb-entry-view.h"
 #include "rb-property-view.h"
 #include "rb-util.h"
@@ -56,10 +55,6 @@
 #include "rb-source-toolbar.h"
 #include "rb-builder-helpers.h"
 #include "rb-application.h"
-
-/* icon names */
-#define IRADIO_SOURCE_ICON  "library-internet-radio"
-#define IRADIO_NEW_STATION_ICON "internet-radio-new"
 
 typedef struct _RhythmDBEntryType RBIRadioEntryType;
 typedef struct _RhythmDBEntryTypeClass RBIRadioEntryTypeClass;
@@ -96,7 +91,7 @@ static void impl_get_status (RBDisplayPage *page, char **text, char **progress_t
 /* source methods */
 static RBEntryView *impl_get_entry_view (RBSource *source);
 static void impl_search (RBSource *source, RBSourceSearch *search, const char *cur_text, const char *new_text);
-static void impl_delete (RBSource *source);
+static void impl_delete_selected (RBSource *source);
 static void impl_song_properties (RBSource *source);
 static guint impl_want_uri (RBSource *source, const char *uri);
 static void impl_add_uri (RBSource *source,
@@ -198,16 +193,16 @@ rb_iradio_source_class_init (RBIRadioSourceClass *klass)
 	page_class->get_status  = impl_get_status;
 
 	source_class->reset_filters = impl_reset_filters;
-	source_class->impl_can_copy = (RBSourceFeatureFunc) rb_false_function;
-	source_class->impl_can_delete = (RBSourceFeatureFunc) rb_true_function;
-	source_class->impl_can_pause = (RBSourceFeatureFunc) rb_false_function;
-	source_class->impl_delete = impl_delete;
-	source_class->impl_get_entry_view = impl_get_entry_view;
-	source_class->impl_search = impl_search;
-	source_class->impl_song_properties = impl_song_properties;
-	source_class->impl_want_uri = impl_want_uri;
-	source_class->impl_add_uri = impl_add_uri;
-	source_class->impl_get_playback_status = impl_get_playback_status;
+	source_class->can_copy = (RBSourceFeatureFunc) rb_false_function;
+	source_class->can_delete = (RBSourceFeatureFunc) rb_true_function;
+	source_class->can_pause = (RBSourceFeatureFunc) rb_false_function;
+	source_class->delete_selected = impl_delete_selected;
+	source_class->get_entry_view = impl_get_entry_view;
+	source_class->search = impl_search;
+	source_class->song_properties = impl_song_properties;
+	source_class->want_uri = impl_want_uri;
+	source_class->add_uri = impl_add_uri;
+	source_class->get_playback_status = impl_get_playback_status;
 
 	g_object_class_override_property (object_class,
 					  PROP_SHOW_BROWSER,
@@ -273,8 +268,6 @@ rb_iradio_source_constructed (GObject *object)
 	GtkAccelGroup *accel_group;
 	GtkWidget *grid;
 	GtkWidget *paned;
-	gint size;
-	GdkPixbuf *pixbuf;
 	GActionEntry actions[] = {
 		{ "iradio-new-station", new_station_action_cb },
 	};
@@ -292,15 +285,7 @@ rb_iradio_source_constructed (GObject *object)
 		      NULL);
 	g_object_unref (shell);
 
-	gtk_icon_size_lookup (RB_SOURCE_ICON_SIZE, &size, NULL);
-	pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
-					   IRADIO_SOURCE_ICON,
-					   size,
-					   0, NULL);
-	g_object_set (source, "pixbuf", pixbuf, NULL);
-	if (pixbuf != NULL) {
-		g_object_unref (pixbuf);
-	}
+	rb_display_page_set_icon_name (RB_DISPLAY_PAGE (source), "network-server-symbolic");
 
 	settings = g_settings_new ("org.gnome.rhythmbox.plugins.iradio");
 	if (g_settings_get_boolean (settings, "initial-stations-loaded") == FALSE) {
@@ -392,7 +377,8 @@ rb_iradio_source_constructed (GObject *object)
 	rb_source_bind_settings (RB_SOURCE (source),
 				 GTK_WIDGET (source->priv->stations),
 				 paned,
-				 GTK_WIDGET (source->priv->genres));
+				 GTK_WIDGET (source->priv->genres),
+				 TRUE);
 
 	gtk_widget_show_all (GTK_WIDGET (source));
 
@@ -626,7 +612,7 @@ impl_get_playback_status (RBSource *source, char **text, float *progress)
 }
 
 static void
-impl_delete (RBSource *asource)
+impl_delete_selected (RBSource *asource)
 {
 	RBIRadioSource *source = RB_IRADIO_SOURCE (asource);
 	GList *sel;
@@ -1026,11 +1012,9 @@ info_available_cb (RBPlayer *backend,
 		return;
 	}
 
-	GDK_THREADS_ENTER ();
-
 	entry = rb_shell_player_get_playing_entry (source->priv->player);
 	if (check_entry_type (source, entry) == FALSE)
-		goto out_unlock;
+		return;
 
 	/* validate the value */
 	switch (field) {
@@ -1043,7 +1027,7 @@ info_available_cb (RBPlayer *backend,
 		if (!g_utf8_validate (str, -1, NULL)) {
 			g_warning ("Invalid UTF-8 from internet radio: %s", str);
 			g_free (str);
-			goto out_unlock;
+			return;
 		}
 		break;
 	default:
@@ -1131,8 +1115,6 @@ info_available_cb (RBPlayer *backend,
 	}
 
 	g_free (str);
- out_unlock:
-	GDK_THREADS_LEAVE ();
 }
 
 static void

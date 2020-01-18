@@ -5,7 +5,7 @@ rhythmbox_client_LDADD =				\
 	$(RB_CLIENT_LIBS)				\
 	$(DBUS_LIBS)
 
-INCLUDES = 						\
+AM_CPPFLAGS = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -17,7 +17,7 @@ INCLUDES = 						\
 	-DDATADIR=\""$(datadir)"\"			\
 	$(RHYTHMBOX_CFLAGS)				\
 	$(DBUS_CFLAGS)					\
-	-D__EXTENSIONS__ -D_BSD_SOURCE
+	-D__EXTENSIONS__
 
 EXTRA_DIST = rb-client.c rb-print-playing.py rb-set-rating.py
 

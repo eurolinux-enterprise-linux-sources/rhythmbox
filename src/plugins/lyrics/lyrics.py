@@ -27,7 +27,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 import os, re
-import urllib
+import urllib.request
 
 import rb
 from gi.repository import Gtk, Gio, GObject, Peas
@@ -149,8 +149,10 @@ class LyricGrabber(object):
 		status = self.verify_lyric()
 		
 		if status:
-			l = rb.Loader()
-			l.get_url('file://' + urllib.pathname2url(self.cache_path), callback)
+			f = open(self.cache_path, 'rt')
+			text = f.read()
+			f.close()
+			self.callback(text)
 		elif cache_only:
 			self.callback(_("No lyrics found"))
 		elif self.artist == "" and self.title == "":
@@ -158,7 +160,7 @@ class LyricGrabber(object):
 		else:
 			def lyric_callback (text):
 				if text is not None:
-					f = file (self.cache_path, 'w')
+					f = open(self.cache_path, 'wt')
 					f.write (text)
 					f.close ()
 					self.callback(text)
@@ -177,14 +179,14 @@ class LyricPane(object):
 		self.build_path()
 		
 		def save_lyrics(cache_path, text):
-			f = file (cache_path, 'w')
-			f.write (text)
-			f.close ()
+			f = open(cache_path, 'wt')
+			f.write(text)
+			f.close()
 		
 		def erase_lyrics(cache_path):
-			f = file (cache_path, 'w')
-			f.write ("")
-			f.close ()
+			f = open(cache_path, 'w')
+			f.write("")
+			f.close()
 		
 		def save_callback():
 			buf = self.buffer
@@ -221,7 +223,7 @@ class LyricPane(object):
 		self.discard.connect('clicked', discard_callback)
 		self.clear = Gtk.Button.new_from_stock(Gtk.STOCK_CLEAR)
 		self.clear.connect('clicked', clear_callback)
-		self.hbox = Gtk.HButtonBox()
+		self.hbox = Gtk.ButtonBox(orientation=Gtk.Orientation.HORIZONTAL)
 		self.hbox.set_spacing (6)
 		self.hbox.set_layout(Gtk.ButtonBoxStyle.END)
 		self.hbox.add(self.edit)
@@ -231,8 +233,9 @@ class LyricPane(object):
 
 		(self.view, self.buffer, self.tview) = create_lyrics_view()
 
-		self.view.pack_start(self.hbox, False, False, 6)
-		self.view.set_spacing(2)
+		self.view.pack_start(self.hbox, False, False, 0)
+		self.view.set_spacing(6)
+		self.view.props.margin = 6
 	
 		self.view.show_all()
 		self.page_num = song_info.append_page(_("Lyrics"), self.view)
@@ -269,7 +272,7 @@ class LyricPane(object):
 		self.get_lyrics()
 
 	def __got_lyrics(self, text):
-		self.buffer.set_text(str(text), -1)
+		self.buffer.set_text(text, -1)
 
 	def get_lyrics(self):
 		if self.entry is None:
@@ -398,7 +401,7 @@ class LyricsDisplayPlugin(GObject.Object, Peas.Activatable):
 			self.action.set_enabled (False)
 
 	def window_deleted (self, window):
-		print "lyrics window destroyed"
+		print("lyrics window destroyed")
 		self.window = None
 	
 	def create_song_info (self, shell, song_info, is_multiple):

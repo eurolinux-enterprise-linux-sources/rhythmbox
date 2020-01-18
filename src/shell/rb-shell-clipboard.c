@@ -54,7 +54,6 @@
 #include "rb-display-page-model.h"
 #include "rhythmdb.h"
 #include "rb-debug.h"
-#include "rb-stock-icons.h"
 #include "rb-util.h"
 #include "rb-application.h"
 #include "rb-builder-helpers.h"
@@ -269,10 +268,17 @@ add_delete_menu_item (RBShellClipboard *clipboard)
 static void
 setup_add_to_playlist_menu (RBShellClipboard *clipboard)
 {
-	g_clear_object (&clipboard->priv->playlist_menu);
+	GMenuModel *new_menu = NULL;
+
 	if (clipboard->priv->source) {
-		g_object_get (clipboard->priv->source, "playlist-menu", &clipboard->priv->playlist_menu, NULL);
+		g_object_get (clipboard->priv->source, "playlist-menu", &new_menu, NULL);
 	}
+	if (new_menu == clipboard->priv->playlist_menu) {
+		g_clear_object (&new_menu);
+		return;
+	}
+	g_clear_object (&clipboard->priv->playlist_menu);
+	clipboard->priv->playlist_menu = new_menu;
 
 	if (clipboard->priv->playlist_menu) {
 		rb_menu_update_link (clipboard->priv->edit_menu,
@@ -464,11 +470,8 @@ rb_shell_clipboard_new (RhythmDB *db)
 static gboolean
 rb_shell_clipboard_sync_idle (RBShellClipboard *clipboard)
 {
-	GDK_THREADS_ENTER ();
 	rb_shell_clipboard_sync (clipboard);
 	clipboard->priv->idle_sync_id = 0;
-	GDK_THREADS_LEAVE ();
-
 	return FALSE;
 }
 
@@ -625,7 +628,7 @@ static void
 delete_action_cb (GSimpleAction *action, GVariant *parameters, gpointer data)
 {
 	RBShellClipboard *clipboard = RB_SHELL_CLIPBOARD (data);
-	rb_source_delete (clipboard->priv->source);
+	rb_source_delete_selected (clipboard->priv->source);
 }
 
 static void
@@ -655,14 +658,14 @@ rb_shell_clipboard_entry_deleted_cb (RhythmDB *db,
 {
 	GList *l;
 
-	GDK_THREADS_ENTER ();
 	l = g_list_find (clipboard->priv->entries, entry);
 	if (l != NULL) {
 		clipboard->priv->entries = g_list_delete_link (clipboard->priv->entries, l);
 		rhythmdb_entry_unref (entry);
-		rb_shell_clipboard_sync (clipboard);
+		if (clipboard->priv->idle_sync_id == 0)
+			clipboard->priv->idle_sync_id = g_idle_add ((GSourceFunc) rb_shell_clipboard_sync_idle,
+								    clipboard);
 	}
-	GDK_THREADS_LEAVE ();
 }
 
 static void

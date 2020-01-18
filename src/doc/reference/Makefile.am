@@ -33,7 +33,6 @@ CFILE_GLOB=$(top_srcdir)/lib/*.c
 # - plugins (no API there)
 IGNORE_HFILES= \
 	config.h \
-	eggdesktopfile.h \
 	eggwrapbox.h \
 	eggwrapbox-enums.h \
 	md5.h \
@@ -166,7 +165,7 @@ expand_content_files=
 
 
 
-INCLUDES=\
+AM_CPPFLAGS=\
 	-I$(top_srcdir) \
 	-I$(top_builddir) \
 	-I$(top_builddir)/lib \

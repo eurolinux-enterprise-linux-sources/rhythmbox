@@ -5,6 +5,7 @@ GTK_BUILDER_FILES =					\
 	create-playlist.ui				\
 	display-page-add-menu.ui			\
 	edit-menu.ui					\
+	encoding-settings.ui				\
 	general-prefs.ui				\
 	import-dialog.ui				\
 	import-errors-popup.ui				\
@@ -30,7 +31,8 @@ GTK_BUILDER_FILES =					\
 	song-info-multiple.ui				\
 	sync-dialog.ui					\
 	sync-state.ui					\
-	uri-new.ui
+	uri-new.ui					\
+	style.css
 
 uidir = $(pkgdatadir)
 ui_DATA = $(GTK_BUILDER_FILES)

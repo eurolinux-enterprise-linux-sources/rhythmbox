@@ -57,7 +57,6 @@
 #include "rb-debug.h"
 #include "rb-dialog.h"
 #include "rhythmdb.h"
-#include "rb-stock-icons.h"
 #include "rb-builder-helpers.h"
 #include "rb-util.h"
 #include "rb-application.h"
@@ -824,7 +823,7 @@ rb_playlist_manager_set_automatic_playlist (RBPlaylistManager *mgr,
 					    RBQueryCreator *creator)
 {
 	RhythmDBQueryModelLimitType limit_type;
-	GArray *limit_value = NULL;
+	GVariant *limit_value = NULL;
 	const char *sort_key;
 	gint sort_direction;
 	GPtrArray *query;
@@ -843,7 +842,7 @@ rb_playlist_manager_set_automatic_playlist (RBPlaylistManager *mgr,
 					   sort_direction);
 	rhythmdb_query_free (query);
 	if (limit_value != NULL) {
-		g_array_unref (limit_value);
+		g_variant_unref (limit_value);
 	}
 }
 
@@ -932,7 +931,7 @@ edit_auto_playlist_action_cb (GSimpleAction *action, GVariant *parameter, gpoint
 	creator = g_object_get_data (G_OBJECT (playlist), "rhythmbox-playlist-editor");
 	if (creator == NULL) {
 		RhythmDBQueryModelLimitType limit_type;
-		GArray *limit_value = NULL;
+		GVariant *limit_value = NULL;
 		GPtrArray *query;
 		char *sort_key;
 		gint sort_direction;
@@ -953,7 +952,7 @@ edit_auto_playlist_action_cb (GSimpleAction *action, GVariant *parameter, gpoint
 									     sort_key,
 									     sort_direction));
 		if (limit_value != NULL) {
-			g_array_unref (limit_value);
+			g_variant_unref (limit_value);
 		}
 		rhythmdb_query_free (query);
 		g_free (sort_key);
@@ -1874,6 +1873,7 @@ rb_playlist_manager_constructed (GObject *object)
 
 	builder = rb_builder_load ("playlist-menu.ui", NULL);
 	menu = G_MENU_MODEL (gtk_builder_get_object (builder, "playlist-menu"));
+	rb_application_link_shared_menus (RB_APPLICATION (app), G_MENU (menu));
 	rb_application_add_shared_menu (RB_APPLICATION (app), "playlist-menu", menu);
 	g_object_unref (builder);
 

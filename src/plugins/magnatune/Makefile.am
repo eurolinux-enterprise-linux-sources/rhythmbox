@@ -23,11 +23,8 @@ gtkbuilder_DATA =	\
 		magnatune_logo_color_small.png		\
 		magnatune_logo_color_tiny.png
 
-themedir = $(pkgdatadir)/icons/hicolor
-size = 24x24
-context = places
-icondir = $(themedir)/$(size)/$(context)
-icon_DATA = icons/hicolor/$(size)/$(context)/magnatune.png
+icondir = $(plugindatadir)/icons/hicolor/scalable/places
+icon_DATA = icons/hicolor/scalable/places/magnatune-symbolic.svg
 
 EXTRA_DIST = $(plugin_in_files) $(gtkbuilder_DATA) $(icon_DATA)
 CLEANFILES = $(plugin_DATA)

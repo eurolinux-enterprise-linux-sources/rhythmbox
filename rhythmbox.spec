@@ -1,20 +1,16 @@
 %define desktop_file_utils_version 0.9
-%define gtk3_version 3.6.0
+%define gtk3_version 3.12.0
 %define libdmapsharing_version 2.9.16
 
 Name: rhythmbox
 Summary: Music Management Application
-Version: 2.99.1
-Release: 4%{?dist}
+Version: 3.3.1
+Release: 5%{?dist}
 License: GPLv2+ with exceptions and GFDL
 Group: Applications/Multimedia
 URL: http://projects.gnome.org/rhythmbox/
 #VCS: git://git.gnome.org/rhythmbox
-Source: http://download.gnome.org/sources/rhythmbox/2.99/%{name}-%{version}.tar.xz
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=1074974
-# https://bugzilla.gnome.org/show_bug.cgi?id=706470
-Patch0: 0001-metadata-GDBusServer-new-connection-signal-needs-a-r.patch
+Source: http://download.gnome.org/sources/rhythmbox/3.3/%{name}-%{version}.tar.xz
 
 Requires: gnome-icon-theme-legacy
 Requires: gtk3%{?_isa} >= %{gtk3_version}
@@ -50,7 +46,6 @@ BuildRequires: libSM-devel
 BuildRequires: libsoup-devel >= 2.26.0
 BuildRequires: libtdb-devel
 BuildRequires: pygobject3-devel
-BuildRequires: python2-devel
 BuildRequires: totem-pl-parser-devel >= 3.2.0
 BuildRequires: webkitgtk3-devel
 
@@ -58,6 +53,17 @@ ExcludeArch:    s390 s390x
 
 Obsoletes: rhythmbox-upnp < %{version}-%{release}
 Provides: rhythmbox-upnp = %{version}-%{release}
+
+# http://bugzilla.gnome.org/show_bug.cgi?id=703910
+# https://bugzilla.redhat.com/show_bug.cgi?id=1036203
+Patch0: 0001-shell-Fix-state-of-the-Party-Mode-toggle-item.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=1259708
+# http://bugzilla.gnome.org/show_bug.cgi?id=767466
+Patch1: 0001-daap-Fix-warnings-when-configuring-music-sharing.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=1273062
+Patch2: rhythmbox-3.3.1-EL7.3_translations.patch
 
 %description
 Rhythmbox is an integrated music management application based on the powerful
@@ -78,7 +84,9 @@ a Rhythmbox plugin.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch0 -p1 -b .party-mode
+%patch1 -p1 -b .daap-config
+%patch2 -p1 -b .translations
 
 %build
 %configure \
@@ -131,7 +139,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas >&/dev/null || :
 %{_datadir}/applications/rhythmbox-device.desktop
 %{_datadir}/dbus-1/services/org.gnome.Rhythmbox3.service
 %{_datadir}/glib-2.0/schemas/org.gnome.rhythmbox.gschema.xml
-%{_datadir}/icons/hicolor/*/places/*.png
+%{_datadir}/appdata/rhythmbox.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/icons/hicolor/*/apps/*.svg
 %{_datadir}/icons/hicolor/*/status/*.png
@@ -140,31 +148,22 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas >&/dev/null || :
 %dir %{_libdir}/rhythmbox
 %dir %{_libdir}/rhythmbox/plugins
 %{_libdir}/girepository-1.0/*.typelib
-%{_libdir}/rhythmbox/plugins/artsearch/
+%{_libdir}/rhythmbox/plugins/android/
 %{_libdir}/rhythmbox/plugins/audiocd/
 %{_libdir}/rhythmbox/plugins/audioscrobbler/
 %{_libdir}/rhythmbox/plugins/cd-recorder/
-%{_libdir}/rhythmbox/plugins/context/
 %{_libdir}/rhythmbox/plugins/daap/
 %{_libdir}/rhythmbox/plugins/dbus-media-server/
 %{_libdir}/rhythmbox/plugins/fmradio/
 %{_libdir}/rhythmbox/plugins/generic-player/
 %{_libdir}/rhythmbox/plugins/grilo/
-%{_libdir}/rhythmbox/plugins/im-status/
 %{_libdir}/rhythmbox/plugins/ipod/
 %{_libdir}/rhythmbox/plugins/iradio/
-%{_libdir}/rhythmbox/plugins/lyrics/
-%{_libdir}/rhythmbox/plugins/magnatune/
 %{_libdir}/rhythmbox/plugins/mmkeys/
 %{_libdir}/rhythmbox/plugins/mpris/
 %{_libdir}/rhythmbox/plugins/mtpdevice/
 %{_libdir}/rhythmbox/plugins/notification/
 %{_libdir}/rhythmbox/plugins/power-manager/
-%{_libdir}/rhythmbox/plugins/python-console/
-%{_libdir}/rhythmbox/plugins/rb/
-%{_libdir}/rhythmbox/plugins/rbzeitgeist/
-%{_libdir}/rhythmbox/plugins/replaygain/
-%{_libdir}/rhythmbox/plugins/sendto/
 %{_libdir}/rhythmbox/plugins/visualizer/
 %{_libdir}/rhythmbox/sample-plugins/
 %{_libexecdir}/rhythmbox-metadata
@@ -176,6 +175,26 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas >&/dev/null || :
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Thu Jun 30 2016 Bastien Nocera <bnocera@redhat.com> - 3.3.1-5
+- Update translations
+Resolves: #1273062
+
+* Thu Jun 09 2016 Bastien Nocera <bnocera@redhat.com> - 3.3.1-4
+- Fix warnings when configuring DAAP music sharing
+Resolves: #1259708
+
+* Mon May 23 2016 Bastien Nocera <bnocera@redhat.com> - 3.3.1-3
+- Fix party mode menu item not reflecting current state
+Resolves: #1036203
+
+* Mon May 23 2016 Bastien Nocera <bnocera@redhat.com> - 3.3.1-2
+- Fix download URL
+Related: #1298233
+
+* Tue Apr 12 2016 Bastien Nocera <hadess@hadess.net> - 3.3.1-1
+- Update to 3.3.1
+Resolves: #1298233
+
 * Wed May 20 2015 Matthias Clasen <mclasen@redhat.com> - 2.99.1-4
 - Rebuild against new totem-pl-parser
 Resolves: #1221595 

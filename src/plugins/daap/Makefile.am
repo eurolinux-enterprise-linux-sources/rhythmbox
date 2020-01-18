@@ -38,7 +38,7 @@ libdaap_la_LIBADD = 					\
 	$(DMAPSHARING_LIBS)                             \
 	$(RHYTHMBOX_LIBS)
 
-INCLUDES = 						\
+AM_CPPFLAGS = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -60,12 +60,11 @@ INCLUDES = 						\
 	-DSHARE_DIR=\"$(pkgdatadir)\"                   \
 	-DDATADIR=\""$(datadir)"\"			\
 	$(DMAPSHARING_CFLAGS)				\
-	$(RHYTHMBOX_CFLAGS)				\
-	-D_BSD_SOURCE
+	$(RHYTHMBOX_CFLAGS)
 
 if USE_LIBSECRET
 libdaap_la_LIBADD += $(LIBSECRET_LIBS)
-INCLUDES += $(LIBSECRET_CFLAGS)
+AM_CPPFLAGS += $(LIBSECRET_CFLAGS)
 endif
 
 gtkbuilderdir = $(plugindatadir)

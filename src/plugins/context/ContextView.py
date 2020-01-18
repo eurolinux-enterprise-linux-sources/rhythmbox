@@ -74,22 +74,21 @@ class ContextView (GObject.GObject):
         self.init_tabs()
 
         self.connect_signals ()
-        self.load_top_five (self.ds['artist'])
 
         # Set currently displayed tab
         # TODO: make this persistent via gsettings key
         self.current = 'artist'
         self.tab[self.current].activate ()
 
-	app = shell.props.application
-	action = Gio.SimpleAction.new_stateful("view-context-pane", None, GLib.Variant.new_boolean(True))
-	action.connect("activate", self.toggle_visibility, None)
+        app = shell.props.application
+        action = Gio.SimpleAction.new_stateful("view-context-pane", None, GLib.Variant.new_boolean(True))
+        action.connect("activate", self.toggle_visibility, None)
 
-	window = shell.props.window
-	window.add_action(action)
+        window = shell.props.window
+        window.add_action(action)
 
-	item = Gio.MenuItem.new(label=_("Context Pane"), detailed_action="win.view-context-pane")
-	app.add_plugin_menu_item("view", "view-context-pane", item)
+        item = Gio.MenuItem.new(label=_("Context Pane"), detailed_action="win.view-context-pane")
+        app.add_plugin_menu_item("view", "view-context-pane", item)
 
 
     def deactivate (self, shell):
@@ -106,20 +105,17 @@ class ContextView (GObject.GObject):
         if self.visible:
             shell.remove_widget (self.vbox, RB.ShellUILocation.RIGHT_SIDEBAR)
             self.visible = False
-	self.vbox = None
-	self.label = None
-	self.webview = None
-	self.websettings = None
-	self.buttons = None
-	self.top_five_list = None
+        self.vbox = None
+        self.webview = None
+        self.websettings = None
+        self.buttons = None
 
-	app = shell.props.application
-	app.remove_plugin_menu_item("view", "view-context-pane")
+        app = shell.props.application
+        app.remove_plugin_menu_item("view", "view-context-pane")
 
     def connect_signals(self):
         self.player_cb_ids = ( self.sp.connect ('playing-changed', self.playing_changed_cb),
             self.sp.connect ('playing-song-changed', self.playing_changed_cb))
-        self.ds_cb_id = self.ds['artist'].connect ('artist-top-tracks-ready', self.load_top_five)
         self.tab_cb_ids = []
 
         # Listen for switch-tab signal from each tab
@@ -130,13 +126,11 @@ class ContextView (GObject.GObject):
         for id in self.player_cb_ids:
             self.sp.disconnect (id)
 
-        self.ds['artist'].disconnect (self.ds_cb_id)
-
         for key, id in self.tab_cb_ids:
             self.tab[key].disconnect (id)
 
     def toggle_visibility (self, action, parameter, data):
-	if self.visible:
+        if self.visible:
             self.shell.remove_widget (self.vbox, RB.ShellUILocation.RIGHT_SIDEBAR)
             self.visible = False
         else:
@@ -144,7 +138,7 @@ class ContextView (GObject.GObject):
             self.visible = True
 
     def change_tab (self, tab, newtab):
-        print "swapping tab from %s to %s" % (self.current, newtab)
+        print("swapping tab from %s to %s" % (self.current, newtab))
         if (self.current != newtab):
             self.tab[self.current].deactivate()
             self.tab[newtab].activate()
@@ -168,25 +162,10 @@ class ContextView (GObject.GObject):
         self.view['links'] = lit.LinksView (self.shell, self.plugin, self.webview)
         self.tab['links']  = lit.LinksTab (self.shell, self.buttons, self.ds['links'], self.view['links'])
 
-    def load_top_five (self, ds):
-        top_tracks = ds.get_top_tracks ()
-        ## populate liststore
-        if top_tracks is None:
-            for i in range (0, 5):
-                self.top_five_list.append(["%d. " % (i+1), ""])
-        else:
-            num_tracks = len(top_tracks)
-            ## empty liststore
-            self.top_five_list.clear()
-            for i in range (0, 5):
-                if i >= num_tracks : track = ""
-                else : track = top_tracks[i]
-                self.top_five_list.append(["%d. " % (i+1), str(track)])
-
     def playing_changed_cb (self, playing, user_data):
         # this sometimes happens on a streaming thread, so we need to
         # move it to the main thread
-        GObject.idle_add (self.playing_changed_idle_cb)
+        GLib.idle_add (self.playing_changed_idle_cb)
 
     def playing_changed_idle_cb (self):
         if self.sp is None:
@@ -198,19 +177,13 @@ class ContextView (GObject.GObject):
 
         playing_artist = playing_entry.get_string(RB.RhythmDBPropType.ARTIST)
 
-        if self.current_artist != playing_artist:
-            self.current_artist = playing_artist.replace ('&', '&amp;')
-            # Translators: 'top' here means 'most popular'.  %s is replaced by the artist name.
-            self.label.set_markup(_("Top songs by %s") % ('<i>' + self.current_artist + '</i>'))
-            self.ds['artist'].fetch_top_tracks (self.current_artist)
-
         self.tab[self.current].reload()
 
     def navigation_request_cb(self, view, frame, request):
         # open HTTP URIs externally.  this isn't a web browser.
         if request.get_uri().startswith('http'):
-            print "opening uri %s" % request.get_uri()
-	    Gtk.show_uri(self.shell.props.window.get_screen(), request.get_uri(), Gdk.CURRENT_TIME)
+            print("opening uri %s" % request.get_uri())
+            Gtk.show_uri(self.shell.props.window.get_screen(), request.get_uri(), Gdk.CURRENT_TIME)
 
             return 1        # WEBKIT_NAVIGATION_RESPONSE_IGNORE
         else:
@@ -229,50 +202,17 @@ class ContextView (GObject.GObject):
             font_size /= Pango.SCALE
         self.websettings.props.default_font_size = font_size
         self.websettings.props.default_font_family = style.font_desc.get_family()
-        print "web view font settings: %s, %d" % (style.font_desc.get_family(), font_size)
+        print("web view font settings: %s, %d" % (style.font_desc.get_family(), font_size))
 
     def init_gui(self):
         self.vbox = Gtk.VBox()
-        frame = Gtk.Frame()
-        self.label = Gtk.Label(_("Nothing Playing"))
-        frame.set_shadow_type(Gtk.ShadowType.IN)
-        frame.set_label_align(0.0,0.0)
-        frame.set_label_widget(self.label)
-        self.label.set_use_markup(True)
-        self.label.set_padding(0,4)
-
-        #----- set up top 5 tree view -----#
-        self.top_five_list = Gtk.ListStore (GObject.TYPE_STRING, GObject.TYPE_STRING)
-        top_five_view = Gtk.TreeView.new_with_model(self.top_five_list)
-
-        top_five_tvc1 = Gtk.TreeViewColumn()
-        top_five_tvc2 = Gtk.TreeViewColumn()
-
-        top_five_view.append_column(top_five_tvc1)
-        top_five_view.append_column(top_five_tvc2)
-
-        crt = Gtk.CellRendererText()
-
-        top_five_tvc1.pack_start(crt, True)
-        top_five_tvc2.pack_start(crt, True)
-
-        top_five_tvc1.add_attribute(crt, 'text', 0)
-        top_five_tvc2.add_attribute(crt, 'text', 1)
-        
-        top_five_view.set_headers_visible( False )
-
-	scroll = Gtk.ScrolledWindow()
-	scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
-	scroll.add(top_five_view)
-
-        frame.add (scroll)
 
         #---- set up webkit pane -----#
         self.webview = WebKit.WebView()
         self.webview.connect("navigation-requested", self.navigation_request_cb)
         scroll = Gtk.ScrolledWindow()
         scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        scroll.set_shadow_type(Gtk.ShadowType.IN)
+        scroll.set_shadow_type(Gtk.ShadowType.NONE)
         scroll.add (self.webview)
 
         # set up webkit settings to match gtk font settings
@@ -281,15 +221,12 @@ class ContextView (GObject.GObject):
         self.apply_font_settings()
         self.webview.connect("style-set", self.style_set_cb)
 
-        #----- set up button group -----#
-        vbox2 = Gtk.VBox()
-        self.buttons = Gtk.HBox()
-
         #---- pack everything into side pane ----#
-        self.vbox.pack_start  (frame, False, True, 0)
-        vbox2.pack_start (self.buttons, False, True, 0)
-        vbox2.pack_start (scroll, True, True, 0)
-        self.vbox.pack_start (vbox2, True, True, 0)
+        self.buttons = Gtk.HBox(spacing=3)
+        self.buttons.set_margin_start(6)
+        self.buttons.set_margin_end(6)
+        self.vbox.pack_start (self.buttons, False, True, 6)
+        self.vbox.pack_start (scroll, True, True, 0)
 
         self.vbox.show_all()
         self.vbox.set_size_request(200, -1)

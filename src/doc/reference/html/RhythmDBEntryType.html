@@ -2,34 +2,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RhythmDBEntryType</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<title>RhythmDBEntryType: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch04.html" title="RhythmDB">
 <link rel="prev" href="ch04.html" title="RhythmDB">
 <link rel="next" href="RhythmDBImportJob.html" title="RhythmDBImportJob">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
-<tr valign="middle">
-<td><a accesskey="p" href="ch04.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch04.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
-<td><a accesskey="n" href="RhythmDBImportJob.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
-</tr>
-<tr><td colspan="5" class="shortcuts">
-<a href="#RhythmDBEntryType.synopsis" class="shortcut">Top</a>
-                   | 
-                  <a href="#RhythmDBEntryType.description" class="shortcut">Description</a>
-                   | 
-                  <a href="#RhythmDBEntryType.object-hierarchy" class="shortcut">Object Hierarchy</a>
-                   | 
-                  <a href="#RhythmDBEntryType.properties" class="shortcut">Properties</a>
-</td></tr>
-</table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RhythmDBEntryType.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RhythmDBEntryType.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#RhythmDBEntryType.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch04.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch04.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RhythmDBImportJob.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
 <div class="refentry">
 <a name="RhythmDBEntryType"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -37,387 +31,450 @@
 <h2><span class="refentrytitle"><a name="RhythmDBEntryType.top_of_page"></a>RhythmDBEntryType</span></h2>
 <p>RhythmDBEntryType — Database entry type base class</p>
 </td>
-<td valign="top" align="right"></td>
+<td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
-<a name="RhythmDBEntryType.synopsis"></a><h2>Synopsis</h2>
-<a name="RhythmDBEntryCategory"></a><pre class="synopsis">enum                <a class="link" href="RhythmDBEntryType.html#RhythmDBEntryCategory-enum" title="enum RhythmDBEntryCategory">RhythmDBEntryCategory</a>;
-enum                <a class="link" href="RhythmDBEntryType.html#RhythmDBEntryAvailability" title="enum RhythmDBEntryAvailability">RhythmDBEntryAvailability</a>;
-<span class="returnvalue">char</span> *              (<a class="link" href="RhythmDBEntryType.html#RhythmDBEntryTypeStringFunc" title="RhythmDBEntryTypeStringFunc ()">*RhythmDBEntryTypeStringFunc</a>)      (<em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *entry_type</code></em>,
-                                                         <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);
-<span class="returnvalue">gboolean</span>            (<a class="link" href="RhythmDBEntryType.html#RhythmDBEntryTypeBooleanFunc" title="RhythmDBEntryTypeBooleanFunc ()">*RhythmDBEntryTypeBooleanFunc</a>)     (<em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *entry_type</code></em>,
-                                                         <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);
-<span class="returnvalue">void</span>                (<a class="link" href="RhythmDBEntryType.html#RhythmDBEntryTypeSyncFunc" title="RhythmDBEntryTypeSyncFunc ()">*RhythmDBEntryTypeSyncFunc</a>)        (<em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *entry_type</code></em>,
-                                                         <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
-                                                         <em class="parameter"><code><span class="type">GSList</span> *changes</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
-struct              <a class="link" href="RhythmDBEntryType.html#RhythmDBEntryType-struct" title="struct RhythmDBEntryType">RhythmDBEntryType</a>;
-struct              <a class="link" href="RhythmDBEntryType.html#RhythmDBEntryTypeClass" title="struct RhythmDBEntryTypeClass">RhythmDBEntryTypeClass</a>;
-const <span class="returnvalue">char</span> *        <a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-type-get-name" title="rhythmdb_entry_type_get_name ()">rhythmdb_entry_type_get_name</a>        (<em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *etype</code></em>);
-<span class="returnvalue">char</span> *              <a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-get-playback-uri" title="rhythmdb_entry_get_playback_uri ()">rhythmdb_entry_get_playback_uri</a>     (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-update-availability" title="rhythmdb_entry_update_availability ()">rhythmdb_entry_update_availability</a>  (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryAvailability" title="enum RhythmDBEntryAvailability"><span class="type">RhythmDBEntryAvailability</span></a> avail</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-created" title="rhythmdb_entry_created ()">rhythmdb_entry_created</a>              (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-pre-destroy" title="rhythmdb_entry_pre_destroy ()">rhythmdb_entry_pre_destroy</a>          (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-can-sync-metadata" title="rhythmdb_entry_can_sync_metadata ()">rhythmdb_entry_can_sync_metadata</a>    (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-sync-metadata" title="rhythmdb_entry_sync_metadata ()">rhythmdb_entry_sync_metadata</a>        (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
-                                                         <em class="parameter"><code><span class="type">GSList</span> *changes</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
-#define             <a class="link" href="RhythmDBEntryType.html#RHYTHMDB-ENTRY-TYPE-SONG:CAPS" title="RHYTHMDB_ENTRY_TYPE_SONG">RHYTHMDB_ENTRY_TYPE_SONG</a>
-#define             <a class="link" href="RhythmDBEntryType.html#RHYTHMDB-ENTRY-TYPE-IMPORT-ERROR:CAPS" title="RHYTHMDB_ENTRY_TYPE_IMPORT_ERROR">RHYTHMDB_ENTRY_TYPE_IMPORT_ERROR</a>
-#define             <a class="link" href="RhythmDBEntryType.html#RHYTHMDB-ENTRY-TYPE-IGNORE:CAPS" title="RHYTHMDB_ENTRY_TYPE_IGNORE">RHYTHMDB_ENTRY_TYPE_IGNORE</a>
-<a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> * <a class="link" href="RhythmDBEntryType.html#rhythmdb-get-song-entry-type" title="rhythmdb_get_song_entry_type ()">rhythmdb_get_song_entry_type</a>        (<em class="parameter"><code><span class="type">void</span></code></em>);
-<a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> * <a class="link" href="RhythmDBEntryType.html#rhythmdb-get-error-entry-type" title="rhythmdb_get_error_entry_type ()">rhythmdb_get_error_entry_type</a>       (<em class="parameter"><code><span class="type">void</span></code></em>);
-<a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> * <a class="link" href="RhythmDBEntryType.html#rhythmdb-get-ignore-entry-type" title="rhythmdb_get_ignore_entry_type ()">rhythmdb_get_ignore_entry_type</a>      (<em class="parameter"><code><span class="type">void</span></code></em>);
-</pre>
-</div>
 <div class="refsect1">
-<a name="RhythmDBEntryType.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="synopsis">
-  GEnum
-   +----RhythmDBEntryCategory
-</pre>
-<pre class="synopsis">
-  GObject
-   +----RhythmDBEntryType
-</pre>
+<a name="RhythmDBEntryType.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryTypeStringFunc" title="RhythmDBEntryTypeStringFunc ()">*RhythmDBEntryTypeStringFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryTypeBooleanFunc" title="RhythmDBEntryTypeBooleanFunc ()">*RhythmDBEntryTypeBooleanFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryTypeSyncFunc" title="RhythmDBEntryTypeSyncFunc ()">*RhythmDBEntryTypeSyncFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-type-get-name" title="rhythmdb_entry_type_get_name ()">rhythmdb_entry_type_get_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-get-playback-uri" title="rhythmdb_entry_get_playback_uri ()">rhythmdb_entry_get_playback_uri</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-update-availability" title="rhythmdb_entry_update_availability ()">rhythmdb_entry_update_availability</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-created" title="rhythmdb_entry_created ()">rhythmdb_entry_created</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-pre-destroy" title="rhythmdb_entry_pre_destroy ()">rhythmdb_entry_pre_destroy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-can-sync-metadata" title="rhythmdb_entry_can_sync_metadata ()">rhythmdb_entry_can_sync_metadata</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBEntryType.html#rhythmdb-entry-sync-metadata" title="rhythmdb_entry_sync_metadata ()">rhythmdb_entry_sync_metadata</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="RhythmDBEntryType.html#RHYTHMDB-ENTRY-TYPE-SONG:CAPS" title="RHYTHMDB_ENTRY_TYPE_SONG">RHYTHMDB_ENTRY_TYPE_SONG</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="RhythmDBEntryType.html#RHYTHMDB-ENTRY-TYPE-IMPORT-ERROR:CAPS" title="RHYTHMDB_ENTRY_TYPE_IMPORT_ERROR">RHYTHMDB_ENTRY_TYPE_IMPORT_ERROR</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="RhythmDBEntryType.html#RHYTHMDB-ENTRY-TYPE-IGNORE:CAPS" title="RHYTHMDB_ENTRY_TYPE_IGNORE">RHYTHMDB_ENTRY_TYPE_IGNORE</a></td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBEntryType.html#rhythmdb-get-song-entry-type" title="rhythmdb_get_song_entry_type ()">rhythmdb_get_song_entry_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBEntryType.html#rhythmdb-get-error-entry-type" title="rhythmdb_get_error_entry_type ()">rhythmdb_get_error_entry_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RhythmDBEntryType.html#rhythmdb-get-ignore-entry-type" title="rhythmdb_get_ignore_entry_type ()">rhythmdb_get_ignore_entry_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="refsect1">
 <a name="RhythmDBEntryType.properties"></a><h2>Properties</h2>
-<pre class="synopsis">
-  "<a class="link" href="RhythmDBEntryType.html#RhythmDBEntryType--category" title='The "category" property'>category</a>"                 <a class="link" href="RhythmDBEntryType.html#RhythmDBEntryCategory"><span class="type">RhythmDBEntryCategory</span></a>  : Read / Write / Construct Only
-  "<a class="link" href="RhythmDBEntryType.html#RhythmDBEntryType--db" title='The "db" property'>db</a>"                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>*             : Read / Write / Construct Only
-  "<a class="link" href="RhythmDBEntryType.html#RhythmDBEntryType--name" title='The "name" property'>name</a>"                     <span class="type">gchar</span>*                : Read / Write / Construct Only
-  "<a class="link" href="RhythmDBEntryType.html#RhythmDBEntryType--save-to-disk" title='The "save-to-disk" property'>save-to-disk</a>"             <span class="type">gboolean</span>              : Read / Write / Construct Only
-  "<a class="link" href="RhythmDBEntryType.html#RhythmDBEntryType--type-data-size" title='The "type-data-size" property'>type-data-size</a>"           <span class="type">guint</span>                 : Read / Write / Construct Only
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryType--cache-name" title="The “cache-name” property">cache-name</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryCategory" title="enum RhythmDBEntryCategory"><span class="type">RhythmDBEntryCategory</span></a></td>
+<td class="property_name"><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryType--category" title="The “category” property">category</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</td>
+<td class="property_name"><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryType--db" title="The “db” property">db</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryType--name" title="The “name” property">name</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryType--save-to-disk" title="The “save-to-disk” property">save-to-disk</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a></td>
+<td class="property_name"><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryType--type-data-size" title="The “type-data-size” property">type-data-size</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBEntryType.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryCategory" title="enum RhythmDBEntryCategory">RhythmDBEntryCategory</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryAvailability" title="enum RhythmDBEntryAvailability">RhythmDBEntryAvailability</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryType-struct" title="struct RhythmDBEntryType">RhythmDBEntryType</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryTypeClass" title="struct RhythmDBEntryTypeClass">RhythmDBEntryTypeClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBEntryType.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-Enumeration-and-Flag-Types.html">GEnum</a>
+    <span class="lineart">╰──</span> RhythmDBEntryCategory
+    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> RhythmDBEntryType
 </pre>
 </div>
 <div class="refsect1">
 <a name="RhythmDBEntryType.description"></a><h2>Description</h2>
-<p>
-This is the base class for database entry type classes, which provide
+<p>This is the base class for database entry type classes, which provide
 some aspects of the behaviour of database entry types.  There are different
-entry types for songs, radio streams, podcast feeds and episodes, and so on.
-</p>
-<p>
-Plugins written in Python or Vala can create new entry types by subclassing
+entry types for songs, radio streams, podcast feeds and episodes, and so on.</p>
+<p>Plugins written in Python or Vala can create new entry types by subclassing
 and overriding any methods required.  Plugins written in C can create a new
 instance of the RhythmDBEntryType base class and use its function pointer
-members rather than subclassing.
-</p>
+members rather than subclassing.</p>
 </div>
 <div class="refsect1">
-<a name="RhythmDBEntryType.details"></a><h2>Details</h2>
+<a name="RhythmDBEntryType.functions_details"></a><h2>Functions</h2>
 <div class="refsect2">
-<a name="RhythmDBEntryCategory-enum"></a><h3>enum RhythmDBEntryCategory</h3>
-<pre class="programlisting">typedef enum {
-	RHYTHMDB_ENTRY_NORMAL,
-	RHYTHMDB_ENTRY_STREAM,
-	RHYTHMDB_ENTRY_CONTAINER,
-	RHYTHMDB_ENTRY_VIRTUAL
-} RhythmDBEntryCategory;
-</pre>
+<a name="RhythmDBEntryTypeStringFunc"></a><h3>RhythmDBEntryTypeStringFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *
+<span class="c_punctuation">(</span>*RhythmDBEntryTypeStringFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *entry_type</code></em>,
+                                <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
 <p>
-Categories used to group entry types.  These are used in a few places to control
-handling of entries.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBEntryTypeBooleanFunc"></a><h3>RhythmDBEntryTypeBooleanFunc ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<span class="c_punctuation">(</span>*RhythmDBEntryTypeBooleanFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *entry_type</code></em>,
+                                 <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBEntryTypeSyncFunc"></a><h3>RhythmDBEntryTypeSyncFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*RhythmDBEntryTypeSyncFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *entry_type</code></em>,
+                              <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
+                              <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *changes</code></em>,
+                              <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-entry-type-get-name"></a><h3>rhythmdb_entry_type_get_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+rhythmdb_entry_type_get_name (<em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *etype</code></em>);</pre>
+<p>Returns the name of the entry type</p>
+<div class="refsect3">
+<a name="id-1.5.2.8.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><a name="RHYTHMDB-ENTRY-NORMAL:CAPS"></a><span class="term"><code class="literal">RHYTHMDB_ENTRY_NORMAL</code></span></p></td>
-<td>Normal files on disk
-</td>
-</tr>
-<tr>
-<td><p><a name="RHYTHMDB-ENTRY-STREAM:CAPS"></a><span class="term"><code class="literal">RHYTHMDB_ENTRY_STREAM</code></span></p></td>
-<td>Endless streams (eg shoutcast)
-</td>
-</tr>
-<tr>
-<td><p><a name="RHYTHMDB-ENTRY-CONTAINER:CAPS"></a><span class="term"><code class="literal">RHYTHMDB_ENTRY_CONTAINER</code></span></p></td>
-<td>Containers for other entries (eg podcast feeds)
-</td>
-</tr>
-<tr>
-<td><p><a name="RHYTHMDB-ENTRY-VIRTUAL:CAPS"></a><span class="term"><code class="literal">RHYTHMDB_ENTRY_VIRTUAL</code></span></p></td>
-<td>Things Rhythmbox shouldn't normally deal with
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="RhythmDBEntryAvailability"></a><h3>enum RhythmDBEntryAvailability</h3>
-<pre class="programlisting">typedef enum {
-	RHYTHMDB_ENTRY_AVAIL_CHECKED,
-	RHYTHMDB_ENTRY_AVAIL_MOUNTED,
-	RHYTHMDB_ENTRY_AVAIL_UNMOUNTED,
-	RHYTHMDB_ENTRY_AVAIL_NOT_FOUND
-} RhythmDBEntryAvailability;
-</pre>
-<p>
-Various events that can result in changes to the entry's availability.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><a name="RHYTHMDB-ENTRY-AVAIL-CHECKED:CAPS"></a><span class="term"><code class="literal">RHYTHMDB_ENTRY_AVAIL_CHECKED</code></span></p></td>
-<td>File was checked and found present
-</td>
-</tr>
-<tr>
-<td><p><a name="RHYTHMDB-ENTRY-AVAIL-MOUNTED:CAPS"></a><span class="term"><code class="literal">RHYTHMDB_ENTRY_AVAIL_MOUNTED</code></span></p></td>
-<td>Filesystem holding the file was mounted
-</td>
-</tr>
-<tr>
-<td><p><a name="RHYTHMDB-ENTRY-AVAIL-UNMOUNTED:CAPS"></a><span class="term"><code class="literal">RHYTHMDB_ENTRY_AVAIL_UNMOUNTED</code></span></p></td>
-<td>Filesystem holding the file was unmounted
-</td>
-</tr>
-<tr>
-<td><p><a name="RHYTHMDB-ENTRY-AVAIL-NOT-FOUND:CAPS"></a><span class="term"><code class="literal">RHYTHMDB_ENTRY_AVAIL_NOT_FOUND</code></span></p></td>
-<td>File was checked or played and could not be found
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="RhythmDBEntryTypeStringFunc"></a><h3>RhythmDBEntryTypeStringFunc ()</h3>
-<pre class="programlisting"><span class="returnvalue">char</span> *              (*RhythmDBEntryTypeStringFunc)      (<em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *entry_type</code></em>,
-                                                         <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
-<p>
-</p>
-</div>
-<hr>
-<div class="refsect2">
-<a name="RhythmDBEntryTypeBooleanFunc"></a><h3>RhythmDBEntryTypeBooleanFunc ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            (*RhythmDBEntryTypeBooleanFunc)     (<em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *entry_type</code></em>,
-                                                         <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
-<p>
-</p>
-</div>
-<hr>
-<div class="refsect2">
-<a name="RhythmDBEntryTypeSyncFunc"></a><h3>RhythmDBEntryTypeSyncFunc ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                (*RhythmDBEntryTypeSyncFunc)        (<em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *entry_type</code></em>,
-                                                         <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
-                                                         <em class="parameter"><code><span class="type">GSList</span> *changes</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
-<p>
-</p>
-</div>
-<hr>
-<div class="refsect2">
-<a name="RhythmDBEntryType-struct"></a><h3>struct RhythmDBEntryType</h3>
-<pre class="programlisting">struct RhythmDBEntryType;</pre>
-<p>
-</p>
-</div>
-<hr>
-<div class="refsect2">
-<a name="RhythmDBEntryTypeClass"></a><h3>struct RhythmDBEntryTypeClass</h3>
-<pre class="programlisting">struct RhythmDBEntryTypeClass {
-	GObjectClass parent_class;
-
-	/* methods */
-	void		(*entry_created) (RhythmDBEntryType *etype, RhythmDBEntry *entry);
-	void		(*destroy_entry) (RhythmDBEntryType *etype, RhythmDBEntry *entry);
-
-	char *		(*get_playback_uri) (RhythmDBEntryType *etype, RhythmDBEntry *entry);
-	void		(*update_availability) (RhythmDBEntryType *etype, RhythmDBEntry *entry, RhythmDBEntryAvailability avail);
-
-	gboolean (*can_sync_metadata) (RhythmDBEntryType *etype, RhythmDBEntry *entry);
-	void		(*sync_metadata) (RhythmDBEntryType *etype, RhythmDBEntry *entry, GSList *changes, GError **error);
-};
-</pre>
-<p>
-</p>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rhythmdb-entry-type-get-name"></a><h3>rhythmdb_entry_type_get_name ()</h3>
-<pre class="programlisting">const <span class="returnvalue">char</span> *        rhythmdb_entry_type_get_name        (<em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *etype</code></em>);</pre>
-<p>
-Returns the name of the entry type
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>etype</code></em> :</span></p></td>
-<td>a <a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>entry type name</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rhythmdb-entry-get-playback-uri"></a><h3>rhythmdb_entry_get_playback_uri ()</h3>
-<pre class="programlisting"><span class="returnvalue">char</span> *              rhythmdb_entry_get_playback_uri     (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
-<p>
-Returns an allocated string containing the playback URI for <em class="parameter"><code>entry</code></em>,
-or NULL if the entry cannot be played.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
-<td>a <span class="type">RhythmDBEntry</span>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>playback URI or NULL</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rhythmdb-entry-update-availability"></a><h3>rhythmdb_entry_update_availability ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rhythmdb_entry_update_availability  (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryAvailability" title="enum RhythmDBEntryAvailability"><span class="type">RhythmDBEntryAvailability</span></a> avail</code></em>);</pre>
-<p>
-Updates <em class="parameter"><code>entry</code></em> to reflect its new availability.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
-<td>a <span class="type">RhythmDBEntry</span>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>avail</code></em> :</span></p></td>
-<td>an availability event</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rhythmdb-entry-created"></a><h3>rhythmdb_entry_created ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rhythmdb_entry_created              (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
-<p>
-Calls the entry type's post-creation method for <em class="parameter"><code>entry</code></em>.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
-<td>a newly created <span class="type">RhythmDBEntry</span>
-</td>
+<td class="parameter_name"><p>etype</p></td>
+<td class="parameter_description"><p>a <a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr></tbody>
 </table></div>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rhythmdb-entry-pre-destroy"></a><h3>rhythmdb_entry_pre_destroy ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rhythmdb_entry_pre_destroy          (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
-<p>
-Calls the entry type's pre-deletion method for <em class="parameter"><code>entry</code></em>.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
-<td>a <span class="type">RhythmDBEntry</span>
-</td>
-</tr></tbody>
-</table></div>
+<div class="refsect3">
+<a name="id-1.5.2.8.5.6"></a><h4>Returns</h4>
+<p> entry type name</p>
+</div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="rhythmdb-entry-can-sync-metadata"></a><h3>rhythmdb_entry_can_sync_metadata ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rhythmdb_entry_can_sync_metadata    (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
-<p>
-Calls the entry type's method to check if it can sync metadata for <em class="parameter"><code>entry</code></em>.
+<a name="rhythmdb-entry-get-playback-uri"></a><h3>rhythmdb_entry_get_playback_uri ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *
+rhythmdb_entry_get_playback_uri (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>Returns an allocated string containing the playback URI for <em class="parameter"><code>entry</code></em>
+,
+or NULL if the entry cannot be played.</p>
+<div class="refsect3">
+<a name="id-1.5.2.8.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.2.8.6.6"></a><h4>Returns</h4>
+<p> playback URI or NULL</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-entry-update-availability"></a><h3>rhythmdb_entry_update_availability ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rhythmdb_entry_update_availability (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
+                                    <em class="parameter"><code><a class="link" href="RhythmDBEntryType.html#RhythmDBEntryAvailability" title="enum RhythmDBEntryAvailability"><span class="type">RhythmDBEntryAvailability</span></a> avail</code></em>);</pre>
+<p>Updates <em class="parameter"><code>entry</code></em>
+ to reflect its new availability.</p>
+<div class="refsect3">
+<a name="id-1.5.2.8.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>avail</p></td>
+<td class="parameter_description"><p>an availability event</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-entry-created"></a><h3>rhythmdb_entry_created ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rhythmdb_entry_created (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>Calls the entry type's post-creation method for <em class="parameter"><code>entry</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.5.2.8.8.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a newly created <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-entry-pre-destroy"></a><h3>rhythmdb_entry_pre_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rhythmdb_entry_pre_destroy (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>Calls the entry type's pre-deletion method for <em class="parameter"><code>entry</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.5.2.8.9.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-entry-can-sync-metadata"></a><h3>rhythmdb_entry_can_sync_metadata ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rhythmdb_entry_can_sync_metadata (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
+<p>Calls the entry type's method to check if it can sync metadata for <em class="parameter"><code>entry</code></em>
+.
 Usually this is only true for entries backed by files, where tag-writing is
-enabled, and the appropriate tag-writing facilities are available.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+enabled, and the appropriate tag-writing facilities are available.</p>
+<div class="refsect3">
+<a name="id-1.5.2.8.10.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.2.8.10.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the entry can be synced</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rhythmdb-entry-sync-metadata"></a><h3>rhythmdb_entry_sync_metadata ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rhythmdb_entry_sync_metadata (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
+                              <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *changes</code></em>,
+                              <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Calls the entry type's method to sync metadata changes for <em class="parameter"><code>entry</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.5.2.8.11.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
-<td>a <span class="type">RhythmDBEntry</span>
-</td>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p>a <span class="type">RhythmDBEntry</span></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
-<code class="literal">TRUE</code> if the entry can be synced</td>
+<td class="parameter_name"><p>changes</p></td>
+<td class="parameter_description"><p> a list of <a class="link" href="RhythmDB.html#RhythmDBEntryChange" title="RhythmDBEntryChange"><span class="type">RhythmDBEntryChange</span></a> structures. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> RB.RhythmDBEntryChange]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>returns error information</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rhythmdb-entry-sync-metadata"></a><h3>rhythmdb_entry_sync_metadata ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rhythmdb_entry_sync_metadata        (<em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
-                                                         <em class="parameter"><code><span class="type">GSList</span> *changes</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
-<p>
-Calls the entry type's method to sync metadata changes for <em class="parameter"><code>entry</code></em>.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
-<td>a <span class="type">RhythmDBEntry</span>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>changes</code></em> :</span></p></td>
-<td>a list of <a class="link" href="RhythmDB.html#RhythmDBEntryChange" title="RhythmDBEntryChange"><span class="type">RhythmDBEntryChange</span></a> structures</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
-<td>returns error information</td>
-</tr>
-</tbody>
-</table></div>
 </div>
 <hr>
 <div class="refsect2">
@@ -445,113 +502,217 @@ Calls the entry type's method to sync metadata changes for <em class="parameter"
 </div>
 <hr>
 <div class="refsect2">
-<a name="rhythmdb-get-song-entry-type"></a><h3>rhythmdb_get_song_entry_type ()</h3>
-<pre class="programlisting"><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> * rhythmdb_get_song_entry_type        (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
-<p>
-Returns the <a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> for normal songs.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the entry type for normal songs. <span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span>
-</td>
-</tr></tbody>
-</table></div>
+<a name="rhythmdb-get-song-entry-type"></a><h3>rhythmdb_get_song_entry_type ()</h3>
+<pre class="programlisting"><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> *
+rhythmdb_get_song_entry_type (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Returns the <a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> for normal songs.</p>
+<div class="refsect3">
+<a name="id-1.5.2.8.15.5"></a><h4>Returns</h4>
+<p> the entry type for normal songs. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
+</div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="rhythmdb-get-error-entry-type"></a><h3>rhythmdb_get_error_entry_type ()</h3>
-<pre class="programlisting"><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> * rhythmdb_get_error_entry_type       (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
-<p>
-Returns the <a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> for import errors
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the entry type for import errors. <span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span>
-</td>
-</tr></tbody>
-</table></div>
+<a name="rhythmdb-get-error-entry-type"></a><h3>rhythmdb_get_error_entry_type ()</h3>
+<pre class="programlisting"><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> *
+rhythmdb_get_error_entry_type (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Returns the <a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> for import errors</p>
+<div class="refsect3">
+<a name="id-1.5.2.8.16.5"></a><h4>Returns</h4>
+<p> the entry type for import errors. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
+</div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="rhythmdb-get-ignore-entry-type"></a><h3>rhythmdb_get_ignore_entry_type ()</h3>
-<pre class="programlisting"><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> * rhythmdb_get_ignore_entry_type      (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
-<p>
-Returns the <a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> for ignored files
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="rhythmdb-get-ignore-entry-type"></a><h3>rhythmdb_get_ignore_entry_type ()</h3>
+<pre class="programlisting"><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="returnvalue">RhythmDBEntryType</span></a> *
+rhythmdb_get_ignore_entry_type (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Returns the <a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> for ignored files</p>
+<div class="refsect3">
+<a name="id-1.5.2.8.17.5"></a><h4>Returns</h4>
+<p> the entry type for ignored files. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RhythmDBEntryType.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RhythmDBEntryCategory"></a><h3>enum RhythmDBEntryCategory</h3>
+<p>Categories used to group entry types.  These are used in a few places to control
+handling of entries.</p>
+<div class="refsect3">
+<a name="id-1.5.2.9.2.4"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
 </colgroup>
-<tbody><tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the entry type for ignored files. <span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-ENTRY-NORMAL:CAPS"></a>RHYTHMDB_ENTRY_NORMAL</p></td>
+<td class="enum_member_description">
+<p>Normal files on disk</p>
 </td>
-</tr></tbody>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-ENTRY-STREAM:CAPS"></a>RHYTHMDB_ENTRY_STREAM</p></td>
+<td class="enum_member_description">
+<p>Endless streams (eg shoutcast)</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-ENTRY-CONTAINER:CAPS"></a>RHYTHMDB_ENTRY_CONTAINER</p></td>
+<td class="enum_member_description">
+<p>Containers for other entries (eg podcast feeds)</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-ENTRY-VIRTUAL:CAPS"></a>RHYTHMDB_ENTRY_VIRTUAL</p></td>
+<td class="enum_member_description">
+<p>Things Rhythmbox shouldn't normally deal with</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
 </table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBEntryAvailability"></a><h3>enum RhythmDBEntryAvailability</h3>
+<p>Various events that can result in changes to the entry's availability.</p>
+<div class="refsect3">
+<a name="id-1.5.2.9.3.4"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-ENTRY-AVAIL-CHECKED:CAPS"></a>RHYTHMDB_ENTRY_AVAIL_CHECKED</p></td>
+<td class="enum_member_description">
+<p>File was checked and found present</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-ENTRY-AVAIL-MOUNTED:CAPS"></a>RHYTHMDB_ENTRY_AVAIL_MOUNTED</p></td>
+<td class="enum_member_description">
+<p>Filesystem holding the file was mounted</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-ENTRY-AVAIL-UNMOUNTED:CAPS"></a>RHYTHMDB_ENTRY_AVAIL_UNMOUNTED</p></td>
+<td class="enum_member_description">
+<p>Filesystem holding the file was unmounted</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RHYTHMDB-ENTRY-AVAIL-NOT-FOUND:CAPS"></a>RHYTHMDB_ENTRY_AVAIL_NOT_FOUND</p></td>
+<td class="enum_member_description">
+<p>File was checked or played and could not be found</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBEntryType-struct"></a><h3>struct RhythmDBEntryType</h3>
+<pre class="programlisting">struct RhythmDBEntryType;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBEntryTypeClass"></a><h3>struct RhythmDBEntryTypeClass</h3>
+<pre class="programlisting">struct RhythmDBEntryTypeClass {
+	GObjectClass parent_class;
+
+	/* methods */
+	void		(*entry_created) (RhythmDBEntryType *etype, RhythmDBEntry *entry);
+	void		(*destroy_entry) (RhythmDBEntryType *etype, RhythmDBEntry *entry);
+
+	char *		(*get_playback_uri) (RhythmDBEntryType *etype, RhythmDBEntry *entry);
+	void		(*update_availability) (RhythmDBEntryType *etype, RhythmDBEntry *entry, RhythmDBEntryAvailability avail);
+
+	gboolean (*can_sync_metadata) (RhythmDBEntryType *etype, RhythmDBEntry *entry);
+	void		(*sync_metadata) (RhythmDBEntryType *etype, RhythmDBEntry *entry, GSList *changes, GError **error);
+
+	char *		(*uri_to_cache_key) (RhythmDBEntryType *etype, const char *uri);
+	char *		(*cache_key_to_uri) (RhythmDBEntryType *etype, const char *key);
+};
+</pre>
+<p>
+</p>
 </div>
 </div>
 <div class="refsect1">
 <a name="RhythmDBEntryType.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
-<a name="RhythmDBEntryType--category"></a><h3>The <code class="literal">"category"</code> property</h3>
-<pre class="programlisting">  "category"                 <a class="link" href="RhythmDBEntryType.html#RhythmDBEntryCategory"><span class="type">RhythmDBEntryCategory</span></a>  : Read / Write / Construct Only</pre>
-<p>
-The <a class="link" href="RhythmDBEntryType.html#RhythmDBEntryCategory"><span class="type">RhythmDBEntryCategory</span></a> that this entry type fits into.
-</p>
-<p>Default value: RHYTHMDB_ENTRY_NORMAL</p>
-</div>
-<hr>
-<div class="refsect2">
-<a name="RhythmDBEntryType--db"></a><h3>The <code class="literal">"db"</code> property</h3>
-<pre class="programlisting">  "db"                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a>*             : Read / Write / Construct Only</pre>
-<p>
-The <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance.
-</p>
-</div>
-<hr>
-<div class="refsect2">
-<a name="RhythmDBEntryType--name"></a><h3>The <code class="literal">"name"</code> property</h3>
-<pre class="programlisting">  "name"                     <span class="type">gchar</span>*                : Read / Write / Construct Only</pre>
-<p>
-Entry type name.  This must be unique.
-</p>
+<a name="RhythmDBEntryType--cache-name"></a><h3>The <code class="literal">“cache-name”</code> property</h3>
+<pre class="programlisting">  “cache-name”               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>metadata cache name.</p>
+<p>Flags: Read / Write / Construct Only</p>
 <p>Default value: NULL</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RhythmDBEntryType--save-to-disk"></a><h3>The <code class="literal">"save-to-disk"</code> property</h3>
-<pre class="programlisting">  "save-to-disk"             <span class="type">gboolean</span>              : Read / Write / Construct Only</pre>
-<p>
-If <code class="literal">TRUE</code>, entries of this type should be written to the
-on-disk database.
-</p>
+<a name="RhythmDBEntryType--category"></a><h3>The <code class="literal">“category”</code> property</h3>
+<pre class="programlisting">  “category”                 <a class="link" href="RhythmDBEntryType.html#RhythmDBEntryCategory" title="enum RhythmDBEntryCategory"><span class="type">RhythmDBEntryCategory</span></a></pre>
+<p>The <a class="link" href="RhythmDBEntryType.html#RhythmDBEntryCategory" title="enum RhythmDBEntryCategory"><span class="type">RhythmDBEntryCategory</span></a> that this entry type fits into.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Default value: RHYTHMDB_ENTRY_NORMAL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBEntryType--db"></a><h3>The <code class="literal">“db”</code> property</h3>
+<pre class="programlisting">  “db”                       <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> *</pre>
+<p>The <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance.</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBEntryType--name"></a><h3>The <code class="literal">“name”</code> property</h3>
+<pre class="programlisting">  “name”                     <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>Entry type name.  This must be unique.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="RhythmDBEntryType--save-to-disk"></a><h3>The <code class="literal">“save-to-disk”</code> property</h3>
+<pre class="programlisting">  “save-to-disk”             <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>If <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, entries of this type should be written to the
+on-disk database.</p>
+<p>Flags: Read / Write / Construct Only</p>
 <p>Default value: FALSE</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RhythmDBEntryType--type-data-size"></a><h3>The <code class="literal">"type-data-size"</code> property</h3>
-<pre class="programlisting">  "type-data-size"           <span class="type">guint</span>                 : Read / Write / Construct Only</pre>
-<p>
-The size of the type-specific data structure to allocate for each
-entry of this type.
-</p>
+<a name="RhythmDBEntryType--type-data-size"></a><h3>The <code class="literal">“type-data-size”</code> property</h3>
+<pre class="programlisting">  “type-data-size”           <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a></pre>
+<p>The size of the type-specific data structure to allocate for each
+entry of this type.</p>
+<p>Flags: Read / Write / Construct Only</p>
 <p>Default value: 0</p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.18.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

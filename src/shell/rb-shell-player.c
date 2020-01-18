@@ -65,7 +65,6 @@
 #include "rb-application.h"
 #include "rb-property-view.h"
 #include "rb-shell-player.h"
-#include "rb-stock-icons.h"
 #include "rb-builder-helpers.h"
 #include "rb-file-helpers.h"
 #include "rb-cut-and-paste-code.h"
@@ -120,7 +119,7 @@ static void rb_shell_player_sync_with_source (RBShellPlayer *player);
 static void rb_shell_player_sync_with_selected_source (RBShellPlayer *player);
 static void rb_shell_player_entry_changed_cb (RhythmDB *db,
 					      RhythmDBEntry *entry,
-					      GArray *changes,
+					      GPtrArray *changes,
 					      RBShellPlayer *player);
 
 static void rb_shell_player_entry_activated_cb (RBEntryView *view,
@@ -136,6 +135,7 @@ static void missing_plugins_cb (RBPlayer *player, RhythmDBEntry *entry, const ch
 static void playing_stream_cb (RBPlayer *player, RhythmDBEntry *entry, RBShellPlayer *shell_player);
 static void player_image_cb (RBPlayer *player, RhythmDBEntry *entry, GdkPixbuf *image, RBShellPlayer *shell_player);
 static void rb_shell_player_error (RBShellPlayer *player, gboolean async, const GError *err);
+static void rb_shell_player_error_idle (RBShellPlayer *player, gboolean async, const GError *err);
 
 static void rb_shell_player_play_order_update_cb (RBPlayOrder *porder,
 						  gboolean has_next,
@@ -173,13 +173,13 @@ static void rb_shell_player_volume_changed_cb (RBPlayer *player,
 
 
 typedef struct {
-	/** Value of the state/play-order setting */
+	/* Value of the state/play-order setting */
 	char *name;
-	/** Contents of the play order dropdown; should be gettext()ed before use. */
+	/* Contents of the play order dropdown; should be gettext()ed before use. */
 	char *description;
-	/** the play order's gtype id */
+	/* the play order's gtype id */
 	GType order_type;
-	/** TRUE if the play order should appear in the dropdown */
+	/* TRUE if the play order should appear in the dropdown */
 	gboolean is_in_dropdown;
 } RBPlayOrderDescription;
 
@@ -215,7 +215,6 @@ struct RBShellPlayerPrivate
 	gint64 track_transition_time;
 	RhythmDBEntry *playing_entry;
 	gboolean playing_entry_eos;
-	gboolean jump_to_playing_entry;
 
 	RBPlayOrder *play_order;
 	RBPlayOrder *queue_play_order;
@@ -234,6 +233,8 @@ struct RBShellPlayerPrivate
 	float volume;
 
 	guint do_next_idle_id;
+	GMutex error_idle_mutex;
+	guint error_idle_id;
 };
 
 #define RB_SHELL_PLAYER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), RB_TYPE_SHELL_PLAYER, RBShellPlayerPrivate))
@@ -339,10 +340,8 @@ rb_shell_player_open_playlist_url (RBShellPlayer *player,
 		rb_player_play (player->priv->mmplayer, play_type, player->priv->track_transition_time, &error);
 
 	if (error) {
-		GDK_THREADS_ENTER ();
-		rb_shell_player_error (player, TRUE, error);
+		rb_shell_player_error_idle (player, TRUE, error);
 		g_error_free (error);
-		GDK_THREADS_LEAVE ();
 	}
 }
 
@@ -501,8 +500,6 @@ rb_shell_player_handle_eos (RBPlayer *player,
 		}
 	}
 
-	GDK_THREADS_ENTER ();
-
 	location = rhythmdb_entry_get_string (entry, RHYTHMDB_PROP_LOCATION);
 	if (entry != shell_player->priv->playing_entry) {
 		rb_debug ("got unexpected eos for %s", location);
@@ -511,8 +508,6 @@ rb_shell_player_handle_eos (RBPlayer *player,
 		/* don't allow playback to be stopped on early EOS notifications */
 		rb_shell_player_handle_eos_unlocked (shell_player, entry, (early == FALSE));
 	}
-
-	GDK_THREADS_LEAVE ();
 }
 
 
@@ -680,10 +675,8 @@ open_location_thread (OpenLocationThreadData *data)
 			GError *error = g_error_new (RB_SHELL_PLAYER_ERROR,
 						     RB_SHELL_PLAYER_ERROR_END_OF_PLAYLIST,
 						     _("Playlist was empty"));
-			GDK_THREADS_ENTER ();
-			rb_shell_player_error (data->player, TRUE, error);
+			rb_shell_player_error_idle (data->player, TRUE, error);
 			g_error_free (error);
-			GDK_THREADS_LEAVE ();
 		} else {
 			char *location;
 
@@ -1072,41 +1065,6 @@ rb_shell_player_play_order_update_cb (RBPlayOrder *porder,
 	}
 }
 
-/**
- * rb_shell_player_jump_to_current:
- * @player: the #RBShellPlayer
- *
- * Scrolls the #RBEntryView for the current playing source so that
- * the current playing entry is visible and selects the row for the
- * entry.  If there is no current playing entry, the selection is
- * cleared instead.
- */
-void
-rb_shell_player_jump_to_current (RBShellPlayer *player)
-{
-	RBSource *source;
-	RhythmDBEntry *entry;
-	RBEntryView *songs;
-
-	source = player->priv->current_playing_source ? player->priv->current_playing_source :
-		player->priv->selected_source;
-
-	songs = rb_source_get_entry_view (source);
-	entry = rb_shell_player_get_playing_entry (player);
-	if (songs != NULL) {
-		if (entry != NULL) {
-			rb_entry_view_scroll_to_entry (songs, entry);
-			rb_entry_view_select_entry (songs, entry);
-		} else {
-			rb_entry_view_select_none (songs);
-		}
-	}
-
-	if (entry != NULL) {
-		rhythmdb_entry_unref (entry);
-	}
-}
-
 static void
 swap_playing_source (RBShellPlayer *player,
 		     RBSource *new_source)
@@ -1195,7 +1153,6 @@ rb_shell_player_do_previous (RBShellPlayer *player,
 		if (new_source != player->priv->current_playing_source)
 			swap_playing_source (player, new_source);
 
-		player->priv->jump_to_playing_entry = TRUE;
 		if (!rb_shell_player_set_playing_entry (player, entry, FALSE, FALSE, error)) {
 			rhythmdb_entry_unref (entry);
 			return FALSE;
@@ -1300,7 +1257,6 @@ rb_shell_player_do_next_internal (RBShellPlayer *player, gboolean from_eos, gboo
 		if (new_source != player->priv->current_playing_source)
 			swap_playing_source (player, new_source);
 
-		player->priv->jump_to_playing_entry = TRUE;
 		if (!rb_shell_player_set_playing_entry (player, entry, FALSE, from_eos, error))
 			rv = FALSE;
 	} else {
@@ -1367,7 +1323,6 @@ rb_shell_player_play_entry (RBShellPlayer *player,
 		source = player->priv->selected_source;
 	rb_shell_player_set_playing_source (player, source);
 
-	player->priv->jump_to_playing_entry = FALSE;
 	if (!rb_shell_player_set_playing_entry (player, entry, TRUE, FALSE, &error)) {
 		rb_shell_player_error (player, FALSE, error);
 		g_clear_error (&error);
@@ -1484,7 +1439,6 @@ rb_shell_player_playpause (RBShellPlayer *player,
 				if (new_source != player->priv->current_playing_source)
 					swap_playing_source (player, new_source);
 
-				player->priv->jump_to_playing_entry = TRUE;
 				if (!rb_shell_player_set_playing_entry (player, entry, out_of_order, FALSE, error))
 					ret = FALSE;
 			}
@@ -1637,7 +1591,7 @@ rb_shell_player_volume_changed_cb (RBPlayer *player,
 }
 
 /**
- * rb_shell_player_set_mute
+ * rb_shell_player_set_mute:
  * @player: the #RBShellPlayer
  * @mute: %TRUE to mute playback
  * @error: returns error information
@@ -1684,7 +1638,6 @@ rb_shell_player_entry_activated_cb (RBEntryView *view,
 	RhythmDBEntry *prev_entry = NULL;
 	GError *error = NULL;
 	gboolean source_set = FALSE;
-	gboolean jump_to_entry = FALSE;
 	char *playback_uri;
 
 	g_return_if_fail (entry != NULL);
@@ -1728,7 +1681,6 @@ rb_shell_player_entry_activated_cb (RBEntryView *view,
 
 			was_from_queue = FALSE;
 			source_set = TRUE;
-			jump_to_entry = TRUE;
 		} else {
 			if (player->priv->queue_only) {
 				rb_source_add_to_queue (player->priv->selected_source,
@@ -1751,7 +1703,6 @@ rb_shell_player_entry_activated_cb (RBEntryView *view,
 		source_set = TRUE;
 	}
 
-	player->priv->jump_to_playing_entry = jump_to_entry;
 	if (!rb_shell_player_set_playing_entry (player, entry, TRUE, FALSE, &error)) {
 		rb_shell_player_error (player, FALSE, error);
 		g_clear_error (&error);
@@ -1797,7 +1748,6 @@ rb_shell_player_property_row_activated_cb (RBPropertyView *view,
 	if (entry != NULL) {
 		rb_play_order_go_next (porder);
 
-		player->priv->jump_to_playing_entry = TRUE;	/* ? */
 		if (!rb_shell_player_set_playing_entry (player, entry, TRUE, FALSE, &error)) {
 			rb_shell_player_error (player, FALSE, error);
 			g_clear_error (&error);
@@ -1811,7 +1761,7 @@ rb_shell_player_property_row_activated_cb (RBPropertyView *view,
 static void
 rb_shell_player_entry_changed_cb (RhythmDB *db,
 				  RhythmDBEntry *entry,
-				  GArray *changes,
+				  GPtrArray *changes,
 				  RBShellPlayer *player)
 {
 	gboolean synced = FALSE;
@@ -1831,8 +1781,7 @@ rb_shell_player_entry_changed_cb (RhythmDB *db,
 
 	location = rhythmdb_entry_get_string (entry, RHYTHMDB_PROP_LOCATION);
 	for (i = 0; i < changes->len; i++) {
-		GValue *v = &g_array_index (changes, GValue, i);
-		RhythmDBEntryChange *change = g_value_get_boxed (v);
+		RhythmDBEntryChange *change = g_ptr_array_index (changes, i);
 
 		/* update UI if the artist, title or album has changed */
 		switch (change->prop) {
@@ -2023,12 +1972,6 @@ rb_shell_player_sync_buttons (RBShellPlayer *player)
 	source = (entry == NULL) ? player->priv->selected_source : player->priv->current_playing_source;
 
 	rb_debug ("syncing with source %p", source);
-
-	/* meh
-	action = gtk_action_group_get_action (player->priv->actiongroup,
-					      "ViewJumpToPlaying");
-	g_object_set (action, "sensitive", entry != NULL, NULL);
-	*/
 
 	map = G_ACTION_MAP (g_application_get_default ());
 	action = g_action_map_lookup_action (map, "play");
@@ -2439,6 +2382,50 @@ do_next_not_found_idle (RBShellPlayer *player)
 	return FALSE;
 }
 
+typedef struct {
+	RBShellPlayer *player;
+	gboolean async;
+	GError *error;
+} ErrorIdleData;
+
+static void
+free_error_idle_data (ErrorIdleData *data)
+{
+	g_error_free (data->error);
+	g_free (data);
+}
+
+static gboolean
+error_idle_cb (ErrorIdleData *data)
+{
+	rb_shell_player_error (data->player, data->async, data->error);
+	g_mutex_lock (&data->player->priv->error_idle_mutex);
+	data->player->priv->error_idle_id = 0;
+	g_mutex_unlock (&data->player->priv->error_idle_mutex);
+	return FALSE;
+}
+
+static void
+rb_shell_player_error_idle (RBShellPlayer *player, gboolean async, const GError *error)
+{
+	ErrorIdleData *eid;
+
+	eid = g_new0 (ErrorIdleData, 1);
+	eid->player = player;
+	eid->async = async;
+	eid->error = g_error_copy (error);
+
+	g_mutex_lock (&player->priv->error_idle_mutex);
+	if (player->priv->error_idle_id != 0)
+		g_source_remove (player->priv->error_idle_id);
+
+	player->priv->error_idle_id = g_idle_add_full (G_PRIORITY_DEFAULT,
+						       (GSourceFunc) error_idle_cb,
+						       eid,
+						       (GDestroyNotify) free_error_idle_data);
+	g_mutex_unlock (&player->priv->error_idle_mutex);
+}
+
 static void
 rb_shell_player_error (RBShellPlayer *player,
 		       gboolean async,
@@ -2510,8 +2497,6 @@ playing_stream_cb (RBPlayer *mmplayer,
 
 	g_return_if_fail (entry != NULL);
 
-	GDK_THREADS_ENTER ();
-
 	entry_changed = (player->priv->playing_entry != entry);
 
 	/* update playing entry */
@@ -2537,13 +2522,6 @@ playing_stream_cb (RBPlayer *mmplayer,
 	rb_shell_player_sync_with_source (player);
 	rb_shell_player_sync_buttons (player);
 	g_object_notify (G_OBJECT (player), "playing");
-
-	if (player->priv->jump_to_playing_entry) {
-		rb_shell_player_jump_to_current (player);
-		player->priv->jump_to_playing_entry = FALSE;
-	}
-
-	GDK_THREADS_LEAVE ();
 }
 
 static void
@@ -2562,16 +2540,12 @@ error_cb (RBPlayer *mmplayer,
 		return;
 	}
 
-	GDK_THREADS_ENTER ();
-
 	if (entry != player->priv->playing_entry) {
 		rb_debug ("got error for unexpected entry %p (expected %p)", entry, player->priv->playing_entry);
 	} else {
 		rb_shell_player_error (player, TRUE, err);
 		rb_debug ("exiting error hander");
 	}
-
-	GDK_THREADS_LEAVE ();
 }
 
 static void
@@ -2587,11 +2561,8 @@ tick_cb (RBPlayer *mmplayer,
 	const char *uri;
 	long elapsed_sec;
 
-	GDK_THREADS_ENTER ();
-
 	if (player->priv->playing_entry != entry) {
 		rb_debug ("got tick for unexpected entry %p (expected %p)", entry, player->priv->playing_entry);
-		GDK_THREADS_LEAVE ();
 		return;
 	}
 
@@ -2651,8 +2622,6 @@ tick_cb (RBPlayer *mmplayer,
 			  remaining_check);
 		rb_shell_player_handle_eos_unlocked (player, entry, FALSE);
 	}
-
-	GDK_THREADS_LEAVE ();
 }
 
 typedef struct {
@@ -3292,6 +3261,8 @@ rb_shell_player_init (RBShellPlayer *player)
 
 	player->priv = RB_SHELL_PLAYER_GET_PRIVATE (player);
 
+	g_mutex_init (&player->priv->error_idle_mutex);
+
 	player->priv->settings = g_settings_new ("org.gnome.rhythmbox.player");
 	player->priv->ui_settings = g_settings_new ("org.gnome.rhythmbox");
 	g_signal_connect_object (player->priv->settings,
@@ -3430,6 +3401,10 @@ rb_shell_player_dispose (GObject *object)
 	if (player->priv->do_next_idle_id != 0) {
 		g_source_remove (player->priv->do_next_idle_id);
 		player->priv->do_next_idle_id = 0;
+	}
+	if (player->priv->error_idle_id != 0) {
+		g_source_remove (player->priv->error_idle_id);
+		player->priv->error_idle_id = 0;
 	}
 
 	G_OBJECT_CLASS (rb_shell_player_parent_class)->dispose (object);

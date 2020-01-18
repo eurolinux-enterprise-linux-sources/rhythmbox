@@ -49,6 +49,7 @@
  * @RB_ENTRY_VIEW_COL_TRACK_NUMBER: the track number column
  * @RB_ENTRY_VIEW_COL_TITLE: the title column
  * @RB_ENTRY_VIEW_COL_ARTIST: the artist column
+ * @RB_ENTRY_VIEW_COL_COMPOSER: the composer column
  * @RB_ENTRY_VIEW_COL_ALBUM: the album column
  * @RB_ENTRY_VIEW_COL_GENRE: the genre column
  * @RB_ENTRY_VIEW_COL_DURATION: the duration column
@@ -91,7 +92,6 @@
 #include "rhythmdb-query-model.h"
 #include "rb-cell-renderer-pixbuf.h"
 #include "rb-cell-renderer-rating.h"
-#include "rb-stock-icons.h"
 #include "rb-shell-player.h"
 #include "rb-cut-and-paste-code.h"
 
@@ -153,6 +153,8 @@ static void rb_entry_view_rated_cb (RBCellRendererRating *cellrating,
 static void rb_entry_view_pixbuf_clicked_cb (RBEntryView *view,
 					     const char *path,
 					     RBCellRendererPixbuf *cellpixbuf);
+static void rb_entry_view_playing_column_clicked_cb (GtkTreeViewColumn *column,
+						     RBEntryView *view);
 static gboolean rb_entry_view_button_press_cb (GtkTreeView *treeview,
 					      GdkEventButton *event,
 					      RBEntryView *view);
@@ -532,6 +534,13 @@ rb_entry_view_dispose (GObject *object)
 		view->priv->selection_changed_id = 0;
 	}
 
+	if (view->priv->selection) {
+		g_signal_handlers_disconnect_by_func (view->priv->selection,
+						      G_CALLBACK (rb_entry_view_selection_changed_cb),
+						      view);
+		g_clear_object (&view->priv->selection);
+	}
+
 	if (view->priv->playing_model != NULL) {
 		g_object_unref (view->priv->playing_model);
 		view->priv->playing_model = NULL;
@@ -777,7 +786,7 @@ rb_entry_view_new (RhythmDB *db,
 					   "vscrollbar_policy", GTK_POLICY_AUTOMATIC,
 					   "hexpand", TRUE,
 					   "vexpand", TRUE,
-					   "shadow_type", GTK_SHADOW_IN,
+					   "shadow_type", GTK_SHADOW_NONE,
 					   "db", db,
 					   "shell-player", RB_SHELL_PLAYER (shell_player),
 					   "is-drag-source", is_drag_source,
@@ -1186,7 +1195,7 @@ rb_entry_view_set_sorting_type (RBEntryView *view,
  * rb_entry_view_get_sorting_order:
  * @view: a #RBEntryView
  * @column_name: (out callee-allocates) (allow-none) (transfer full): returns the sort column name
- * @sort_order: (out) (allow-none) returns the sort ordering as a #GtkSortType value
+ * @sort_order: (out) (allow-none): returns the sort ordering as a #GtkSortType value
  *
  * Retrieves the sort settings for the view.
  */
@@ -1314,8 +1323,14 @@ rb_entry_view_get_column (RBEntryView *view, RBEntryViewColumn coltype)
 	case RB_ENTRY_VIEW_COL_LOCATION:
 		propid = RHYTHMDB_PROP_LOCATION;
 		break;
+	case RB_ENTRY_VIEW_COL_BPM:
+		propid = RHYTHMDB_PROP_BPM;
+		break;
 	case RB_ENTRY_VIEW_COL_ERROR:
 		propid = RHYTHMDB_PROP_PLAYBACK_ERROR;
+		break;
+	case RB_ENTRY_VIEW_COL_COMPOSER:
+		propid = RHYTHMDB_PROP_COMPOSER;
 		break;
 	default:
 		g_assert_not_reached ();
@@ -1438,6 +1453,16 @@ rb_entry_view_append_column (RBEntryView *view,
 		sort_func = (GCompareDataFunc) rhythmdb_query_model_artist_sort_func;
 		title = _("Artist");
 		key = "Artist";
+		ellipsize = TRUE;
+		break;
+	case RB_ENTRY_VIEW_COL_COMPOSER:
+		propid = RHYTHMDB_PROP_COMPOSER;
+		cell_data->propid = propid;
+		cell_data_func = (GtkTreeCellDataFunc) rb_entry_view_string_cell_data_func;
+		sort_propid = RHYTHMDB_PROP_COMPOSER_SORT_KEY;
+		sort_func = (GCompareDataFunc) rhythmdb_query_model_composer_sort_func;
+		title = _("Composer");
+		key = "Composer";
 		ellipsize = TRUE;
 		break;
 	case RB_ENTRY_VIEW_COL_ALBUM:
@@ -1628,20 +1653,6 @@ rb_entry_view_append_column (RBEntryView *view,
 		g_free (cell_data);
 	}
 
-	/*
-	 * Columns must either be expanding (ellipsized) or have a
-	 * fixed minimum width specified.  Otherwise, gtk+ gives them a
-	 * width of 0.
-	 */
-	if (ellipsize) {
-		g_object_set (renderer, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-		gtk_tree_view_column_set_expand (GTK_TREE_VIEW_COLUMN (column), TRUE);
-	} else if (column_width != -1) {
-		gtk_tree_view_column_set_fixed_width (column, column_width);
-	} else {
-		rb_entry_view_set_fixed_column_width (view, column, renderer, strings);
-	}
-
 	if (resizable)
 		gtk_tree_view_column_set_resizable (column, TRUE);
 
@@ -1656,6 +1667,20 @@ rb_entry_view_append_column (RBEntryView *view,
 	g_hash_table_insert (view->priv->propid_column_map, GINT_TO_POINTER (propid), column);
 
 	rb_entry_view_append_column_custom (view, column, title, key, sort_func, GINT_TO_POINTER (sort_propid), NULL);
+
+	/*
+	 * Columns must either be expanding (ellipsized) or have a
+	 * fixed minimum width specified.  Otherwise, gtk+ gives them a
+	 * width of 0.
+	 */
+	if (ellipsize) {
+		g_object_set (renderer, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+		gtk_tree_view_column_set_expand (GTK_TREE_VIEW_COLUMN (column), TRUE);
+	} else if (column_width != -1) {
+		gtk_tree_view_column_set_fixed_width (column, column_width);
+	} else {
+		rb_entry_view_set_fixed_column_width (view, column, renderer, strings);
+	}
 }
 
 /**
@@ -1763,6 +1788,7 @@ static void
 rb_entry_view_constructed (GObject *object)
 {
 	RBEntryView *view;
+	RhythmDBQueryModel *query_model;
 
 	RB_CHAIN_GOBJECT_METHOD (rb_entry_view_parent_class, constructed, object);
 
@@ -1796,6 +1822,7 @@ rb_entry_view_constructed (GObject *object)
 			         G_CALLBACK (rb_entry_view_selection_changed_cb),
 			         view,
 				 0);
+	g_object_ref (view->priv->selection);
 
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (view->priv->treeview), TRUE);
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (view->priv->treeview), TRUE);
@@ -1828,7 +1855,10 @@ rb_entry_view_constructed (GObject *object)
 		/* Playing icon column */
 		column = GTK_TREE_VIEW_COLUMN (gtk_tree_view_column_new ());
 		renderer = rb_cell_renderer_pixbuf_new ();
-		g_object_set (renderer, "stock-size", GTK_ICON_SIZE_MENU, NULL);
+		g_object_set (renderer,
+			      "stock-size", GTK_ICON_SIZE_MENU,
+			      "follow-state", TRUE,
+			      NULL);
 		gtk_tree_view_column_pack_start (column, renderer, TRUE);
 		gtk_tree_view_column_set_cell_data_func (column, renderer,
 							 (GtkTreeCellDataFunc)
@@ -1836,12 +1866,11 @@ rb_entry_view_constructed (GObject *object)
 							 view,
 							 NULL);
 
-		image_widget = gtk_image_new_from_icon_name ("audio-volume-high", GTK_ICON_SIZE_MENU);
+		image_widget = gtk_image_new_from_icon_name ("audio-volume-high-symbolic", GTK_ICON_SIZE_MENU);
 		gtk_tree_view_column_set_widget (column, image_widget);
-		gtk_widget_show (image_widget);
+		gtk_widget_show_all (image_widget);
 
 		gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_FIXED);
-		gtk_tree_view_column_set_clickable (column, FALSE);
 		gtk_icon_size_lookup (GTK_ICON_SIZE_MENU, &width, NULL);
 		gtk_tree_view_column_set_fixed_width (column, width + 5);
 		gtk_tree_view_append_column (GTK_TREE_VIEW (view->priv->treeview), column);
@@ -1852,14 +1881,17 @@ rb_entry_view_constructed (GObject *object)
 
 		gtk_widget_set_tooltip_text (gtk_tree_view_column_get_widget (column),
 					     _("Now Playing"));
+
+		g_signal_connect (column,
+				  "clicked",
+				  G_CALLBACK (rb_entry_view_playing_column_clicked_cb),
+				  view);
+		gtk_tree_view_column_set_clickable (column, TRUE);
 	}
 
-	{
-		RhythmDBQueryModel *query_model;
-		query_model = rhythmdb_query_model_new_empty (view->priv->db);
-		rb_entry_view_set_model (view, RHYTHMDB_QUERY_MODEL (query_model));
-		g_object_unref (query_model);
-	}
+	query_model = rhythmdb_query_model_new_empty (view->priv->db);
+	rb_entry_view_set_model (view, RHYTHMDB_QUERY_MODEL (query_model));
+	g_object_unref (query_model);
 }
 
 static void
@@ -1911,6 +1943,15 @@ rb_entry_view_pixbuf_clicked_cb (RBEntryView          *view,
 	}
 
 	rhythmdb_entry_unref (entry);
+}
+
+static void
+rb_entry_view_playing_column_clicked_cb (GtkTreeViewColumn *column,
+					 RBEntryView *view)
+{
+	if (view->priv->playing_entry) {
+		rb_entry_view_scroll_to_entry (view, view->priv->playing_entry);
+	}
 }
 
 static void
@@ -2033,7 +2074,6 @@ rb_entry_view_emit_selection_changed (RBEntryView *view)
 	gboolean available;
 	gint sel_count;
 
-	GDK_THREADS_ENTER ();
 	sel_count = gtk_tree_selection_count_selected_rows (view->priv->selection);
 	available = (sel_count > 0);
 
@@ -2050,8 +2090,6 @@ rb_entry_view_emit_selection_changed (RBEntryView *view)
 
 	view->priv->selection_changed_id = 0;
 	g_signal_emit (G_OBJECT (view), rb_entry_view_signals[SELECTION_CHANGED], 0);
-
-	GDK_THREADS_LEAVE ();
 	return FALSE;
 }
 
@@ -2275,8 +2313,12 @@ rb_entry_view_scroll_to_iter (RBEntryView *view,
 	gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view->priv->treeview), path,
 				      gtk_tree_view_get_column (GTK_TREE_VIEW (view->priv->treeview), 0),
 				      TRUE, 0.5, 0.0);
-	gtk_tree_view_set_cursor (GTK_TREE_VIEW (view->priv->treeview), path,
-				  gtk_tree_view_get_column (GTK_TREE_VIEW (view->priv->treeview), 0), FALSE);
+
+	if ((gtk_tree_selection_count_selected_rows (view->priv->selection) != 1) ||
+	    (gtk_tree_selection_path_is_selected (view->priv->selection, path) == FALSE)) {
+		gtk_tree_selection_unselect_all (view->priv->selection);
+		gtk_tree_selection_select_iter (view->priv->selection, iter);
+	}
 
 	gtk_tree_path_free (path);
 }
@@ -2593,6 +2635,7 @@ rb_entry_view_column_get_type (void)
 			ENUM_ENTRY (RB_ENTRY_VIEW_COL_LOCATION, "location"),
 			ENUM_ENTRY (RB_ENTRY_VIEW_COL_BPM, "bpm"),
 			ENUM_ENTRY (RB_ENTRY_VIEW_COL_ERROR, "error"),
+			ENUM_ENTRY (RB_ENTRY_VIEW_COL_COMPOSER, "composer"),
 			{ 0, 0, 0 }
 		};
 

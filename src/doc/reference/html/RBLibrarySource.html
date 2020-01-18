@@ -2,34 +2,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RBLibrarySource</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<title>RBLibrarySource: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch06.html" title="Sources">
 <link rel="prev" href="RBImportErrorsSource.html" title="RBImportErrorsSource">
 <link rel="next" href="RBMissingFilesSource.html" title="RBMissingFilesSource">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
-<tr valign="middle">
-<td><a accesskey="p" href="RBImportErrorsSource.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
-<td><a accesskey="n" href="RBMissingFilesSource.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
-</tr>
-<tr><td colspan="5" class="shortcuts">
-<a href="#RBLibrarySource.synopsis" class="shortcut">Top</a>
-                   | 
-                  <a href="#RBLibrarySource.description" class="shortcut">Description</a>
-                   | 
-                  <a href="#RBLibrarySource.object-hierarchy" class="shortcut">Object Hierarchy</a>
-                   | 
-                  <a href="#RBLibrarySource.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
-</td></tr>
-</table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBLibrarySource.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBLibrarySource.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#RBLibrarySource.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RBImportErrorsSource.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RBMissingFilesSource.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
 <div class="refentry">
 <a name="RBLibrarySource"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -37,30 +31,65 @@
 <h2><span class="refentrytitle"><a name="RBLibrarySource.top_of_page"></a>RBLibrarySource</span></h2>
 <p>RBLibrarySource — main library source, containing all local songs</p>
 </td>
-<td valign="top" align="right"></td>
+<td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
-<a name="RBLibrarySource.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">struct              <a class="link" href="RBLibrarySource.html#RBLibrarySource-struct" title="struct RBLibrarySource">RBLibrarySource</a>;
-struct              <a class="link" href="RBLibrarySource.html#RBLibrarySourceClass" title="struct RBLibrarySourceClass">RBLibrarySourceClass</a>;
-<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          <a class="link" href="RBLibrarySource.html#rb-library-source-new" title="rb_library_source_new ()">rb_library_source_new</a>               (<em class="parameter"><code><a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBLibrarySource.html#rb-library-source-show-import-dialog" title="rb_library_source_show_import_dialog ()">rb_library_source_show_import_dialog</a>
-                                                        (<em class="parameter"><code><a class="link" href="RBLibrarySource.html" title="RBLibrarySource"><span class="type">RBLibrarySource</span></a> *source</code></em>);
-</pre>
+<div class="refsect1">
+<a name="RBLibrarySource.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBLibrarySource.html#rb-library-source-new" title="rb_library_source_new ()">rb_library_source_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBLibrarySource.html#rb-library-source-show-import-dialog" title="rb_library_source_show_import_dialog ()">rb_library_source_show_import_dialog</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBLibrarySource.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBLibrarySource.html#RBLibrarySource-struct" title="struct RBLibrarySource">RBLibrarySource</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBLibrarySource.html#RBLibrarySourceClass" title="struct RBLibrarySourceClass">RBLibrarySourceClass</a></td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="refsect1">
 <a name="RBLibrarySource.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="synopsis">
-  GObject
-   +----GInitiallyUnowned
-         +----GtkWidget
-               +----GtkContainer
-                     +----GtkBox
-                           +----GtkHBox
-                                 +----<a class="link" href="RBDisplayPage.html" title="RBDisplayPage">RBDisplayPage</a>
-                                       +----<a class="link" href="RBSource.html" title="RBSource">RBSource</a>
-                                             +----<a class="link" href="RBBrowserSource.html" title="RBBrowserSource">RBBrowserSource</a>
-                                                   +----RBLibrarySource
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> GtkWidget
+            <span class="lineart">╰──</span> GtkContainer
+                <span class="lineart">╰──</span> GtkBox
+                    <span class="lineart">╰──</span> <a class="link" href="RBDisplayPage.html" title="RBDisplayPage">RBDisplayPage</a>
+                        <span class="lineart">╰──</span> <a class="link" href="RBSource.html" title="RBSource">RBSource</a>
+                            <span class="lineart">╰──</span> <a class="link" href="RBBrowserSource.html" title="RBBrowserSource">RBBrowserSource</a>
+                                <span class="lineart">╰──</span> RBLibrarySource
 </pre>
 </div>
 <div class="refsect1">
@@ -71,24 +100,54 @@ RBLibrarySource implements
 </div>
 <div class="refsect1">
 <a name="RBLibrarySource.description"></a><h2>Description</h2>
-<p>
-The library source contains all local songs that have been imported
-into the database.
-</p>
-<p>
-It provides a preferences page for configuring the library location,
+<p>The library source contains all local songs that have been imported
+into the database.</p>
+<p>It provides a preferences page for configuring the library location,
 the directory structure to use when transferring new files into
 the library from another source, and the preferred audio encoding
-to use.
-</p>
-<p>
-If multiple library locations are configured, the library source
+to use.</p>
+<p>If multiple library locations are configured, the library source
 creates a child source for each location, which will only show
-files found under that location.
-</p>
+files found under that location.</p>
 </div>
 <div class="refsect1">
-<a name="RBLibrarySource.details"></a><h2>Details</h2>
+<a name="RBLibrarySource.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-library-source-new"></a><h3>rb_library_source_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *
+rb_library_source_new (<em class="parameter"><code><a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell</code></em>);</pre>
+<p>Creates and returns the <a class="link" href="RBLibrarySource.html" title="RBLibrarySource"><span class="type">RBLibrarySource</span></a> instance</p>
+<div class="refsect3">
+<a name="id-1.7.9.8.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>shell</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.7.9.8.2.6"></a><h4>Returns</h4>
+<p> the <a class="link" href="RBLibrarySource.html" title="RBLibrarySource"><span class="type">RBLibrarySource</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-library-source-show-import-dialog"></a><h3>rb_library_source_show_import_dialog ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_library_source_show_import_dialog (<em class="parameter"><code><a class="link" href="RBLibrarySource.html" title="RBLibrarySource"><span class="type">RBLibrarySource</span></a> *source</code></em>);</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBLibrarySource.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
 <a name="RBLibrarySource-struct"></a><h3>struct RBLibrarySource</h3>
 <pre class="programlisting">struct RBLibrarySource;</pre>
@@ -105,44 +164,9 @@ files found under that location.
 <p>
 </p>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rb-library-source-new"></a><h3>rb_library_source_new ()</h3>
-<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          rb_library_source_new               (<em class="parameter"><code><a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell</code></em>);</pre>
-<p>
-Creates and returns the <a class="link" href="RBLibrarySource.html" title="RBLibrarySource"><span class="type">RBLibrarySource</span></a> instance
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
-<td>the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the <a class="link" href="RBLibrarySource.html" title="RBLibrarySource"><span class="type">RBLibrarySource</span></a>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-library-source-show-import-dialog"></a><h3>rb_library_source_show_import_dialog ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_library_source_show_import_dialog
-                                                        (<em class="parameter"><code><a class="link" href="RBLibrarySource.html" title="RBLibrarySource"><span class="type">RBLibrarySource</span></a> *source</code></em>);</pre>
-<p>
-</p>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.18.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

@@ -52,7 +52,7 @@
 static GPrivate private_is_primary_thread;
 
 /**
- * rb_true_function: (skip):
+ * rb_true_function: (skip)
  * @dummy: unused
  *
  * Just returns %TRUE, useful as a callback function.
@@ -66,7 +66,7 @@ rb_true_function (gpointer dummy)
 }
 
 /**
- * rb_false_function: (skip):
+ * rb_false_function: (skip)
  * @dummy: unused
  *
  * Just returns %FALSE, useful as a callback function.
@@ -80,7 +80,7 @@ rb_false_function (gpointer dummy)
 }
 
 /**
- * rb_null_function: (skip):
+ * rb_null_function: (skip)
  * @dummy: unused
  *
  * Just returns NULL.  Useful as a callback function.
@@ -94,7 +94,7 @@ rb_null_function (gpointer dummy)
 }
 
 /**
- * rb_copy_function: (skip):
+ * rb_copy_function: (skip)
  * @data: generic argument
  *
  * Just returns its first argument.  Useful as a callback function.
@@ -109,7 +109,7 @@ rb_copy_function (gpointer data)
 
 
 /**
- * rb_gvalue_compare: (skip):
+ * rb_gvalue_compare: (skip)
  * @a: left hand side
  * @b: right hand size
  *
@@ -292,90 +292,6 @@ rb_safe_strcmp (const char *a,
 	return (!a && !b) ? 0 : (a && !b) || (!a && b) ? 1 : strcmp (a, b);
 }
 
-/* Taken from totem/video-utils.c CVS HEAD 2004-04-22 */
-static void
-totem_pixbuf_mirror (GdkPixbuf *pixbuf)
-{
-	int i, j, rowstride, offset, right;
-	guchar *pixels;
-	int width, height, size;
-	guint32 tmp;
-
-	pixels = gdk_pixbuf_get_pixels (pixbuf);
-	g_return_if_fail (pixels != NULL);
-
-	width = gdk_pixbuf_get_width (pixbuf);
-	height = gdk_pixbuf_get_height (pixbuf);
-	rowstride = gdk_pixbuf_get_rowstride (pixbuf);
-	size = height * width * sizeof (guint32);
-
-	for (i = 0; i < size; i += rowstride)
-	{
-		for (j = 0; j < rowstride; j += sizeof(guint32))
-		{
-			offset = i + j;
-			right = i + (((width - 1) * sizeof(guint32)) - j);
-
-			if (right <= offset)
-				break;
-
-			memcpy (&tmp, pixels + offset, sizeof(guint32));
-			memcpy (pixels + offset, pixels + right,
-					sizeof(guint32));
-			memcpy (pixels + right, &tmp, sizeof(guint32));
-		}
-	}
-}
-
-
-
-/**
- * rb_image_new_from_stock:
- * @stock_id: stock image id
- * @size: requested icon size
- *
- * Same as @gtk_image_new_from_stock except that it mirrors the icons for RTL
- * languages.
- *
- * Return value: (transfer full): a #GtkImage of the requested stock item
- */
-GtkWidget *
-rb_image_new_from_stock (const gchar *stock_id, GtkIconSize size)
-{
-	if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_LTR) {
-		return gtk_image_new_from_stock (stock_id, size);
-	} else {
-
-		GtkWidget *image;
-		GdkPixbuf *pixbuf;
-		GdkPixbuf *mirror;
-		
-		image = gtk_image_new ();
-		
-		if (image == NULL) {
-			return NULL;
-		}
-		
-		pixbuf = gtk_widget_render_icon_pixbuf (image, stock_id, size);
-		g_assert (pixbuf != NULL);
-		
-		
-		mirror = gdk_pixbuf_copy (pixbuf);
-		g_object_unref (pixbuf);
-
-		if (!mirror)
-			return NULL;
-
-		totem_pixbuf_mirror (mirror);
-		gtk_image_set_from_pixbuf (GTK_IMAGE (image), mirror);
-		g_object_unref (mirror);
-
-		return image;
-	}
-
-	return NULL;
-}
-
 /**
  * rb_is_main_thread:
  *
@@ -400,25 +316,10 @@ purge_useless_threads (gpointer data)
 	return TRUE;
 }
 
-
-static GRecMutex rb_gdk_mutex;
 static gboolean mutex_recurses;
 
-static void
-_threads_enter (void)
-{
-	g_rec_mutex_lock (&rb_gdk_mutex);
-}
-
-static void
-_threads_leave (void)
-{
-	g_rec_mutex_unlock (&rb_gdk_mutex);
-}
-
-
 /**
- * rb_assert_locked: (skip):
+ * rb_assert_locked: (skip)
  * @mutex: a #GMutex
  *
  * Asserts that @mutex is currently locked.  Does not work with all
@@ -432,7 +333,7 @@ rb_assert_locked (GMutex *mutex)
 }
 
 /**
- * rb_threads_init: (skip):
+ * rb_threads_init: (skip)
  *
  * Initializes various thread helpers.  Must be called on startup.
  */
@@ -442,10 +343,6 @@ rb_threads_init (void)
 	GMutex m;
 
 	g_private_set (&private_is_primary_thread, GUINT_TO_POINTER (1));
-
-	g_rec_mutex_init (&rb_gdk_mutex);
-	gdk_threads_set_lock_functions (_threads_enter, _threads_leave);
-	gdk_threads_init ();
 
 	g_mutex_init (&m);
 	g_mutex_lock (&m);
@@ -752,7 +649,7 @@ rb_make_elapsed_time_string (guint elapsed, guint duration, gboolean show_remain
 }
 
 /**
- * rb_string_list_equal: (skip):
+ * rb_string_list_equal: (skip)
  * @a: (element-type utf8): list of strings to compare
  * @b: (element-type utf8): other list of strings to compare
  *
@@ -807,7 +704,7 @@ list_copy_cb (const char *s, GList **list)
 }
 
 /**
- * rb_string_list_copy: (skip):
+ * rb_string_list_copy: (skip)
  * @list: (element-type utf8): list of strings to copy
  *
  * Creates a deep copy of @list.
@@ -829,8 +726,8 @@ rb_string_list_copy (GList *list)
 }
 
 /**
- * rb_string_list_contains: (skip):
- * @list: (element-type utf8) list to check
+ * rb_string_list_contains: (skip)
+ * @list: (element-type utf8): list to check
  * @s: string to check for
  *
  * Checks if @list contains the string @s.
@@ -851,7 +748,7 @@ rb_string_list_contains (GList *list, const char *s)
 }
 
 /**
- * rb_list_destroy_free: (skip):
+ * rb_list_destroy_free: (skip)
  * @list: list to destroy
  * @destroyer: function to call to free elements of @list
  *
@@ -865,7 +762,7 @@ rb_list_destroy_free (GList *list, GDestroyNotify destroyer)
 }
 
 /**
- * rb_list_deep_free: (skip):
+ * rb_list_deep_free: (skip)
  * @list: (element-type any) (transfer full): list to free
  *
  * Frees each element of @list and @list itself.
@@ -877,7 +774,7 @@ rb_list_deep_free (GList *list)
 }
 
 /**
- * rb_slist_deep_free: (skip):
+ * rb_slist_deep_free: (skip)
  * @list: (element-type any) (transfer full): list to free
  *
  * Frees each element of @list and @list itself.
@@ -902,7 +799,7 @@ collate_values_cb (gpointer key, gpointer value, GList **list)
 }
 
 /**
- * rb_collate_hash_table_keys: (skip):
+ * rb_collate_hash_table_keys: (skip)
  * @table: #GHashTable to collate
  *
  * Returns a #GList containing all keys from @table.  The keys are
@@ -922,7 +819,7 @@ rb_collate_hash_table_keys (GHashTable *table)
 }
 
 /**
- * rb_collate_hash_table_values: (skip):
+ * rb_collate_hash_table_values: (skip)
  * @table: #GHashTable to collate
  *
  * Returns a #GList containing all values from @table.  The values are
@@ -993,7 +890,7 @@ rb_uri_list_parse (const char *uri_list)
 }
 
 /**
- * rb_signal_accumulator_object_handled: (skip):
+ * rb_signal_accumulator_object_handled: (skip)
  * @hint: a #GSignalInvocationHint
  * @return_accu: holds the accumulated return value
  * @handler_return: holds the return value to be accumulated
@@ -1025,7 +922,7 @@ rb_signal_accumulator_object_handled (GSignalInvocationHint *hint,
 }
 
 /**
- * rb_signal_accumulator_value_handled: (skip):
+ * rb_signal_accumulator_value_handled: (skip)
  * @hint: a #GSignalInvocationHint
  * @return_accu: holds the accumulated return value
  * @handler_return: holds the return value to be accumulated
@@ -1057,7 +954,7 @@ rb_signal_accumulator_value_handled (GSignalInvocationHint *hint,
 }
 
 /**
- * rb_signal_accumulator_value_array: (skip):
+ * rb_signal_accumulator_value_array: (skip)
  * @hint: a #GSignalInvocationHint
  * @return_accu: holds the accumulated return value
  * @handler_return: holds the return value to be accumulated
@@ -1104,7 +1001,7 @@ rb_signal_accumulator_value_array (GSignalInvocationHint *hint,
 }
 
 /**
- * rb_signal_accumulator_boolean_or: (skip):
+ * rb_signal_accumulator_boolean_or: (skip)
  * @hint: a #GSignalInvocationHint
  * @return_accu: holds the accumulated return value
  * @handler_return: holds the return value to be accumulated
@@ -1134,10 +1031,10 @@ rb_signal_accumulator_boolean_or (GSignalInvocationHint *hint,
 }
 
 /**
- * rb_value_array_append_data: (skip):
+ * rb_value_array_append_data: (skip)
  * @array: #GArray to append to
  * @type: #GType of the value being appended
- * @Varargs: value to append
+ * @...: value to append
  *
  * Appends a single value to @array, collecting it from @Varargs.
  */
@@ -1162,7 +1059,7 @@ rb_value_array_append_data (GArray *array, GType type, ...)
 }
 
 /**
- * rb_value_free: (skip):
+ * rb_value_free: (skip)
  * @val: (transfer full): a #GValue
  *
  * Unsets and frees @val.  @val must have been allocated using
@@ -1176,7 +1073,7 @@ rb_value_free (GValue *val)
 }
 
 /**
- * rb_str_in_strv: (skip):
+ * rb_str_in_strv: (skip)
  * @needle: string to search for
  * @haystack: array of strings to search
  *
@@ -1221,6 +1118,14 @@ rb_set_tree_view_column_fixed_width (GtkWidget  *treeview,
 {
 	int max_width = 0;
 	int i = 0;
+
+	/* Take into account the header button width */
+	GtkWidget *widget = gtk_tree_view_column_get_button (column);
+	if (widget != NULL) {
+		GtkRequisition natural_size;
+		gtk_widget_get_preferred_size (widget, NULL, &natural_size);
+		max_width = natural_size.width;
+	}
 
 	while (strings[i] != NULL) {
 		GtkRequisition natural_size;
@@ -1290,9 +1195,7 @@ do_delayed_apply (GSettings *settings)
 	data = g_object_get_data (G_OBJECT (settings), DELAYED_SYNC_DATA_ITEM);
 	sync_func = g_object_get_data (G_OBJECT (settings), DELAYED_SYNC_FUNC_ITEM);
 	if (sync_func != NULL) {
-		GDK_THREADS_ENTER ();
 		sync_func (settings, data);
-		GDK_THREADS_LEAVE ();
 	}
 
 	g_object_set_data (G_OBJECT (settings), DELAYED_SYNC_ITEM, GUINT_TO_POINTER (0));

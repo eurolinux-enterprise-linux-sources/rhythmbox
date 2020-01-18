@@ -35,28 +35,11 @@
 <!-- appropriate code -->
   <articleinfo>
     <title>Player pentru muzică Rhythmbox</title>
-	<copyright lang="en">
-		<year>2002</year>
-		<holder>Mark Finlay</holder>
-	</copyright>
-        <copyright lang="en">
-                <year>2002</year>
-                <year>2002</year>
-                <holder>Mark Humphreys</holder>
-        </copyright>
-	<copyright lang="en">
-		<year>2005</year>
-		<year>2006</year>
-		<holder>Baptiste Mille-Mathias</holder>
-	</copyright>
-	<copyright lang="en">
-		<year>2006</year>
-		<holder>Victor Osadci</holder>
-	</copyright>
-	<copyright lang="en">
-		<year>2008</year>
-		<holder>Dean Sas</holder>
-	</copyright>
+	<copyright><year>2002</year> <holder>Mark Finlay</holder></copyright>
+        <copyright><year>2002</year> <year>2002</year> <holder>Mark Humphreys</holder></copyright>
+	<copyright><year>2005</year> <year>2006</year> <holder>Baptiste Mille-Mathias</holder></copyright>
+	<copyright><year>2006</year> <holder>Victor Osadci</holder></copyright>
+	<copyright><year>2008</year> <holder>Dean Sas</holder></copyright>
 
 <!-- translators: uncomment this:
   <copyright>
@@ -75,66 +58,19 @@
    
 
   <legalnotice id="legalnotice">
-	<para lang="en">
-	  Permission is granted to copy, distribute and/or modify this
-	  document under the terms of the GNU Free Documentation
-	  License (GFDL), Version 1.1 or any later version published
-	  by the Free Software Foundation with no Invariant Sections,
-	  no Front-Cover Texts, and no Back-Cover Texts.  You can find
-	  a copy of the GFDL at this <ulink type="help" url="help:fdl">link</ulink> or in the file COPYING-DOCS
-	  distributed with this manual.
-         </para>
+	<para>Copierea, distribuirea și/sau modificarea acestui document este permisă în conformitate cu termenii GNU Free Documentation License (GFDL), versiunea 1.1 sau orice versiune ulterioară publicată de Free Software Foundation fără Invariant Sections, fără Front-Cover Texts și fără Back-Cover Texts. Puteți găsi o copie a GFDL la acestă <ulink type="help" url="help:fdl">legătură</ulink> sau în fișierul COPYING-DOCS distribuit împreună cu acest manual.</para>
          <para>Acest manual este parte dintr-o colecție de manuale GNOME distribuit sub GFDL. Dacă doriți să distribuiți acest manual separat de colecție, puteți face acest lucru adăugând manualului o copie a licenței, conform descrierii din secțiunea 6 a licenței.</para>
 
 	<para>Multe dintre numele utilizate de companii pentru a distinge produsele și serviciile lor sunt revendicate ca mărci comerciale. Atunci când aceste nume apar în orice documentație GNOME, și membrii proiectului de documentare GNOME sunt informați despre aceste mărci comerciale, ele sunt scrise cu majuscule sau cu majusculă inițială.</para>
 
-	<para lang="en">
-	  DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT ARE PROVIDED
-	  UNDER  THE TERMS OF THE GNU FREE DOCUMENTATION LICENSE
-	  WITH THE FURTHER UNDERSTANDING THAT:
-
-	  <orderedlist>
+	<para>ACEST DOCUMENT ȘI VERSIUNILE MODIFICATE ALE ACESTUI DOCUMENT SUNT FURNIZATE ÎN CONFORMITATE CU TERMENII GNU FREE DOCUMENTATION LICENSE CU ÎNȚELEGEREA CĂ: <orderedlist>
 		<listitem>
-		  <para lang="en">DOCUMENT IS PROVIDED ON AN "AS IS" BASIS,
-                    WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
-                    IMPLIED, INCLUDING, WITHOUT LIMITATION, WARRANTIES
-                    THAT THE DOCUMENT OR MODIFIED VERSION OF THE
-                    DOCUMENT IS FREE OF DEFECTS MERCHANTABLE, FIT FOR
-                    A PARTICULAR PURPOSE OR NON-INFRINGING. THE ENTIRE
-                    RISK AS TO THE QUALITY, ACCURACY, AND PERFORMANCE
-                    OF THE DOCUMENT OR MODIFIED VERSION OF THE
-                    DOCUMENT IS WITH YOU. SHOULD ANY DOCUMENT OR
-                    MODIFIED VERSION PROVE DEFECTIVE IN ANY RESPECT,
-                    YOU (NOT THE INITIAL WRITER, AUTHOR OR ANY
-                    CONTRIBUTOR) ASSUME THE COST OF ANY NECESSARY
-                    SERVICING, REPAIR OR CORRECTION. THIS DISCLAIMER
-                    OF WARRANTY CONSTITUTES AN ESSENTIAL PART OF THIS
-                    LICENSE. NO USE OF ANY DOCUMENT OR MODIFIED
-                    VERSION OF THE DOCUMENT IS AUTHORIZED HEREUNDER
-                    EXCEPT UNDER THIS DISCLAIMER; AND
-		  </para>
+		  <para>DOCUMENTUL ESTE OFERIT "CA ATARE", FĂRĂ NICIUN FEL DE GARANȚIE, FIE EXPLICITĂ SAU IMPLICITĂ, INCLUSIVĂ, FĂRĂ LIMITARE, GARANȚIILE CĂ DOCUMENTUL SAU O VERSIUNE MODIFICATĂ A LUI ESTE FĂRĂ DEFECTE VANDABILE, PENTRU UN ANUMIT SCOP ANUME SAU NEÎNCĂLCABILĂ. RISCUL PENTRU CALITATEA, PRECIZIA, ȘI PERFORMANȚA DOCUMENTULUI SAU A VERSIUNILOR MODIFICATE VA FI AL DUMNEAVOASTRĂ. AR TREBUI CA ORICE DOCUMENT SAU VERSIUNE MODIFICATĂ A LUI SĂ SE DOVEDEASCĂ A FI INCOMPLET ÎN ORICE PRIVINȚĂ, TU (NU AUTORUL INIȚIAL SAU ORICE ALT CONTRIBUITOR) ASUMĂ-ȚI COSTUL ORICĂRUI SERVICIU NECESAR, REPARAȚII SAU CORECTĂRI. ACEASTĂ RESPONSABILITATE DE GARANȚIE CONSTITUIE O PARTE ESENȚIALĂ A ACESTEI LICENȚE. NU ESTE AUTORIZAT NICI UN FOLOS AL ORICĂRUI ALT DOCUMENT SAU VERSIUNE MODIFICATĂ A LUI ÎN ACEST SCOP CU EXCEPȚIA RESPECTĂRII ACESTOR TERMENI; ȘI</para>
 		</listitem>
 		<listitem>
-		  <para lang="en">UNDER NO CIRCUMSTANCES AND UNDER NO LEGAL
-                       THEORY, WHETHER IN TORT (INCLUDING NEGLIGENCE),
-                       CONTRACT, OR OTHERWISE, SHALL THE AUTHOR,
-                       INITIAL WRITER, ANY CONTRIBUTOR, OR ANY
-                       DISTRIBUTOR OF THE DOCUMENT OR MODIFIED VERSION
-                       OF THE DOCUMENT, OR ANY SUPPLIER OF ANY OF SUCH
-                       PARTIES, BE LIABLE TO ANY PERSON FOR ANY
-                       DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR
-                       CONSEQUENTIAL DAMAGES OF ANY CHARACTER
-                       INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS
-                       OF GOODWILL, WORK STOPPAGE, COMPUTER FAILURE OR
-                       MALFUNCTION, OR ANY AND ALL OTHER DAMAGES OR
-                       LOSSES ARISING OUT OF OR RELATING TO USE OF THE
-                       DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT,
-                       EVEN IF SUCH PARTY SHALL HAVE BEEN INFORMED OF
-                       THE POSSIBILITY OF SUCH DAMAGES.
-		  </para>
+		  <para>ÎN NICIO CIRCUMSTANȚĂ ȘI ÎN NICI O TEORIE LEGALĂ, DACĂ ÎN PREJUDICIUL (INCLUSIV NEGLIJENȚA), CONTRACTUL, SAU ÎN CAZ CONTRAR, ESTE AUTORUL, SCRIITORUL INIȚIAL, ORICE CONTRIBUITOR SAU ORICE DISTRIBUITOR AL DOCUMENTULUI SAU VERSIUNEA MODIFICATĂ A ACESTUIA SAU ORICE FURNIZOR AL UNEIA DINTRE PĂRȚI, RĂSPUNZĂTOR PENTRU ORICE PERSOANĂ PENTRU ORICE DIRECTE, INDIRECTE, SPECIALE, INCIDENTALE SAU PAGUBE SUBSECVENȚE DE ORICE CARACTER INCLUSIV, FĂRĂ LIMITARE, DESPĂGUBIRI PENTRU PIERDERILE DE BUNĂVOINȚĂ, ÎNTRERUPERE A ACTIVITĂȚII, DEFECȚIUNE DE CALCULATOR, SAU ORICE ALTCEVA ȘI TOATE CELELALTE DAUNE SAU PIERDERI REZULTATE DIN SAU LEGATE DE UTILIZAREA DOCUMENTULUI ȘI VERSIUNILOR MODIFICATE ALE ACESTUIA, CHIAR DACĂ ACESTE PĂRȚI AU FOST INFORMATE DE POSIBILITATEA UNOR ASTFEL DE DAUNE.</para>
 		</listitem>
-	  </orderedlist>
-	</para>
+	  </orderedlist></para>
   </legalnotice>
 
 
@@ -142,95 +78,36 @@
    other legal stuff such as "NO WARRANTY" statement. Please do not change
    any of this. -->
    <authorgroup>
-   		<author lang="en">
-			<firstname>Mark</firstname>
-			<surname>Finlay</surname>
-			<affiliation>
-				<orgname>GNOME Documentation Project</orgname>
-				<address><email>sisob@eircom.net</email></address>
-			</affiliation>
-		</author>
-		<author lang="en">
-			<firstname>Mark</firstname>
-			<surname>Humphreys</surname>
-			<affiliation>
-				<orgname>GNOME Documentation Project</orgname>
-				<address><email>marquee@users.sourceforge.net</email></address>
-			</affiliation>
-		</author>		
-		<author role="maintainer" lang="en">
-			<firstname>Baptiste</firstname>
-			<surname>Mille-Mathias</surname>
-			<affiliation>
-				<orgname>GNOME Documentation Project</orgname>
-				<address><email>baptiste.millemathias@gmail.com</email></address>
-			</affiliation>
-		</author>
-		<author lang="en">
-			<firstname>Victor</firstname>
-			<surname>Osadci</surname>
-			<affiliation>
-				<orgname>GNOME Documentation Project</orgname>
-				<address><email>Victor.Osadci.GNOME@xhtml.md</email></address>
-			</affiliation>
-		</author>
-		<author lang="en">
-			<firstname>Dean</firstname>
-			<surname>Sas</surname>
-			<affiliation>
-				<orgname>Ubuntu Documentation Project</orgname>
-				<address><email>dean@deansas.org</email></address>
-			</affiliation>
-		</author>
+   		<author><firstname>Mark</firstname> <surname>Finlay</surname> <affiliation> <orgname>Proiectul de documentație GNOME</orgname> <address><email>sisob@eircom.net</email></address> </affiliation></author>
+		<author><firstname>Mark</firstname> <surname>Humphreys</surname> <affiliation> <orgname>Proiectul de documentație GNOME</orgname> <address><email>marquee@users.sourceforge.net</email></address> </affiliation></author>		
+		<author role="maintainer"><firstname>Baptiste</firstname> <surname>Mille-Mathias</surname> <affiliation> <orgname>Proiectul de documentație GNOME</orgname> <address><email>baptiste.millemathias@gmail.com</email></address> </affiliation></author>
+		<author><firstname>Victor</firstname> <surname>Osadci</surname> <affiliation> <orgname>Proiectul de documentație GNOME</orgname> <address><email>Victor.Osadci.GNOME@xhtml.md</email></address> </affiliation></author>
+		<author><firstname>Dean</firstname> <surname>Sas</surname> <affiliation> <orgname>Proiectul de documentație Ubuntu</orgname> <address><email>dean@deansas.org</email></address> </affiliation></author>
    </authorgroup>
 
 <!-- According to GNU FDL, revision history is mandatory if you are -->
 <!-- modifying/reusing someone else's document.  If not, you can omit it. -->
    <revhistory>
-      <revision lang="en"> 
-		<revnumber>Rhythmbox Music Player Manual V0.0.2</revnumber>
-		<date>October 2002</date> 
-		<revdescription> 
-	  		<para role="author" lang="en">Mark Finlay
-	  		</para>
-	  		<para role="publisher" lang="en">GNOME Documentation Project</para>
-		</revdescription> 
-      </revision> 
-      <revision lang="en"> 
-		<revnumber>Rhythmbox Music Player Manual V0.0.3</revnumber>
-		<date>August 2003</date> 
-		<revdescription> 
-	  		<para role="author" lang="en">Mark Humphreys
-	  		</para>
-	  		<para role="publisher" lang="en">GNOME Documentation Project</para>
-		</revdescription> 
-      </revision> 
-      <revision lang="en"> 
-		<revnumber>Rhythmbox Music Player Manual V0.0.4</revnumber>
-		<date>October 2005</date> 
-		<revdescription> 
-	  		<para role="author" lang="en">Baptiste Mille-Mathias
-	  		</para>
-	  		<para role="publisher" lang="en">GNOME Documentation Project</para>
-		</revdescription> 
-      </revision> 
-      <revision lang="en"> 
-		<revnumber>Rhythmbox Music Player Manual V2.0.2</revnumber>
-		<date>April 2006</date>
-		<revdescription> 
-	  		<para role="author" lang="en">Luca Ferretti
-	  		</para>
-	  		<para role="publisher" lang="en">GNOME Documentation Project</para>
-		</revdescription> 
-      </revision> 
-	  <revision lang="en">
-		<revnumber>Rhythmbox Music Player Manual V2.0.3</revnumber>
-		<date>May 2008</date>
-		<revdescription>
-			<para role="author" lang="en">Dean Sas</para>
-			<para role="publisher" lang="en">GNOME Documentation Project</para>
-        </revdescription>
-      </revision>
+      <revision><revnumber>Rhythmbox player pentru muzică - Manualul utilizatorului V0.0.2</revnumber> <date>Octombrie 2002</date> <revdescription> 
+	  		<para role="author">Mark Finlay</para>
+	  		<para role="publisher">Proiectul de documentare GNOME</para>
+		</revdescription></revision> 
+      <revision><revnumber>Rhythmbox player pentru muzică - Manualul utilizatorului V0.0.3</revnumber> <date>August 2003</date> <revdescription> 
+	  		<para role="author">Mark Humphreys</para>
+	  		<para role="publisher">Proiectul de documentare GNOME</para>
+		</revdescription></revision> 
+      <revision><revnumber>Rhythmbox player pentru muzică - Manualul utilizatorului V0.0.4</revnumber> <date>Octombrie 2005</date> <revdescription> 
+	  		<para role="author">Baptiste Mille-Mathias</para>
+	  		<para role="publisher">Proiectul de documentare GNOME</para>
+		</revdescription></revision> 
+      <revision><revnumber>Rhythmbox player pentru muzică - Manualul utilizatorului V2.0.2</revnumber> <date>Aprilie 2006</date> <revdescription> 
+	  		<para role="author">Luca Ferretti</para>
+	  		<para role="publisher">Proiectul de documentare GNOME</para>
+		</revdescription></revision> 
+	  <revision><revnumber>Rhythmbox player pentru muzică - Manualul utilizatorului V2.0.3</revnumber> <date>Mai 2008</date> <revdescription>
+			<para role="author">Dean Sas</para>
+			<para role="publisher">Proiectul de documentare GNOME</para>
+        </revdescription></revision>
     </revhistory> 
 
     <releaseinfo>Acest manual descrie versiunea 0.11.5 a Playerului pentru muzică Rhythmbox.</releaseinfo> 
@@ -244,18 +121,27 @@
      <para>Rhythmbox este un player pentru muzică recomandat pentru Desktopul GNOME.</para>
    </abstract>
 
+  
+    <othercredit class="translator">
+      <personname>
+        <firstname>Daniel Șerbănescu</firstname>
+      </personname>
+      <email>daniel [at] serbanescu [dot] dk</email>
+    </othercredit>
+    <copyright>
+      
+        <year>2010</year>
+      
+        <year>2014</year>
+      
+      <holder>Daniel Șerbănescu</holder>
+    </copyright>
   </articleinfo> 
 
 
-  <indexterm zone="index" lang="en">
-    <primary>Rhythmbox</primary>
-  </indexterm>
-  <indexterm zone="index" lang="en">
-    <primary>rhythmbox</primary>
-  </indexterm>
-  <indexterm zone="index" lang="en">
-    <primary>Music Player</primary>
-  </indexterm>
+  <indexterm zone="index"><primary>Rhythmbox</primary></indexterm>
+  <indexterm zone="index"><primary>rhythmbox</primary></indexterm>
+  <indexterm zone="index"><primary>Player pentru muzică</primary></indexterm>
 <!-- ============= Document Body ============================= -->
 <!-- ============= Introduction ============================== -->
   <sect1 id="introduction">
@@ -264,34 +150,34 @@
       <para>Caracteristicile curente ale <application>Playerului pentru muzică Rhythmbox</application> includ:</para>
       	<itemizedlist>
           <listitem>
-            <para>Redă diverse formate de fișiere audio din biblioteca dumneavoastră organizată după etichete.</para>
+            <para>Redarea diverselor formate de fișiere audio din biblioteca dumneavoastră organizată după etichete.</para>
           </listitem>
           <listitem>
-            <para>Afișează informații despre piese prin citirea metadatelor.</para>
+            <para>Afișarea informațiilor despre piese prin citirea metadatelor.</para>
           </listitem>
           <listitem>
-            <para>Afișează piesele într-o vizualizare organizată.</para>
+            <para>Afișarea pieselor într-o vizualizare organizată.</para>
           </listitem>
           <listitem>
-            <para>Creează liste de redare statice prin glisarea și plasarea lor din Vizualizare Bibliotecă.</para>
+            <para>Crearea de liste de redare statice prin glisarea și plasarea lor din Vizualizare Bibliotecă.</para>
           </listitem>
           <listitem>
-            <para>Creează liste de redare automat, după criteriile specificate.</para>
+            <para>Crearea de liste de redare automat, după criteriile specificate.</para>
           </listitem>
           <listitem>
-            <para>Caută piesele în lista de surse a Bibliotecii sau în listele de redare.</para>
+            <para>Căutarea de piese în lista de surse a Bibliotecii sau în listele de redare.</para>
           </listitem>
           <listitem>
-            <para>Redă posturile de radio de pe Internet.</para>
+            <para>Redarea posturilor de radio de pe Internet.</para>
           </listitem>
           <listitem>
-            <para>Citește CD-uri audio, și preia informațiile, cum ar fi titlul piesei, de pe Internet.</para>
+            <para>Citirea CD-urilor audio, și preluareaa informațiilor, cum ar fi titlul piesei, de pe Internet.</para>
           </listitem>
           <listitem>
-            <para>Scrie CD-uri audio din listele de redare.</para>
+            <para>Scrierea CD-urilor audio din listele de redare.</para>
           </listitem>
           <listitem>
-            <para>Transferă muzica pe iPod, MTP și dispozitivele USB detașabile.</para>
+            <para>Transferarea muzicii pe iPod, MTP și dispozitivele USB detașabile.</para>
           </listitem>
         </itemizedlist>
   </sect1>
@@ -300,31 +186,20 @@
 	
 		<sect2 id="rb-launch">
 			<title>Pentru a lansa <application>Playerul pentru muzică Rhythmbox</application></title>
-			<para lang="en">
-				You can launch the <application>Rhythmbox Music Player</application> in the following ways:
-				<variablelist>
+			<para>Puteți lansa <application>Playerul pentru muzică Rhythmbox</application> în următoarele moduri: <variablelist>
 					<varlistentry>
-						<term lang="en"><guimenu>Applications</guimenu> menu</term>
+						<term>Din meniul <guimenu>Aplicații</guimenu></term>
 						<listitem>
-							<para lang="en">
-						 		Choose
-								<menuchoice><guisubmenu>Sound &amp; Video</guisubmenu>
-								<guimenuitem>Rhythmbox Music
-								Player</guimenuitem></menuchoice>.
-							</para>
+							<para>Selectați <menuchoice><guisubmenu>Multimedia</guisubmenu> <guimenuitem>Player pentru muzică Rhythmbox</guimenuitem></menuchoice>.</para>
 						</listitem>
 					</varlistentry>
 					<varlistentry>
-						<term lang="en">Command Line</term>
+						<term>Din linia de comandă</term>
 						<listitem>
-							<para lang="en">
-								Type <command>rhythmbox</command>, then press
-								<keycap>Return</keycap>.
-							</para>
+							<para>Tastați <command>rhythmbox</command> și apoi apăsați <keycap>Enter</keycap>.</para>
 						</listitem>
 					</varlistentry>
-				</variablelist>
-			</para>
+				</variablelist></para>
 		</sect2>
 		<sect2 id="rb">
 			<title>Rularea asistentului</title>
@@ -339,17 +214,7 @@
       	<figure id="fig-rb-window">
         <title>Fereastra <application>Player pentru muzică Rhythmbox</application></title>
         <screenshot>
-          <mediaobject lang="en">
-            <imageobject>
-              <imagedata fileref="figures/rb-window.png" format="PNG"/>
-            </imageobject>
-            <textobject>
-              <phrase>Show the <application>Rhythmbox Music Player</application> window showing 
-                the different parts on the <application>Rhythmbox Music Player</application> interface.
-                Callouts: Menubar, Player area, Browser, Side pane, Statusbar.
-              </phrase>
-            </textobject>
-          </mediaobject>
+          <mediaobject><imageobject> <imagedata fileref="figures/rb-window.png" format="PNG"/> </imageobject> <textobject> <phrase>Arată fereastra <application>Playerul pentru muzică Rhythmbox</application> ce conține diferitele componente ale interfeței  <application>Rhythmbox player pentru muzică</application>. Componente: Bara de meniu, zona playerului, navigatorul, panoul lateral, bara de stare. </phrase> </textobject></mediaobject>
         </screenshot>
       </figure>
       <para>Tabelul 1 descrie elementele din fereastra <application>Player pentru muzică Rhythmbox</application>.</para>
@@ -370,8 +235,7 @@
             <row>
               <entry valign="top">1</entry>
               <entry valign="top">Bara de meniu</entry>
-              <entry valign="top" lang="en">Contains menus that you use to perform
-							tasks in <application>Rhythmbox Music Player</application> window.</entry>
+              <entry valign="top">Conține meniuri folosite pentru a completa sarcini în fereastra <application>Playerului pentru muzică Rhythmbox</application>.</entry>
             </row>
             <row>
               <entry valign="top">2</entry>
@@ -410,31 +274,17 @@
     </sect2>
     <sect2 id="intro-sourcelist">
       <title>Panoul Lateral</title>
-      <para lang="en">The side pane is where you can access your music library,
-			internet radio,	your playlists and audio CDs. The side pane can contain
-			the following sources:
-				<itemizedlist>
-				  <listitem><para lang="en">The <application>Rhythmbox Music Player</application> library, where 
-				  all of the imported tracks will appear.</para></listitem>
-				  <listitem><para lang="en">The iRadio source, with all internet radio stations.
-				  </para></listitem>
-				  <listitem><para lang="en">Podcasts.</para></listitem>
-				  <listitem><para lang="en">All playlists (normal and smart).</para></listitem>
-				  <listitem><para lang="en">Audio CD's inserted into the computer's CD drives.
-				  </para></listitem>
-				  <listitem><para lang="en">Portable players like iPod plugged to your computer.
-				  </para></listitem>
-				  <listitem><para lang="en">The DAAP Music shares discovered on the local network.
-				  </para></listitem>
-				  <listitem><para lang="en">Music stores like Jamendo and Magnatune.
-				  </para></listitem>
-				</itemizedlist>
-		</para>
-      	<para lang="en">
-				The display of the side pane can be toggled on or off by selecting
-				<menuchoice><guimenu>View</guimenu><guimenuitem>Side Pane</guimenuitem>
-				</menuchoice>.
-			</para>
+      <para>Panoul lateral este locul unde puteți accesa Biblioteca muzicală, posturile radio de pe internet, listele de redare și CD-urile audio. Panoul lateral poate conține următoarele surse: <itemizedlist>
+				  <listitem><para>Biblioteca <application>Playerului pentru muzică Rhythmbox</application>, unde toate piesele importate vor apărea.</para></listitem>
+				  <listitem><para>Sursa iRadio, cu toate posturile radio de pe Internet.</para></listitem>
+				  <listitem><para>Podcasturi.</para></listitem>
+				  <listitem><para>Toate listele de redare (normale și inteligente).</para></listitem>
+				  <listitem><para>CD-urile audio introduse în dispozitivele calculatorului.</para></listitem>
+				  <listitem><para>Playere portabile ca iPod conectate la calculator.</para></listitem>
+				  <listitem><para>Partajările de muzică DAAP descoperite pe rețeaua locală.</para></listitem>
+				  <listitem><para>Magazine de muzică precum Jamedo și Magnatune.</para></listitem>
+				</itemizedlist></para>
+      	<para>Afișajul panoului lateral poate fi activat sau dezactivat selectând <menuchoice><guimenu>Vizualizare</guimenu><guimenuitem>Panou lateral</guimenuitem> </menuchoice>.</para>
     </sect2>
     <sect2 id="player-toolbar">
       <title>Bara de unelte a Playerului</title>
@@ -445,14 +295,7 @@
 				Fast-Forward or Rewind the playing track.
 			</para>
       <screenshot>
-        <mediaobject lang="en">
-          <imageobject>
-            <imagedata fileref="figures/rb-toolbar.png" format="PNG"/>
-          </imageobject>
-          <textobject>
-            <phrase>Shows player area</phrase>
-          </textobject>
-        </mediaobject>
+        <mediaobject><imageobject> <imagedata fileref="figures/rb-toolbar.png" format="PNG"/> </imageobject> <textobject> <phrase>Arată zona playerului</phrase> </textobject></mediaobject>
       </screenshot>
       <tip>
         <para>Dacă folosiți un maus cu rotiță, puteți ajusta volumul derulând înainte și înapoi în timp ce cursorul mausului este deasupra butonului de volum.</para>
@@ -460,39 +303,17 @@
     </sect2>
     <sect2 id="status-area">
       <title>Bara de stare</title>
-      <para lang="en">
-				The statusbar contains additional information about the number
-				of songs and the duration of the source selected. The display of the 
-				statusbar can be toggled on or off by selecting <menuchoice>
-				<guimenu>View</guimenu><guimenuitem>Statusbar</guimenuitem></menuchoice>.
-			</para>
+      <para>Bara de stare conține informații adiționale despre numărul de piese și durata sursei selectate. Afișajul barei de stare poate fi oprit sau pornit selectând <menuchoice> <guimenu>Vizualizare</guimenu><guimenuitem>Bară de stare</guimenuitem></menuchoice>.</para>
       <screenshot>
-        <mediaobject lang="en">
-          <imageobject>
-            <imagedata fileref="figures/rb-statusbar.png" format="PNG"/>
-          </imageobject>
-          <textobject>
-            <phrase>Shows statusbar</phrase>
-          </textobject>
-        </mediaobject>
+        <mediaobject><imageobject> <imagedata fileref="figures/rb-statusbar.png" format="PNG"/> </imageobject> <textobject> <phrase>Arată bara de stare</phrase> </textobject></mediaobject>
       </screenshot>
     </sect2>
     <sect2 id="rb-window-small">
       <title>Fereastra minimizată a <application>Playerului pentru muzică Rhythmbox</application></title>
       <para><application>Playerul pentru muzică Rhythmbox</application> vine cu un mod minimizat. Acest mod permite accesul numai la bara de meniu și funcțiile de redare ale <application>Playerului pentru muzică Rhythmbox</application>.</para>
-      <para lang="en">
-				To switch to the small display, select <menuchoice><guimenu>View</guimenu>
-				<guimenuitem>Small Display</guimenuitem></menuchoice>. 
-			</para>
+      <para>Pentru a comuta la afișajul mic, selectați <menuchoice><guimenu>Vizualizare</guimenu> <guimenuitem>Ecran mic</guimenuitem></menuchoice>.</para>
       <screenshot>
-        <mediaobject lang="en">
-          <imageobject>
-            <imagedata fileref="figures/rb-window-small.png" format="PNG"/>
-          </imageobject>
-          <textobject>
-            <phrase>Shows the <application>Rhythmbox Music Player</application> in small display mode</phrase>
-          </textobject>
-        </mediaobject>
+        <mediaobject><imageobject> <imagedata fileref="figures/rb-window-small.png" format="PNG"/> </imageobject> <textobject> <phrase>Arată <application>Playerul pentru muzică Rhythmbox</application> în modul ecran mic</phrase> </textobject></mediaobject>
       </screenshot>
     </sect2>
   </sect1>
@@ -500,79 +321,32 @@
     <title>Utilizarea Playerului pentru muzică Rhythmbox</title>
     <sect2 id="Playing">
       <title>Redarea muzicii</title>
-      <para lang="en">To play a track, choose <menuchoice><guimenu>Control</guimenu>
-      <guimenuitem>Play</guimenuitem></menuchoice>, or select the track and 
-      press the <guibutton>Play</guibutton> button on the toolbar, or simply 
-      double-click on the track to start playing.
-		</para>
+      <para>Pentru a reda o piesă, selectați <menuchoice><guimenu>Control</guimenu> <guimenuitem>Redă</guimenuitem></menuchoice>, sau selectați piesa și apăsați butonul <guibutton>Redare</guibutton> de pe bara de instrumente, sau pur și simplu apăsați dublu clic pe piesă pentru a începe redarea.</para>
       <para>Când piesa se termină, <application>Playerul pentru muzică Rhythmbox</application> va reda piesa următoare din lista afișată în panoul Vizualizare.</para>
       <para>Din Bibliotecă puteți reda toate piesele unui artist sau dintr-un album prin simpla selectare a intrării <guilabel>Album</guilabel> sau <guilabel>Artist</guilabel> din <link linkend="library-filter-browser">Navigatorul bibliotecii</link>.</para>
       <sect3 id="next-previous">
         <title>Următoarea/Redare/Precedenta</title>
-        <para lang="en">The <guibutton>Next</guibutton> and <guibutton>Previous</guibutton> 
-        buttons can be used to skip between tracks while playing. If a track is 
-        currently playing, the previous button will restart the	track. Pressing 
-        the <guibutton>Play</guibutton> button will start playing the current track. 
-			<screenshot>
-				<mediaobject lang="en">
-					<imageobject>
-						<imagedata fileref="figures/rb-toolbar-prevplaynext.png" format="PNG"/>
-					</imageobject>
-					<textobject>
-						<phrase>Shows buttons <guibutton>Previous</guibutton>,
-						<guibutton>Play</guibutton> and <guibutton>Next</guibutton> in toolbar.</phrase>
-					</textobject>
-				</mediaobject>
-			</screenshot>
-		</para>
+        <para>Butoanele <guibutton>Următoarea</guibutton> și <guibutton>Precedenta</guibutton> pot fi folosite pentru omiterea unor piese în timpul redării. Dacă o piesă este redată momentan, butonul „Precedenta” va reporni piesa. Apăsarea butonului „Redare” va începe redarea piesei curente. <screenshot>
+				<mediaobject><imageobject> <imagedata fileref="figures/rb-toolbar-prevplaynext.png" format="PNG"/> </imageobject> <textobject> <phrase>Arată butoanele <guibutton>Precedenta</guibutton>, <guibutton>Redare</guibutton> și <guibutton>Următoarea</guibutton> în bara de unelte.</phrase> </textobject></mediaobject>
+			</screenshot></para>
       </sect3>
       <sect3 id="repeat">
         <title>Repetă</title>
         <para>Opțiunea <guibutton>Repetă</guibutton> face ca <application>Playerul pentru muzică Rhythmbox</application> să repornească redarea pieselor de la începutul listei, atunci când se ajunge la ultima piesă.</para>
-        <para lang="en">To activate repeat, choose <menuchoice><guimenu>Control</guimenu>
-        <guimenuitem>Repeat</guimenuitem></menuchoice>, or press the button 
-        <guibutton>Repeat</guibutton> on the toolbar.
-			<screenshot>
-				<mediaobject lang="en">
-					<imageobject>
-						<imagedata fileref="figures/rb-toolbar-repeat.png" format="PNG"/>
-					</imageobject>
-					<textobject>
-						<phrase>Shows repeat button in the statusbar.</phrase>
-					</textobject>
-				</mediaobject>
-			</screenshot>
-		</para>
+        <para>Pentru a activa „Repetă”, alegeți <menuchoice><guimenu>Control</guimenu><guimenuitem>Repetă</guimenuitem></menuchoice>, sau apăsați butonul <guibutton>Repetă</guibutton> din bara de unelte. <screenshot>
+				<mediaobject><imageobject> <imagedata fileref="figures/rb-toolbar-repeat.png" format="PNG"/> </imageobject> <textobject> <phrase>Arată butonul „repetă” în bara de stare.</phrase> </textobject></mediaobject>
+			</screenshot></para>
       </sect3>
       <sect3 id="shuffle">
         <title>Amestecat</title>
         <para>Opțiunea <guibutton>Amestecat</guibutton> face ca <application>Playerul pentru muzică Rhythmbox</application> să înceapă redarea pieselor într-o ordine aleatoare.</para>
-        <para lang="en">To activate shuffle, choose <menuchoice><guimenu>Control</guimenu>
-        <guimenuitem>Shuffle</guimenuitem></menuchoice>, or press the button 
-        <guibutton>Shuffle</guibutton> on the toolbar.
-			<screenshot>
-				<mediaobject lang="en">
-					<imageobject>
-						<imagedata fileref="figures/rb-toolbar-shuffle.png" format="PNG"/>
-					</imageobject>
-					<textobject>
-						<phrase>Shows shuffle button in the statusbar.</phrase>
-					</textobject>
-				</mediaobject>
-			</screenshot>
-		</para>
+        <para>Pentru a activa amestecarea, alegeți <menuchoice><guimenu>Control</guimenu><guimenuitem>Amestecat</guimenuitem></menuchoice>, sau apăsați butonul <guibutton>Amestecat</guibutton> din bara de unelte. <screenshot>
+				<mediaobject><imageobject> <imagedata fileref="figures/rb-toolbar-shuffle.png" format="PNG"/> </imageobject> <textobject> <phrase>Arată butonul „amestecat” în bara de stare.</phrase> </textobject></mediaobject>
+			</screenshot></para>
       </sect3>
       <sect3 id="volume">
         <title>Controlul volumului</title>
-        <para lang="en">
-				The volume control is located in the right hand of the toolbar.
-				Pressing the loudspeaker icon will show the volume slider.
-				Sliding this up and down will increase and decrease the volume.
-				The loudspeaker icon will change to reflect the relative volume.
-			<screenshot><mediaobject lang="en"><imageobject><imagedata fileref="figures/rb-volume-changer.png" format="PNG"/></imageobject><textobject><phrase>Shows volume slider in toolbar.
-				</phrase></textobject></mediaobject></screenshot>
-
-			</para>
+        <para>Controlul volumului este localizat în dreapta barei de instrumente. Apăsând pe iconița difuzorului va fi afișat glisorul de volum. Glisându-l în sus sau în jos va crește sau va reduce volumul. Iconița difuzorului se va schimba pentru a reflecta volumul relativ. <screenshot><mediaobject><imageobject><imagedata fileref="figures/rb-volume-changer.png" format="PNG"/></imageobject><textobject><phrase>Arată glisorul pentru controlul volumului în bara de unelte. </phrase></textobject></mediaobject></screenshot></para>
         <tip>
           <para>Puteți regla volumul folosind rotița de derulare a mausului deasupra iconiței difuzorului.</para>
         </tip>
@@ -582,75 +356,42 @@
   <sect1 id="library">
     <title>Sursa bibliotecii</title>
     	<para>Biblioteca este principala sursă disponibilă în <application>Playerul pentru muzică Rhythmbox</application>, ea este baza de date care conține toate fișierele muzicii pe care o importați în <application>Playerul pentru muzică Rhythmbox</application> (Biblioteca stochează calea de acces a fișierelor de muzică, nu și fișierele)</para>
-    	<para lang="en">
-			The Library can not only contains music files which are physically 
-			on your computer (in your HOME Directory for instance), but it can
-			also contains music files available over remote network services. 
-			Some examples of supported network services are :
-			<itemizedlist>
+    	<para>Biblioteca poate conține nu numai fișiere de muzică care sunt în mod fizic pe calculatorul dumneavoastră (de exemplu în dosarul dumneavoastră personal), dar poate conține și fișiere audio disponibile prin intermediul serviciilor de rețea. Unele exemple de servicii de rețea suportate sunt: <itemizedlist>
 				<listitem>
-					<para lang="en">Public FTP</para>
+					<para>FTP Public</para>
 				</listitem>
 				<listitem>
-					<para lang="en">Authenticated FTP</para>
+					<para>FTP Protejat</para>
 				</listitem>
 				<listitem>
-					<para lang="en">NFS</para>
+					<para>NFS</para>
 				</listitem>
 				<listitem>
-					<para lang="en">Windows Share</para>
+					<para>Dosare partajate din Windows</para>
 				</listitem>
-			</itemizedlist>
-		</para>
-    	<para lang="en">
-			The files imported in the Library are displayed in the track list
-			with the information (like the Artist name or the Album name) stored 
-			in the tags embedded on the tracks. <application>Rhythmbox Music Player</application> uses 
-			these tags to display the tracks in an organized manner.
-			<tip>
-				<para lang="en">Tags can be modified by choosing <menuchoice><guimenu>
-				Music</guimenu><guimenuitem>Properties</guimenuitem>
-				</menuchoice> and filling in the details on the window that appears.</para>
-			</tip>
-		</para>
+			</itemizedlist></para>
+    	<para>Fișierele importate în Bibliotecă sunt afișate în lista de redare cu informațiile (cum ar fi numele artistului sau numele albumului) stocate în etichete înglobate în piese. <application>Playerul pentru muzică Rhythmbox</application> folosește aceste etichete pentru a afișa piesele într-o manieră organizată. <tip>
+				<para>Etichetele pot fi modificate alegând <menuchoice><guimenu>Muzică</guimenu><guimenuitem>Proprietăți</guimenuitem> </menuchoice> și completând detaliile în fereastra care apare.</para>
+			</tip></para>
     <sect2 id="library-tracks-add">
       <title>Adăugarea pieselor în Bibliotecă</title>
-      		<para lang="en">
-				To add tracks to the Library, you can follow these different
-				methods:
-				<itemizedlist>
+      		<para>Pentru a adăuga piese în Bibliotecă, puteți urmări aceste metode diferite: <itemizedlist>
 					<listitem>
-						<para lang="en">
-							To import only one track, choose 
-							<menuchoice><guimenu>Music</guimenu><guimenuitem>Import File
-							</guimenuitem></menuchoice> from the menu, then select the file
-							in the file selector and press the <guibutton>Open</guibutton> button.
-						</para>
+						<para>Pentru a importa numai o singură piesă, alegeți din meniu <menuchoice><guimenu>Muzică</guimenu><guimenuitem>Importă fișier</guimenuitem></menuchoice>, apoi selectați fișierul în selectorul de fișiere și apăsați butonul <guibutton>Deschide</guibutton>.</para>
 					</listitem>
 					<listitem>
-						<para lang="en">
-							If you want to import several music files located in a
-							folder, choose <menuchoice><guimenu>Music</guimenu><guimenuitem>Import
-							Folder</guimenuitem></menuchoice> from the menu, then select the
-							folder in the file selector and press the 
-							<guibutton>Open</guibutton> button. All the music files located
-							in the folder and its sub-folders will be imported.
-						</para>
+						<para>Dacă doriți să importați mai multe fișiere de muzică localizate într-un dosar, alegeți din meniu <menuchoice><guimenu>Muzică</guimenu><guimenuitem>Importă dosar</guimenuitem></menuchoice>, apoi selectați dosarul din selectorul de fișiere și apăsați butonul <guibutton>Deschide</guibutton>. Toate fișierele de muzică localizate în dosar și în sub-dosarele lui vor fi importate.</para>
 					</listitem>
 					<listitem>
-						<para lang="en">
-							Drag and drop files from the file manager (like
-							<application>Nautilus</application>) over the Rhythmbox window.
-						</para>
+						<para>Glisați și plasați fișiere din administratorul de fișiere (de exemplu <application>Nautilus</application>) în fereastra Rhythmbox.</para>
 					</listitem>
-				</itemizedlist>
-			</para>
+				</itemizedlist></para>
       	<tip>
        		<para>Dacă aveți activată funcția monitorizare dosar (consultați <xref linkend="prefs-library"/>), toate fișierele audio stocate în dosarul ales vor fi adăugate în bibliotecă. Fișierele noi adăugate mai târziu în dosar de asemenea vor fi adăugate și în bibliotecă.</para>
       	</tip>
     </sect2>
     <sect2 id="library-tracks-del">
-    	<title>Ștergerea pieselor din Bibliotecă</title>
+    	<title>Eliminarea pieselor din Bibliotecă</title>
       	<para>Pentru a elimina o piesă din bibliotecă dar nu și de pe disc, alegeți din meniu <menuchoice><guimenu>Editare</guimenu><guimenu>Elimină</guimenu></menuchoice>. Piesa și proprietățile sale (cum ar fi aprecierea și numărul de ascultări) vor fi eliminate din baza de date Rhythmbox.</para>
       	<para>Pentru a șterge o piesă din bibliotecă dar și de pe disc, alegeți din meniu <menuchoice><guimenu>Editare</guimenu><guimenuitem>Mută la coșul de gunoi</guimenuitem></menuchoice>. Piesa va fi eliminată în același mod ca mai sus, dar fișierul va fi mutat la coșul de gunoi al administratorului de fișiere.</para>
     </sect2>
@@ -658,18 +399,12 @@
     	<title>Căutarea pieselor folosind funcția Căutare</title>
       	<para>Rhythmbox vine echipat cu o funcție de căutare, care vă permite să găsiți și să filtrați piesele folosind un termen de căutare.</para>
       	<para>Introduceți un text în intrarea de căutare, și pe măsură ce tastați, doar piesele care se potrivesc cu textul introdus vor fi afișate. Funcția de căutare va căuta în toate etichetele pieselor stocate în Bibliotecă.</para>
-		<para>Pentru a efectua o căutare mai precisă, puteți alege să caute numai în anumite etichete <guilabel>Artiști</guilabel>, <guilabel>Albume</guilabel> sau <guilabel>Titluri</guilabel>.</para>
+		<para>Pentru a efectua o căutare mai precisă, puteți alege să caute numai în anumite etichete, de exemplu <guilabel>Artiști</guilabel>, <guilabel>Albume</guilabel> sau <guilabel>Titluri</guilabel>.</para>
     </sect2>
     <sect2 id="library-filter-browser">
     	<title>Căutarea pieselor folosind Navigatorul</title>
       	<para>Navigatorul este o altă metodă convenabilă de a găsi fișierele. Navigatorul este compus din două sau trei panouri care vă permit să navigați prin genurile de muzică, artiști și albume și vă afișează piesele care se potrivesc criteriilor alese.</para>
-      	<para lang="en">
-			First, to display the Browser, select <menuchoice><guimenu>View</guimenu>
-			<guimenuitem>Browser</guimenuitem></menuchoice>. Select artist, album 
-			and genre, and as you choose, only the tracks that match your choice will 
-			be displayed in the track list. The criteria on the columns apply
-			from the left to the right.
-		</para>
+      	<para>Pentru început, ca să afișați Navigatorul, selectați din meniu <menuchoice><guimenu>Vizualizare</guimenu> <guimenuitem>Navigator</guimenuitem></menuchoice>. Selectați artistul, albumul și genul, și pe măsură ce alegeți, doar piesele care se potrivesc alegerii dumneavoastră vor fi afișate în lista pieselor. Criteriile coloanelor se aplică de la stânga la dreapta.</para>
       	<tip>
         	<para>Puteți alege mai multe criterii de căutare din aceeași categorie folosind tasta <keycombo><keycap>Ctrl</keycap></keycombo>.</para>
       	</tip>
@@ -691,11 +426,7 @@
     </figure>
     <sect2 id="iradio-adding">
       	<title>Adăugarea unui post radio</title>
-      	<para lang="en">
-			To add a new station to the Internet Radio tuner, choose <menuchoice><guimenu>Music</guimenu>
-			<guimenuitem>New Internet Radio Station</guimenuitem></menuchoice>, then enter the URL of
-			the Internet radio, then press the button <guibutton>Add</guibutton>.
-		</para>
+      	<para>Pentru a adăuga un nou post la tunerul radio prin Internet, selectați <menuchoice><guimenu>Muzică</guimenu> <guimenuitem>Post nou de radio prin Internet</guimenuitem></menuchoice>, apoi introduceți URL-ul postului de radio, apoi apăsați butonul <guibutton>Adaugă</guibutton>.</para>
     </sect2>
     <sect2 id="iradio-modify">
       	<title>Vizualizarea și schimbarea configurărilor unui post radio</title>
@@ -705,16 +436,16 @@
     </sect2>
     <sect2 id="iradio-delete">
     	<title>Eliminarea unui post</title>
-      	<para lang="en">
-			To remove a radio station from the radio stations list, choose <menuchoice><guimenu>Edit</guimenu>
-			<guimenuitem>Remove</guimenuitem></menuchoice>; you can also right-click on the station and select
-			<guimenuitem>Remove</guimenuitem>.
-		</para>
+      	<para>Pentru a elimina un post de radio din lista posturilor de radio, alegeți <menuchoice><guimenu>Editare</guimenu> <guimenuitem>Elimină</guimenuitem></menuchoice>; de asemenea puteți apăsa clic dreapta pe post și selecta <guimenuitem>Elimină</guimenuitem>.</para>
     </sect2>
   </sect1>
   <sect1 id="podcast">
   	<title>Surse podcast</title>
-    <para>Podcasting-ul este o nouă metodă de a transmite conținut audio prin intermediul internetului; când autorul publică un episod, abonații podcastului sunt informați, prin intermediul unui flux XML.</para>
+    <para lang="en">
+		Podcasting is a new way to broadcast audio content over the web; when an
+		author publishes an episode, podcast subscribers are informed, through an
+		XML feed.
+	</para>
     <para>Rhythmbox Player pentru muzică vă permite să vă abonați la fluxurile de tip podcast, pentru a fi informat atunci când un nou episod este disponibil, și va descărca acel episod și apoi îl va reda.</para>
     <tip>
       	<para>Puteți afla mai multe informații despre podcast-uri și podcasting vizitând definiția <ulink url="http://ro.wikipedia.org/wiki/Podcasting">Podcasting</ulink> pe site-ul <ulink url="http://ro.wikipedia.org/">Wikipedia</ulink> .</para>
@@ -722,14 +453,7 @@
     <para>
       <figure>
         <title>Interfața podcast</title>
-        <mediaobject lang="en">
-          <imageobject>
-            <imagedata fileref="figures/rb-podcast-main.png" format="PNG"/>
-          </imageobject>
-          <textobject>
-            <phrase>The Podcast interface with some registered podcasts</phrase>
-          </textobject>
-        </mediaobject>
+        <mediaobject><imageobject> <imagedata fileref="figures/rb-podcast-main.png" format="PNG"/> </imageobject> <textobject> <phrase>Interfața pentru podcasturi cu câteva podcasturi înregistrate</phrase> </textobject></mediaobject>
       </figure>
     </para>
     <sect2 id="podcast-management">
@@ -737,7 +461,7 @@
       <sect3 id="podcast-feed-add">
         <title>Adăugarea unui podcast</title>
         <para>Pentru a vă abona la un podcast, alegeți <menuchoice><guimenu>Muzică</guimenu> <guimenuitem>Flux podcast nou</guimenuitem></menuchoice>, apoi în fereastra apărută, introduceți URL-ul fluxului podcast. Rhythmbox va prelua lista de episoade și cel mai recent episod va fi descărcat pe disc.</para>
-        <para>Pentru a adăuga un flux podcast nou, puteți, de asemenea să apăsați clic dreapta pe sursa <guimenuitem>Podcasturi</guimenuitem>, și selectaţi <guimenuitem>Flux podcast nou</guimenuitem>.</para>
+        <para>Pentru a adăuga un flux podcast nou, puteți, de asemenea să apăsați clic dreapta pe sursa <guimenuitem>Podcasturi</guimenuitem>, și selectați <guimenuitem>Flux podcast nou</guimenuitem>.</para>
       </sect3>
       <sect3 id="podcast-feed-del">
         <title>Ștergerea unui podcast</title>
@@ -753,23 +477,7 @@
       </sect3>
       <sect3 id="podcast-feed-show">
         <title>Accesarea proprietăților fluxului podcast</title>
-        <para lang="en">
-			To access to the Feed properties, right-click on the Feed name, and
-			choose
-			<menuchoice><guimenuitem>Properties</guimenuitem></menuchoice>.
-			<itemizedlist><listitem><para lang="en">
-					On the <guilabel>Basic</guilabel> tab you can view the
-					podcast <guilabel>Title</guilabel>, <guilabel>Author
-					</guilabel>, the <guilabel>Last Updated</guilabel>
-					date and the <guilabel>Description</guilabel>.
-				</para></listitem><listitem><para lang="en">
-					On the <guilabel>Details</guilabel> tab you can view the
-					feed <guilabel>Source</guilabel>, <guilabel>Language
-					</guilabel>and the <guilabel>Copyright</guilabel>
-					properties.
-				</para></listitem></itemizedlist>
-			You can view the properties, and also edit the rating.
-			</para>
+        <para>Pentru a accesa proprietățile fluxului, apăsați clic dreapta pe numele fluxului, și selectați <menuchoice><guimenuitem>Proprietăți</guimenuitem></menuchoice>. <itemizedlist><listitem><para>În tabul <guilabel>Principale</guilabel> puteți vizualiza <guilabel>titlul</guilabel>, <guilabel>autorul</guilabel>, data <guilabel>ultimei actualizări</guilabel> și <guilabel>descrierea</guilabel> podcastului.</para></listitem><listitem><para>În tablul <guilabel>Detalii</guilabel> puteți vizualiza proprietățile fluxului <guilabel>Sursei</guilabel>, <guilabel>Limbii</guilabel> și <guilabel>Drepturilor de autor</guilabel>.</para></listitem></itemizedlist> Puteți viuzaliza proprietățile, și edita aprecierea.</para>
       </sect3>
     </sect2>
     <sect2 id="episode-management">
@@ -795,23 +503,7 @@
       </sect3>
       <sect3>
         <title>Afișarea proprietăților episodului de podcast</title>
-        <para lang="en">
-			To access to the episode properties, right-click on the episode, and
-			choose
-			<menuchoice><guimenuitem>Properties</guimenuitem></menuchoice>.
-			<itemizedlist><listitem><para lang="en">
-					On the <guilabel>Basic</guilabel> tab you can view the podcast
-					<guilabel>Title</guilabel>, <guilabel>Feed</guilabel>, the
-					publication <guilabel>Data</guilabel> and the
-					<guilabel>Description</guilabel>.
-				</para></listitem><listitem><para lang="en">
-					On the <guilabel>Details</guilabel> tab you can view the podcast
-					<guilabel>Source</guilabel>, <guilabel>Duration</guilabel>, the
-					<guilabel>Bitrate</guilabel>, the <guilabel>Last Played
-					Date</guilabel>, the <guilabel>Play count</guilabel> and
-					the <guilabel>Rating</guilabel>.
-				</para></listitem></itemizedlist>
-			</para>
+        <para>Pentru a accesa proprietățile episodului, apăsați clic dreapta pe episod, și selectați <menuchoice><guimenuitem>Proprietăți</guimenuitem></menuchoice>. <itemizedlist><listitem><para>În tabul <guilabel>Principale</guilabel> puteți vizualiza <guilabel>titlul</guilabel>, <guilabel>fluxul</guilabel>, <guilabel>data</guilabel> publicării și <guilabel>descrierea</guilabel>.</para></listitem><listitem><para>În tabul <guilabel>Detalii</guilabel> puteți vizualiza <guilabel>sursa</guilabel> podcastului, <guilabel>durata</guilabel>, <guilabel>rata de biți</guilabel>, <guilabel>data ultimei redări</guilabel>, <guilabel>numărul redărilor</guilabel> și <guilabel>aprecierea</guilabel>.</para></listitem></itemizedlist></para>
       </sect3>
     </sect2>
   </sect1>
@@ -821,55 +513,39 @@
 	<para>După ce piesa a fost redată, va fi eliminată automat din Coada de redare a sursei. Când Coada de redare va fi goală, <application>Playerul pentru muzică Rhythmbox</application> va reda sursa redată anterior.</para>
 		<sect2 id="playqueue-track-add">
 			<title>Adăugarea unei piese la Coada de redare</title>
-			<para lang="en">To add a track:
-				<orderedlist>
+			<para>Pentru a adăuga o piesă: <orderedlist>
 					<listitem>
-						<para lang="en">
-							Select the track you want to play, in any
-							source.
-						</para>
+						<para>Selectați piesa pe care doriți să o redați, din orice sursă.</para>
 					</listitem>
 					<listitem>
-						<para lang="en">Choose
-						<menuchoice><guimenu>Edit</guimenu><guimenuitem>Add to
-						playqueue</guimenuitem></menuchoice>.</para>
+						<para>Alegeți <menuchoice><guimenu>Editare</guimenu><guimenuitem>Adaugă la coadă</guimenuitem></menuchoice>.</para>
 					</listitem>
-				</orderedlist>
-			</para>
+				</orderedlist></para>
 		</sect2>
 		<sect2 id="playqueue-track-del">
 			<title>Eliminarea unei piese din coada de redare</title>
-			<para lang="en">To remove a track stored in Play Queue:
-				<orderedlist>
+			<para>Pentru a elimina o piesă stocată în Coada de redare: <orderedlist>
 					<listitem>
-						<para lang="en">Select the track you want to remove in Play Queue
-						source.</para>
+						<para>Selectați piesa pe care doriți să o eliminați din sursa Cozii de redare.</para>
 					</listitem>
 					<listitem>
-						<para lang="en">Choose
-							<menuchoice><guimenu>Edit</guimenu><guimenuitem>Delete</guimenuitem>
-							</menuchoice>.
-						</para>
+						<para>Alegeți <menuchoice><guimenu>Editare</guimenu><guimenuitem>Șterge</guimenuitem> </menuchoice>.</para>
 					</listitem>
-				</orderedlist>
-			</para>
+				</orderedlist></para>
 		</sect2>
   </sect1>
   
   <sect1 id="playlist">
   	<title>Sursa listelor de redare</title>
     <para>Listele de redare sunt surse create din piesele disponibile în sursa Bibliotecii. Ele vă permit să adunați piese urmând un „gen” particular, sau un grup sau artist specific, sau chiar piesele care sunt de un „tip” particular, sau orice altceva doriți.</para>
-    <para lang="en">
-			Rhythmbox Music Player has 2 kinds of playlists:
-			<itemizedlist>
+    <para>Playerul pentru muzică Rhythmbox are două tipuri de liste de redare: <itemizedlist>
 				<listitem>
-					<para lang="en">Static Playlists</para>
+					<para>Liste de redare statice</para>
 				</listitem>
 				<listitem>
-					<para lang="en">Smart Playlists</para>
+					<para>Liste de redare inteligente</para>
 				</listitem>
-			</itemizedlist>
-		</para>
+			</itemizedlist></para>
     <para>Rhythmbox vă permite scrierea pieselor dintr-o listă de redare pe un CD audio.</para>
     <sect2 id="playlist-static">
     	<title>Liste de redare statice</title>
@@ -888,33 +564,11 @@
       </sect3>
       <sect3 id="playlist-static-tracks-del">
         <title>Eliminarea pieselor dintr-o listă de redare</title>
-        <para lang="en">
-					To remove tracks from a playlist, first select the tracks to
-					remove, and then you have two methods:
-					<itemizedlist><listitem><para lang="en">
-								Choose
-								<menuchoice><guimenu>Edit</guimenu><guimenuitem>Delete</guimenuitem></menuchoice>.
-							</para></listitem><listitem><para lang="en">
-								Right-click over the selection and choose <guimenuitem>Delete</guimenuitem>.
-							</para></listitem></itemizedlist>
-					This operation deletes the track only from playlist and not
-					from the Library.
-				</para>
+        <para>Pentru a elimina piese dintr-o listă de redare, mai întâi selectați piesele de eliminat, și apoi sunt disponibile două metode: <itemizedlist><listitem><para>Alegeți <menuchoice><guimenu>Editare</guimenu><guimenuitem>Șterge</guimenuitem></menuchoice>.</para></listitem><listitem><para>Apăsați clic dreapta deasupra selecției și selectați <guimenuitem>Șterge</guimenuitem>.</para></listitem></itemizedlist> Această operație șterge piesa doar din lista de redare, nu și din Bibliotecă.</para>
       </sect3>
       <sect3 id="playlist-static-del">
         <title>Ștergerea unei liste de redare statice</title>
-        <para lang="en">
-					To delete a static playlist, select the playlist to delete,
-					then you have two ways to delete it:
-					<itemizedlist><listitem><para lang="en">
-								Choose
-								<menuchoice><guimenu>Edit</guimenu><guimenuitem>Delete</guimenuitem></menuchoice>.
-							</para></listitem><listitem><para lang="en">
-								Right-click over the playlist and choose <guimenuitem>Delete</guimenuitem>.
-							</para></listitem></itemizedlist>
-					This operation deletes only the playlist and not the tracks
-					stored in the playlist deleted.
-				</para>
+        <para>Pentru a șterge o listă de redare statică, selectați lista pe care doriți să o ștergeți, apoi aveți două metode pentru a o șterge: <itemizedlist><listitem><para>Alegeți <menuchoice><guimenu>Editare</guimenu><guimenuitem>Șterge</guimenuitem></menuchoice>.</para></listitem><listitem><para>Apăsați clic dreapta pe lista de redare și selectați <guimenuitem>Șterge</guimenuitem>.</para></listitem></itemizedlist> Această operație șterge numai lista de redare, nu și piesele stocate în lista de redare ștearsă.</para>
       </sect3>
     </sect2>
     <sect2 id="playlist-smart">
@@ -922,18 +576,7 @@
       <para>Listele de redare inteligente sunt construite din criterii, astfel piesele sunt adăugate listei în mod dinamic; toate piesele potrivite criteriilor selectate vor fi adăugate listei de redare.</para>
       <sect3 id="playlist-smart-new">
         <title>Crearea unei liste de redare inteligente</title>
-        <para lang="en">
-					To create a new playlist:
-					<orderedlist><listitem><para lang="en">
-								Choose <menuchoice><guimenu>Music</guimenu><guisubmenu>Playlist</guisubmenu><guimenuitem>New
-								Automatic Playlist</guimenuitem></menuchoice>.
-							</para></listitem><listitem><para lang="en">
-								Edit the playlist criteria through the query editor.
-							</para></listitem><listitem><para lang="en">
-								Once your criteria have been chosen, click <guibutton>New</guibutton> to create the
-								query.
-							</para></listitem></orderedlist>
-				</para>
+        <para>Pentru a creea o nouă listă de redare: <orderedlist><listitem><para>Selectați <menuchoice><guimenu>Muzică</guimenu><guisubmenu>Listă de redare</guisubmenu><guimenuitem>Listă de redare automată nouă</guimenuitem></menuchoice>.</para></listitem><listitem><para>Editați criteriul listei de redare prin intermediul editorului de interogări.</para></listitem><listitem><para>După ce criteriile au fost alese, apăsați pe <guibutton>Nou</guibutton> pentru a creea interogarea.</para></listitem></orderedlist></para>
       </sect3>
       <sect3 id="playlist-smart-edit">
         <title>Editarea unei liste de redare inteligentă</title>
@@ -941,27 +584,13 @@
       </sect3>
       <sect3 id="playlist-smart-del">
         <title>Ștergerea unei liste de redare inteligentă</title>
-        <para lang="en">
-					To delete a smart playlist, select the playlist to delete,
-					then you have two ways to delete it:
-					<itemizedlist><listitem><para lang="en">
-								Choose
-								<menuchoice><guimenu>Edit</guimenu><guimenuitem>Delete</guimenuitem></menuchoice>.
-							</para></listitem><listitem><para lang="en">
-								Right-click over the playlist and choose <guimenuitem>Delete</guimenuitem>.
-							</para></listitem></itemizedlist>
-				</para>
+        <para>Pentru a șterge o listă de redare inteligentă, alegeți lista pe care doriți să o ștergeți, apoi veți avea două metode de ștergere: <itemizedlist><listitem><para>Alegeți <menuchoice><guimenu>Editare</guimenu><guimenuitem>Șterge</guimenuitem></menuchoice>.</para></listitem><listitem><para>Apăsați clic dreapta pe lista de redare și selectați <guimenuitem>Șterge</guimenuitem>.</para></listitem></itemizedlist></para>
       </sect3>
       <sect3 id="playlist-smart-query-use">
         <title>Folosirea unui editor de interogări</title>
         <para>Alegeți criteriul pentru care se aplică regula. Dacă sunt necesare mai multe criterii apăsați pe butonul <guibutton>Adaugă</guibutton>, o nouă linie va apărea, și puteți stabili un nou criteriu.</para>
         <para>Dacă doriți să limitați numărul de piese din lista de redare, bifați <guilabel>Limitează la:</guilabel>, și alegeți cum să limitați. Puteți limita după piese, după dimensiunea totală (în <guilabel>MO</guilabel> sau <guilabel>GO</guilabel>), sau după durată (exprimată în <guilabel>minute</guilabel>).</para>
-        <para lang="en">
-		Once you finish setting the criteria for the playlist, choose
-		<guibutton>New</guibutton>; the playlist query editor window
-		will close, and the playlist will display the tracks matched by your
-		criteria.
-		</para>
+        <para>După ce finalizați configurarea criteriilor pentru listele de redare, selectați <guibutton>Nou</guibutton>; fereastra editorului de interogări se va închide, și lista de redare va afișa piesele ce se potrivesc criteriilor dumneavoastră.</para>
       </sect3>
     </sect2>
   </sect1>
@@ -976,10 +605,7 @@
     <sect2 id="cd-import">
       <title>Importarea unui CD audio</title>
       <para>Dacă doriți să păstrați piesele CD-urilor audio pe calculator, le puteți importa.</para>
-      <para lang="en">To import Audio CD tracks, choose <menuchoice><guimenu>Music</guimenu>
-	  <guimenuitem>Import Audio CD</guimenuitem></menuchoice>, it will start <application>Sound-Juicer</application>,
-			an application dedicated to importing Audio CDs. To know more about <application>Sound-Juicer</application>,
-			you can read the <ulink url="ghelp:sound-juicer">Sound-Juicer manual</ulink>.</para>
+      <para>Pentru a importa piese de pe un CD audio, alegeți <menuchoice><guimenu>Muzică</guimenu> <guimenuitem>Importă CD audio</guimenuitem></menuchoice>, va porni <application>Sound-Juicer</application>, o aplicație dedicată importării CD-urilor audio. Pentru a afla mai multe despre <application>Sound-Juicer</application>, puteți citi <ulink url="ghelp:sound-juicer">Sound-Juicer - Manualul utilizatorului</ulink>.</para>
       <tip>
         <para>Pentru a obține piesele importate din Sound-Juicer adăugate automat în Biblioteca Rhythmbox, va trebui să configurați Sound-Juicer să extragă piese în locația Bibliotecii Rhythmbox și funcționalitatea de supravegheat trebuie să fie activată; consultați <ulink url="ghelp:sound-juicer#preferences">preferințele Sound-Juicer</ulink> și <link linkend="prefs-library">preferințele Bibliotecii Rhythmbox</link>.</para>
       </tip>
@@ -987,23 +613,16 @@
     <sect2 id="cd-burning">
       <title>Crearea unui CD audio</title>
       <para>Rhythmbox vă permite să creați propriile CD-uri audio cu muzica stocată în Biblioteca Rhythmbox.</para>
-      <para lang="en">To create an Audio CD: 
-				<orderedlist><listitem><para lang="en">Create a playlist, static or smart
-				(see <xref linkend="playlist"/>) and add tracks.</para></listitem>
-                <listitem><para lang="en">Choose <menuchoice><guimenu>Music</guimenu><guisubmenu>Playlist</guisubmenu><guimenuitem>Create Audio CD</guimenuitem></menuchoice></para></listitem>
-                <listitem><para lang="en">Insert a blank CD.</para></listitem>
-                <listitem><para lang="en">Click the button <guibutton>Create</guibutton>, the burning process starts.</para></listitem>
-                </orderedlist>
-			</para>
+      <para>Pentru a crea un CD audio: <orderedlist><listitem><para>Creați o listă de redare, statică sau inteligentă (consultați <xref linkend="playlist"/>) și adăugați piesele.</para></listitem>
+                <listitem><para>Alegeți <menuchoice><guimenu>Muzică</guimenu><guisubmenu>Listă de redare</guisubmenu><guimenuitem>Creează CD audio</guimenuitem></menuchoice></para></listitem>
+                <listitem><para>Introduceți un CD gol.</para></listitem>
+                <listitem><para>Apăsați pe butonul <guibutton>Creează</guibutton> pentru a porni procesul de inscripționare.</para></listitem>
+                </orderedlist></para>
     </sect2>
   </sect1>
   <sect1 id="portable-audio-player">
     <title>Sursa playerului audio portabil</title>
-    <para lang="en"><application>Rhythmbox</application> can detect when an portable audio player is plugged to your
-	computer, and is able to read tracks stored on it.
-	<application>Rhythmbox Music Player</application> should be able to deal with most
-	portable audio players including Apple iPod, MTP players and Mass Storage
-	players.</para>
+    <para><application>Rhythmbox</application> poate detecta când un player audio portabil este conectat la calculatorul dumneavoastră, și este capabil să citească piesele stocate pe el. <application>Playerul pentru muzică Rhythmbox</application> ar trebui să fie capabil să suporte majoritatea playerelor audio portabile, inclusiv Apple iPod, playere MTP și playere de stocare în masă.</para>
     <para>Când conectați un player audio portabil, o iconiță pentru Player audio portabil este adăugată în panoul lateral. Această sursă funcționează în același mod ca și sursa Bibliotecă.</para>
 	<tip><para>Dacă <application>Rhythmbox Music Player</application> nu detectează dispozitivul dumneavoastră ca player audio portabil, puteți creea un fișier gol numit <filename>.is_audio_player</filename> în nivelul superior ar ierarhiei sistemului de fișiere prezent pe playerul dumneavoastră.</para></tip>
   </sect1>
@@ -1070,30 +689,22 @@
       <para>
         <itemizedlist>
           <listitem>
-            <para lang="en"><guibutton>Play</guibutton> — If selected, plays the 
-            currently selected song.</para>
+            <para><guibutton>Redă</guibutton> — Dacă este selectat, se va reda piesa selectată.</para>
           </listitem>
           <listitem>
-            <para lang="en"><guibutton>Previous</guibutton> — Skip to previous song 
-            in the selected source.</para>
+            <para><guibutton>Precedenta</guibutton> — Sare la piesa precedentă din sursa selectată.</para>
           </listitem>
           <listitem>
-            <para lang="en"><guibutton>Next</guibutton> — Skip to next song in the 
-            selected source.</para>
+            <para><guibutton>Următoarea</guibutton> — Sare la piesa următoare din lista selectată.</para>
           </listitem>
           <listitem>
-            <para lang="en"><guibutton>Show Window Player</guibutton> — Choose whether 
-            or not the <application>Rhythmbox Music Player</application>	window is visible or not 
-            on the desktop.</para>
+            <para><guibutton>Arată fereastra playerului</guibutton> — Alegeți dacă fereastra <application>Playerului pentru muzică Rhythmbox</application> este vizibilă sau nu pe desktop.</para>
           </listitem>
           <listitem>
-            <para lang="en"><guibutton>Show Notifications</guibutton> — Choose whether
-            or not the <application>Rhythmbox Music Player</application> will notify you about 
-            track changes and various information.</para>
+            <para><guibutton>Arată notificările</guibutton> — Alegeți dacă <application>Rhythmbox Music Player</application> vă va notifica despre schimbările piesei și alte informații sau nu.</para>
           </listitem>
           <listitem>
-            <para lang="en"><guibutton>Quit</guibutton> — Quit the 
-            <application>Rhythmbox Music Player</application>.</para>
+            <para><guibutton>Ieșire</guibutton> — Închide <application>Playerul pentru muzică Rhythmbox</application>.</para>
           </listitem>
         </itemizedlist>
         <tip>
@@ -1112,18 +723,13 @@
       <sect3 id="prefs-general">
       	<title>Generale</title>
 		<para>Alegeți modul în care <guilabel>Vizualizarea navigatorului</guilabel> va fi afișată. Puteți alege utilizarea a două sau trei panouri și ce panouri ar trebui afișate.</para>
-      	<para lang="en">
-			Choose the <guilabel>Visible Columns</guilabel> you want to
-			display in <application>Rhythmbox Music Player</application>. This option affects
-			the following sources:
-			<itemizedlist>
-				<listitem><para lang="en">Library</para></listitem>
-				<listitem><para lang="en">Audio CD</para></listitem>
-				<listitem><para lang="en">Portable Players</para></listitem>
-				<listitem><para lang="en">Playlists</para></listitem>
-				<listitem><para lang="en">DAAP Music shares</para></listitem>
-			</itemizedlist>
-		</para>
+      	<para>Alegeți <guilabel>Coloanele vizibile</guilabel> pe care doriți să le afișați în <application>Playerul pentru muzică Rhythmbox</application>. Această opțiune afectează următoarele surse: <itemizedlist>
+				<listitem><para>Biblioteca</para></listitem>
+				<listitem><para>CD audio</para></listitem>
+				<listitem><para>Playerele portabile</para></listitem>
+				<listitem><para>Liste de redare</para></listitem>
+				<listitem><para>Partajările de muzică prin DAAP</para></listitem>
+			</itemizedlist></para>
       </sect3>
       <sect3 id="prefs-library">
         <title>Muzica</title>
@@ -1133,15 +739,9 @@
             <warning>
             	<para>Evitați stabilirea dosarului <filename class="directory">Acasă</filename> ca locație a bibliotecii pentru că această funcționalitate consumă resursele procesorului.</para>
             </warning>
-            <para lang="en">
-				To disable the watch functionality deselect 
-				<guilabel>Watch my library for new files</guilabel>.
-			</para>
+            <para>Pentru a dezactiva funcționalitatea de supravegheat deselectați <guilabel>Urmărește biblioteca pentru a detecta fișiere noi</guilabel>.</para>
             <tip>
-            	<para lang="en">If you want to add more than one folder to watch, 
-            	use <application>gconf-editor</application> and add it to the list
-            	/app/rhythmbox/library_locations
-				</para>
+            	<para>Dacă doriți să adăugați mai mult de un dosar pentru supravegheat, utilizați <application>gconf-editor</application> și adăugați-l în lista /app/rhythmbox/library_locations</para>
             </tip>
           </listitem>
         </itemizedlist>
@@ -1172,19 +772,14 @@
       </sect3>
       <sect3 id="prefs-lastfm">
         <title>Profilul Last.fm</title>
-        <para lang="en">
-			The Last.fm profile plugin collects information about the songs you listen to
-			and sends it to the <ulink url="http://www.last.fm/">Last.fm</ulink> website,
-			building up a profile of your listening habits.  With this profile, you can:
-			<itemizedlist>
+        <para>Modulul profil Last.fm colectează informații despre piesele pe care le ascultați și le trimite la pagina web <ulink url="http://www.last.fm/">Last.fm</ulink>, alcătuind un profil al obiceiurilor dumneavoastră de ascultare a muzicii. Cu acest profil puteți să: <itemizedlist>
 				<listitem>
-					<para lang="en">consult statistics, such as most played songs or most played artists.</para>
+					<para>consultați statisticile, cum ar fi cele mai ascultate piese sau cei mai ascultați artiști.</para>
 				</listitem>
 				<listitem>
-					<para lang="en">receive recommendations about artists that you might like.</para>
+					<para>primiți recomandări despre artiștii pe care i-ați putea place.</para>
 				</listitem>
-			</itemizedlist>
-		</para>
+			</itemizedlist></para>
         <warning>
           <para>Pentru a folosi modulul profil Last.fm, trebuie să aveți un cont la Last.fm. Dacă nu aveți deja unul, utilizați <ulink url="http://www.last.fm/signup.php">pagina de înregistrare Last.fm</ulink> pentru a vă crea unul. Introduceți detaliile contului Last.fm în câmpurile <guilabel>Utilizator</guilabel> și <guilabel>Parolă</guilabel> din fereastra de configurare a modulului profil Last.fm.</para>
         </warning>
@@ -1209,56 +804,43 @@
           </thead>
           <tbody>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>Space</keycap>
-                </keycombo>
-              </entry>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>P</keycap> </keycombo></entry>
               <entry>
                 <para>Redare / Pauză</para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Alt</keycap>
-                  <keycap>Left</keycap>
-                </keycombo>
-              </entry>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>Săgeată stânga</keycap> </keycombo></entry>
               <entry>
                 <para>Salt la piesa anterioară / Înapoi la începutul piesei</para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Alt</keycap>
-                  <keycap>Right</keycap>
-                </keycombo>
-              </entry>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>Săgeată dreapta</keycap> </keycombo></entry>
               <entry>
                 <para>Salt la piesa următoare</para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>R</keycap>
-                </keycombo>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>Săgeată în sus</keycap> </keycombo></entry>
+              <entry>
+                <para>Crește volumul de redare</para>
               </entry>
+            </row>
+            <row>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>Săgeată în jos</keycap> </keycombo></entry>
+              <entry>
+                <para>Reduce volumul de redare</para>
+              </entry>
+            </row>
+            <row>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>R</keycap> </keycombo></entry>
               <entry>
                 <para>Activează / Dezactivează redarea repetitivă</para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>U</keycap>
-                </keycombo>
-              </entry>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>U</keycap> </keycombo></entry>
               <entry>
                 <para>Activează / Dezactivează redarea amestecată</para>
               </entry>
@@ -1279,90 +861,44 @@
           </thead>
           <tbody>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>A</keycap>
-                </keycombo>
-              </entry>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>A</keycap> </keycombo></entry>
               <entry>
                 <para>Selectează tot</para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Shift</keycap>
-                  <keycap>Ctrl</keycap>
-                  <keycap>A</keycap>
-                </keycombo>
-              </entry>
+              <entry><keycombo> <keycap>Shift</keycap> <keycap>Ctrl</keycap> <keycap>A</keycap> </keycombo></entry>
               <entry>
                 <para>Deselectează tot</para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>J</keycap>
-                </keycombo>
-              </entry>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>J</keycap> </keycombo></entry>
               <entry>
                 <para>Salt la piesa redată</para>
               </entry>
-            </row>
+	    </row>
+	    <!--
             <row>
-              <entry lang="en">
+              <entry>
                 <keycombo>
                   <keycap>Ctrl</keycap>
                   <keycap>Y</keycap>
                 </keycombo>
               </entry>
               <entry>
-                <para>Goliți textul din câmpul de căutare și eliminați toate filtrele din navigator</para>
+                <para>Clear the search field text and remove all filters in the browser</para>
+              </entry>
+	    </row>
+            -->
+            <row>
+              <entry><keycombo> <keycap>Alt</keycap> <keycap>S</keycap> </keycombo></entry>
+              <entry>
+                <para>Sare la câmpul de căutare</para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>N</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Creează o nouă listă de redare</para>
-              </entry>
-            </row>
-           <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Alt</keycap>
-                  <keycap>S</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para lang="en">Jump to search field</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>O</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Adaugă un dosar în bibliotecă</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Alt</keycap>
-                  <keycap>Return</keycap>
-                </keycombo>
-              </entry>
+              <entry><keycombo> <keycap>Alt</keycap> <keycap>Enter</keycap> </keycombo></entry>
               <entry>
                 <para>Afișează proprietățile piesei</para>
               </entry>
@@ -1382,88 +918,32 @@
             </row>
           </thead>
           <tbody>
-			<row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>W</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Închide fereastra <application>Playerului pentru muzică Rhythmbox</application></para>
-              </entry>
-            </row>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>Q</keycap>
-                </keycombo>
-              </entry>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>Q</keycap> </keycombo></entry>
               <entry>
                 <para>Ieșire din <application>Playerul pentru muzică Rhythmbox</application></para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>B</keycap>
-                </keycombo>
-              </entry>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>B</keycap> </keycombo></entry>
               <entry>
                 <para>Arată / Ascunde navigatorul</para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>D</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Comută / Ieși din modul ecran mic</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>F9</keycap>
-                </keycombo>
-              </entry>
+              <entry><keycombo> <keycap>F9</keycap> </keycombo></entry>
               <entry>
                 <para>Arată / Ascunde panoul lateral</para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>K</keycap>
-                </keycombo>
-              </entry>
+              <entry><keycombo> <keycap>Ctrl</keycap> <keycap>K</keycap> </keycombo></entry>
               <entry>
                 <para>Arată / Ascunde Panoul lateral Coadă</para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>S</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Arată ascunde Glisorul de poziționare al piesei</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>F11</keycap>
-                </keycombo>
-              </entry>
+              <entry><keycombo> <keycap>F11</keycap> </keycombo></entry>
               <entry>
                 <para>Comută / Ieși din modul pe tot ecranul</para>
               </entry>
@@ -1488,33 +968,25 @@
           </thead>
           <tbody>
             <row>
-              <entry lang="en">
-                <keycap>Stop</keycap>
-              </entry>
+              <entry><keycap>Stop</keycap></entry>
               <entry>
                 <para>Stop</para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycap>Pause / Play</keycap>
-              </entry>
+              <entry><keycap>Pauză / Redare</keycap></entry>
               <entry>
                 <para>Pauză / Redare</para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycap>Prev</keycap>
-              </entry>
+              <entry><keycap>Precedenta</keycap></entry>
               <entry>
                 <para>Piesa redată anterior</para>
               </entry>
             </row>
             <row>
-              <entry lang="en">
-                <keycap>Next</keycap>
-              </entry>
+              <entry><keycap>Următoarea</keycap></entry>
               <entry>
                 <para>Piesa următoare</para>
               </entry>
@@ -1539,51 +1011,51 @@
           </thead>
           <tbody>
             <row>
-              <entry lang="en"> <keycap>play</keycap> </entry>
+              <entry><keycap>redă</keycap></entry>
               <entry> <para>Pornește redarea</para> </entry>
             </row>
             <row>
-              <entry lang="en"> <keycap>pause</keycap> </entry>
+              <entry><keycap>pauză</keycap></entry>
               <entry> <para>Pune pauză redării</para> </entry>
             </row>
 	    <row>
-	      <entry lang="en"> <keycap>playpause</keycap> </entry>
+	      <entry><keycap>redă/pauză</keycap></entry>
 	      <entry> <para>Comută între redare și pauză</para> </entry>
 	    </row>
             <row>
-              <entry lang="en"> <keycap>shuffle</keycap> </entry>
+              <entry><keycap>amestecă</keycap></entry>
               <entry> <para>Comută la ordinea de redare amestecată</para> </entry>
             </row>
             <row>
-              <entry lang="en"> <keycap>repeat</keycap> </entry>
+              <entry><keycap>repetă</keycap></entry>
               <entry> <para>Comută la ordinea de redare repetitivă</para> </entry>
             </row>
             <row>
-              <entry lang="en"> <keycap>next</keycap> </entry>
+              <entry><keycap>următoarea</keycap></entry>
               <entry> <para>Salt la piesa următoare</para> </entry>
             </row>
             <row>
-              <entry lang="en"> <keycap>previous</keycap> </entry>
+              <entry><keycap>precedenta</keycap></entry>
               <entry> <para>Salt la piesa precedentă</para> </entry>
             </row>
             <row>
-              <entry lang="en"> <keycap>seek_forward</keycap> </entry>
+              <entry><keycap>derulează_înainte</keycap></entry>
               <entry> <para>Derulează înainte cu 10 secunde în piesa care se redă</para> </entry>
             </row>
             <row>
-              <entry lang="en"> <keycap>seek_backward</keycap> </entry>
+              <entry><keycap>derulează_înapoi</keycap></entry>
               <entry> <para>Derulează înapoi cu 10 secunde în piesa care se redă</para> </entry>
             </row>
             <row>
-              <entry lang="en"> <keycap>volume_up</keycap> </entry>
+              <entry><keycap>crește_volumul</keycap></entry>
               <entry> <para>Crește volumul de redare cu 10%</para> </entry>
             </row>
             <row>
-              <entry lang="en"> <keycap>volume_down</keycap> </entry>
+              <entry><keycap>reduce_volumul</keycap></entry>
               <entry> <para>Reduce volumul de redare cu 10%</para> </entry>
             </row>
             <row>
-              <entry lang="en"> <keycap>mute</keycap> </entry>
+              <entry><keycap>mut</keycap></entry>
               <entry> <para>Redă fără sunet</para> </entry>
             </row>
           </tbody>

@@ -612,11 +612,19 @@ page_notify_cb (GObject *object,
 	gtk_tree_model_row_changed (model, path, &iter);
 	gtk_tree_path_free (path);
 
-	/* update the page group's visibility */
 	if (g_strcmp0 (pspec->name, "visibility") == 0 && RB_IS_DISPLAY_PAGE_GROUP (page) == FALSE) {
-		GtkTreeIter group_iter;
-		walk_up_to_page_group (model, &group_iter, &iter);
-		update_group_visibility (model, &group_iter, page_model);
+		GtkTreeIter piter;
+
+		/* update the parent in case it needs to hide or show its expander */
+		if (gtk_tree_model_iter_parent (model, &piter, &iter)) {
+			path = gtk_tree_model_get_path (model, &piter);
+			gtk_tree_model_row_changed (model, path, &piter);
+			gtk_tree_path_free (path);
+		}
+
+		/* update the page group's visibility */
+		walk_up_to_page_group (model, &piter, &iter);
+		update_group_visibility (model, &piter, page_model);
 	}
 }
 
@@ -742,6 +750,37 @@ rb_display_page_model_find_page (RBDisplayPageModel *page_model, RBDisplayPage *
 	}
 }
 
+/**
+ * rb_display_page_model_find_page_full:
+ * @page_model: the #RBDisplayPageModel
+ * @page: the #RBDisplayPage to find
+ * @iter: returns a #GtkTreeIter for the page
+ *
+ * Finds a #GtkTreeIter for a specified page in the model.  This function
+ * searches the full page model, so it will find pages that are not currently
+ * visible, and the returned iterator can only be used with the child model
+ * (see #gtk_tree_model_filter_get_model).
+ *
+ * Return value: %TRUE if the page was found
+ */
+gboolean
+rb_display_page_model_find_page_full (RBDisplayPageModel *page_model, RBDisplayPage *page, GtkTreeIter *iter)
+{
+	GtkTreeModel *model;
+	DisplayPageIter dpi = {0, };
+	dpi.page = page;
+
+	model = gtk_tree_model_filter_get_model (GTK_TREE_MODEL_FILTER (page_model));
+
+	gtk_tree_model_foreach (model, (GtkTreeModelForeachFunc) match_page_to_iter, &dpi);
+	if (dpi.found) {
+		*iter = dpi.iter;
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+}
+
 static gboolean
 set_playing_flag (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, RBDisplayPage *source)
 {
@@ -828,6 +867,9 @@ rb_display_page_model_new (void)
 static void
 rb_display_page_model_init (RBDisplayPageModel *model)
 {
+	if (!drag_target_list) {
+		drag_target_list = gtk_target_list_new (dnd_targets, G_N_ELEMENTS (dnd_targets));
+	}
 }
 
 static void
@@ -894,10 +936,6 @@ rb_display_page_model_class_init (RBDisplayPageModelClass *klass)
 			      G_TYPE_NONE,
 			      2,
 			      RB_TYPE_DISPLAY_PAGE, GTK_TYPE_TREE_ITER);
-
-	if (!drag_target_list) {
-		drag_target_list = gtk_target_list_new (dnd_targets, G_N_ELEMENTS (dnd_targets));
-	}
 }
 
 /**

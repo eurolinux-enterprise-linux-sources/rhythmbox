@@ -2,36 +2,29 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RBPlaylistManager</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<title>RBPlaylistManager: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch05.html" title="Shell">
 <link rel="prev" href="RBRandomPlayOrder.html" title="RBRandomPlayOrder">
 <link rel="next" href="RBRemovableMediaManager.html" title="RBRemovableMediaManager">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
-<tr valign="middle">
-<td><a accesskey="p" href="RBRandomPlayOrder.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch05.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
-<td><a accesskey="n" href="RBRemovableMediaManager.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
-</tr>
-<tr><td colspan="5" class="shortcuts">
-<a href="#RBPlaylistManager.synopsis" class="shortcut">Top</a>
-                   | 
-                  <a href="#RBPlaylistManager.description" class="shortcut">Description</a>
-                   | 
-                  <a href="#RBPlaylistManager.object-hierarchy" class="shortcut">Object Hierarchy</a>
-                   | 
-                  <a href="#RBPlaylistManager.properties" class="shortcut">Properties</a>
-                   | 
-                  <a href="#RBPlaylistManager.signals" class="shortcut">Signals</a>
-</td></tr>
-</table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBPlaylistManager.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBPlaylistManager.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#RBPlaylistManager.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#RBPlaylistManager.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch05.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RBRandomPlayOrder.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RBRemovableMediaManager.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
 <div class="refentry">
 <a name="RBPlaylistManager"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -39,90 +32,774 @@
 <h2><span class="refentrytitle"><a name="RBPlaylistManager.top_of_page"></a>RBPlaylistManager</span></h2>
 <p>RBPlaylistManager — Playlist management object</p>
 </td>
-<td valign="top" align="right"></td>
+<td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
-<a name="RBPlaylistManager.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">struct              <a class="link" href="RBPlaylistManager.html#RBPlaylistManager-struct" title="struct RBPlaylistManager">RBPlaylistManager</a>;
-struct              <a class="link" href="RBPlaylistManager.html#RBPlaylistManagerClass" title="struct RBPlaylistManagerClass">RBPlaylistManagerClass</a>;
-enum                <a class="link" href="RBPlaylistManager.html#RBPlaylistManagerError" title="enum RBPlaylistManagerError">RBPlaylistManagerError</a>;
-<a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="returnvalue">RBPlaylistManager</span></a> * <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-new" title="rb_playlist_manager_new ()">rb_playlist_manager_new</a>             (<em class="parameter"><code><a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *playlists_file</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-shutdown" title="rb_playlist_manager_shutdown ()">rb_playlist_manager_shutdown</a>        (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-parse-file" title="rb_playlist_manager_parse_file ()">rb_playlist_manager_parse_file</a>      (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-load-playlists" title="rb_playlist_manager_load_playlists ()">rb_playlist_manager_load_playlists</a>  (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-save-playlists" title="rb_playlist_manager_save_playlists ()">rb_playlist_manager_save_playlists</a>  (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> force</code></em>);
-<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-new-playlist" title="rb_playlist_manager_new_playlist ()">rb_playlist_manager_new_playlist</a>    (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *suggested_name</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> automatic</code></em>);
-<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-new-playlist-from-selection-data" title="rb_playlist_manager_new_playlist_from_selection_data ()">rb_playlist_manager_new_playlist_from_selection_data</a>
-                                                        (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkSelectionData</span> *data</code></em>);
-<span class="returnvalue">GList</span> *             <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-get-playlists" title="rb_playlist_manager_get_playlists ()">rb_playlist_manager_get_playlists</a>   (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-get-playlist-names" title="rb_playlist_manager_get_playlist_names ()">rb_playlist_manager_get_playlist_names</a>
-                                                        (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> ***playlists</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-create-static-playlist" title="rb_playlist_manager_create_static_playlist ()">rb_playlist_manager_create_static_playlist</a>
-                                                        (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-delete-playlist" title="rb_playlist_manager_delete_playlist ()">rb_playlist_manager_delete_playlist</a> (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-add-to-playlist" title="rb_playlist_manager_add_to_playlist ()">rb_playlist_manager_add_to_playlist</a> (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-remove-from-playlist" title="rb_playlist_manager_remove_from_playlist ()">rb_playlist_manager_remove_from_playlist</a>
-                                                        (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="RBPlaylistManager.html#rb-playlist-manager-export-playlist" title="rb_playlist_manager_export_playlist ()">rb_playlist_manager_export_playlist</a> (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> m3u_format</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
-</pre>
-</div>
 <div class="refsect1">
-<a name="RBPlaylistManager.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="synopsis">
-  GObject
-   +----RBPlaylistManager
-</pre>
+<a name="RBPlaylistManager.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="returnvalue">RBPlaylistManager</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-new" title="rb_playlist_manager_new ()">rb_playlist_manager_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-shutdown" title="rb_playlist_manager_shutdown ()">rb_playlist_manager_shutdown</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-parse-file" title="rb_playlist_manager_parse_file ()">rb_playlist_manager_parse_file</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-load-playlists" title="rb_playlist_manager_load_playlists ()">rb_playlist_manager_load_playlists</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-save-playlists" title="rb_playlist_manager_save_playlists ()">rb_playlist_manager_save_playlists</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-new-playlist" title="rb_playlist_manager_new_playlist ()">rb_playlist_manager_new_playlist</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-new-playlist-from-selection-data" title="rb_playlist_manager_new_playlist_from_selection_data ()">rb_playlist_manager_new_playlist_from_selection_data</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-get-playlists" title="rb_playlist_manager_get_playlists ()">rb_playlist_manager_get_playlists</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-get-playlist-names" title="rb_playlist_manager_get_playlist_names ()">rb_playlist_manager_get_playlist_names</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-create-static-playlist" title="rb_playlist_manager_create_static_playlist ()">rb_playlist_manager_create_static_playlist</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-delete-playlist" title="rb_playlist_manager_delete_playlist ()">rb_playlist_manager_delete_playlist</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-add-to-playlist" title="rb_playlist_manager_add_to_playlist ()">rb_playlist_manager_add_to_playlist</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-remove-from-playlist" title="rb_playlist_manager_remove_from_playlist ()">rb_playlist_manager_remove_from_playlist</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBPlaylistManager.html#rb-playlist-manager-export-playlist" title="rb_playlist_manager_export_playlist ()">rb_playlist_manager_export_playlist</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="refsect1">
 <a name="RBPlaylistManager.properties"></a><h2>Properties</h2>
-<pre class="synopsis">
-  "<a class="link" href="RBPlaylistManager.html#RBPlaylistManager--playlists-file" title='The "playlists-file" property'>playlists-file</a>"           <span class="type">gchar</span>*                : Read / Write
-  "<a class="link" href="RBPlaylistManager.html#RBPlaylistManager--shell" title='The "shell" property'>shell</a>"                    <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>*              : Read / Write
-  "<a class="link" href="RBPlaylistManager.html#RBPlaylistManager--source" title='The "source" property'>source</a>"                   <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>*             : Read / Write
-</pre>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="RBPlaylistManager.html#RBPlaylistManager--playlists-file" title="The “playlists-file” property">playlists-file</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *</td>
+<td class="property_name"><a class="link" href="RBPlaylistManager.html#RBPlaylistManager--shell" title="The “shell” property">shell</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *</td>
+<td class="property_name"><a class="link" href="RBPlaylistManager.html#RBPlaylistManager--source" title="The “source” property">source</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="refsect1">
 <a name="RBPlaylistManager.signals"></a><h2>Signals</h2>
-<pre class="synopsis">
-  "<a class="link" href="RBPlaylistManager.html#RBPlaylistManager-load-finish" title='The "load-finish" signal'>load-finish</a>"                                    : <code class="literal">Run Last</code>
-  "<a class="link" href="RBPlaylistManager.html#RBPlaylistManager-load-start" title='The "load-start" signal'>load-start</a>"                                     : <code class="literal">Run Last</code>
-  "<a class="link" href="RBPlaylistManager.html#RBPlaylistManager-playlist-added" title='The "playlist-added" signal'>playlist-added</a>"                                 : <code class="literal">Run Last</code>
-  "<a class="link" href="RBPlaylistManager.html#RBPlaylistManager-playlist-created" title='The "playlist-created" signal'>playlist-created</a>"                               : <code class="literal">Run Last</code>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBPlaylistManager.html#RBPlaylistManager-load-finish" title="The “load-finish” signal">load-finish</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBPlaylistManager.html#RBPlaylistManager-load-start" title="The “load-start” signal">load-start</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBPlaylistManager.html#RBPlaylistManager-playlist-added" title="The “playlist-added” signal">playlist-added</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBPlaylistManager.html#RBPlaylistManager-playlist-created" title="The “playlist-created” signal">playlist-created</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBPlaylistManager.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBPlaylistManager.html#RBPlaylistManager-struct" title="struct RBPlaylistManager">RBPlaylistManager</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBPlaylistManager.html#RBPlaylistManagerClass" title="struct RBPlaylistManagerClass">RBPlaylistManagerClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="RBPlaylistManager.html#RBPlaylistManagerError" title="enum RBPlaylistManagerError">RBPlaylistManagerError</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBPlaylistManager.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> RBPlaylistManager
 </pre>
 </div>
 <div class="refsect1">
 <a name="RBPlaylistManager.description"></a><h2>Description</h2>
-<p>
-The playlist manager loads and saves the on-disk playlist file, provides
+<p>The playlist manager loads and saves the on-disk playlist file, provides
 UI actions and a DBus interface for dealing with playlists, and internal
-interfaces for creating playlists.
-</p>
+interfaces for creating playlists.</p>
 </div>
 <div class="refsect1">
-<a name="RBPlaylistManager.details"></a><h2>Details</h2>
+<a name="RBPlaylistManager.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-playlist-manager-new"></a><h3>rb_playlist_manager_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="returnvalue">RBPlaylistManager</span></a> *
+rb_playlist_manager_new (<em class="parameter"><code><a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell</code></em>,
+                         <em class="parameter"><code>const <span class="type">char</span> *playlists_file</code></em>);</pre>
+<p>Creates the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> instance</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>shell</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>playlists_file</p></td>
+<td class="parameter_description"><p>the full path to the playlist file to load</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.6.9.2.6"></a><h4>Returns</h4>
+<p> the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-playlist-manager-shutdown"></a><h3>rb_playlist_manager_shutdown ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_playlist_manager_shutdown (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>);</pre>
+<p>Shuts down the playlist manager, making sure any outstanding playlist save
+operation finishes.</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>mgr</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-playlist-manager-parse-file"></a><h3>rb_playlist_manager_parse_file ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_playlist_manager_parse_file (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
+                                <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Parses a playlist file, adding entries to the database and to a new
+static playlist.  If the playlist file includes a title, the static
+playlist created will have the same title.</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>mgr</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>URI of the playlist to load</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>returns a GError in case of error</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.6.9.4.6"></a><h4>Returns</h4>
+<p> TRUE on success</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-playlist-manager-load-playlists"></a><h3>rb_playlist_manager_load_playlists ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_playlist_manager_load_playlists (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>);</pre>
+<p>Loads the user's playlists, or if the playlist file does not exists,
+reads the default playlist file.  Should be called only once on startup.</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>mgr</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-playlist-manager-save-playlists"></a><h3>rb_playlist_manager_save_playlists ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_playlist_manager_save_playlists (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
+                                    <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> force</code></em>);</pre>
+<p>Saves the user's playlists.  If the force flag is
+TRUE, the playlists will always be saved.  Otherwise, the playlists
+will only be saved if a playlist has been created, modified, or deleted
+since the last time the playlists were saved, and no save operation is
+currently taking place.</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>mgr</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>force</p></td>
+<td class="parameter_description"><p>if TRUE, save playlists synchronously and unconditionally</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.6.9.6.6"></a><h4>Returns</h4>
+<p> TRUE if a playlist save operation has been started</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-playlist-manager-new-playlist"></a><h3>rb_playlist_manager_new_playlist ()</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *
+rb_playlist_manager_new_playlist (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
+                                  <em class="parameter"><code>const <span class="type">char</span> *suggested_name</code></em>,
+                                  <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> automatic</code></em>);</pre>
+<p>Creates a new playlist and adds it to the source list.</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>mgr</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>suggested_name</p></td>
+<td class="parameter_description"><p>optional name to use for the new playlist</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>automatic</p></td>
+<td class="parameter_description"><p>if TRUE, create an auto playlist</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.6.9.7.6"></a><h4>Returns</h4>
+<p> the new playlist object. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-playlist-manager-new-playlist-from-selection-data"></a><h3>rb_playlist_manager_new_playlist_from_selection_data ()</h3>
+<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *
+rb_playlist_manager_new_playlist_from_selection_data
+                               (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
+                                <em class="parameter"><code><span class="type">GtkSelectionData</span> *data</code></em>);</pre>
+<p>Creates a new playlist based on selection data from gtk.
+Used to implement playlist creation through drag and drop
+to the source list.</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.8.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>mgr</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>the <span class="type">GtkSelectionData</span> from which to create a playlist</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.6.9.8.6"></a><h4>Returns</h4>
+<p> the new playlist. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-playlist-manager-get-playlists"></a><h3>rb_playlist_manager_get_playlists ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+rb_playlist_manager_get_playlists (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>);</pre>
+<p>Returns a <a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> containing all local playlist source objects.</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.9.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>mgr</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.6.9.9.6"></a><h4>Returns</h4>
+<p> list of playlists. </p>
+<p><span class="annotation">[<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> RB.Source][<a href="http://foldoc.org/transfer%20container"><span class="acronym">transfer container</span></a>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-playlist-manager-get-playlist-names"></a><h3>rb_playlist_manager_get_playlist_names ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_playlist_manager_get_playlist_names
+                               (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> ***playlists</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Allocates and returns an array containing the names of all local
+playlists.  This is part of the playlist manager dbus interface.</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.10.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>mgr</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>playlists</p></td>
+<td class="parameter_description"><p> holds the array of playlist names on reutrn. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/out%20callee-allocates"><span class="acronym">out callee-allocates</span></a>][<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>holds a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> on return on failure</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.6.9.10.6"></a><h4>Returns</h4>
+<p> TRUE if successful.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-playlist-manager-create-static-playlist"></a><h3>rb_playlist_manager_create_static_playlist ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_playlist_manager_create_static_playlist
+                               (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
+                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Creates a new static playlist source with the given name.
+Will fail if a playlist with that name already exists.
+This is part of the playlist manager dbus interface.</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.11.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>mgr</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>name of the new playlist</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>holds a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> on return on failure</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.6.9.11.6"></a><h4>Returns</h4>
+<p> TRUE if successful.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-playlist-manager-delete-playlist"></a><h3>rb_playlist_manager_delete_playlist ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_playlist_manager_delete_playlist (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
+                                     <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Deletes the specified playlist.  Will fail if no playlist with
+that name exists. This is part of the playlist manager dbus interface.</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.12.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>mgr</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>name of the playlist to delete</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>holds a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> on return on failure</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.6.9.12.6"></a><h4>Returns</h4>
+<p> TRUE if successful.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-playlist-manager-add-to-playlist"></a><h3>rb_playlist_manager_add_to_playlist ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_playlist_manager_add_to_playlist (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
+                                     <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                     <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uri</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Adds an entry to the specified playlist.
+Fails if no playlist with that name exists.
+This is part of the playlist manager dbus interface.</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.13.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>mgr</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>name of the playlist to add to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>URI of the entry to add to the playlist</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>holds a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> on return on failure</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.6.9.13.6"></a><h4>Returns</h4>
+<p> TRUE if successful.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-playlist-manager-remove-from-playlist"></a><h3>rb_playlist_manager_remove_from_playlist ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_playlist_manager_remove_from_playlist
+                               (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
+                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uri</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Removes an entry from the specified playlist.
+Fails if no playlist with that name exists.
+This is part of the playlist manager dbus interface.</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.14.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>mgr</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>name of the playlist to remove from</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>URI of the entry to remove from the playlist</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>holds a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> on return on failure</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.6.9.14.6"></a><h4>Returns</h4>
+<p> TRUE if successful.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-playlist-manager-export-playlist"></a><h3>rb_playlist_manager_export_playlist ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_playlist_manager_export_playlist (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
+                                     <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                     <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uri</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> m3u_format</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Saves the specified playlist to a file in either M3U or PLS format.
+This is part of the playlist manager dbus interface.</p>
+<div class="refsect3">
+<a name="id-1.6.6.9.15.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>mgr</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>name of the playlist to export</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>playlist save location</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>m3u_format</p></td>
+<td class="parameter_description"><p>if TRUE, save in M3U format, otherwise save in PLS format</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>holds a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> on return on failure</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.6.6.9.15.6"></a><h4>Returns</h4>
+<p> TRUE if successful.</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBPlaylistManager.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
 <a name="RBPlaylistManager-struct"></a><h3>struct RBPlaylistManager</h3>
 <pre class="programlisting">struct RBPlaylistManager;</pre>
@@ -148,665 +825,204 @@ interfaces for creating playlists.
 <hr>
 <div class="refsect2">
 <a name="RBPlaylistManagerError"></a><h3>enum RBPlaylistManagerError</h3>
-<pre class="programlisting">typedef enum {
-	RB_PLAYLIST_MANAGER_ERROR_PARSE,
-	RB_PLAYLIST_MANAGER_ERROR_PLAYLIST_EXISTS,
-	RB_PLAYLIST_MANAGER_ERROR_PLAYLIST_NOT_FOUND
-} RBPlaylistManagerError;
-</pre>
 <p>
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
+<div class="refsect3">
+<a name="id-1.6.6.10.4.4"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><a name="RB-PLAYLIST-MANAGER-ERROR-PARSE:CAPS"></a><span class="term"><code class="literal">RB_PLAYLIST_MANAGER_ERROR_PARSE</code></span></p></td>
-<td>
-</td>
+<td class="enum_member_name"><p><a name="RB-PLAYLIST-MANAGER-ERROR-PARSE:CAPS"></a>RB_PLAYLIST_MANAGER_ERROR_PARSE</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
 </tr>
 <tr>
-<td><p><a name="RB-PLAYLIST-MANAGER-ERROR-PLAYLIST-EXISTS:CAPS"></a><span class="term"><code class="literal">RB_PLAYLIST_MANAGER_ERROR_PLAYLIST_EXISTS</code></span></p></td>
-<td>
-</td>
+<td class="enum_member_name"><p><a name="RB-PLAYLIST-MANAGER-ERROR-PLAYLIST-EXISTS:CAPS"></a>RB_PLAYLIST_MANAGER_ERROR_PLAYLIST_EXISTS</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
 </tr>
 <tr>
-<td><p><a name="RB-PLAYLIST-MANAGER-ERROR-PLAYLIST-NOT-FOUND:CAPS"></a><span class="term"><code class="literal">RB_PLAYLIST_MANAGER_ERROR_PLAYLIST_NOT_FOUND</code></span></p></td>
-<td>
-</td>
+<td class="enum_member_name"><p><a name="RB-PLAYLIST-MANAGER-ERROR-PLAYLIST-NOT-FOUND:CAPS"></a>RB_PLAYLIST_MANAGER_ERROR_PLAYLIST_NOT_FOUND</p></td>
+<td class="enum_member_description"> </td>
+<td class="enum_member_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-new"></a><h3>rb_playlist_manager_new ()</h3>
-<pre class="programlisting"><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="returnvalue">RBPlaylistManager</span></a> * rb_playlist_manager_new             (<em class="parameter"><code><a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *playlists_file</code></em>);</pre>
-<p>
-Creates the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> instance
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
-<td>the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>playlists_file</code></em> :</span></p></td>
-<td>the full path to the playlist file to load</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-shutdown"></a><h3>rb_playlist_manager_shutdown ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_playlist_manager_shutdown        (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>);</pre>
-<p>
-Shuts down the playlist manager, making sure any outstanding playlist save
-operation finishes.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-parse-file"></a><h3>rb_playlist_manager_parse_file ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_playlist_manager_parse_file      (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
-<p>
-Parses a playlist file, adding entries to the database and to a new
-static playlist.  If the playlist file includes a title, the static
-playlist created will have the same title.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
-<td>URI of the playlist to load</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
-<td>returns a GError in case of error</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>TRUE on success</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-load-playlists"></a><h3>rb_playlist_manager_load_playlists ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_playlist_manager_load_playlists  (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>);</pre>
-<p>
-Loads the user's playlists, or if the playlist file does not exists,
-reads the default playlist file.  Should be called only once on startup.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-save-playlists"></a><h3>rb_playlist_manager_save_playlists ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_playlist_manager_save_playlists  (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> force</code></em>);</pre>
-<p>
-Saves the user's playlists.  If the force flag is
-TRUE, the playlists will always be saved.  Otherwise, the playlists
-will only be saved if a playlist has been created, modified, or deleted
-since the last time the playlists were saved, and no save operation is
-currently taking place.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>force</code></em> :</span></p></td>
-<td>if TRUE, save playlists synchronously and unconditionally</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>TRUE if a playlist save operation has been started</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-new-playlist"></a><h3>rb_playlist_manager_new_playlist ()</h3>
-<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          rb_playlist_manager_new_playlist    (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *suggested_name</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> automatic</code></em>);</pre>
-<p>
-Creates a new playlist and adds it to the source list.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>suggested_name</code></em> :</span></p></td>
-<td>optional name to use for the new playlist</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>automatic</code></em> :</span></p></td>
-<td>if TRUE, create an auto playlist</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the new playlist object. <span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-new-playlist-from-selection-data"></a><h3>rb_playlist_manager_new_playlist_from_selection_data ()</h3>
-<pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *          rb_playlist_manager_new_playlist_from_selection_data
-                                                        (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkSelectionData</span> *data</code></em>);</pre>
-<p>
-Creates a new playlist based on selection data from gtk.
-Used to implement playlist creation through drag and drop
-to the source list.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
-<td>the <span class="type">GtkSelectionData</span> from which to create a playlist</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the new playlist. <span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-get-playlists"></a><h3>rb_playlist_manager_get_playlists ()</h3>
-<pre class="programlisting"><span class="returnvalue">GList</span> *             rb_playlist_manager_get_playlists   (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>);</pre>
-<p>
-Returns a <span class="type">GList</span> containing all local playlist source objects.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>list of playlists. <span class="annotation">[<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> RB.Source][<a href="http://foldoc.org/transfer%20container"><span class="acronym">transfer container</span></a>]</span>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-get-playlist-names"></a><h3>rb_playlist_manager_get_playlist_names ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_playlist_manager_get_playlist_names
-                                                        (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> ***playlists</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
-<p>
-Allocates and returns an array containing the names of all local
-playlists.  This is part of the playlist manager dbus interface.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>playlists</code></em> :</span></p></td>
-<td>holds the array of playlist names on reutrn. <span class="annotation">[<a href="http://foldoc.org/out%20callee-allocates"><span class="acronym">out callee-allocates</span></a>][<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
-<td>holds a <span class="type">GError</span> on return on failure</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>TRUE if successful.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-create-static-playlist"></a><h3>rb_playlist_manager_create_static_playlist ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_playlist_manager_create_static_playlist
-                                                        (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
-<p>
-Creates a new static playlist source with the given name.
-Will fail if a playlist with that name already exists.
-This is part of the playlist manager dbus interface.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
-<td>name of the new playlist</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
-<td>holds a <span class="type">GError</span> on return on failure</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>TRUE if successful.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-delete-playlist"></a><h3>rb_playlist_manager_delete_playlist ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_playlist_manager_delete_playlist (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
-<p>
-Deletes the specified playlist.  Will fail if no playlist with
-that name exists. This is part of the playlist manager dbus interface.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
-<td>name of the playlist to delete</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
-<td>holds a <span class="type">GError</span> on return on failure</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>TRUE if successful.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-add-to-playlist"></a><h3>rb_playlist_manager_add_to_playlist ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_playlist_manager_add_to_playlist (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
-<p>
-Adds an entry to the specified playlist.
-Fails if no playlist with that name exists.
-This is part of the playlist manager dbus interface.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
-<td>name of the playlist to add to</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
-<td>URI of the entry to add to the playlist</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
-<td>holds a <span class="type">GError</span> on return on failure</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>TRUE if successful.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-remove-from-playlist"></a><h3>rb_playlist_manager_remove_from_playlist ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_playlist_manager_remove_from_playlist
-                                                        (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
-<p>
-Removes an entry from the specified playlist.
-Fails if no playlist with that name exists.
-This is part of the playlist manager dbus interface.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
-<td>name of the playlist to remove from</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
-<td>URI of the entry to remove from the playlist</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
-<td>holds a <span class="type">GError</span> on return on failure</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>TRUE if successful.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-playlist-manager-export-playlist"></a><h3>rb_playlist_manager_export_playlist ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_playlist_manager_export_playlist (<em class="parameter"><code><a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *mgr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> m3u_format</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
-<p>
-Saves the specified playlist to a file in either M3U or PLS format.
-This is part of the playlist manager dbus interface.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>mgr</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
-<td>name of the playlist to export</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
-<td>playlist save location</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>m3u_format</code></em> :</span></p></td>
-<td>if TRUE, save in M3U format, otherwise save in PLS format</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
-<td>holds a <span class="type">GError</span> on return on failure</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>TRUE if successful.</td>
-</tr>
-</tbody>
-</table></div>
 </div>
 </div>
 <div class="refsect1">
 <a name="RBPlaylistManager.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
-<a name="RBPlaylistManager--playlists-file"></a><h3>The <code class="literal">"playlists-file"</code> property</h3>
-<pre class="programlisting">  "playlists-file"           <span class="type">gchar</span>*                : Read / Write</pre>
+<a name="RBPlaylistManager--playlists-file"></a><h3>The <code class="literal">“playlists-file”</code> property</h3>
+<pre class="programlisting">  “playlists-file”           <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
 <p>playlists file.</p>
+<p>Flags: Read / Write</p>
 <p>Default value: NULL</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RBPlaylistManager--shell"></a><h3>The <code class="literal">"shell"</code> property</h3>
-<pre class="programlisting">  "shell"                    <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>*              : Read / Write</pre>
+<a name="RBPlaylistManager--shell"></a><h3>The <code class="literal">“shell”</code> property</h3>
+<pre class="programlisting">  “shell”                    <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *</pre>
 <p>RBShell object.</p>
+<p>Flags: Read / Write</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RBPlaylistManager--source"></a><h3>The <code class="literal">"source"</code> property</h3>
-<pre class="programlisting">  "source"                   <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>*             : Read / Write</pre>
+<a name="RBPlaylistManager--source"></a><h3>The <code class="literal">“source”</code> property</h3>
+<pre class="programlisting">  “source”                   <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *</pre>
 <p>RBSource object.</p>
+<p>Flags: Read / Write</p>
 </div>
 </div>
 <div class="refsect1">
 <a name="RBPlaylistManager.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
-<a name="RBPlaylistManager-load-finish"></a><h3>The <code class="literal">"load-finish"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *manager,
-                                                        <span class="type">gpointer</span>           user_data)      : <code class="literal">Run Last</code></pre>
-<p>
-Emitted when the playlist manager finishes loading the user's
-playlist file.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="RBPlaylistManager-load-finish"></a><h3>The <code class="literal">“load-finish”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *manager,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>Emitted when the playlist manager finishes loading the user's
+playlist file.</p>
+<div class="refsect3">
+<a name="id-1.6.6.12.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>manager</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
 <hr>
 <div class="refsect2">
-<a name="RBPlaylistManager-load-start"></a><h3>The <code class="literal">"load-start"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *manager,
-                                                        <span class="type">gpointer</span>           user_data)      : <code class="literal">Run Last</code></pre>
-<p>
-Emitted when the playlist manager starts loading the user's
-playlist file.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="RBPlaylistManager-load-start"></a><h3>The <code class="literal">“load-start”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *manager,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>Emitted when the playlist manager starts loading the user's
+playlist file.</p>
+<div class="refsect3">
+<a name="id-1.6.6.12.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>manager</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
 <hr>
 <div class="refsect2">
-<a name="RBPlaylistManager-playlist-added"></a><h3>The <code class="literal">"playlist-added"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *manager,
-                                                        <span class="type">GObject</span>           *source,
-                                                        <span class="type">gpointer</span>           user_data)      : <code class="literal">Run Last</code></pre>
-<p>
-Emitted when a playlist is added, including when being loaded
-from the user's playlist file.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="RBPlaylistManager-playlist-added"></a><h3>The <code class="literal">“playlist-added”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *manager,
+               <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>           *source,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>Emitted when a playlist is added, including when being loaded
+from the user's playlist file.</p>
+<div class="refsect3">
+<a name="id-1.6.6.12.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>manager</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
-<td>the new <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
-</td>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>the new <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
 <hr>
 <div class="refsect2">
-<a name="RBPlaylistManager-playlist-created"></a><h3>The <code class="literal">"playlist-created"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *manager,
-                                                        <span class="type">GObject</span>           *source,
-                                                        <span class="type">gpointer</span>           user_data)      : <code class="literal">Run Last</code></pre>
-<p>
-Emitted when a new playlist is created.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="RBPlaylistManager-playlist-created"></a><h3>The <code class="literal">“playlist-created”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a> *manager,
+               <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>           *source,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>Emitted when a new playlist is created.</p>
+<div class="refsect3">
+<a name="id-1.6.6.12.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>manager</code></em> :</span></p></td>
-<td>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a>
-</td>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBPlaylistManager.html" title="RBPlaylistManager"><span class="type">RBPlaylistManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
-<td>the newly created playlist <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a>
-</td>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>the newly created playlist <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.18.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

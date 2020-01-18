@@ -12,9 +12,7 @@
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
+ * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <glib.h>
@@ -75,6 +73,7 @@ struct _MPIDDevice
 	GObject parent;
 
 	char *input_path;
+	char *mpi_file;
 
 	MPIDError error;
 	MPIDSource source;
@@ -102,6 +101,7 @@ GType			mpid_device_get_type (void);
 void			mpid_enable_debug (gboolean debug);
 
 MPIDDevice *		mpid_device_new (const char *path);
+MPIDDevice *		mpid_device_new_from_mpi_file (const char *path);
 
 G_END_DECLS
 

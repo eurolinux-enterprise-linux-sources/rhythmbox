@@ -75,7 +75,7 @@ static void rb_mtp_source_get_property (GObject *object,
 			                GValue *value,
 			                GParamSpec *pspec);
 
-static void impl_delete (RBSource *asource);
+static void impl_delete_selected (RBSource *asource);
 static RBTrackTransferBatch *impl_paste (RBSource *asource, GList *entries);
 static gboolean impl_uri_is_source (RBSource *asource, const char *uri);
 
@@ -189,20 +189,20 @@ rb_mtp_source_class_init (RBMtpSourceClass *klass)
 
 	page_class->selected = impl_selected;
 
-	source_class->impl_can_delete = (RBSourceFeatureFunc) rb_true_function;
-	source_class->impl_can_paste = (RBSourceFeatureFunc) rb_true_function;
-	source_class->impl_can_move_to_trash = (RBSourceFeatureFunc) rb_false_function;
-	source_class->impl_can_copy = (RBSourceFeatureFunc) rb_true_function;
-	source_class->impl_can_cut = (RBSourceFeatureFunc) rb_false_function;
-	source_class->impl_delete = impl_delete;
-	source_class->impl_paste = impl_paste;
-	source_class->impl_uri_is_source = impl_uri_is_source;
+	source_class->can_delete = (RBSourceFeatureFunc) rb_true_function;
+	source_class->can_paste = (RBSourceFeatureFunc) rb_true_function;
+	source_class->can_move_to_trash = (RBSourceFeatureFunc) rb_false_function;
+	source_class->can_copy = (RBSourceFeatureFunc) rb_true_function;
+	source_class->can_cut = (RBSourceFeatureFunc) rb_false_function;
+	source_class->delete_selected = impl_delete_selected;
+	source_class->paste = impl_paste;
+	source_class->uri_is_source = impl_uri_is_source;
 
-	mps_class->impl_get_entries = impl_get_entries;
-	mps_class->impl_get_capacity = impl_get_capacity;
-	mps_class->impl_get_free_space = impl_get_free_space;
-	mps_class->impl_delete_entries = impl_delete_entries;
-	mps_class->impl_show_properties = impl_show_properties;
+	mps_class->get_entries = impl_get_entries;
+	mps_class->get_capacity = impl_get_capacity;
+	mps_class->get_free_space = impl_get_free_space;
+	mps_class->delete_entries = impl_delete_entries;
+	mps_class->show_properties = impl_show_properties;
 
 	g_object_class_install_property (object_class,
 					 PROP_RAW_DEVICE,
@@ -374,10 +374,6 @@ rb_mtp_source_constructed (GObject *object)
 	RBShell *shell;
 	RBShellPlayer *shell_player;
 	GObject *player_backend;
-	GtkIconTheme *theme;
-	GdkPixbuf *pixbuf;
-	gint size;
-
 
 	RB_CHAIN_GOBJECT_METHOD (rb_mtp_source_parent_class, constructed, object);
 	source = RB_MTP_SOURCE (object);
@@ -409,14 +405,7 @@ rb_mtp_source_constructed (GObject *object)
 				 G_CALLBACK (prepare_encoder_sink_cb),
 				 source, 0);
 
-	/* icon */
-	theme = gtk_icon_theme_get_default ();
-	gtk_icon_size_lookup (GTK_ICON_SIZE_LARGE_TOOLBAR, &size, NULL);
-	pixbuf = gtk_icon_theme_load_icon (theme, "multimedia-player", size, 0, NULL);
-
-	g_object_set (source, "pixbuf", pixbuf, NULL);
-	g_object_unref (pixbuf);
-
+	rb_display_page_set_icon_name (RB_DISPLAY_PAGE (source), "multimedia-player-symbolic");
 }
 
 static void
@@ -610,6 +599,7 @@ rb_mtp_source_new (RBShell *shell,
 #endif
 					      "load-status", RB_SOURCE_LOAD_STATUS_LOADING,
 					      "settings", g_settings_get_child (settings, "source"),
+					      "encoding-settings", g_settings_get_child (settings, "encoding"),
 					      "toolbar-menu", toolbar,
 					      "name", _("Media Player"),
 					      NULL));
@@ -630,7 +620,7 @@ update_free_space_cb (LIBMTP_mtpdevice_t *device, RBMtpSource *source)
 
 	ret = LIBMTP_Get_Storage (device, LIBMTP_STORAGE_SORTBY_NOTSORTED);
 	if (ret != 0) {
-		rb_mtp_thread_report_errors (priv->device_thread, FALSE);
+		rb_mtp_thread_report_errors (priv->device_thread);
 	}
 
 	/* probably need a lock for this.. */
@@ -966,7 +956,7 @@ mtp_device_open_cb (LIBMTP_mtpdevice_t *device, RBMtpSource *source)
 	 * MTP devices that aren't interesting to us.
 	 */
 	if (LIBMTP_Get_Supported_Filetypes (device, &data->types, &data->num_types) != 0) {
-		rb_mtp_thread_report_errors (priv->device_thread, FALSE);
+		rb_mtp_thread_report_errors (priv->device_thread);
 	} else {
 		int i;
 		for (i = 0; i < data->num_types; i++) {
@@ -992,8 +982,12 @@ mtp_device_open_cb (LIBMTP_mtpdevice_t *device, RBMtpSource *source)
 static gboolean
 device_loaded_idle (RBMtpSource *source)
 {
+	GSettings *settings;
+
 	g_object_set (source, "load-status", RB_SOURCE_LOAD_STATUS_LOADED, NULL);
-	rb_transfer_target_transfer (RB_TRANSFER_TARGET (source), NULL, FALSE);
+	g_object_get (source, "encoding-settings", &settings, NULL);
+	rb_transfer_target_transfer (RB_TRANSFER_TARGET (source), settings, NULL, FALSE);
+	g_object_unref (settings);
 	return FALSE;
 }
 
@@ -1055,7 +1049,7 @@ media_type_to_filetype (RBMtpSource *source, const char *media_type)
 }
 
 static void
-impl_delete (RBSource *source)
+impl_delete_selected (RBSource *source)
 {
 	GList *sel;
 	RBEntryView *songs;
@@ -1088,8 +1082,14 @@ static RBTrackTransferBatch *
 impl_paste (RBSource *source, GList *entries)
 {
 	gboolean defer;
+	RBTrackTransferBatch *batch;
+	GSettings *settings;
+
 	defer = (ensure_loaded (RB_MTP_SOURCE (source)) == FALSE);
-	return rb_transfer_target_transfer (RB_TRANSFER_TARGET (source), entries, defer);
+	g_object_get (source, "encoding-settings", &settings, NULL);
+	batch = rb_transfer_target_transfer (RB_TRANSFER_TARGET (source), settings, entries, defer);
+	g_object_unref (settings);
+	return batch;
 }
 
 static RhythmDB *
@@ -1106,7 +1106,7 @@ get_db_for_source (RBMtpSource *source)
 }
 
 static void
-art_request_cb (RBExtDBKey *key, const char *filename, GValue *data, RBMtpSource *source)
+art_request_cb (RBExtDBKey *key, RBExtDBKey *store_key, const char *filename, GValue *data, RBMtpSource *source)
 {
 	RBMtpSourcePrivate *priv = MTP_SOURCE_GET_PRIVATE (source);
 
@@ -1186,13 +1186,6 @@ impl_track_add_error (RBTransferTarget *target,
 }
 
 static void
-sanitize_for_mtp (char *str)
-{
-	rb_sanitize_path_for_msdos_filesystem (str);
-	g_strdelimit (str, "/", '_');
-}
-
-static void
 prepare_encoder_sink_cb (RBEncoderFactory *factory,
 			 const char *stream_uri,
 			 GObject *sink,
@@ -1263,9 +1256,9 @@ prepare_encoder_sink_cb (RBEncoderFactory *factory,
 	folder_path[1] = rhythmdb_entry_dup_string (entry, RHYTHMDB_PROP_ALBUM);
 
 	/* ensure the filename is safe for FAT filesystems and doesn't contain slashes */
-	sanitize_for_mtp (track->filename);
-	sanitize_for_mtp (folder_path[0]);
-	sanitize_for_mtp (folder_path[1]);
+	rb_sanitize_path_for_msdos_filesystem (track->filename);
+	rb_sanitize_path_for_msdos_filesystem (folder_path[0]);
+	rb_sanitize_path_for_msdos_filesystem (folder_path[1]);
 
 	if (rhythmdb_entry_get_ulong (entry, RHYTHMDB_PROP_DATE) > 0) {
 		g_date_set_julian (&d, rhythmdb_entry_get_ulong (entry, RHYTHMDB_PROP_DATE));

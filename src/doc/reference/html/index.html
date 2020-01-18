@@ -2,11 +2,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Rhythmbox Development Reference Manual</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<title>Rhythmbox Development Reference Manual: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="next" href="ch01.html" title="Backends">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -15,14 +15,11 @@
 <div><div><table class="navigation" id="top" width="100%" cellpadding="2" cellspacing="0"><tr><th valign="middle"><p class="title">Rhythmbox Development Reference Manual</p></th></tr></table></div></div>
 <hr>
 </div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="chapter"><a href="ch01.html">Backends</a></span></dt>
 <dd><dl>
 <dt>
 <span class="refentrytitle"><a href="RBPlayer.html">RBPlayer</a></span><span class="refpurpose"> — playback backend interface</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="RBPlayerGstDataTee.html">RBPlayerGstDataTee</a></span><span class="refpurpose"> — player interface for processing raw data</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="RBPlayerGstFilter.html">RBPlayerGstFilter</a></span><span class="refpurpose"> — player interface for inserting filter elements</span>
@@ -88,7 +85,7 @@
 <span class="refentrytitle"><a href="RhythmDBPropertyModel.html">RhythmDBPropertyModel</a></span><span class="refpurpose"> — tree model grouping entries from a query model by property values</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="RhythmDBQueryModel.html">RhythmDBQueryModel</a></span><span class="refpurpose">a <span class="type">GtkTreeModel</span> containing <span class="type">RhythmDBEntry</span> items</span>
+<span class="refentrytitle"><a href="RhythmDBQueryModel.html">RhythmDBQueryModel</a></span><span class="refpurpose"> — a <span class="type">GtkTreeModel</span> containing <span class="type">RhythmDBEntry</span> items</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="RhythmDBQueryResults.html">RhythmDBQueryResults</a></span><span class="refpurpose"> — interface for receiving query results from RhythmDB</span>
@@ -157,7 +154,7 @@
 <span class="refentrytitle"><a href="RBDisplayPageModel.html">RBDisplayPageModel</a></span><span class="refpurpose"> — models backing the display page tree</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="RBDisplayPageTree.html">RBDisplayPageTree</a></span><span class="refpurpose">widget displaying the tree of <span class="type">RBDisplayPage</span> instances</span>
+<span class="refentrytitle"><a href="RBDisplayPageTree.html">RBDisplayPageTree</a></span><span class="refpurpose"> — widget displaying the tree of <span class="type">RBDisplayPage</span> instances</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="RBImportErrorsSource.html">RBImportErrorsSource</a></span><span class="refpurpose"> — source for displaying import errors</span>
@@ -196,16 +193,16 @@
 <dt><span class="chapter"><a href="ch07.html">Widgets</a></span></dt>
 <dd><dl>
 <dt>
-<span class="refentrytitle"><a href="RBCellRendererPixbuf.html">RBCellRendererPixbuf</a></span><span class="refpurpose"><span class="type">GtkCellRenderer</span> for displaying pixbufs in tree views</span>
+<span class="refentrytitle"><a href="RBCellRendererPixbuf.html">RBCellRendererPixbuf</a></span><span class="refpurpose"> — <span class="type">GtkCellRenderer</span> for displaying pixbufs in tree views</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="RBCellRendererRating.html">RBCellRendererRating</a></span><span class="refpurpose">a <span class="type">GtkCellRenderer</span> for displaying song ratings</span>
+<span class="refentrytitle"><a href="RBCellRendererRating.html">RBCellRendererRating</a></span><span class="refpurpose"> — a <span class="type">GtkCellRenderer</span> for displaying song ratings</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="rhythmbox-rb-dialog.html">rb-dialog</a></span><span class="refpurpose"> — helper functions for creating gtk+ dialog windows</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="RBEntryView.html">RBEntryView</a></span><span class="refpurpose">a <span class="type">GtkTreeView</span> for displaying track listings</span>
+<span class="refentrytitle"><a href="RBEntryView.html">RBEntryView</a></span><span class="refpurpose"> — a <span class="type">GtkTreeView</span> for displaying track listings</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="RBHeader.html">RBHeader</a></span><span class="refpurpose"> — playback area widgetry</span>
@@ -214,7 +211,7 @@
 <span class="refentrytitle"><a href="RBLibraryBrowser.html">RBLibraryBrowser</a></span><span class="refpurpose"> — album/artist/genre browser widget</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="RBPropertyView.html">RBPropertyView</a></span><span class="refpurpose">a <span class="type">GtkTreeView</span> backed by a <span class="type">RhythmDBPropertyModel</span></span>
+<span class="refentrytitle"><a href="RBPropertyView.html">RBPropertyView</a></span><span class="refpurpose"> — a <span class="type">GtkTreeView</span> backed by a <span class="type">RhythmDBPropertyModel</span></span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="RBQueryCreator.html">RBQueryCreator</a></span><span class="refpurpose"> — database query creator widget</span>
@@ -238,7 +235,6 @@
 </dl></div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.18.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

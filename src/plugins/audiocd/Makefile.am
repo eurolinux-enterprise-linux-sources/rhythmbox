@@ -18,7 +18,7 @@ libaudiocd_la_LIBADD = \
 	$(top_builddir)/shell/librhythmbox-core.la	\
 	$(TOTEM_PLPARSER_LIBS)
 
-INCLUDES = 						\
+AM_CPPFLAGS = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -37,9 +37,7 @@ INCLUDES = 						\
 	-DSHARE_DIR=\"$(pkgdatadir)\"                   \
 	-DDATADIR=\""$(datadir)"\"			\
 	$(TOTEM_PLPARSER_CFLAGS)			\
-	$(RHYTHMBOX_CFLAGS)				\
-	-DUSE_TOTEM_PL_PARSER				\
-	-D_BSD_SOURCE
+	$(RHYTHMBOX_CFLAGS)
 
 libaudiocd_la_LIBADD += $(NULL)
 

@@ -43,7 +43,6 @@
 #include <gtk/gtk.h>
 
 #include <libsoup/soup.h>
-#include <libsoup/soup-gnome.h>
 
 #include "rb-audioscrobbler.h"
 #include "rb-debug.h"
@@ -55,7 +54,6 @@
 #include "rb-cut-and-paste-code.h"
 #include "rb-util.h"
 #include "rb-podcast-entry-types.h"
-#include "rb-marshal.h"
 #include "rb-audioscrobbler-entry.h"
 
 #define CLIENT_ID "rbx"
@@ -309,7 +307,7 @@ rb_audioscrobbler_class_init (RBAudioscrobblerClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (RBAudioscrobblerClass, statistics_changed),
 			      NULL, NULL,
-			      rb_marshal_VOID__STRING_UINT_UINT_STRING,
+			      NULL,
 			      G_TYPE_NONE,
 		              4,
 			      G_TYPE_STRING,
@@ -804,7 +802,8 @@ rb_audioscrobbler_perform (RBAudioscrobbler *audioscrobbler,
 	if (!audioscrobbler->priv->soup_session) {
 		audioscrobbler->priv->soup_session =
 			soup_session_async_new_with_options (
-					SOUP_SESSION_ADD_FEATURE_BY_TYPE, SOUP_TYPE_GNOME_FEATURES_2_26,
+					SOUP_SESSION_ADD_FEATURE_BY_TYPE,
+					SOUP_TYPE_PROXY_RESOLVER_DEFAULT,
 					NULL);
 	}
 

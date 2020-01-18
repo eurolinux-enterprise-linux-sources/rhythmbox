@@ -487,9 +487,7 @@ volume_added_cb (GVolumeMonitor *monitor,
 		 GVolume *volume,
 		 RBRemovableMediaManager *mgr)
 {
-	GDK_THREADS_ENTER ();
 	rb_removable_media_manager_add_volume (mgr, volume);
-	GDK_THREADS_LEAVE ();
 }
 
 static void
@@ -497,9 +495,7 @@ volume_removed_cb (GVolumeMonitor *monitor,
 		   GVolume *volume,
 		   RBRemovableMediaManager *mgr)
 {
-	GDK_THREADS_ENTER ();
 	rb_removable_media_manager_remove_volume (mgr, volume);
-	GDK_THREADS_LEAVE ();
 }
 
 static void
@@ -507,9 +503,7 @@ mount_added_cb (GVolumeMonitor *monitor,
 		GMount *mount,
 		RBRemovableMediaManager *mgr)
 {
-	GDK_THREADS_ENTER ();
 	rb_removable_media_manager_add_mount (mgr, mount);
-	GDK_THREADS_LEAVE ();
 }
 
 static void
@@ -527,8 +521,6 @@ uevent_cb (GUdevClient *client, const char *action, GUdevDevice *device, RBRemov
 {
 	RBRemovableMediaManagerPrivate *priv = GET_PRIVATE (mgr);
 	guint64 devnum;
-
-	GDK_THREADS_ENTER ();
 
 	devnum = (guint64) g_udev_device_get_device_number (device);
 	rb_debug ("%s event for %s (%"G_GINT64_MODIFIER"x)", action,
@@ -559,8 +551,6 @@ uevent_cb (GUdevClient *client, const char *action, GUdevDevice *device, RBRemov
 			rb_display_page_delete_thyself (RB_DISPLAY_PAGE (source));
 		}
 	}
-
-	GDK_THREADS_LEAVE ();
 }
 #endif
 
@@ -868,5 +858,84 @@ rb_removable_media_manager_scan (RBRemovableMediaManager *manager)
 		uevent_cb (priv->gudev_client, "add", G_UDEV_DEVICE (it->data), manager);
 	}
 	g_list_free (list);
+#endif
+}
+
+/**
+ * rb_removable_media_manager_get_gudev_device:
+ * @manager: the #RBRemovableMediaManager
+ * @volume: the #GVolume
+ *
+ * Finds the #GUdevDevice for the volume.
+ *
+ * Return value: (transfer full): the #GUDevDevice instance, if any
+ */
+GObject *
+rb_removable_media_manager_get_gudev_device (RBRemovableMediaManager *manager, GVolume *volume)
+{
+#if defined(HAVE_GUDEV)
+	RBRemovableMediaManagerPrivate *priv = GET_PRIVATE (manager);
+	char *devpath;
+	GUdevDevice *udevice = NULL;
+
+	devpath = g_volume_get_identifier (volume, G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
+	if (devpath != NULL)
+		udevice = g_udev_client_query_by_device_file (priv->gudev_client, devpath);
+
+	g_free (devpath);
+	return G_OBJECT (udevice);
+#else
+	return NULL;
+#endif
+}
+
+/**
+ * rb_removable_media_manager_device_is_android:
+ * @manager: the #RBRemovableMediaManager
+ * @device: the #GUdevDevice to query
+ *
+ * Determines whether the specified device looks like an Android device.
+ *
+ * Return value: %TRUE if the device appears to be Android-based
+ */
+gboolean
+rb_removable_media_manager_device_is_android (RBRemovableMediaManager *manager, GObject *device)
+{
+#if defined(HAVE_GUDEV)
+	gboolean match;
+	const char *model;
+	const char *vendor;
+	int i;
+
+	const char *androids[] = {
+		"Android",
+		"Nexus"
+	};
+	const char *android_vendors[] = {
+		"motorola",
+		"OnePlus"
+	};
+
+	match = FALSE;
+
+	model = g_udev_device_get_property (G_UDEV_DEVICE (device), "ID_MODEL");
+	if (model != NULL) {
+		for (i = 0; i < G_N_ELEMENTS (androids); i++) {
+			if (strstr (model, androids[i]))
+				match = TRUE;
+		}
+	}
+
+	vendor = g_udev_device_get_property (G_UDEV_DEVICE (device), "ID_VENDOR");
+	if (vendor != NULL) {
+		for (i = 0; i < G_N_ELEMENTS (android_vendors); i++) {
+			if (strstr (vendor, android_vendors[i]))
+				match = TRUE;
+		}
+	}
+
+	return match;
+#else
+	return FALSE;
 #endif
 }

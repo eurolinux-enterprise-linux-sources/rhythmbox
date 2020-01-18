@@ -15,7 +15,7 @@ libnotification_la_LIBADD = 				\
 	$(NOTIFY_LIBS)					\
 	$(NULL)
 
-INCLUDES = 						\
+AM_CPPFLAGS = 						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Rhythmbox\"		 	\
 	-I$(top_srcdir) 				\
@@ -30,8 +30,7 @@ INCLUDES = 						\
 	-DSHARE_DIR=\"$(pkgdatadir)\"                   \
 	-DDATADIR=\""$(datadir)"\"			\
 	$(RHYTHMBOX_CFLAGS)				\
-	$(NOTIFY_CFLAGS)				\
-	-D_BSD_SOURCE
+	$(NOTIFY_CFLAGS)
 
 plugin_in_files = notification.plugin.in
 

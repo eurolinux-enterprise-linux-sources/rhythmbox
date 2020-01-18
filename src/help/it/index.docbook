@@ -747,7 +747,11 @@
   </sect1>
   <sect1 id="podcast">
   	<title>Sorgenti podcast</title>
-    <para>I podcast sono un nuovo strumento per diffondere contenuti audio attraverso la rete. Quando un autore pubblica un episodio, gli abbonati ai podcast vengono avvisati attraverso un feed XML.</para>
+    <para lang="en">
+		Podcasting is a new way to broadcast audio content over the web; when an
+		author publishes an episode, podcast subscribers are informed, through an
+		XML feed.
+	</para>
     <para lang="en">
 		Rhythmbox Music Player enables you to subscribe to podcast feeds, so when a new episode
 		is available you'll be informed, it will download this episode and it
@@ -1332,7 +1336,7 @@
               <entry lang="en">
                 <keycombo>
                   <keycap>Ctrl</keycap>
-                  <keycap>Space</keycap>
+                  <keycap>p</keycap>
                 </keycombo>
               </entry>
               <entry>
@@ -1342,7 +1346,7 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Alt</keycap>
+                  <keycap>Ctrl</keycap>
                   <keycap>Left</keycap>
                 </keycombo>
               </entry>
@@ -1353,12 +1357,34 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Alt</keycap>
+                  <keycap>Ctrl</keycap>
                   <keycap>Right</keycap>
                 </keycombo>
               </entry>
               <entry>
                 <para>Salta alla traccia successiva</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>Up</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para lang="en">Increase playback volume</para>
+              </entry>
+            </row>
+            <row>
+              <entry lang="en">
+                <keycombo>
+                  <keycap>Ctrl</keycap>
+                  <keycap>Down</keycap>
+                </keycombo>
+              </entry>
+              <entry>
+                <para lang="en">Decrease playback volume</para>
               </entry>
             </row>
             <row>
@@ -1431,30 +1457,21 @@
               <entry>
                 <para>Salta alla canzone in riproduzione</para>
               </entry>
-            </row>
+	    </row>
+	    <!--
             <row>
-              <entry lang="en">
+              <entry>
                 <keycombo>
                   <keycap>Ctrl</keycap>
                   <keycap>Y</keycap>
                 </keycombo>
               </entry>
               <entry>
-                <para>Azzera tutti i campi di ricerca e rimuove tutti i filtri nel catalogo</para>
+                <para>Clear the search field text and remove all filters in the browser</para>
               </entry>
-            </row>
+	    </row>
+            -->
             <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>N</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Crea una nuova scaletta</para>
-              </entry>
-            </row>
-           <row>
               <entry lang="en">
                 <keycombo>
                   <keycap>Alt</keycap>
@@ -1463,17 +1480,6 @@
               </entry>
               <entry>
                 <para lang="en">Jump to search field</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>O</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Aggiunge una cartella alla libreria</para>
               </entry>
             </row>
             <row>
@@ -1502,17 +1508,6 @@
             </row>
           </thead>
           <tbody>
-			<row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>W</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Chiude la finestra di <application>Rhythmbox</application></para>
-              </entry>
-            </row>
             <row>
               <entry lang="en">
                 <keycombo>
@@ -1538,17 +1533,6 @@
             <row>
               <entry lang="en">
                 <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>D</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Commuta la visualizzazione a display piccolo</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
                   <keycap>F9</keycap>
                 </keycombo>
               </entry>
@@ -1565,17 +1549,6 @@
               </entry>
               <entry>
                 <para>Mostra / Nasconde la Coda di riproduzione</para>
-              </entry>
-            </row>
-            <row>
-              <entry lang="en">
-                <keycombo>
-                  <keycap>Ctrl</keycap>
-                  <keycap>S</keycap>
-                </keycombo>
-              </entry>
-              <entry>
-                <para>Mostra / Nasconde il controllo scorrevole di avanzamento della riproduzione</para>
               </entry>
             </row>
             <row>

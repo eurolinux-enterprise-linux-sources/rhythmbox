@@ -2,36 +2,29 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RBDisplayPageModel</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<title>RBDisplayPageModel: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch06.html" title="Sources">
 <link rel="prev" href="RBDisplayPageGroup.html" title="RBDisplayPageGroup">
 <link rel="next" href="RBDisplayPageTree.html" title="RBDisplayPageTree">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
-<tr valign="middle">
-<td><a accesskey="p" href="RBDisplayPageGroup.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
-<td><a accesskey="n" href="RBDisplayPageTree.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
-</tr>
-<tr><td colspan="5" class="shortcuts">
-<a href="#RBDisplayPageModel.synopsis" class="shortcut">Top</a>
-                   | 
-                  <a href="#RBDisplayPageModel.description" class="shortcut">Description</a>
-                   | 
-                  <a href="#RBDisplayPageModel.object-hierarchy" class="shortcut">Object Hierarchy</a>
-                   | 
-                  <a href="#RBDisplayPageModel.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
-                   | 
-                  <a href="#RBDisplayPageModel.signals" class="shortcut">Signals</a>
-</td></tr>
-</table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBDisplayPageModel.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBDisplayPageModel.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#RBDisplayPageModel.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#RBDisplayPageModel.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RBDisplayPageGroup.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RBDisplayPageTree.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
 <div class="refentry">
 <a name="RBDisplayPageModel"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -39,36 +32,117 @@
 <h2><span class="refentrytitle"><a name="RBDisplayPageModel.top_of_page"></a>RBDisplayPageModel</span></h2>
 <p>RBDisplayPageModel — models backing the display page tree</p>
 </td>
-<td valign="top" align="right"></td>
+<td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
-<a name="RBDisplayPageModel.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">enum                <a class="link" href="RBDisplayPageModel.html#RBDisplayPageModelColumn" title="enum RBDisplayPageModelColumn">RBDisplayPageModelColumn</a>;
-struct              <a class="link" href="RBDisplayPageModel.html#RBDisplayPageModel-struct" title="struct RBDisplayPageModel">RBDisplayPageModel</a>;
-struct              <a class="link" href="RBDisplayPageModel.html#RBDisplayPageModelClass" title="struct RBDisplayPageModelClass">RBDisplayPageModelClass</a>;
-<a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="returnvalue">RBDisplayPageModel</span></a> * <a class="link" href="RBDisplayPageModel.html#rb-display-page-model-new" title="rb_display_page_model_new ()">rb_display_page_model_new</a>          (<em class="parameter"><code><span class="type">void</span></code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBDisplayPageModel.html#rb-display-page-model-set-playing-source" title="rb_display_page_model_set_playing_source ()">rb_display_page_model_set_playing_source</a>
-                                                        (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *source</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBDisplayPageModel.html#rb-display-page-model-add-page" title="rb_display_page_model_add_page ()">rb_display_page_model_add_page</a>      (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *parent</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBDisplayPageModel.html#rb-display-page-model-remove-page" title="rb_display_page_model_remove_page ()">rb_display_page_model_remove_page</a>   (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="RBDisplayPageModel.html#rb-display-page-model-find-page" title="rb_display_page_model_find_page ()">rb_display_page_model_find_page</a>     (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBDisplayPageModel.html#rb-display-page-model-set-dnd-targets" title="rb_display_page_model_set_dnd_targets ()">rb_display_page_model_set_dnd_targets</a>
-                                                        (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkTreeView</span> *treeview</code></em>);
-</pre>
+<div class="refsect1">
+<a name="RBDisplayPageModel.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="returnvalue">RBDisplayPageModel</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageModel.html#rb-display-page-model-new" title="rb_display_page_model_new ()">rb_display_page_model_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageModel.html#rb-display-page-model-set-playing-source" title="rb_display_page_model_set_playing_source ()">rb_display_page_model_set_playing_source</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageModel.html#rb-display-page-model-add-page" title="rb_display_page_model_add_page ()">rb_display_page_model_add_page</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageModel.html#rb-display-page-model-remove-page" title="rb_display_page_model_remove_page ()">rb_display_page_model_remove_page</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageModel.html#rb-display-page-model-find-page" title="rb_display_page_model_find_page ()">rb_display_page_model_find_page</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageModel.html#rb-display-page-model-set-dnd-targets" title="rb_display_page_model_set_dnd_targets ()">rb_display_page_model_set_dnd_targets</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageModel.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBDisplayPageModel.html#RBDisplayPageModel-drop-received" title="The “drop-received” signal">drop-received</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBDisplayPageModel.html#RBDisplayPageModel-page-inserted" title="The “page-inserted” signal">page-inserted</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageModel.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="RBDisplayPageModel.html#RBDisplayPageModelColumn" title="enum RBDisplayPageModelColumn">RBDisplayPageModelColumn</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBDisplayPageModel.html#RBDisplayPageModel-struct" title="struct RBDisplayPageModel">RBDisplayPageModel</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBDisplayPageModel.html#RBDisplayPageModelClass" title="struct RBDisplayPageModelClass">RBDisplayPageModelClass</a></td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="refsect1">
 <a name="RBDisplayPageModel.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="synopsis">
-  GObject
-   +----GtkTreeModelFilter
-         +----RBDisplayPageModel
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> GtkTreeModelFilter
+        <span class="lineart">╰──</span> RBDisplayPageModel
 </pre>
 </div>
 <div class="refsect1">
@@ -78,72 +152,246 @@ RBDisplayPageModel implements
  GtkTreeModel,  GtkTreeDragSource,  <a class="link" href="rhythmbox-rb-tree-dnd.html#RbTreeDragSource">RbTreeDragSource</a> and  <a class="link" href="rhythmbox-rb-tree-dnd.html#RbTreeDragDest">RbTreeDragDest</a>.</p>
 </div>
 <div class="refsect1">
-<a name="RBDisplayPageModel.signals"></a><h2>Signals</h2>
-<pre class="synopsis">
-  "<a class="link" href="RBDisplayPageModel.html#RBDisplayPageModel-drop-received" title='The "drop-received" signal'>drop-received</a>"                                  : <code class="literal">Run Last</code>
-  "<a class="link" href="RBDisplayPageModel.html#RBDisplayPageModel-page-inserted" title='The "page-inserted" signal'>page-inserted</a>"                                  : <code class="literal">Run Last</code>
-</pre>
-</div>
-<div class="refsect1">
 <a name="RBDisplayPageModel.description"></a><h2>Description</h2>
-<p>
-The <a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> widget is backed by a <span class="type">GtkTreeStore</span> containing
+<p>The <a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> widget is backed by a <span class="type">GtkTreeStore</span> containing
 the sources and a set of attributes used to structure and display
 them, and a <span class="type">GtkTreeModelFilter</span> that hides sources with the
 visibility property set to FALSE.  This class implements the filter
-model and also creates the actual model.
-</p>
-<p>
-The display page model supports drag and drop in a variety of formats.
+model and also creates the actual model.</p>
+<p>The display page model supports drag and drop in a variety of formats.
 The simplest of these are text/uri-list and application/x-rhythmbox-entry,
 which convey URIs and IDs of existing database entries.  When dragged
 to an existing source, these just add the URIs or entries to the target
 source.  When dragged to an empty space in the tree widget, this results
-in the creation of a static playlist.
-</p>
-<p>
-text/x-rhythmbox-artist, text/x-rhythmbox-album, and text/x-rhythmbox-genre
+in the creation of a static playlist.</p>
+<p>text/x-rhythmbox-artist, text/x-rhythmbox-album, and text/x-rhythmbox-genre
 are used when dragging items from the library browser.  When dragged to
 the display page tree, these result in the creation of a new auto playlist with
-the dragged items as criteria.
-</p>
+the dragged items as criteria.</p>
 </div>
 <div class="refsect1">
-<a name="RBDisplayPageModel.details"></a><h2>Details</h2>
+<a name="RBDisplayPageModel.functions_details"></a><h2>Functions</h2>
 <div class="refsect2">
-<a name="RBDisplayPageModelColumn"></a><h3>enum RBDisplayPageModelColumn</h3>
-<pre class="programlisting">typedef enum {
-	RB_DISPLAY_PAGE_MODEL_COLUMN_PLAYING = 0,
-	RB_DISPLAY_PAGE_MODEL_COLUMN_PAGE,
-	RB_DISPLAY_PAGE_MODEL_N_COLUMNS
-} RBDisplayPageModelColumn;
-</pre>
-<p>
-Columns present in the display page model.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="rb-display-page-model-new"></a><h3>rb_display_page_model_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="returnvalue">RBDisplayPageModel</span></a> *
+rb_display_page_model_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>This constructs both the GtkTreeStore holding the display page
+data and the filter model that hides invisible pages.</p>
+<div class="refsect3">
+<a name="id-1.7.6.9.2.5"></a><h4>Returns</h4>
+<p> the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-display-page-model-set-playing-source"></a><h3>rb_display_page_model_set_playing_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_display_page_model_set_playing_source
+                               (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
+                                <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *source</code></em>);</pre>
+<p>Updates the model with the new playing source.</p>
+<div class="refsect3">
+<a name="id-1.7.6.9.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><a name="RB-DISPLAY-PAGE-MODEL-COLUMN-PLAYING:CAPS"></a><span class="term"><code class="literal">RB_DISPLAY_PAGE_MODEL_COLUMN_PLAYING</code></span></p></td>
-<td>TRUE if the page is the playing source
-</td>
+<td class="parameter_name"><p>page_model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><a name="RB-DISPLAY-PAGE-MODEL-COLUMN-PAGE:CAPS"></a><span class="term"><code class="literal">RB_DISPLAY_PAGE_MODEL_COLUMN_PAGE</code></span></p></td>
-<td>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> object
-</td>
-</tr>
-<tr>
-<td><p><a name="RB-DISPLAY-PAGE-MODEL-N-COLUMNS:CAPS"></a><span class="term"><code class="literal">RB_DISPLAY_PAGE_MODEL_N_COLUMNS</code></span></p></td>
-<td>the number of columns
-</td>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>the new playing <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> (as a <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a>)</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-display-page-model-add-page"></a><h3>rb_display_page_model_add_page ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_display_page_model_add_page (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
+                                <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>,
+                                <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *parent</code></em>);</pre>
+<p>Adds a page to the model, either below a specified page (if it's a source or
+something else) or at the top level (if it's a group)</p>
+<div class="refsect3">
+<a name="id-1.7.6.9.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>page_model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> to add</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>parent</p></td>
+<td class="parameter_description"><p>the parent under which to add <em class="parameter"><code>page</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-display-page-model-remove-page"></a><h3>rb_display_page_model_remove_page ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_display_page_model_remove_page (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
+                                   <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>);</pre>
+<p>Removes a page from the model.</p>
+<div class="refsect3">
+<a name="id-1.7.6.9.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>page_model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> to remove</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-display-page-model-find-page"></a><h3>rb_display_page_model_find_page ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_display_page_model_find_page (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
+                                 <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>,
+                                 <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);</pre>
+<p>Finds a <span class="type">GtkTreeIter</span> for a specified page in the model.  This will only
+find pages that are currently visible.  The returned <span class="type">GtkTreeIter</span> can be used
+with the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a>.</p>
+<div class="refsect3">
+<a name="id-1.7.6.9.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>page_model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> to find</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>iter</p></td>
+<td class="parameter_description"><p>returns a <span class="type">GtkTreeIter</span> for the page</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.7.6.9.6.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the page was found</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-display-page-model-set-dnd-targets"></a><h3>rb_display_page_model_set_dnd_targets ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_display_page_model_set_dnd_targets (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
+                                       <em class="parameter"><code><span class="type">GtkTreeView</span> *treeview</code></em>);</pre>
+<p>Sets up the drag and drop targets for the display page tree.</p>
+<div class="refsect3">
+<a name="id-1.7.6.9.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>page_model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>treeview</p></td>
+<td class="parameter_description"><p>the sourcel ist <span class="type">GtkTreeView</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageModel.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="RBDisplayPageModelColumn"></a><h3>enum RBDisplayPageModelColumn</h3>
+<p>Columns present in the display page model.</p>
+<div class="refsect3">
+<a name="id-1.7.6.10.2.4"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="RB-DISPLAY-PAGE-MODEL-COLUMN-PLAYING:CAPS"></a>RB_DISPLAY_PAGE_MODEL_COLUMN_PLAYING</p></td>
+<td class="enum_member_description">
+<p>TRUE if the page is the playing source</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-DISPLAY-PAGE-MODEL-COLUMN-PAGE:CAPS"></a>RB_DISPLAY_PAGE_MODEL_COLUMN_PAGE</p></td>
+<td class="enum_member_description">
+<p>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> object</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="RB-DISPLAY-PAGE-MODEL-N-COLUMNS:CAPS"></a>RB_DISPLAY_PAGE_MODEL_N_COLUMNS</p></td>
+<td class="enum_member_description">
+<p>the number of columns</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
 </div>
 <hr>
 <div class="refsect2">
@@ -170,263 +418,105 @@ Columns present in the display page model.
 <p>
 </p>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rb-display-page-model-new"></a><h3>rb_display_page_model_new ()</h3>
-<pre class="programlisting"><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="returnvalue">RBDisplayPageModel</span></a> * rb_display_page_model_new          (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
-<p>
-This constructs both the GtkTreeStore holding the display page
-data and the filter model that hides invisible pages.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a>
-</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-display-page-model-set-playing-source"></a><h3>rb_display_page_model_set_playing_source ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_display_page_model_set_playing_source
-                                                        (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *source</code></em>);</pre>
-<p>
-Updates the model with the new playing source.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>page_model</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
-<td>the new playing <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> (as a <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a>)</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-display-page-model-add-page"></a><h3>rb_display_page_model_add_page ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_display_page_model_add_page      (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *parent</code></em>);</pre>
-<p>
-Adds a page to the model, either below a specified page (if it's a source or
-something else) or at the top level (if it's a group)
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>page_model</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>page</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> to add</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
-<td>the parent under which to add <em class="parameter"><code>page</code></em>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-display-page-model-remove-page"></a><h3>rb_display_page_model_remove_page ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_display_page_model_remove_page   (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>);</pre>
-<p>
-Removes a page from the model.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>page_model</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>page</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> to remove</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-display-page-model-find-page"></a><h3>rb_display_page_model_find_page ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            rb_display_page_model_find_page     (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);</pre>
-<p>
-Finds a <span class="type">GtkTreeIter</span> for a specified page in the model.  This will only
-find pages that are currently visible.  The returned <span class="type">GtkTreeIter</span> can be used
-with the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a>.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>page_model</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>page</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> to find</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
-<td>returns a <span class="type">GtkTreeIter</span> for the page</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
-<code class="literal">TRUE</code> if the page was found</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-display-page-model-set-dnd-targets"></a><h3>rb_display_page_model_set_dnd_targets ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_display_page_model_set_dnd_targets
-                                                        (<em class="parameter"><code><a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *page_model</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkTreeView</span> *treeview</code></em>);</pre>
-<p>
-Sets up the drag and drop targets for the display page tree.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>page_model</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>treeview</code></em> :</span></p></td>
-<td>the sourcel ist <span class="type">GtkTreeView</span>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
 </div>
 <div class="refsect1">
 <a name="RBDisplayPageModel.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
-<a name="RBDisplayPageModel-drop-received"></a><h3>The <code class="literal">"drop-received"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *model,
-                                                        <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a>      *target,
-                                                        <span class="type">gint</span>                pos,
-                                                        <span class="type">gpointer</span>            data,
-                                                        <span class="type">gpointer</span>            user_data)      : <code class="literal">Run Last</code></pre>
-<p>
-Emitted when a drag and drop operation to the display page tree completes.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="RBDisplayPageModel-drop-received"></a><h3>The <code class="literal">“drop-received”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *model,
+               <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a>      *target,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                pos,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            data,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)</pre>
+<p>Emitted when a drag and drop operation to the display page tree completes.</p>
+<div class="refsect3">
+<a name="id-1.7.6.11.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a>
-</td>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>target</code></em> :</span></p></td>
-<td>the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> receiving the drop</td>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> receiving the drop</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>pos</code></em> :</span></p></td>
-<td>the drop position</td>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>the drop position</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
-<td>the drop data</td>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>the drop data</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
 <hr>
 <div class="refsect2">
-<a name="RBDisplayPageModel-page-inserted"></a><h3>The <code class="literal">"page-inserted"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *model,
-                                                        <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a>      *page,
-                                                        <span class="type">GtkTreeIter</span>        *iter,
-                                                        <span class="type">gpointer</span>            user_data)      : <code class="literal">Run Last</code></pre>
-<p>
-Emitted when a new page is inserted into the model.
+<a name="RBDisplayPageModel-page-inserted"></a><h3>The <code class="literal">“page-inserted”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a> *model,
+               <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a>      *page,
+               <span class="type">GtkTreeIter</span>        *iter,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)</pre>
+<p>Emitted when a new page is inserted into the model.
 Use this instead of GtkTreeModel::row-inserted as this
-doesn't get complicated by visibility filtering.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+doesn't get complicated by visibility filtering.</p>
+<div class="refsect3">
+<a name="id-1.7.6.11.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a>
-</td>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPageModel.html" title="RBDisplayPageModel"><span class="type">RBDisplayPageModel</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>page</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> that was inserted</td>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> that was inserted</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
-<td>a <span class="type">GtkTreeIter</span> indicating the page position</td>
+<td class="parameter_name"><p>iter</p></td>
+<td class="parameter_description"><p>a <span class="type">GtkTreeIter</span> indicating the page position</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.18.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

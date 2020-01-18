@@ -168,6 +168,7 @@ rb_metadata_load (RBMetaData *md, const char *uri, GError **error)
 	GList *l;
 	GstDiscoverer *discoverer;
 	GstCaps *caps;
+	GError *gsterror = NULL;
 
 	rb_metadata_reset (md);
 
@@ -175,7 +176,7 @@ rb_metadata_load (RBMetaData *md, const char *uri, GError **error)
 	if (*error != NULL)
 		return;
 
-	md->priv->info = gst_discoverer_discover_uri (discoverer, g_strdup (uri), error);
+	md->priv->info = gst_discoverer_discover_uri (discoverer, g_strdup (uri), &gsterror);
 	g_object_unref (discoverer);
 
 	/* figure out if we've got audio, non-audio, or video streams */
@@ -252,6 +253,15 @@ rb_metadata_load (RBMetaData *md, const char *uri, GError **error)
 		break;
 	default:
 		g_assert_not_reached ();
+	}
+
+	if (gsterror != NULL) {
+		int code = RB_METADATA_ERROR_GENERAL;
+		if (g_error_matches (gsterror, GST_STREAM_ERROR, GST_STREAM_ERROR_TYPE_NOT_FOUND)) {
+			code = RB_METADATA_ERROR_UNRECOGNIZED;
+		}
+		*error = g_error_new_literal (RB_METADATA_ERROR, code, gsterror->message);
+		g_clear_error (&gsterror);
 	}
 }
 
@@ -822,6 +832,11 @@ rb_metadata_get (RBMetaData *md, RBMetaDataField field, GValue *ret)
 	const char *tag;
 	GValue gstvalue = {0, };
 	GstClockTime duration;
+	GstDateTime *datetime;
+	GDate *dateptr = NULL;
+	char *str = NULL;
+	const char *v;
+	int i;
 
 	if (md->priv->info == NULL)
 		return FALSE;
@@ -847,6 +862,69 @@ rb_metadata_get (RBMetaData *md, RBMetaDataField field, GValue *ret)
 		} else {
 			return FALSE;
 		}
+
+		break;
+
+	case RB_METADATA_FIELD_DATE:
+		tags = gst_discoverer_info_get_tags (md->priv->info);
+		if (tags == NULL)
+			return FALSE;
+
+		/* mp4 generally gives us useful things in GST_TAG_DATE and garbage in GST_TAG_DATE_TIME,
+		 * and everything else just gives us GST_TAG_DATE_TIME.  preferring GST_TAG_DATE should
+		 * make mp4 work better without breaking anything else.
+		 */
+		if (gst_tag_list_get_date (tags, GST_TAG_DATE, &dateptr)) {
+			g_value_init (ret, G_TYPE_ULONG);
+			g_value_set_ulong (ret, g_date_get_julian (dateptr));
+			g_date_free (dateptr);
+			return TRUE;
+		} else if (gst_tag_list_get_date_time (tags, GST_TAG_DATE_TIME, &datetime)) {
+			GDate date;
+			g_date_set_dmy (&date,
+					gst_date_time_has_day (datetime) ? gst_date_time_get_day (datetime) : 1,
+					gst_date_time_has_month (datetime) ? gst_date_time_get_month (datetime) : 1,
+					gst_date_time_get_year (datetime));
+
+			g_value_init (ret, G_TYPE_ULONG);
+			g_value_set_ulong (ret, g_date_get_julian (&date));
+
+			gst_date_time_unref (datetime);
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	case RB_METADATA_FIELD_COMMENT:
+		tags = gst_discoverer_info_get_tags (md->priv->info);
+		if (tags == NULL)
+			return FALSE;
+
+		/* pick the first valid utf8 string that looks like a comment */
+		i = 0;
+		while (gst_tag_list_peek_string_index (tags, GST_TAG_EXTENDED_COMMENT, i, &v)) {
+			if (g_utf8_validate (v, -1, NULL)) {
+				char **bits;
+
+				/* field must look like key=value,
+				 * key must be 'comment' or 'comment[lang]'
+				 */
+				bits = g_strsplit (v, "=", 2);
+				if (bits[1] != NULL &&
+				    (g_ascii_strcasecmp (bits[0], "comment") == 0 ||
+				    g_ascii_strncasecmp (bits[0], "comment[", 8) == 0)) {
+					g_value_init (ret, G_TYPE_STRING);
+					g_value_set_string (ret, bits[1]);
+					g_strfreev (bits);
+					return TRUE;
+				}
+
+				g_strfreev (bits);
+			} else {
+				rb_debug ("ignoring %s", v);
+			}
+			i++;
+		}
+		break;
 	default:
 		break;
 	}
@@ -861,11 +939,7 @@ rb_metadata_get (RBMetaData *md, RBMetaDataField field, GValue *ret)
 		return FALSE;
 	}
 
-
 	if (rb_metadata_get_field_type (field) == G_TYPE_STRING) {
-		char *str = NULL;
-		const char *v;
-		int i;
 
 		/* pick the first valid utf8 string, or if we find a later
 		 * string of which the first is a prefix, pick that.
@@ -909,19 +983,45 @@ rb_metadata_get_media_type (RBMetaData *md)
 gboolean
 rb_metadata_set (RBMetaData *md, RBMetaDataField field, const GValue *val)
 {
+	const char *tag;
+
 	/* don't write this out */
 	if (field == RB_METADATA_FIELD_DURATION)
 		return TRUE;
 
-	if (field == RB_METADATA_FIELD_DATE && g_value_get_ulong (val) == 0) {
-		/* we should ask gstreamer to remove the tag,
-		 * but there is no easy way of doing so
-		 */
+	tag = rb_metadata_gst_field_to_gst_tag (field);
+	if (field == RB_METADATA_FIELD_DATE) {
+	       	if (g_value_get_ulong (val) == 0) {
+			/* we should ask gstreamer to remove the tag,
+			 * but there is no easy way of doing so
+			 */
+		} else {
+			GstDateTime *datetime;
+			GDate date;
+			GValue newval = {0,};
+			g_value_init (&newval, GST_TYPE_DATE_TIME);
+
+			g_date_set_julian (&date, g_value_get_ulong (val));
+			datetime = gst_date_time_new (0.0,
+				       		      g_date_get_year (&date),
+						      g_date_get_month (&date),
+						      g_date_get_day (&date),
+					      	      0, 0, 0);
+			g_value_take_boxed (&newval, datetime);
+
+			if (md->priv->tags == NULL) {
+				md->priv->tags = gst_tag_list_new_empty ();
+			}
+
+			gst_tag_list_add_values (md->priv->tags,
+						 GST_TAG_MERGE_APPEND,
+						 tag, &newval,
+						 NULL);
+			g_value_unset (&newval);
+		}
 	} else {
-		const char *tag;
 		GValue newval = {0,};
 
-		tag = rb_metadata_gst_field_to_gst_tag (field);
 		g_value_init (&newval, gst_tag_get_type (tag));
 		if (g_value_transform (val, &newval)) {
 			rb_debug ("Setting %s",tag);

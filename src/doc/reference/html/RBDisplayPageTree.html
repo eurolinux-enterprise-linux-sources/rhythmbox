@@ -2,38 +2,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RBDisplayPageTree</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<title>RBDisplayPageTree: Rhythmbox Development Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch06.html" title="Sources">
 <link rel="prev" href="RBDisplayPageModel.html" title="RBDisplayPageModel">
 <link rel="next" href="RBImportErrorsSource.html" title="RBImportErrorsSource">
-<meta name="generator" content="GTK-Doc V1.18.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
-<tr valign="middle">
-<td><a accesskey="p" href="RBDisplayPageModel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch06.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Rhythmbox Development Reference Manual</th>
-<td><a accesskey="n" href="RBImportErrorsSource.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
-</tr>
-<tr><td colspan="5" class="shortcuts">
-<a href="#RBDisplayPageTree.synopsis" class="shortcut">Top</a>
-                   | 
-                  <a href="#RBDisplayPageTree.description" class="shortcut">Description</a>
-                   | 
-                  <a href="#RBDisplayPageTree.object-hierarchy" class="shortcut">Object Hierarchy</a>
-                   | 
-                  <a href="#RBDisplayPageTree.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
-                   | 
-                  <a href="#RBDisplayPageTree.properties" class="shortcut">Properties</a>
-                   | 
-                  <a href="#RBDisplayPageTree.signals" class="shortcut">Signals</a>
-</td></tr>
-</table>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#RBDisplayPageTree.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#RBDisplayPageTree.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#RBDisplayPageTree.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#RBDisplayPageTree.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#RBDisplayPageTree.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RBDisplayPageModel.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="RBImportErrorsSource.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
 <div class="refentry">
 <a name="RBDisplayPageTree"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
@@ -41,32 +33,124 @@
 <h2><span class="refentrytitle"><a name="RBDisplayPageTree.top_of_page"></a>RBDisplayPageTree</span></h2>
 <p>RBDisplayPageTree — widget displaying the tree of <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> instances</p>
 </td>
-<td valign="top" align="right"></td>
+<td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
-<a name="RBDisplayPageTree.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">struct              <a class="link" href="RBDisplayPageTree.html#RBDisplayPageTree-struct" title="struct RBDisplayPageTree">RBDisplayPageTree</a>;
-struct              <a class="link" href="RBDisplayPageTree.html#RBDisplayPageTreeClass" title="struct RBDisplayPageTreeClass">RBDisplayPageTreeClass</a>;
-<a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="returnvalue">RBDisplayPageTree</span></a> * <a class="link" href="RBDisplayPageTree.html#rb-display-page-tree-new" title="rb_display_page_tree_new ()">rb_display_page_tree_new</a>            (<em class="parameter"><code><a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBDisplayPageTree.html#rb-display-page-tree-edit-source-name" title="rb_display_page_tree_edit_source_name ()">rb_display_page_tree_edit_source_name</a>
-                                                        (<em class="parameter"><code><a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *display_page_tree</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBDisplayPageTree.html#rb-display-page-tree-select" title="rb_display_page_tree_select ()">rb_display_page_tree_select</a>         (<em class="parameter"><code><a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *display_page_tree</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="RBDisplayPageTree.html#rb-display-page-tree-toggle-expanded" title="rb_display_page_tree_toggle_expanded ()">rb_display_page_tree_toggle_expanded</a>
-                                                        (<em class="parameter"><code><a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *display_page_tree</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>);
-</pre>
+<div class="refsect1">
+<a name="RBDisplayPageTree.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="returnvalue">RBDisplayPageTree</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageTree.html#rb-display-page-tree-new" title="rb_display_page_tree_new ()">rb_display_page_tree_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageTree.html#rb-display-page-tree-edit-source-name" title="rb_display_page_tree_edit_source_name ()">rb_display_page_tree_edit_source_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageTree.html#rb-display-page-tree-select" title="rb_display_page_tree_select ()">rb_display_page_tree_select</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="RBDisplayPageTree.html#rb-display-page-tree-toggle-expanded" title="rb_display_page_tree_toggle_expanded ()">rb_display_page_tree_toggle_expanded</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageTree.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<span class="type">GtkTreeModel</span> *</td>
+<td class="property_name"><a class="link" href="RBDisplayPageTree.html#RBDisplayPageTree--model" title="The “model” property">model</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *</td>
+<td class="property_name"><a class="link" href="RBDisplayPageTree.html#RBDisplayPageTree--shell" title="The “shell” property">shell</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageTree.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBDisplayPageTree.html#RBDisplayPageTree-drop-received" title="The “drop-received” signal">drop-received</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="RBDisplayPageTree.html#RBDisplayPageTree-selected" title="The “selected” signal">selected</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageTree.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBDisplayPageTree.html#RBDisplayPageTree-struct" title="struct RBDisplayPageTree">RBDisplayPageTree</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="RBDisplayPageTree.html#RBDisplayPageTreeClass" title="struct RBDisplayPageTreeClass">RBDisplayPageTreeClass</a></td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="refsect1">
 <a name="RBDisplayPageTree.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="synopsis">
-  GObject
-   +----GInitiallyUnowned
-         +----GtkWidget
-               +----GtkContainer
-                     +----GtkGrid
-                           +----RBDisplayPageTree
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> GtkWidget
+            <span class="lineart">╰──</span> GtkContainer
+                <span class="lineart">╰──</span> GtkGrid
+                    <span class="lineart">╰──</span> RBDisplayPageTree
 </pre>
 </div>
 <div class="refsect1">
@@ -76,40 +160,142 @@ RBDisplayPageTree implements
  AtkImplementorIface,  GtkBuildable and  GtkOrientable.</p>
 </div>
 <div class="refsect1">
-<a name="RBDisplayPageTree.properties"></a><h2>Properties</h2>
-<pre class="synopsis">
-  "<a class="link" href="RBDisplayPageTree.html#RBDisplayPageTree--model" title='The "model" property'>model</a>"                    <span class="type">GtkTreeModel</span>*         : Read
-  "<a class="link" href="RBDisplayPageTree.html#RBDisplayPageTree--shell" title='The "shell" property'>shell</a>"                    <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>*              : Read / Write / Construct Only
-</pre>
-</div>
-<div class="refsect1">
-<a name="RBDisplayPageTree.signals"></a><h2>Signals</h2>
-<pre class="synopsis">
-  "<a class="link" href="RBDisplayPageTree.html#RBDisplayPageTree-drop-received" title='The "drop-received" signal'>drop-received</a>"                                  : <code class="literal">Run Last</code>
-  "<a class="link" href="RBDisplayPageTree.html#RBDisplayPageTree-selected" title='The "selected" signal'>selected</a>"                                       : <code class="literal">Run Last</code>
-</pre>
-</div>
-<div class="refsect1">
 <a name="RBDisplayPageTree.description"></a><h2>Description</h2>
-<p>
-The display page tree widget is a GtkTreeView backed by a GtkListStore
+<p>The display page tree widget is a GtkTreeView backed by a GtkListStore
 containing the display page instances (sources and other things).  Display
 pages include sources, such as the library and playlists, and other things
-like the visualization display.
-</p>
-<p>
-Display pages are shown in the list with an icon and the name.  The current
-playing source is displayed in bold.
-</p>
-<p>
-Sources are divided into groups - library, stores, playlists, devices,
+like the visualization display.</p>
+<p>Display pages are shown in the list with an icon and the name.  The current
+playing source is displayed in bold.</p>
+<p>Sources are divided into groups - library, stores, playlists, devices,
 network shares.  Groups are displayed as headers, with expanders for hiding
 and showing the sources in the group.  Sources themselves may also have
-child sources, such as playlists on portable audio players.
-</p>
+child sources, such as playlists on portable audio players.</p>
 </div>
 <div class="refsect1">
-<a name="RBDisplayPageTree.details"></a><h2>Details</h2>
+<a name="RBDisplayPageTree.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="rb-display-page-tree-new"></a><h3>rb_display_page_tree_new ()</h3>
+<pre class="programlisting"><a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="returnvalue">RBDisplayPageTree</span></a> *
+rb_display_page_tree_new (<em class="parameter"><code><a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell</code></em>);</pre>
+<p>Creates the display page tree widget.</p>
+<div class="refsect3">
+<a name="id-1.7.7.10.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>shell</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.7.7.10.2.6"></a><h4>Returns</h4>
+<p> the display page tree widget.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-display-page-tree-edit-source-name"></a><h3>rb_display_page_tree_edit_source_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_display_page_tree_edit_source_name (<em class="parameter"><code><a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *display_page_tree</code></em>,
+                                       <em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>);</pre>
+<p>Initiates editing of the name of the specified source.  The row for the source
+is selected and given input focus, allowing the user to edit the name.
+source_name_edited_cb is called when the user finishes editing.</p>
+<div class="refsect3">
+<a name="id-1.7.7.10.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>display_page_tree</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> to edit</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-display-page-tree-select"></a><h3>rb_display_page_tree_select ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_display_page_tree_select (<em class="parameter"><code><a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *display_page_tree</code></em>,
+                             <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>);</pre>
+<p>Selects the specified page in the tree.  This will result in the 'selected'
+signal being emitted.</p>
+<div class="refsect3">
+<a name="id-1.7.7.10.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>display_page_tree</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> to select</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="rb-display-page-tree-toggle-expanded"></a><h3>rb_display_page_tree_toggle_expanded ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+rb_display_page_tree_toggle_expanded (<em class="parameter"><code><a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *display_page_tree</code></em>,
+                                      <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>);</pre>
+<p>If <em class="parameter"><code>page</code></em>
+ is expanded (children visible), collapses it, otherwise expands it.</p>
+<div class="refsect3">
+<a name="id-1.7.7.10.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>display_page_tree</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> to toggle</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="RBDisplayPageTree.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
 <a name="RBDisplayPageTree-struct"></a><h3>struct RBDisplayPageTree</h3>
 <pre class="programlisting">struct RBDisplayPageTree;</pre>
@@ -130,205 +316,107 @@ child sources, such as playlists on portable audio players.
 <p>
 </p>
 </div>
-<hr>
-<div class="refsect2">
-<a name="rb-display-page-tree-new"></a><h3>rb_display_page_tree_new ()</h3>
-<pre class="programlisting"><a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="returnvalue">RBDisplayPageTree</span></a> * rb_display_page_tree_new            (<em class="parameter"><code><a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell</code></em>);</pre>
-<p>
-Creates the display page tree widget.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>shell</code></em> :</span></p></td>
-<td>the <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> instance</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the display page tree widget.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-display-page-tree-edit-source-name"></a><h3>rb_display_page_tree_edit_source_name ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_display_page_tree_edit_source_name
-                                                        (<em class="parameter"><code><a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *display_page_tree</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> *source</code></em>);</pre>
-<p>
-Initiates editing of the name of the specified source.  The row for the source
-is selected and given input focus, allowing the user to edit the name.
-source_name_edited_cb is called when the user finishes editing.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>display_page_tree</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
-<td>the <a class="link" href="RBSource.html" title="RBSource"><span class="type">RBSource</span></a> to edit</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-display-page-tree-select"></a><h3>rb_display_page_tree_select ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_display_page_tree_select         (<em class="parameter"><code><a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *display_page_tree</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>);</pre>
-<p>
-Selects the specified page in the tree.  This will result in the 'selected'
-signal being emitted.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>display_page_tree</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>page</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> to select</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="rb-display-page-tree-toggle-expanded"></a><h3>rb_display_page_tree_toggle_expanded ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                rb_display_page_tree_toggle_expanded
-                                                        (<em class="parameter"><code><a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *display_page_tree</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> *page</code></em>);</pre>
-<p>
-If <em class="parameter"><code>page</code></em> is expanded (children visible), collapses it, otherwise expands it.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>display_page_tree</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>page</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a> to toggle</td>
-</tr>
-</tbody>
-</table></div>
-</div>
 </div>
 <div class="refsect1">
 <a name="RBDisplayPageTree.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
-<a name="RBDisplayPageTree--model"></a><h3>The <code class="literal">"model"</code> property</h3>
-<pre class="programlisting">  "model"                    <span class="type">GtkTreeModel</span>*         : Read</pre>
-<p>
-The <span class="type">GtkTreeModel</span> for the display page tree
-</p>
+<a name="RBDisplayPageTree--model"></a><h3>The <code class="literal">“model”</code> property</h3>
+<pre class="programlisting">  “model”                    <span class="type">GtkTreeModel</span> *</pre>
+<p>The <span class="type">GtkTreeModel</span> for the display page tree</p>
+<p>Flags: Read</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="RBDisplayPageTree--shell"></a><h3>The <code class="literal">"shell"</code> property</h3>
-<pre class="programlisting">  "shell"                    <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a>*              : Read / Write / Construct Only</pre>
-<p>
-The <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> instance
-</p>
+<a name="RBDisplayPageTree--shell"></a><h3>The <code class="literal">“shell”</code> property</h3>
+<pre class="programlisting">  “shell”                    <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *</pre>
+<p>The <a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> instance</p>
+<p>Flags: Read / Write / Construct Only</p>
 </div>
 </div>
 <div class="refsect1">
 <a name="RBDisplayPageTree.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
-<a name="RBDisplayPageTree-drop-received"></a><h3>The <code class="literal">"drop-received"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *tree,
-                                                        <span class="type">gpointer</span>           page,
-                                                        <span class="type">gpointer</span>           data,
-                                                        <span class="type">gpointer</span>           user_data)      : <code class="literal">Run Last</code></pre>
-<p>
-Emitted when a drag and drop to the tree completes.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="RBDisplayPageTree-drop-received"></a><h3>The <code class="literal">“drop-received”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *tree,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           page,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           data,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>Emitted when a drag and drop to the tree completes.</p>
+<div class="refsect3">
+<a name="id-1.7.7.13.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>tree</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a>
-</td>
+<td class="parameter_name"><p>tree</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>page</code></em> :</span></p></td>
-<td>the <span class="type">RBDisplagePage</span> receiving the drop</td>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>the <span class="type">RBDisplagePage</span> receiving the drop</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
-<td>the drop data</td>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>the drop data</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
 <hr>
 <div class="refsect2">
-<a name="RBDisplayPageTree-selected"></a><h3>The <code class="literal">"selected"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *tree,
-                                                        <span class="type">GObject</span>           *page,
-                                                        <span class="type">gpointer</span>           user_data)      : <code class="literal">Run Last</code></pre>
-<p>
-Emitted when a page is selected from the tree
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
+<a name="RBDisplayPageTree-selected"></a><h3>The <code class="literal">“selected”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *tree,
+               <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>           *page,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>Emitted when a page is selected from the tree</p>
+<div class="refsect3">
+<a name="id-1.7.7.13.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
 <colgroup>
-<col align="left" valign="top">
-<col>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>tree</code></em> :</span></p></td>
-<td>the <a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a>
-</td>
+<td class="parameter_name"><p>tree</p></td>
+<td class="parameter_description"><p>the <a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>page</code></em> :</span></p></td>
-<td>the newly selected <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a>
-</td>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>the newly selected <a class="link" href="RBDisplayPage.html" title="RBDisplayPage"><span class="type">RBDisplayPage</span></a></p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.18.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

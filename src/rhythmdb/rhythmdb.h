@@ -99,7 +99,9 @@ typedef enum
 	RHYTHMDB_PROP_ARTIST,
 	RHYTHMDB_PROP_ALBUM,
 	RHYTHMDB_PROP_TRACK_NUMBER,
+	RHYTHMDB_PROP_TRACK_TOTAL,
 	RHYTHMDB_PROP_DISC_NUMBER,
+	RHYTHMDB_PROP_DISC_TOTAL,
 	RHYTHMDB_PROP_DURATION,
 	RHYTHMDB_PROP_FILE_SIZE,
 	RHYTHMDB_PROP_LOCATION,
@@ -167,6 +169,13 @@ typedef enum
 	RHYTHMDB_PROP_ALBUM_ARTIST_SORTNAME_FOLDED,
 	RHYTHMDB_PROP_BPM,
 
+	RHYTHMDB_PROP_COMPOSER,
+	RHYTHMDB_PROP_COMPOSER_SORT_KEY,
+	RHYTHMDB_PROP_COMPOSER_FOLDED,
+	RHYTHMDB_PROP_COMPOSER_SORTNAME,
+	RHYTHMDB_PROP_COMPOSER_SORTNAME_SORT_KEY,
+	RHYTHMDB_PROP_COMPOSER_SORTNAME_FOLDED,
+	
 	RHYTHMDB_NUM_PROPERTIES
 } RhythmDBPropType;
 
@@ -187,6 +196,8 @@ enum {
 #define RHYTHMDB_PROP_STREAM_SONG_ALBUM		"rb:stream-song-album"
 #define RHYTHMDB_PROP_COVER_ART			"rb:coverArt"
 #define RHYTHMDB_PROP_COVER_ART_URI		"rb:coverArt-uri"
+
+typedef void (*RhythmDBEntryForeachFunc) (RhythmDBEntry *entry, gpointer data);
 
 GType rhythmdb_query_type_get_type (void);
 GType rhythmdb_prop_type_get_type (void);
@@ -281,11 +292,11 @@ struct _RhythmDBClass
 
 	gboolean 	(*impl_evaluate_query)	(RhythmDB *db, RhythmDBQuery *query, RhythmDBEntry *entry);
 
-	void		(*impl_entry_foreach)	(RhythmDB *db, GFunc func, gpointer data);
+	void		(*impl_entry_foreach)	(RhythmDB *db, RhythmDBEntryForeachFunc func, gpointer data);
 
 	gint64		(*impl_entry_count)	(RhythmDB *db);
 
-	void		(*impl_entry_foreach_by_type) (RhythmDB *db, RhythmDBEntryType *type, GFunc func, gpointer data);
+	void		(*impl_entry_foreach_by_type) (RhythmDB *db, RhythmDBEntryType *type, RhythmDBEntryForeachFunc func, gpointer data);
 
 	gint64		(*impl_entry_count_by_type) (RhythmDB *db, RhythmDBEntryType *type);
 
@@ -357,13 +368,13 @@ gboolean	rhythmdb_evaluate_query		(RhythmDB *db, RhythmDBQuery *query,
 						 RhythmDBEntry *entry);
 
 void		rhythmdb_entry_foreach		(RhythmDB *db,
-						 GFunc func,
+						 RhythmDBEntryForeachFunc func,
 						 gpointer data);
 gint64		rhythmdb_entry_count		(RhythmDB *db);
 
 void		rhythmdb_entry_foreach_by_type  (RhythmDB *db,
 						 RhythmDBEntryType *entry_type,
-						 GFunc func,
+						 RhythmDBEntryForeachFunc func,
 						 gpointer data);
 gint64		rhythmdb_entry_count_by_type	(RhythmDB *db,
 						 RhythmDBEntryType *entry_type);
@@ -451,8 +462,6 @@ GValue *	rhythmdb_entry_request_extra_metadata	(RhythmDB *db, RhythmDBEntry *ent
 RBStringValueMap* rhythmdb_entry_gather_metadata	(RhythmDB *db, RhythmDBEntry *entry);
 void		rhythmdb_emit_entry_extra_metadata_notify (RhythmDB *db, RhythmDBEntry *entry, const gchar *property_name, const GValue *metadata);
 
-gboolean	rhythmdb_is_busy			(RhythmDB *db);
-void		rhythmdb_get_progress_info		(RhythmDB *db, char **text, float *progress);
 char *		rhythmdb_compute_status_normal		(gint n_songs, glong duration,
 							 guint64 size,
 							 const char *singular,

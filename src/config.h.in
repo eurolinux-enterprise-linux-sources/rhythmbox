@@ -9,7 +9,8 @@
 /* minimum clutter version */
 #undef CLUTTER_VERSION_MIN_REQUIRED
 
-/* always defined to indicate that i18n is enabled */
+/* Define to 1 if translation of program messages to the user's native
+   language is requested. */
 #undef ENABLE_NLS
 
 /* maximum gdk version */
@@ -18,7 +19,7 @@
 /* minimum gdk version */
 #undef GDK_VERSION_MIN_REQUIRED
 
-/* Define to the Gettext package name */
+/* Define to the gettext package name. */
 #undef GETTEXT_PACKAGE
 
 /* maximum glib version */
@@ -27,10 +28,16 @@
 /* minimum glib version */
 #undef GLIB_VERSION_MIN_REQUIRED
 
-/* Define to 1 if you have the `bind_textdomain_codeset' function. */
-#undef HAVE_BIND_TEXTDOMAIN_CODESET
+/* Define to 1 if you have the MacOS X function CFLocaleCopyCurrent in the
+   CoreFoundation framework. */
+#undef HAVE_CFLOCALECOPYCURRENT
 
-/* Define to 1 if you have the `dcgettext' function. */
+/* Define to 1 if you have the MacOS X function CFPreferencesCopyAppValue in
+   the CoreFoundation framework. */
+#undef HAVE_CFPREFERENCESCOPYAPPVALUE
+
+/* Define if the GNU dcgettext() function is already present or preinstalled.
+   */
 #undef HAVE_DCGETTEXT
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
@@ -51,15 +58,15 @@
 /* Define if you have HAL support */
 #undef HAVE_HAL
 
+/* Define if you have the iconv() function and it works. */
+#undef HAVE_ICONV
+
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
 /* Indicates whether libgpod is new enough to have its itdb_start/stop_sync
    API */
 #undef HAVE_ITDB_START_STOP_SYNC
-
-/* Define if your <locale.h> file defines LC_MESSAGES. */
-#undef HAVE_LC_MESSAGES
 
 /* Have libbrasero-media */
 #undef HAVE_LIBBRASERO_MEDIA
@@ -69,9 +76,6 @@
 
 /* Define to 1 if you have the `z' library (-lz). */
 #undef HAVE_LIBZ
-
-/* Define to 1 if you have the <locale.h> header file. */
-#undef HAVE_LOCALE_H
 
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
@@ -109,8 +113,7 @@
 /* defined if you have X11/XF86keysym.h */
 #undef HAVE_XFREE
 
-/* Define to the sub-directory in which libtool stores uninstalled libraries.
-   */
+/* Define to the sub-directory where libtool stores uninstalled libraries. */
 #undef LT_OBJDIR
 
 /* path to metadata build dir */

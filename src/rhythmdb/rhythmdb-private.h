@@ -75,6 +75,7 @@ struct _RhythmDBEntry {
 	/* metadata */
 	RBRefString *title;
 	RBRefString *artist;
+	RBRefString *composer;
 	RBRefString *album;
 	RBRefString *album_artist;
 	RBRefString *genre;
@@ -84,10 +85,13 @@ struct _RhythmDBEntry {
 	RBRefString *musicbrainz_albumid;
 	RBRefString *musicbrainz_albumartistid;
 	RBRefString *artist_sortname;
+	RBRefString *composer_sortname;
 	RBRefString *album_sortname;
 	RBRefString *album_artist_sortname;
 	gulong tracknum;
+	gulong tracktotal;
 	gulong discnum;
+	gulong disctotal;
 	gulong duration;
 	gulong bitrate;
 	double bpm;
@@ -197,6 +201,7 @@ typedef struct
 	enum {
 		RHYTHMDB_EVENT_STAT,
 		RHYTHMDB_EVENT_METADATA_LOAD,
+		RHYTHMDB_EVENT_METADATA_CACHE,
 		RHYTHMDB_EVENT_DB_LOAD,
 		RHYTHMDB_EVENT_THREAD_EXITED,
 		RHYTHMDB_EVENT_DB_SAVED,
@@ -215,6 +220,7 @@ typedef struct
 	/* STAT */
 	GFileInfo *file_info;
 	/* LOAD */
+	GArray cached_metadata;
 	RBMetaData *metadata;
 	/* QUERY_COMPLETE */
 	RhythmDBQueryResults *results;
