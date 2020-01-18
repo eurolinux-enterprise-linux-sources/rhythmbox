@@ -8,7 +8,7 @@
 <link rel="up" href="ch02.html" title="Lib">
 <link rel="prev" href="ch02.html" title="Lib">
 <link rel="next" href="rhythmbox-rb-debug.html" title="rb-debug">
-<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -49,7 +49,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="rhythmbox-rb-async-queue-watch.html#rb-async-queue-watch-new" title="rb_async_queue_watch_new ()">rb_async_queue_watch_new</a> <span class="c_punctuation">()</span>
@@ -60,7 +60,7 @@
 </div>
 <div class="refsect1">
 <a name="rhythmbox-rb-async-queue-watch.description"></a><h2>Description</h2>
-<p>This provides a way to feed work items to the main loop using a <a href="https://developer.gnome.org/glib/unstable/glib-Asynchronous-Queues.html#GAsyncQueue"><span class="type">GAsyncQueue</span></a>
+<p>This provides a way to feed work items to the main loop using a <a href="/usr/share/gtk-doc/html/glibglib-Asynchronous-Queues.html#GAsyncQueue"><span class="type">GAsyncQueue</span></a>
 without polling it.</p>
 </div>
 <div class="refsect1">
@@ -68,11 +68,11 @@ without polling it.</p>
 <div class="refsect2">
 <a name="RBAsyncQueueWatchFunc"></a><h3>RBAsyncQueueWatchFunc ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-<span class="c_punctuation">(</span>*RBAsyncQueueWatchFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> item</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<span class="c_punctuation">(</span>*RBAsyncQueueWatchFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> item</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
 <p>Callback to call when an item is found in the queue.</p>
 <div class="refsect3">
-<a name="id-1.3.2.5.2.5"></a><h4>Parameters</h4>
+<a name="RBAsyncQueueWatchFunc.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -97,18 +97,18 @@ without polling it.</p>
 <hr>
 <div class="refsect2">
 <a name="rb-async-queue-watch-new"></a><h3>rb_async_queue_watch_new ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
-rb_async_queue_watch_new (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Asynchronous-Queues.html#GAsyncQueue"><span class="type">GAsyncQueue</span></a> *queue</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> priority</code></em>,
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+rb_async_queue_watch_new (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Asynchronous-Queues.html#GAsyncQueue"><span class="type">GAsyncQueue</span></a> *queue</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> priority</code></em>,
                           <em class="parameter"><code><a class="link" href="rhythmbox-rb-async-queue-watch.html#RBAsyncQueueWatchFunc" title="RBAsyncQueueWatchFunc ()"><span class="type">RBAsyncQueueWatchFunc</span></a> callback</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> *context</code></em>);</pre>
-<p>Creates a new <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GSource"><span class="type">GSource</span></a> that triggers when the <a href="https://developer.gnome.org/glib/unstable/glib-Asynchronous-Queues.html#GAsyncQueue"><span class="type">GAsyncQueue</span></a> is
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> *context</code></em>);</pre>
+<p>Creates a new <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GSource"><span class="type">GSource</span></a> that triggers when the <a href="/usr/share/gtk-doc/html/glibglib-Asynchronous-Queues.html#GAsyncQueue"><span class="type">GAsyncQueue</span></a> is
 non-empty.  This is used in rhythmbox to process queues within
 <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> in the main thread without polling.</p>
 <div class="refsect3">
-<a name="id-1.3.2.5.3.5"></a><h4>Parameters</h4>
+<a name="rb-async-queue-watch-new.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -118,12 +118,12 @@ non-empty.  This is used in rhythmbox to process queues within
 <tbody>
 <tr>
 <td class="parameter_name"><p>queue</p></td>
-<td class="parameter_description"><p>the <a href="https://developer.gnome.org/glib/unstable/glib-Asynchronous-Queues.html#GAsyncQueue"><span class="type">GAsyncQueue</span></a> to watch</p></td>
+<td class="parameter_description"><p>the <a href="/usr/share/gtk-doc/html/glibglib-Asynchronous-Queues.html#GAsyncQueue"><span class="type">GAsyncQueue</span></a> to watch</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>priority</p></td>
-<td class="parameter_description"><p>priority value for the <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GSource"><span class="type">GSource</span></a></p></td>
+<td class="parameter_description"><p>priority value for the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GSource"><span class="type">GSource</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -143,15 +143,15 @@ non-empty.  This is used in rhythmbox to process queues within
 </tr>
 <tr>
 <td class="parameter_name"><p>context</p></td>
-<td class="parameter_description"><p>the <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> to attach the source to</p></td>
+<td class="parameter_description"><p>the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> to attach the source to</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.3.2.5.3.6"></a><h4>Returns</h4>
-<p> the ID of the new <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GSource"><span class="type">GSource</span></a></p>
+<a name="rb-async-queue-watch-new.returns"></a><h4>Returns</h4>
+<p> the ID of the new <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GSource"><span class="type">GSource</span></a></p>
 </div>
 </div>
 </div>
@@ -160,6 +160,6 @@ non-empty.  This is used in rhythmbox to process queues within
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.24</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

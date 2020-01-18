@@ -65,7 +65,7 @@ class MagnatuneSource(RB.BrowserSource):
 		self.hate = self
 
 		self.__popup = None
-		self.__settings = Gio.Settings("org.gnome.rhythmbox.plugins.magnatune")
+		self.__settings = Gio.Settings.new("org.gnome.rhythmbox.plugins.magnatune")
 		# source state
 		self.__activated = False
 		self.__db = None
@@ -157,26 +157,26 @@ class MagnatuneSource(RB.BrowserSource):
 	def display_artist_info(self):
 		screen = self.props.shell.props.window.get_screen()
 		tracks = self.get_entry_view().get_selected_entries()
-		urls = set([])
+		if len(tracks) == 0:
+			return
 
-		for tr in tracks:
-			sku = self.__sku_dict[tr.get_string(RB.RhythmDBPropType.LOCATION)]
-			url = self.__home_dict[sku]
-			if url not in urls:
-				Gtk.show_uri(screen, url, Gdk.CURRENT_TIME)
-				urls.add(url)
+		tr = tracks[0]
+		sku = self.__sku_dict[tr.get_string(RB.RhythmDBPropType.LOCATION)]
+		url = self.__home_dict[sku]
+		Gtk.show_uri(screen, url, Gdk.CURRENT_TIME)
+
 
 	def download_redirect(self):
 		screen = self.props.shell.props.window.get_screen()
 		tracks = self.get_entry_view().get_selected_entries()
-		urls = set([])
+		if len(tracks) == 0:
+			return
 
-		for tr in tracks:
-			sku = self.__sku_dict[tr.get_string(RB.RhythmDBPropType.LOCATION)]
-			url = magnatune_buy_album_uri + urllib.parse.urlencode({ 'sku': sku, 'ref': magnatune_partner_id })
-			if url not in urls:
-				Gtk.show_uri(screen, url, Gdk.CURRENT_TIME)
-				urls.add(url)
+		tr = tracks[0]
+		sku = self.__sku_dict[tr.get_string(RB.RhythmDBPropType.LOCATION)]
+		url = magnatune_buy_album_uri + urllib.parse.urlencode({ 'sku': sku, 'ref': magnatune_partner_id })
+		Gtk.show_uri(screen, url, Gdk.CURRENT_TIME)
+
 
 	def download_album(self):
 		if self.__settings['account-type'] != 'download':
@@ -186,7 +186,7 @@ class MagnatuneSource(RB.BrowserSource):
 
 		try:
 			# Just use the first library location
-			library = Gio.Settings("org.gnome.rhythmbox.rhythmdb")
+			library = Gio.Settings.new("org.gnome.rhythmbox.rhythmdb")
 			library_location = library['locations'][0]
 		except IndexError as e:
 			RB.error_dialog(title = _("Couldn't download album"),
@@ -452,7 +452,7 @@ class MagnatuneSource(RB.BrowserSource):
 
 		def unzip_album():
 			# just use the first library location
-			library = Gio.Settings("org.gnome.rhythmbox.rhythmdb")
+			library = Gio.Settings.new("org.gnome.rhythmbox.rhythmdb")
 			library_location = Gio.file_new_for_uri(library['locations'][0])
 
 			print("unzipping %s" % dest.get_path())

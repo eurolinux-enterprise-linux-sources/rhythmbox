@@ -90,7 +90,8 @@ build_triplet = @build@
 host_triplet = @host@
 @ENABLE_PYTHON_TRUE@am__append_1 = artsearch im-status lyrics \
 @ENABLE_PYTHON_TRUE@	magnatune pythonconsole rbzeitgeist \
-@ENABLE_PYTHON_TRUE@	replaygain sendto soundcloud rb context
+@ENABLE_PYTHON_TRUE@	replaygain sendto soundcloud webremote rb \
+@ENABLE_PYTHON_TRUE@	context
 @WITH_LIRC_TRUE@am__append_2 = lirc
 @USE_IPOD_TRUE@am__append_3 = ipod
 @HAVE_LIBBRASERO_MEDIA_TRUE@am__append_4 = brasero-disc-recorder
@@ -208,8 +209,9 @@ CTAGS = ctags
 DIST_SUBDIRS = audiocd audioscrobbler dbus-media-server generic-player \
 	iradio mmkeys mpris power-manager artsearch im-status lyrics \
 	magnatune pythonconsole rbzeitgeist replaygain sendto \
-	soundcloud rb context lirc ipod brasero-disc-recorder daap \
-	mtpdevice fmradio visualizer notification grilo android
+	soundcloud webremote rb context lirc ipod \
+	brasero-disc-recorder daap mtpdevice fmradio visualizer \
+	notification grilo android
 am__DIST_COMMON = $(srcdir)/Makefile.in
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
@@ -269,9 +271,9 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
-GDK_PIXBUF_CSOURCE = @GDK_PIXBUF_CSOURCE@
 GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
+GLIB_COMPILE_RESOURCES = @GLIB_COMPILE_RESOURCES@
 GLIB_COMPILE_SCHEMAS = @GLIB_COMPILE_SCHEMAS@
 GLIB_GENMARSHAL = @GLIB_GENMARSHAL@
 GMSGFMT = @GMSGFMT@
@@ -404,8 +406,6 @@ VAPIDIR = @VAPIDIR@
 VAPIGEN = @VAPIGEN@
 VERSION = @VERSION@
 WARN_CFLAGS = @WARN_CFLAGS@
-WEBKIT_CFLAGS = @WEBKIT_CFLAGS@
-WEBKIT_LIBS = @WEBKIT_LIBS@
 WNOERROR_CFLAGS = @WNOERROR_CFLAGS@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@

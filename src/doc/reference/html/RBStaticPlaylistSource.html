@@ -8,7 +8,7 @@
 <link rel="up" href="ch06.html" title="Sources">
 <link rel="prev" href="RBSource.html" title="RBSource">
 <link rel="next" href="RBStreamingSource.html" title="RBStreamingSource">
-<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -137,11 +137,11 @@
 </div>
 <div class="refsect1">
 <a name="RBStaticPlaylistSource.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-    <span class="lineart">╰──</span> <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-        <span class="lineart">╰──</span> GtkWidget
-            <span class="lineart">╰──</span> GtkContainer
-                <span class="lineart">╰──</span> GtkBox
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct">GtkWidget</a>
+            <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkContainer.html#GtkContainer-struct">GtkContainer</a>
+                <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkBox.html#GtkBox-struct">GtkBox</a>
                     <span class="lineart">╰──</span> <a class="link" href="RBDisplayPage.html" title="RBDisplayPage">RBDisplayPage</a>
                         <span class="lineart">╰──</span> <a class="link" href="RBSource.html" title="RBSource">RBSource</a>
                             <span class="lineart">╰──</span> <a class="link" href="RBPlaylistSource.html" title="RBPlaylistSource">RBPlaylistSource</a>
@@ -153,7 +153,7 @@
 <a name="RBStaticPlaylistSource.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 RBStaticPlaylistSource implements
- AtkImplementorIface,  GtkBuildable and  GtkOrientable.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3GtkBuildable.html#GtkBuildable-struct">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk3gtk3-Orientable.html#GtkOrientable-struct">GtkOrientable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="RBStaticPlaylistSource.description"></a><h2>Description</h2>
@@ -172,12 +172,12 @@ and to add them to the playlist once they are added.</p>
 <pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *
 rb_static_playlist_source_new (<em class="parameter"><code><a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell</code></em>,
                                <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
-                               <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GSettings.html"><span class="type">GSettings</span></a> *settings</code></em>,
-                               <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> local</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGSettings.html#GSettings-struct"><span class="type">GSettings</span></a> *settings</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> local</code></em>,
                                <em class="parameter"><code><a class="link" href="RhythmDBEntryType.html" title="RhythmDBEntryType"><span class="type">RhythmDBEntryType</span></a> *entry_type</code></em>);</pre>
 <p>Creates a new static playlist source.</p>
 <div class="refsect3">
-<a name="id-1.7.15.8.2.5"></a><h4>Parameters</h4>
+<a name="rb-static-playlist-source-new.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -202,7 +202,7 @@ rb_static_playlist_source_new (<em class="parameter"><code><a class="link" href=
 </tr>
 <tr>
 <td class="parameter_name"><p>local</p></td>
-<td class="parameter_description"><p>if <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the playlist is local to the library</p></td>
+<td class="parameter_description"><p>if <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the playlist is local to the library</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -214,7 +214,7 @@ rb_static_playlist_source_new (<em class="parameter"><code><a class="link" href=
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.15.8.2.6"></a><h4>Returns</h4>
+<a name="rb-static-playlist-source-new.returns"></a><h4>Returns</h4>
 <p> new playlist.</p>
 </div>
 </div>
@@ -228,7 +228,7 @@ rb_static_playlist_source_new_from_xml
                                 <em class="parameter"><code><span class="type">xmlNodePtr</span> node</code></em>);</pre>
 <p>Constructs a new playlist from the given XML document node.</p>
 <div class="refsect3">
-<a name="id-1.7.15.8.3.5"></a><h4>Parameters</h4>
+<a name="rb-static-playlist-source-new-from-xml.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -255,7 +255,7 @@ rb_static_playlist_source_new_from_xml
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.15.8.3.6"></a><h4>Returns</h4>
+<a name="rb-static-playlist-source-new-from-xml.returns"></a><h4>Returns</h4>
 <p> playlist read from XML</p>
 </div>
 </div>
@@ -268,7 +268,7 @@ rb_static_playlist_source_load_from_xml
                                 <em class="parameter"><code><span class="type">xmlNodePtr</span> node</code></em>);</pre>
 <p>Loads the playlist contents from the specified XML document node.</p>
 <div class="refsect3">
-<a name="id-1.7.15.8.4.5"></a><h4>Parameters</h4>
+<a name="rb-static-playlist-source-load-from-xml.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -296,10 +296,10 @@ rb_static_playlist_source_load_from_xml
 <pre class="programlisting"><span class="returnvalue">void</span>
 rb_static_playlist_source_add_entry (<em class="parameter"><code><a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="type">RBStaticPlaylistSource</span></a> *source</code></em>,
                                      <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
-                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> index</code></em>);</pre>
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> index</code></em>);</pre>
 <p>Adds the specified entry to the playlist.</p>
 <div class="refsect3">
-<a name="id-1.7.15.8.5.5"></a><h4>Parameters</h4>
+<a name="rb-static-playlist-source-add-entry.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -335,7 +335,7 @@ rb_static_playlist_source_remove_entry
                                 <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
 <p>Removes the specified entry from the playlist.</p>
 <div class="refsect3">
-<a name="id-1.7.15.8.6.5"></a><h4>Parameters</h4>
+<a name="rb-static-playlist-source-remove-entry.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -364,12 +364,12 @@ rb_static_playlist_source_remove_entry
 rb_static_playlist_source_add_location
                                (<em class="parameter"><code><a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="type">RBStaticPlaylistSource</span></a> *source</code></em>,
                                 <em class="parameter"><code>const <span class="type">char</span> *location</code></em>,
-                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> index</code></em>);</pre>
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> index</code></em>);</pre>
 <p>If the location matches an entry in the database, the entry is added
 to the playlist.  Otherwise, if it identifies a directory, the contents
 of that directory are added.</p>
 <div class="refsect3">
-<a name="id-1.7.15.8.7.5"></a><h4>Parameters</h4>
+<a name="rb-static-playlist-source-add-location.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -402,13 +402,13 @@ of that directory are added.</p>
 <pre class="programlisting"><span class="returnvalue">void</span>
 rb_static_playlist_source_add_locations
                                (<em class="parameter"><code><a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="type">RBStaticPlaylistSource</span></a> *source</code></em>,
-                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *locations</code></em>);</pre>
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *locations</code></em>);</pre>
 <p>Adds the locations specified in <em class="parameter"><code>locations</code></em>
  to the playlist.
 See <em class="parameter"><code>rb_static_playlist_source_add_location</code></em>
  for details.</p>
 <div class="refsect3">
-<a name="id-1.7.15.8.8.5"></a><h4>Parameters</h4>
+<a name="rb-static-playlist-source-add-locations.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -441,7 +441,7 @@ rb_static_playlist_source_remove_location
 the location map and the query model, whether an entry exists for the
 location or not.</p>
 <div class="refsect3">
-<a name="id-1.7.15.8.9.5"></a><h4>Parameters</h4>
+<a name="rb-static-playlist-source-remove-location.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -469,10 +469,10 @@ location or not.</p>
 <pre class="programlisting"><span class="returnvalue">void</span>
 rb_static_playlist_source_move_entry (<em class="parameter"><code><a class="link" href="RBStaticPlaylistSource.html" title="RBStaticPlaylistSource"><span class="type">RBStaticPlaylistSource</span></a> *source</code></em>,
                                       <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
-                                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> index</code></em>);</pre>
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> index</code></em>);</pre>
 <p>Moves an entry within the playlist.</p>
 <div class="refsect3">
-<a name="id-1.7.15.8.10.5"></a><h4>Parameters</h4>
+<a name="rb-static-playlist-source-move-entry.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -521,6 +521,6 @@ rb_static_playlist_source_move_entry (<em class="parameter"><code><a class="link
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.24</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

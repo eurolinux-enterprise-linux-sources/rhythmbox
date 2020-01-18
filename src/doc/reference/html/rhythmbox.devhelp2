@@ -326,9 +326,6 @@
     <keyword type="function" name="rhythmdb_entry_pre_destroy ()" link="RhythmDBEntryType.html#rhythmdb-entry-pre-destroy"/>
     <keyword type="function" name="rhythmdb_entry_can_sync_metadata ()" link="RhythmDBEntryType.html#rhythmdb-entry-can-sync-metadata"/>
     <keyword type="function" name="rhythmdb_entry_sync_metadata ()" link="RhythmDBEntryType.html#rhythmdb-entry-sync-metadata"/>
-    <keyword type="macro" name="RHYTHMDB_ENTRY_TYPE_SONG" link="RhythmDBEntryType.html#RHYTHMDB-ENTRY-TYPE-SONG:CAPS"/>
-    <keyword type="macro" name="RHYTHMDB_ENTRY_TYPE_IMPORT_ERROR" link="RhythmDBEntryType.html#RHYTHMDB-ENTRY-TYPE-IMPORT-ERROR:CAPS"/>
-    <keyword type="macro" name="RHYTHMDB_ENTRY_TYPE_IGNORE" link="RhythmDBEntryType.html#RHYTHMDB-ENTRY-TYPE-IGNORE:CAPS"/>
     <keyword type="function" name="rhythmdb_get_song_entry_type ()" link="RhythmDBEntryType.html#rhythmdb-get-song-entry-type"/>
     <keyword type="function" name="rhythmdb_get_error_entry_type ()" link="RhythmDBEntryType.html#rhythmdb-get-error-entry-type"/>
     <keyword type="function" name="rhythmdb_get_ignore_entry_type ()" link="RhythmDBEntryType.html#rhythmdb-get-ignore-entry-type"/>
@@ -336,6 +333,9 @@
     <keyword type="enum" name="enum RhythmDBEntryAvailability" link="RhythmDBEntryType.html#RhythmDBEntryAvailability"/>
     <keyword type="struct" name="struct RhythmDBEntryType" link="RhythmDBEntryType.html#RhythmDBEntryType-struct"/>
     <keyword type="struct" name="struct RhythmDBEntryTypeClass" link="RhythmDBEntryType.html#RhythmDBEntryTypeClass"/>
+    <keyword type="macro" name="RHYTHMDB_ENTRY_TYPE_SONG" link="RhythmDBEntryType.html#RHYTHMDB-ENTRY-TYPE-SONG:CAPS"/>
+    <keyword type="macro" name="RHYTHMDB_ENTRY_TYPE_IMPORT_ERROR" link="RhythmDBEntryType.html#RHYTHMDB-ENTRY-TYPE-IMPORT-ERROR:CAPS"/>
+    <keyword type="macro" name="RHYTHMDB_ENTRY_TYPE_IGNORE" link="RhythmDBEntryType.html#RHYTHMDB-ENTRY-TYPE-IGNORE:CAPS"/>
     <keyword type="property" name="The “cache-name” property" link="RhythmDBEntryType.html#RhythmDBEntryType--cache-name"/>
     <keyword type="property" name="The “category” property" link="RhythmDBEntryType.html#RhythmDBEntryType--category"/>
     <keyword type="property" name="The “db” property" link="RhythmDBEntryType.html#RhythmDBEntryType--db"/>
@@ -426,7 +426,6 @@
     <keyword type="function" name="rhythmdb_query_results_query_complete ()" link="RhythmDBQueryResults.html#rhythmdb-query-results-query-complete"/>
     <keyword type="struct" name="RhythmDBQueryResults" link="RhythmDBQueryResults.html#RhythmDBQueryResults-struct"/>
     <keyword type="struct" name="struct RhythmDBQueryResultsIface" link="RhythmDBQueryResults.html#RhythmDBQueryResultsIface"/>
-    <keyword type="macro" name="RHYTHMDB_TYPE" link="RhythmDB.html#RHYTHMDB-TYPE:CAPS"/>
     <keyword type="macro" name="RHYTHMDB()" link="RhythmDB.html#RHYTHMDB:CAPS"/>
     <keyword type="macro" name="RHYTHMDB_IS()" link="RhythmDB.html#RHYTHMDB-IS:CAPS"/>
     <keyword type="function" name="rhythmdb_entry_get_string ()" link="RhythmDB.html#rhythmdb-entry-get-string"/>
@@ -438,7 +437,6 @@
     <keyword type="function" name="rhythmdb_entry_get_double ()" link="RhythmDB.html#rhythmdb-entry-get-double"/>
     <keyword type="function" name="rhythmdb_entry_get_object ()" link="RhythmDB.html#rhythmdb-entry-get-object"/>
     <keyword type="function" name="rhythmdb_entry_get_entry_type ()" link="RhythmDB.html#rhythmdb-entry-get-entry-type"/>
-    <keyword type="macro" name="RHYTHMDB_ERROR" link="RhythmDB.html#RHYTHMDB-ERROR:CAPS"/>
     <keyword type="function" name="rhythmdb_error_quark ()" link="RhythmDB.html#rhythmdb-error-quark"/>
     <keyword type="function" name="rhythmdb_get_type ()" link="RhythmDB.html#rhythmdb-get-type"/>
     <keyword type="function" name="rhythmdb_shutdown ()" link="RhythmDB.html#rhythmdb-shutdown"/>
@@ -502,6 +500,7 @@
     <keyword type="function" name="rhythmdb_get_property_type ()" link="RhythmDB.html#rhythmdb-get-property-type"/>
     <keyword type="function" name="rhythmdb_entry_ref ()" link="RhythmDB.html#rhythmdb-entry-ref"/>
     <keyword type="function" name="rhythmdb_entry_unref ()" link="RhythmDB.html#rhythmdb-entry-unref"/>
+    <keyword type="macro" name="RHYTHMDB_TYPE" link="RhythmDB.html#RHYTHMDB-TYPE:CAPS"/>
     <keyword type="typedef" name="RhythmDBQuery" link="RhythmDB.html#RhythmDBQuery"/>
     <keyword type="enum" name="enum RhythmDBQueryType" link="RhythmDB.html#RhythmDBQueryType"/>
     <keyword type="enum" name="enum RhythmDBPropType" link="RhythmDB.html#RhythmDBPropType"/>
@@ -513,6 +512,7 @@
     <keyword type="struct" name="RhythmDBQueryData" link="RhythmDB.html#RhythmDBQueryData"/>
     <keyword type="struct" name="RhythmDBEntryChange" link="RhythmDB.html#RhythmDBEntryChange"/>
     <keyword type="enum" name="enum RhythmDBError" link="RhythmDB.html#RhythmDBError"/>
+    <keyword type="macro" name="RHYTHMDB_ERROR" link="RhythmDB.html#RHYTHMDB-ERROR:CAPS"/>
     <keyword type="struct" name="struct RhythmDB" link="RhythmDB.html#RhythmDB-struct"/>
     <keyword type="struct" name="struct RhythmDBClass" link="RhythmDB.html#RhythmDBClass"/>
     <keyword type="struct" name="RhythmDBPrivate" link="RhythmDB.html#RhythmDBPrivate"/>
@@ -764,6 +764,7 @@
     <keyword type="property" name="The “encoding-target” property" link="RBTrackTransferBatch.html#RBTrackTransferBatch--encoding-target"/>
     <keyword type="property" name="The “entry-list” property" link="RBTrackTransferBatch.html#RBTrackTransferBatch--entry-list"/>
     <keyword type="property" name="The “progress” property" link="RBTrackTransferBatch.html#RBTrackTransferBatch--progress"/>
+    <keyword type="property" name="The “queue” property" link="RBTrackTransferBatch.html#RBTrackTransferBatch--queue"/>
     <keyword type="property" name="The “settings” property" link="RBTrackTransferBatch.html#RBTrackTransferBatch--settings"/>
     <keyword type="property" name="The “source” property" link="RBTrackTransferBatch.html#RBTrackTransferBatch--source"/>
     <keyword type="property" name="The “total-entries” property" link="RBTrackTransferBatch.html#RBTrackTransferBatch--total-entries"/>
@@ -818,12 +819,6 @@
     <keyword type="property" name="The “visibility” property" link="RBDisplayPage.html#RBDisplayPage--visibility"/>
     <keyword type="signal" name="The “deleted” signal" link="RBDisplayPage.html#RBDisplayPage-deleted"/>
     <keyword type="signal" name="The “status-changed” signal" link="RBDisplayPage.html#RBDisplayPage-status-changed"/>
-    <keyword type="macro" name="RB_DISPLAY_PAGE_GROUP_LIBRARY" link="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-LIBRARY:CAPS"/>
-    <keyword type="macro" name="RB_DISPLAY_PAGE_GROUP_PLAYLISTS" link="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-PLAYLISTS:CAPS"/>
-    <keyword type="macro" name="RB_DISPLAY_PAGE_GROUP_DEVICES" link="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-DEVICES:CAPS"/>
-    <keyword type="macro" name="RB_DISPLAY_PAGE_GROUP_SHARED" link="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-SHARED:CAPS"/>
-    <keyword type="macro" name="RB_DISPLAY_PAGE_GROUP_STORES" link="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-STORES:CAPS"/>
-    <keyword type="macro" name="RB_DISPLAY_PAGE_GROUP_TOOLS" link="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-TOOLS:CAPS"/>
     <keyword type="function" name="rb_display_page_group_add_core_groups ()" link="RBDisplayPageGroup.html#rb-display-page-group-add-core-groups"/>
     <keyword type="function" name="rb_display_page_group_get_by_id ()" link="RBDisplayPageGroup.html#rb-display-page-group-get-by-id"/>
     <keyword type="function" name="rb_display_page_group_new ()" link="RBDisplayPageGroup.html#rb-display-page-group-new"/>
@@ -831,6 +826,12 @@
     <keyword type="enum" name="enum RBDisplayPageGroupCategory" link="RBDisplayPageGroup.html#RBDisplayPageGroupCategory"/>
     <keyword type="struct" name="struct RBDisplayPageGroup" link="RBDisplayPageGroup.html#RBDisplayPageGroup-struct"/>
     <keyword type="struct" name="struct RBDisplayPageGroupClass" link="RBDisplayPageGroup.html#RBDisplayPageGroupClass"/>
+    <keyword type="macro" name="RB_DISPLAY_PAGE_GROUP_LIBRARY" link="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-LIBRARY:CAPS"/>
+    <keyword type="macro" name="RB_DISPLAY_PAGE_GROUP_PLAYLISTS" link="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-PLAYLISTS:CAPS"/>
+    <keyword type="macro" name="RB_DISPLAY_PAGE_GROUP_DEVICES" link="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-DEVICES:CAPS"/>
+    <keyword type="macro" name="RB_DISPLAY_PAGE_GROUP_SHARED" link="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-SHARED:CAPS"/>
+    <keyword type="macro" name="RB_DISPLAY_PAGE_GROUP_STORES" link="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-STORES:CAPS"/>
+    <keyword type="macro" name="RB_DISPLAY_PAGE_GROUP_TOOLS" link="RBDisplayPageGroup.html#RB-DISPLAY-PAGE-GROUP-TOOLS:CAPS"/>
     <keyword type="property" name="The “category” property" link="RBDisplayPageGroup.html#RBDisplayPageGroup--category"/>
     <keyword type="property" name="The “id” property" link="RBDisplayPageGroup.html#RBDisplayPageGroup--id"/>
     <keyword type="property" name="The “loaded” property" link="RBDisplayPageGroup.html#RBDisplayPageGroup--loaded"/>

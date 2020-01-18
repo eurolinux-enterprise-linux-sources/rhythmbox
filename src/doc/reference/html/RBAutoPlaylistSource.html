@@ -8,7 +8,7 @@
 <link rel="up" href="ch06.html" title="Sources">
 <link rel="prev" href="ch06.html" title="Sources">
 <link rel="next" href="RBBrowserSource.html" title="RBBrowserSource">
-<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -97,11 +97,11 @@
 </div>
 <div class="refsect1">
 <a name="RBAutoPlaylistSource.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-    <span class="lineart">╰──</span> <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-        <span class="lineart">╰──</span> GtkWidget
-            <span class="lineart">╰──</span> GtkContainer
-                <span class="lineart">╰──</span> GtkBox
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct">GtkWidget</a>
+            <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkContainer.html#GtkContainer-struct">GtkContainer</a>
+                <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkBox.html#GtkBox-struct">GtkBox</a>
                     <span class="lineart">╰──</span> <a class="link" href="RBDisplayPage.html" title="RBDisplayPage">RBDisplayPage</a>
                         <span class="lineart">╰──</span> <a class="link" href="RBSource.html" title="RBSource">RBSource</a>
                             <span class="lineart">╰──</span> <a class="link" href="RBPlaylistSource.html" title="RBPlaylistSource">RBPlaylistSource</a>
@@ -112,7 +112,7 @@
 <a name="RBAutoPlaylistSource.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 RBAutoPlaylistSource implements
- AtkImplementorIface,  GtkBuildable and  GtkOrientable.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3GtkBuildable.html#GtkBuildable-struct">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk3gtk3-Orientable.html#GtkOrientable-struct">GtkOrientable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="RBAutoPlaylistSource.description"></a><h2>Description</h2>
@@ -134,10 +134,10 @@ results.</p>
 <pre class="programlisting"><a class="link" href="RBSource.html" title="RBSource"><span class="returnvalue">RBSource</span></a> *
 rb_auto_playlist_source_new (<em class="parameter"><code><a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell</code></em>,
                              <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
-                             <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> local</code></em>);</pre>
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> local</code></em>);</pre>
 <p>Creates a new automatic playlist source, initially with an empty query.</p>
 <div class="refsect3">
-<a name="id-1.7.2.8.2.5"></a><h4>Parameters</h4>
+<a name="rb-auto-playlist-source-new.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -164,7 +164,7 @@ rb_auto_playlist_source_new (<em class="parameter"><code><a class="link" href="R
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.2.8.2.6"></a><h4>Returns</h4>
+<a name="rb-auto-playlist-source-new.returns"></a><h4>Returns</h4>
 <p> the new source</p>
 </div>
 </div>
@@ -177,7 +177,7 @@ rb_auto_playlist_source_new_from_xml (<em class="parameter"><code><a class="link
                                       <em class="parameter"><code><span class="type">xmlNodePtr</span> node</code></em>);</pre>
 <p>Creates a new auto playlist source by parsing an XML-encoded query.</p>
 <div class="refsect3">
-<a name="id-1.7.2.8.3.5"></a><h4>Parameters</h4>
+<a name="rb-auto-playlist-source-new-from-xml.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -204,7 +204,7 @@ rb_auto_playlist_source_new_from_xml (<em class="parameter"><code><a class="link
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.2.8.3.6"></a><h4>Returns</h4>
+<a name="rb-auto-playlist-source-new-from-xml.returns"></a><h4>Returns</h4>
 <p> the new source</p>
 </div>
 </div>
@@ -213,16 +213,16 @@ rb_auto_playlist_source_new_from_xml (<em class="parameter"><code><a class="link
 <a name="rb-auto-playlist-source-set-query"></a><h3>rb_auto_playlist_source_set_query ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 rb_auto_playlist_source_set_query (<em class="parameter"><code><a class="link" href="RBAutoPlaylistSource.html" title="RBAutoPlaylistSource"><span class="type">RBAutoPlaylistSource</span></a> *source</code></em>,
-                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *query</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *query</code></em>,
                                    <em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModelLimitType" title="enum RhythmDBQueryModelLimitType"><span class="type">RhythmDBQueryModelLimitType</span></a> limit_type</code></em>,
-                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-GVariant.html#GVariant"><span class="type">GVariant</span></a> *limit_value</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-GVariant.html#GVariant"><span class="type">GVariant</span></a> *limit_value</code></em>,
                                    <em class="parameter"><code>const <span class="type">char</span> *sort_key</code></em>,
-                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> sort_order</code></em>);</pre>
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> sort_order</code></em>);</pre>
 <p>Sets the database query used to populate the playlist, and also the limit on
 playlist size, and the sorting type used.</p>
 <p><span class="annotation">[<a href="http://foldoc.org/skip"><span class="acronym">skip</span></a>]</span></p>
 <div class="refsect3">
-<a name="id-1.7.2.8.4.6"></a><h4>Parameters</h4>
+<a name="rb-auto-playlist-source-set-query.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -257,7 +257,7 @@ playlist size, and the sorting type used.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>sort_order</p></td>
-<td class="parameter_description"><p>the sorting direction (as a <span class="type">GtkSortType</span>)</p></td>
+<td class="parameter_description"><p>the sorting direction (as a <a href="/usr/share/gtk-doc/html/gtk3gtk3-Standard-Enumerations.html#GtkSortType"><span class="type">GtkSortType</span></a>)</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
@@ -269,15 +269,15 @@ playlist size, and the sorting type used.</p>
 <a name="rb-auto-playlist-source-get-query"></a><h3>rb_auto_playlist_source_get_query ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 rb_auto_playlist_source_get_query (<em class="parameter"><code><a class="link" href="RBAutoPlaylistSource.html" title="RBAutoPlaylistSource"><span class="type">RBAutoPlaylistSource</span></a> *source</code></em>,
-                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **query</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **query</code></em>,
                                    <em class="parameter"><code><a class="link" href="RhythmDBQueryModel.html#RhythmDBQueryModelLimitType" title="enum RhythmDBQueryModelLimitType"><span class="type">RhythmDBQueryModelLimitType</span></a> *limit_type</code></em>,
-                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-GVariant.html#GVariant"><span class="type">GVariant</span></a> **limit_value</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-GVariant.html#GVariant"><span class="type">GVariant</span></a> **limit_value</code></em>,
                                    <em class="parameter"><code><span class="type">char</span> **sort_key</code></em>,
-                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *sort_order</code></em>);</pre>
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *sort_order</code></em>);</pre>
 <p>Extracts the current query, playlist limit, and sorting settings for the playlist.</p>
 <p><span class="annotation">[<a href="http://foldoc.org/skip"><span class="acronym">skip</span></a>]</span></p>
 <div class="refsect3">
-<a name="id-1.7.2.8.5.6"></a><h4>Parameters</h4>
+<a name="rb-auto-playlist-source-get-query.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -312,7 +312,7 @@ rb_auto_playlist_source_get_query (<em class="parameter"><code><a class="link" h
 </tr>
 <tr>
 <td class="parameter_name"><p>sort_order</p></td>
-<td class="parameter_description"><p> returns the playlist sorting direction (as a <span class="type">GtkSortType</span>). </p></td>
+<td class="parameter_description"><p> returns the playlist sorting direction (as a <a href="/usr/share/gtk-doc/html/gtk3gtk3-Standard-Enumerations.html#GtkSortType"><span class="type">GtkSortType</span></a>). </p></td>
 <td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/out%20callee-allocates"><span class="acronym">out callee-allocates</span></a>]</span></td>
 </tr>
 </tbody>
@@ -341,6 +341,6 @@ rb_auto_playlist_source_get_query (<em class="parameter"><code><a class="link" h
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.24</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

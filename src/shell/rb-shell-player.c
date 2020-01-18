@@ -1329,11 +1329,9 @@ rb_shell_player_play_entry (RBShellPlayer *player,
 	}
 }
 
-/* unused parameter can't be removed without breaking dbus interface compatibility */
 /**
  * rb_shell_player_playpause:
  * @player: the #RBShellPlayer
- * @unused: nothing
  * @error: returns error information
  *
  * Toggles between playing and paused state.  If there is no playing
@@ -1344,7 +1342,6 @@ rb_shell_player_play_entry (RBShellPlayer *player,
  */
 gboolean
 rb_shell_player_playpause (RBShellPlayer *player,
-			   gboolean unused,
 			   GError **error)
 {
 	gboolean ret;
@@ -1752,9 +1749,10 @@ rb_shell_player_property_row_activated_cb (RBPropertyView *view,
 			rb_shell_player_error (player, FALSE, error);
 			g_clear_error (&error);
 		}
+
+		rhythmdb_entry_unref (entry);
 	}
 
-	rhythmdb_entry_unref (entry);
 	g_object_unref (porder);
 }
 
@@ -2169,7 +2167,7 @@ rb_shell_player_pause (RBShellPlayer *player,
 		       GError **error)
 {
 	if (rb_player_playing (player->priv->mmplayer))
-		return rb_shell_player_playpause (player, FALSE, error);
+		return rb_shell_player_playpause (player, error);
 	else
 		return TRUE;
 }
@@ -2774,7 +2772,7 @@ play_action_cb (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 	GError *error = NULL;
 
 	rb_debug ("play!");
-	if (rb_shell_player_playpause (player, FALSE, &error) == FALSE) {
+	if (rb_shell_player_playpause (player, &error) == FALSE) {
 		rb_error_dialog (NULL,
 				 _("Couldn't start playback"),
 				 "%s", (error) ? error->message : "(null)");
@@ -2975,11 +2973,14 @@ rb_shell_player_constructed (GObject *object)
 					 G_N_ELEMENTS (actions),
 					 player);
 
+	/* these only take effect if the focused widget doesn't handle the event */
+	rb_application_add_accelerator (app, "<Ctrl>Left", "app.play-previous", NULL);
+	rb_application_add_accelerator (app, "<Ctrl>Right", "app.play-next", NULL);
+	rb_application_add_accelerator (app, "<Ctrl>Up", "app.volume-up", NULL);
+	rb_application_add_accelerator (app, "<Ctrl>Down", "app.volume-down", NULL);
+
+	/* these take effect regardless of widget key handling */
 	gtk_application_add_accelerator (GTK_APPLICATION (app), "<Ctrl>p", "app.play", NULL);
-	gtk_application_add_accelerator (GTK_APPLICATION (app), "<Ctrl>Left", "app.play-previous", NULL);
-	gtk_application_add_accelerator (GTK_APPLICATION (app), "<Ctrl>Right", "app.play-next", NULL);
-	gtk_application_add_accelerator (GTK_APPLICATION (app), "<Ctrl>Up", "app.volume-up", NULL);
-	gtk_application_add_accelerator (GTK_APPLICATION (app), "<Ctrl>Down", "app.volume-down", NULL);
 	gtk_application_add_accelerator (GTK_APPLICATION (app), "<Ctrl>r", "app.play-repeat", g_variant_new_boolean (TRUE));
 	gtk_application_add_accelerator (GTK_APPLICATION (app), "<Ctrl>u", "app.play-shuffle", g_variant_new_boolean (TRUE));
 

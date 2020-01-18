@@ -138,9 +138,7 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-am__installdirs = "$(DESTDIR)$(plugindir)" \
-	"$(DESTDIR)$(gtkbuilderdir)" "$(DESTDIR)$(plugindir)" \
-	"$(DESTDIR)$(plugindatadir)"
+am__installdirs = "$(DESTDIR)$(plugindir)" "$(DESTDIR)$(plugindir)"
 LTLIBRARIES = $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 @USE_LIBSECRET_TRUE@am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1)
@@ -148,7 +146,8 @@ libdaap_la_DEPENDENCIES = $(top_builddir)/shell/librhythmbox-core.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_2)
 am__objects_1 =
-am_libdaap_la_OBJECTS = libdaap_la-rb-daap-container-record.lo \
+am_libdaap_la_OBJECTS = libdaap_la-daap-resources.lo \
+	libdaap_la-rb-daap-container-record.lo \
 	libdaap_la-rb-daap-plugin.lo libdaap_la-rb-daap-record.lo \
 	libdaap_la-rb-daap-record-factory.lo \
 	libdaap_la-rb-daap-sharing.lo libdaap_la-rb-daap-source.lo \
@@ -208,7 +207,7 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-DATA = $(gtkbuilder_DATA) $(plugin_DATA) $(plugindata_DATA)
+DATA = $(plugin_DATA)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -262,9 +261,9 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
-GDK_PIXBUF_CSOURCE = @GDK_PIXBUF_CSOURCE@
 GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
+GLIB_COMPILE_RESOURCES = @GLIB_COMPILE_RESOURCES@
 GLIB_COMPILE_SCHEMAS = @GLIB_COMPILE_SCHEMAS@
 GLIB_GENMARSHAL = @GLIB_GENMARSHAL@
 GMSGFMT = @GMSGFMT@
@@ -397,8 +396,6 @@ VAPIDIR = @VAPIDIR@
 VAPIGEN = @VAPIGEN@
 VERSION = @VERSION@
 WARN_CFLAGS = @WARN_CFLAGS@
-WEBKIT_CFLAGS = @WEBKIT_CFLAGS@
-WEBKIT_LIBS = @WEBKIT_LIBS@
 WNOERROR_CFLAGS = @WNOERROR_CFLAGS@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
@@ -476,6 +473,7 @@ plugindir = $(PLUGINDIR)/daap
 plugindatadir = $(PLUGINDATADIR)/daap
 plugin_LTLIBRARIES = libdaap.la
 libdaap_la_SOURCES = \
+	daap-resources.c			  \
 	rb-daap-container-record.c		  \
 	rb-daap-container-record.h		  \
 	rb-daap-plugin.c			  \
@@ -518,21 +516,16 @@ AM_CPPFLAGS = -DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
 	-DPIXMAP_DIR=\""$(datadir)/pixmaps"\" \
 	-DSHARE_DIR=\"$(pkgdatadir)\" -DDATADIR=\""$(datadir)"\" \
 	$(DMAPSHARING_CFLAGS) $(RHYTHMBOX_CFLAGS) $(am__append_2)
-gtkbuilderdir = $(plugindatadir)
-gtkbuilder_DATA = daap-prefs.ui daap-toolbar.ui
+PLUGIN_RESOURCES = daap-prefs.ui daap-toolbar.ui
+plugin_resource_deps = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir) $(srcdir)/daap.gresource.xml)
 plugin_in_files = daap.plugin.in
 plugin_files = $(plugin_in_files:.plugin.in=.plugin)
-BUILT_SOURCES = $(plugin_files)
+BUILT_SOURCES = daap-resources.c $(plugin_files)
 plugin_DATA = $(plugin_files)
-plugindata_DATA = \
-	$(top_srcdir)/plugins/daap/remote-icon.png	\
-	$(NULL)
-
 EXTRA_DIST = \
-	$(gtkbuilder_DATA)				\
-	$(top_srcdir)/plugins/daap/remote-icon.png	\
-	$(uixml_DATA)		\
+	$(PLUGIN_RESOURCES)				\
 	$(plugin_in_files)	\
+	daap.gresource.xml	\
 	$(NULL)
 
 CLEANFILES = \
@@ -622,6 +615,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libdaap_la-daap-resources.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libdaap_la-rb-daap-container-record.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libdaap_la-rb-daap-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libdaap_la-rb-daap-record-factory.Plo@am__quote@
@@ -655,6 +649,13 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
+
+libdaap_la-daap-resources.lo: daap-resources.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(libdaap_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libdaap_la-daap-resources.lo -MD -MP -MF $(DEPDIR)/libdaap_la-daap-resources.Tpo -c -o libdaap_la-daap-resources.lo `test -f 'daap-resources.c' || echo '$(srcdir)/'`daap-resources.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libdaap_la-daap-resources.Tpo $(DEPDIR)/libdaap_la-daap-resources.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='daap-resources.c' object='libdaap_la-daap-resources.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(libdaap_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libdaap_la-daap-resources.lo `test -f 'daap-resources.c' || echo '$(srcdir)/'`daap-resources.c
 
 libdaap_la-rb-daap-container-record.lo: rb-daap-container-record.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(libdaap_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libdaap_la-rb-daap-container-record.lo -MD -MP -MF $(DEPDIR)/libdaap_la-rb-daap-container-record.Tpo -c -o libdaap_la-rb-daap-container-record.lo `test -f 'rb-daap-container-record.c' || echo '$(srcdir)/'`rb-daap-container-record.c
@@ -745,27 +746,6 @@ mostlyclean-libtool:
 
 clean-libtool:
 	-rm -rf .libs _libs
-install-gtkbuilderDATA: $(gtkbuilder_DATA)
-	@$(NORMAL_INSTALL)
-	@list='$(gtkbuilder_DATA)'; test -n "$(gtkbuilderdir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(gtkbuilderdir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(gtkbuilderdir)" || exit 1; \
-	fi; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(gtkbuilderdir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(gtkbuilderdir)" || exit $$?; \
-	done
-
-uninstall-gtkbuilderDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(gtkbuilder_DATA)'; test -n "$(gtkbuilderdir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	dir='$(DESTDIR)$(gtkbuilderdir)'; $(am__uninstall_files_from_dir)
 install-pluginDATA: $(plugin_DATA)
 	@$(NORMAL_INSTALL)
 	@list='$(plugin_DATA)'; test -n "$(plugindir)" || list=; \
@@ -787,27 +767,6 @@ uninstall-pluginDATA:
 	@list='$(plugin_DATA)'; test -n "$(plugindir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(plugindir)'; $(am__uninstall_files_from_dir)
-install-plugindataDATA: $(plugindata_DATA)
-	@$(NORMAL_INSTALL)
-	@list='$(plugindata_DATA)'; test -n "$(plugindatadir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(plugindatadir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(plugindatadir)" || exit 1; \
-	fi; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(plugindatadir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(plugindatadir)" || exit $$?; \
-	done
-
-uninstall-plugindataDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(plugindata_DATA)'; test -n "$(plugindatadir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	dir='$(DESTDIR)$(plugindatadir)'; $(am__uninstall_files_from_dir)
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -896,7 +855,7 @@ check: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) check-am
 all-am: Makefile $(LTLIBRARIES) $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(plugindir)" "$(DESTDIR)$(gtkbuilderdir)" "$(DESTDIR)$(plugindir)" "$(DESTDIR)$(plugindatadir)"; do \
+	for dir in "$(DESTDIR)$(plugindir)" "$(DESTDIR)$(plugindir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: $(BUILT_SOURCES)
@@ -956,8 +915,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-gtkbuilderDATA install-pluginDATA \
-	install-pluginLTLIBRARIES install-plugindataDATA
+install-data-am: install-pluginDATA install-pluginLTLIBRARIES
 
 install-dvi: install-dvi-am
 
@@ -1003,8 +961,7 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-gtkbuilderDATA uninstall-pluginDATA \
-	uninstall-pluginLTLIBRARIES uninstall-plugindataDATA
+uninstall-am: uninstall-pluginDATA uninstall-pluginLTLIBRARIES
 
 .MAKE: all check install install-am install-strip
 
@@ -1014,19 +971,23 @@ uninstall-am: uninstall-gtkbuilderDATA uninstall-pluginDATA \
 	distclean-libtool distclean-tags distdir dvi dvi-am html \
 	html-am info info-am install install-am install-data \
 	install-data-am install-dvi install-dvi-am install-exec \
-	install-exec-am install-gtkbuilderDATA install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-pluginDATA \
-	install-pluginLTLIBRARIES install-plugindataDATA install-ps \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-pluginDATA install-pluginLTLIBRARIES install-ps \
 	install-ps-am install-strip installcheck installcheck-am \
 	installdirs maintainer-clean maintainer-clean-generic \
 	mostlyclean mostlyclean-compile mostlyclean-generic \
 	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-am uninstall \
-	uninstall-am uninstall-gtkbuilderDATA uninstall-pluginDATA \
-	uninstall-pluginLTLIBRARIES uninstall-plugindataDATA
+	uninstall-am uninstall-pluginDATA uninstall-pluginLTLIBRARIES
 
 .PRECIOUS: Makefile
 
+daap-resources.c: $(plugin_resource_deps) $(srcdir)/daap.gresource.xml
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES)		\
+		--target="$@"				\
+		--sourcedir="$(srcdir)"			\
+		--sourcedir="$(builddir)"		\
+		--generate-source "$(srcdir)/daap.gresource.xml"
 
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 

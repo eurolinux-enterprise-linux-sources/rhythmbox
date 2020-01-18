@@ -11,7 +11,7 @@ and/or use gtk-doc annotations.  -->
   <c:include name="rhythmbox.h"/>
   <namespace name="MPID"
              version="3.0"
-             shared-library="librhythmbox-core.so.9"
+             shared-library="librhythmbox-core.so.10"
              c:identifier-prefixes="MPID"
              c:symbol-prefixes="mpid_">
     <class name="Device"

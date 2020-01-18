@@ -8,7 +8,7 @@
 <link rel="up" href="ch02.html" title="Lib">
 <link rel="prev" href="rhythmbox-rb-file-helpers.html" title="rb-file-helpers">
 <link rel="next" href="RBStringValueMap.html" title="RBStringValueMap">
-<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -41,7 +41,7 @@
 <tbody>
 <tr>
 <td class="function_type">
-<span class="returnvalue">GtkBuilder</span> *
+<a href="/usr/share/gtk-doc/html/gtk3GtkBuilder.html#GtkBuilder-struct"><span class="returnvalue">GtkBuilder</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="rhythmbox-rb-builder-helpers.html#rb-builder-load" title="rb_builder_load ()">rb_builder_load</a> <span class="c_punctuation">()</span>
@@ -49,7 +49,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<span class="returnvalue">GtkBuilder</span> *
+<a href="/usr/share/gtk-doc/html/gtk3GtkBuilder.html#GtkBuilder-struct"><span class="returnvalue">GtkBuilder</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="rhythmbox-rb-builder-helpers.html#rb-builder-load-plugin-file" title="rb_builder_load_plugin_file ()">rb_builder_load_plugin_file</a> <span class="c_punctuation">()</span>
@@ -65,7 +65,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="rhythmbox-rb-builder-helpers.html#rb-combo-box-hyphen-separator-func" title="rb_combo_box_hyphen_separator_func ()">rb_combo_box_hyphen_separator_func</a> <span class="c_punctuation">()</span>
@@ -83,15 +83,17 @@ widgets built from GtkBuilder files.</p>
 <a name="rhythmbox-rb-builder-helpers.functions_details"></a><h2>Functions</h2>
 <div class="refsect2">
 <a name="rb-builder-load"></a><h3>rb_builder_load ()</h3>
-<pre class="programlisting"><span class="returnvalue">GtkBuilder</span> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3GtkBuilder.html#GtkBuilder-struct"><span class="returnvalue">GtkBuilder</span></a> *
 rb_builder_load (<em class="parameter"><code>const <span class="type">char</span> *file</code></em>,
-                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
 <p>Locates and reads a GtkBuilder file, automatically connecting
-signal handlers where possible.  The caller can specify a path
-relative to the shared data directory, or its 'ui' or 'art'
-subdirectories.</p>
+signal handlers where possible.</p>
+<p>The caller can specify an absolute path to the file, a resource path
+starting with /org/gnome/Rhythmbox/ or just a filename, in which case
+the file will be loaded from GResources (in normal builds) or the source
+data/ui directory (in uninstalled builds).</p>
 <div class="refsect3">
-<a name="id-1.3.5.5.2.5"></a><h4>Parameters</h4>
+<a name="rb-builder-load.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -113,22 +115,22 @@ subdirectories.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.3.5.5.2.6"></a><h4>Returns</h4>
-<p> <span class="type">GtkBuilder</span> object built from the file. </p>
+<a name="rb-builder-load.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/gtk3GtkBuilder.html#GtkBuilder-struct"><span class="type">GtkBuilder</span></a> object built from the file. </p>
 <p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="rb-builder-load-plugin-file"></a><h3>rb_builder_load_plugin_file ()</h3>
-<pre class="programlisting"><span class="returnvalue">GtkBuilder</span> *
-rb_builder_load_plugin_file (<em class="parameter"><code><a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *plugin</code></em>,
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3GtkBuilder.html#GtkBuilder-struct"><span class="returnvalue">GtkBuilder</span></a> *
+rb_builder_load_plugin_file (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct"><span class="type">GObject</span></a> *plugin</code></em>,
                              <em class="parameter"><code>const <span class="type">char</span> *file</code></em>,
-                             <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
 <p>Like <a class="link" href="rhythmbox-rb-builder-helpers.html#rb-builder-load" title="rb_builder_load ()"><span class="type">rb_builder_load</span></a>, except it finds files associated with
 plugins as well as those in the core data directories.</p>
 <div class="refsect3">
-<a name="id-1.3.5.5.3.5"></a><h4>Parameters</h4>
+<a name="rb-builder-load-plugin-file.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -155,8 +157,8 @@ plugins as well as those in the core data directories.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.3.5.5.3.6"></a><h4>Returns</h4>
-<p> <span class="type">GtkBuilder</span> object built from the file. </p>
+<a name="rb-builder-load-plugin-file.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/gtk3GtkBuilder.html#GtkBuilder-struct"><span class="type">GtkBuilder</span></a> object built from the file. </p>
 <p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
 </div>
 </div>
@@ -164,11 +166,11 @@ plugins as well as those in the core data directories.</p>
 <div class="refsect2">
 <a name="rb-builder-boldify-label"></a><h3>rb_builder_boldify_label ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-rb_builder_boldify_label (<em class="parameter"><code><span class="type">GtkBuilder</span> *builder</code></em>,
+rb_builder_boldify_label (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkBuilder.html#GtkBuilder-struct"><span class="type">GtkBuilder</span></a> *builder</code></em>,
                           <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
 <p>Makes a label built from a GtkBuilder file bold.</p>
 <div class="refsect3">
-<a name="id-1.3.5.5.4.5"></a><h4>Parameters</h4>
+<a name="rb-builder-boldify-label.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -178,7 +180,7 @@ rb_builder_boldify_label (<em class="parameter"><code><span class="type">GtkBuil
 <tbody>
 <tr>
 <td class="parameter_name"><p>builder</p></td>
-<td class="parameter_description"><p>a <span class="type">GtkBuilder</span> instance</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gtk3GtkBuilder.html#GtkBuilder-struct"><span class="type">GtkBuilder</span></a> instance</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -193,16 +195,16 @@ rb_builder_boldify_label (<em class="parameter"><code><span class="type">GtkBuil
 <hr>
 <div class="refsect2">
 <a name="rb-combo-box-hyphen-separator-func"></a><h3>rb_combo_box_hyphen_separator_func ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
-rb_combo_box_hyphen_separator_func (<em class="parameter"><code><span class="type">GtkTreeModel</span> *model</code></em>,
-                                    <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>,
-                                    <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+rb_combo_box_hyphen_separator_func (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeModel-struct"><span class="type">GtkTreeModel</span></a> *model</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeIter-struct"><span class="type">GtkTreeIter</span></a> *iter</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
 <p>A row separator function to use for GtkComboBox widgets.
 It expects the model to contain a string in its first column,
 and interprets a string containing a single hyphen character
 as a separator.</p>
 <div class="refsect3">
-<a name="id-1.3.5.5.5.5"></a><h4>Parameters</h4>
+<a name="rb-combo-box-hyphen-separator-func.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -212,12 +214,12 @@ as a separator.</p>
 <tbody>
 <tr>
 <td class="parameter_name"><p>model</p></td>
-<td class="parameter_description"><p>a <span class="type">GtkTreeModel</span></p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeModel-struct"><span class="type">GtkTreeModel</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>iter</p></td>
-<td class="parameter_description"><p>a <span class="type">GtkTreeIter</span></p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeIter-struct"><span class="type">GtkTreeIter</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -229,8 +231,8 @@ as a separator.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.3.5.5.5.6"></a><h4>Returns</h4>
-<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the row pointed to by <em class="parameter"><code>iter</code></em>
+<a name="rb-combo-box-hyphen-separator-func.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the row pointed to by <em class="parameter"><code>iter</code></em>
 is a separator</p>
 </div>
 </div>
@@ -240,6 +242,6 @@ is a separator</p>
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.24</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

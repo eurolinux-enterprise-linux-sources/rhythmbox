@@ -8,7 +8,7 @@
 <link rel="up" href="ch06.html" title="Sources">
 <link rel="prev" href="rhythmbox-RBDeviceSource.html" title="RBDeviceSource">
 <link rel="next" href="ch07.html" title="Widgets">
-<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -65,7 +65,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="rhythmbox-RBTransferTarget.html#rb-transfer-target-should-transfer" title="rb_transfer_target_should_transfer ()">rb_transfer_target_should_transfer</a> <span class="c_punctuation">()</span>
@@ -73,7 +73,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="rhythmbox-RBTransferTarget.html#rb-transfer-target-get-format-descriptions" title="rb_transfer_target_get_format_descriptions ()">rb_transfer_target_get_format_descriptions</a> <span class="c_punctuation">()</span>
@@ -81,7 +81,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="rhythmbox-RBTransferTarget.html#rb-transfer-target-check-category" title="rb_transfer_target_check_category ()">rb_transfer_target_check_category</a> <span class="c_punctuation">()</span>
@@ -89,7 +89,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="rhythmbox-RBTransferTarget.html#rb-transfer-target-check-duplicate" title="rb_transfer_target_check_duplicate ()">rb_transfer_target_check_duplicate</a> <span class="c_punctuation">()</span>
@@ -130,7 +130,7 @@
 and call the associated functions to perform transfers.  The source
 needs to be able to construct target URIs for transfers, and can optionally
 perform its own processing after transfers have finished.  The source
-must also provide a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gst-plugins-base-libs/html/gst-plugins-base-libs-encoding-profile.html#GstEncodingTarget"><span class="type">GstEncodingTarget</span></a> that describes the formats it
+must also provide a <a href="/usr/share/gtk-doc/html/gst-plugins-base-libs-1.0gst-plugins-base-libs-encoding-profile.html#GstEncodingTarget-struct"><span class="type">GstEncodingTarget</span></a> that describes the formats it
 accepts.</p>
 </div>
 <div class="refsect1">
@@ -150,7 +150,7 @@ location used to store the file before uploading it to the device.</p>
 and should use the provided extension instead of the extension from
 the source entry.</p>
 <div class="refsect3">
-<a name="id-1.7.18.7.2.6"></a><h4>Parameters</h4>
+<a name="rb-transfer-target-build-dest-uri.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -182,7 +182,7 @@ the source entry.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.18.7.2.7"></a><h4>Returns</h4>
+<a name="rb-transfer-target-build-dest-uri.returns"></a><h4>Returns</h4>
 <p> constructed URI</p>
 </div>
 </div>
@@ -193,17 +193,17 @@ the source entry.</p>
 rb_transfer_target_track_added (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>,
                                 <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
                                 <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>,
-                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint64"><span class="type">guint64</span></a> filesize</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint64"><span class="type">guint64</span></a> filesize</code></em>,
                                 <em class="parameter"><code>const <span class="type">char</span> *media_type</code></em>);</pre>
 <p>This is called when a transfer to the target has completed.
 If the source's <em class="parameter"><code>track_added</code></em>
- method returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the destination
+ method returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the destination
 URI will be added to the database using the entry type for the device.</p>
 <p>If the target uses a temporary area as the destination for transfers,
 it can instead upload the destination file to the device and create an
-entry for it, then return <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+entry for it, then return <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
 <div class="refsect3">
-<a name="id-1.7.18.7.3.6"></a><h4>Parameters</h4>
+<a name="rb-transfer-target-track-added.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -247,13 +247,13 @@ entry for it, then return <a href="https://developer.gnome.org/glib/unstable/gli
 rb_transfer_target_track_add_error (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>,
                                     <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>,
                                     <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>,
-                                    <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);</pre>
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);</pre>
 <p>This is called when a transfer fails.  If the source's
-impl_track_add_error implementation returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, an error dialog
+impl_track_add_error implementation returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, an error dialog
 will be displayed to the user containing the error message, unless
 the error indicates that the destination file already exists.</p>
 <div class="refsect3">
-<a name="id-1.7.18.7.4.5"></a><h4>Parameters</h4>
+<a name="rb-transfer-target-track-add-error.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -288,7 +288,7 @@ the error indicates that the destination file already exists.</p>
 <hr>
 <div class="refsect2">
 <a name="rb-transfer-target-should-transfer"></a><h3>rb_transfer_target_should_transfer ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
 rb_transfer_target_should_transfer (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>,
                                     <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
 <p>Checks whether <em class="parameter"><code>entry</code></em>
@@ -296,10 +296,10 @@ rb_transfer_target_should_transfer (<em class="parameter"><code><span class="typ
 The target can check whether a matching entry already exists on the device,
 for instance.  <em class="parameter"><code>rb_transfer_target_check_duplicate</code></em>
  may form part of
-an implementation.  If this method returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, the entry
+an implementation.  If this method returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, the entry
 will be skipped.</p>
 <div class="refsect3">
-<a name="id-1.7.18.7.5.5"></a><h4>Parameters</h4>
+<a name="rb-transfer-target-should-transfer.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -321,21 +321,21 @@ will be skipped.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.18.7.5.6"></a><h4>Returns</h4>
-<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the entry should be transferred to the target</p>
+<a name="rb-transfer-target-should-transfer.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the entry should be transferred to the target</p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="rb-transfer-target-get-format-descriptions"></a><h3>rb_transfer_target_get_format_descriptions ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
 rb_transfer_target_get_format_descriptions
                                (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>);</pre>
-<p>Returns a <a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of allocated media format descriptions for
+<p>Returns a <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of allocated media format descriptions for
 the formats supported by the target.  The list and the strings
 it holds must be freed by the caller.</p>
 <div class="refsect3">
-<a name="id-1.7.18.7.6.5"></a><h4>Parameters</h4>
+<a name="rb-transfer-target-get-format-descriptions.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -350,7 +350,7 @@ it holds must be freed by the caller.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.18.7.6.6"></a><h4>Returns</h4>
+<a name="rb-transfer-target-get-format-descriptions.returns"></a><h4>Returns</h4>
 <p> list of descriptions. </p>
 <p><span class="annotation">[<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> utf8][<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
 </div>
@@ -358,7 +358,7 @@ it holds must be freed by the caller.</p>
 <hr>
 <div class="refsect2">
 <a name="rb-transfer-target-check-category"></a><h3>rb_transfer_target_check_category ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
 rb_transfer_target_check_category (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>,
                                    <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
 <p>This checks that the entry type of <em class="parameter"><code>entry</code></em>
@@ -367,7 +367,7 @@ category for transfer.  This can be used to implement
 <em class="parameter"><code>should_transfer</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.7.18.7.7.5"></a><h4>Parameters</h4>
+<a name="rb-transfer-target-check-category.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -389,14 +389,14 @@ category for transfer.  This can be used to implement
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.18.7.7.6"></a><h4>Returns</h4>
-<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the entry is in a suitable category</p>
+<a name="rb-transfer-target-check-category.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the entry is in a suitable category</p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="rb-transfer-target-check-duplicate"></a><h3>rb_transfer_target_check_duplicate ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
 rb_transfer_target_check_duplicate (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>,
                                     <em class="parameter"><code><span class="type">RhythmDBEntry</span> *entry</code></em>);</pre>
 <p>This checks for an existing entry in the target that matches
@@ -404,7 +404,7 @@ the title, album, artist, and track number of the entry being
 considered.  This can be used to implement <em class="parameter"><code>should_transfer</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.7.18.7.8.5"></a><h4>Parameters</h4>
+<a name="rb-transfer-target-check-duplicate.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -426,8 +426,8 @@ considered.  This can be used to implement <em class="parameter"><code>should_tr
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.18.7.8.6"></a><h4>Returns</h4>
-<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the entry already exists on the target.</p>
+<a name="rb-transfer-target-check-duplicate.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the entry already exists on the target.</p>
 </div>
 </div>
 <hr>
@@ -435,16 +435,16 @@ considered.  This can be used to implement <em class="parameter"><code>should_tr
 <a name="rb-transfer-target-transfer"></a><h3>rb_transfer_target_transfer ()</h3>
 <pre class="programlisting"><a class="link" href="RBTrackTransferBatch.html" title="RBTrackTransferBatch"><span class="returnvalue">RBTrackTransferBatch</span></a> *
 rb_transfer_target_transfer (<em class="parameter"><code><span class="type">RBTransferTarget</span> *target</code></em>,
-                             <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GSettings.html"><span class="type">GSettings</span></a> *settings</code></em>,
-                             <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *entries</code></em>,
-                             <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> defer</code></em>);</pre>
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGSettings.html#GSettings-struct"><span class="type">GSettings</span></a> *settings</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *entries</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> defer</code></em>);</pre>
 <p>Starts tranferring <em class="parameter"><code>entries</code></em>
  to the target.  This returns the
 <a class="link" href="RBTrackTransferBatch.html" title="RBTrackTransferBatch"><span class="type">RBTrackTransferBatch</span></a> that it starts, so the caller can track
 the progress of the transfer, or NULL if the target doesn't
 want any of the entries.</p>
 <div class="refsect3">
-<a name="id-1.7.18.7.9.5"></a><h4>Parameters</h4>
+<a name="rb-transfer-target-transfer.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -459,19 +459,19 @@ want any of the entries.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>entries</p></td>
-<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of entries to transfer. </p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of entries to transfer. </p></td>
 <td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> RB.RhythmDBEntry]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>defer</p></td>
-<td class="parameter_description"><p>if <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, don't start the transfer until</p></td>
+<td class="parameter_description"><p>if <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, don't start the transfer until</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.18.7.9.6"></a><h4>Returns</h4>
+<a name="rb-transfer-target-transfer.returns"></a><h4>Returns</h4>
 <p> an <a class="link" href="RBTrackTransferBatch.html" title="RBTrackTransferBatch"><span class="type">RBTrackTransferBatch</span></a>, or NULL. </p>
 <p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
 </div>
@@ -507,6 +507,6 @@ want any of the entries.</p>
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.24</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

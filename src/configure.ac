@@ -1,7 +1,7 @@
 AC_PREREQ(2.63.2)
 
 AC_INIT([rhythmbox],
-	[3.3.1],
+	[3.4.1],
 	[https://bugzilla.gnome.org/enter_bug.cgi?product=rhythmbox])
 AC_CONFIG_SRCDIR(rhythmbox.pc.in)
 AC_CONFIG_MACRO_DIR([m4])
@@ -14,7 +14,7 @@ AM_MAINTAINER_MODE([enable])
 # Increment on interface addition, reset on removal
 RHYTHMBOX_CORE_AGE=0
 # Increment on interface add, remove, or change
-RHYTHMBOX_CORE_CURRENT=9
+RHYTHMBOX_CORE_CURRENT=10
 # Increment on source change, reset when CURRENT changes.
 RHYTHMBOX_CORE_REVISION=0
 
@@ -42,19 +42,19 @@ m4_ifdef([LT_OUTPUT], [LT_OUTPUT])
 AC_C_BIGENDIAN
 AC_CHECK_SIZEOF(long)
 
-GTK_REQS=3.12.0
+GTK_REQS=3.16.0
 
 GST_REQS=1.4.0
 GDK_PIXBUF_REQS=2.18.0
-GLIB_REQS=2.34.0
+GLIB_REQS=2.36.0
 LIBGPOD_REQS=0.6
 TOTEM_PLPARSER_REQS=3.2.0
 VALA_REQS=0.9.4
-LIBSOUP_REQS=2.34.0
+LIBSOUP_REQS=2.42.0
 GUDEV_REQS=143
 LIBMTP_REQS=0.3.0
 LIBPEAS_REQS=0.7.3
-GRILO_REQS=0.2.0
+GRILO_REQS=0.3.0
 LIBXML2_REQS=2.7.8
 LIBSECRET_REQS=0.18
 
@@ -118,7 +118,7 @@ PKG_CHECK_MODULES(TOTEM_PLPARSER, totem-plparser >= $TOTEM_PLPARSER_REQS, have_t
 if test x$have_totem_plparser != xyes; then
    AC_MSG_ERROR([totem playlist parsing library not found or too old])
 else
-   if test "x`pkg-config --variable uselibcamel totem-plparser`" = "xno" ; then
+   if test "x`$PKG_CONFIG --variable uselibcamel totem-plparser`" = "xno" ; then
        AC_MSG_ERROR([totem playlist parsing library has Podcast parsing disabled])
    fi
 fi
@@ -303,7 +303,7 @@ fi
 AM_CONDITIONAL(USE_NOTIFY, test x"$enable_libnotify" = xyes)
 if test x$enable_libnotify = xyes ; then
     # Find out the version of LIBNOTIFY we're using
-    libnotify_version=`pkg-config --modversion libnotify`
+    libnotify_version=`$PKG_CONFIG --modversion libnotify`
     LIBNOTIFY_VERSION_MAJOR=`echo $libnotify_version | awk -F. '{print $1}'`
     LIBNOTIFY_VERSION_MINOR=`echo $libnotify_version | awk -F. '{print $2}'`
     LIBNOTIFY_VERSION_MICRO=`echo $libnotify_version | awk -F. '{print $3}'`
@@ -383,7 +383,7 @@ AC_SUBST(CFLAGS)
 AC_SUBST(LDFLAGS)
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
-AC_PATH_PROG(GDK_PIXBUF_CSOURCE, gdk-pixbuf-csource)
+AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
 
 AC_SUBST(RHYTHMBOX_CFLAGS)
 AC_SUBST(RHYTHMBOX_LIBS)
@@ -432,24 +432,6 @@ if test x"$enable_lirc" != xno; then
 fi
 AM_CONDITIONAL(WITH_LIRC, test x"$with_lirc" = xyes)
 
-dnl WebKit
-have_webkit=no
-AC_ARG_WITH(webkit,
-	    AC_HELP_STRING([--with-webkit],
-			   [Use WebKit to display HTML]),,
-	    with_webkit=auto)
-if test "x$with_webkit" != xno; then
-	PKG_CHECK_MODULES(WEBKIT, [webkit2gtk-4.0], have_webkit=yes, have_webkit=no)
-	if test "x$have_webkit" = "xno" -a "x$with_webkit" = "xyes"; then
-		AC_MSG_ERROR([WebKit support explicitly requested, but WebKit could not be found])
-	fi
-	if test "x$have_webkit" = "xyes"; then
-		AC_DEFINE(WITH_WEBKIT, 1, [Define if WebKit is enabled])
-	fi
-fi
-AM_CONDITIONAL(WITH_WEBKIT, test x"$have_webkit" = xyes)
-
-
 AC_ARG_ENABLE(uninstalled-build,
               AC_HELP_STRING([--enable-uninstalled-build],
 			     [Search for files in build directory as well]),
@@ -457,8 +439,8 @@ AC_ARG_ENABLE(uninstalled-build,
 if test x"$enable_uninstalled" = xyes; then
 	AC_DEFINE(USE_UNINSTALLED_DIRS, 1, [Define to look for files in source tree locations])
 fi
-ROOT_UNINSTALLED_DIR="`pwd`"
-AC_DEFINE_UNQUOTED(SHARE_UNINSTALLED_DIR,"`pwd`/$srcdir/data",[path to source data dir])
+ROOT_UNINSTALLED_DIR=$( cd $( dirname $0 ) && pwd )
+AC_DEFINE_UNQUOTED(SHARE_UNINSTALLED_DIR,"$ROOT_UNINSTALLED_DIR/data",[path to source data dir])
 AC_DEFINE_UNQUOTED(SHARE_UNINSTALLED_BUILDDIR,"`pwd`/data",[path to built source data dir])
 AC_DEFINE_UNQUOTED(METADATA_UNINSTALLED_DIR,"`pwd`/metadata",[path to metadata build dir])
 AC_SUBST(ROOT_UNINSTALLED_DIR)
@@ -530,10 +512,10 @@ else
 fi
 
 dnl Set required and max glib/gdk versions
-AC_DEFINE(GLIB_VERSION_MIN_REQUIRED, GLIB_VERSION_2_34, [minimum glib version])
-AC_DEFINE(GLIB_VERSION_MAX_ALLOWED, GLIB_VERSION_2_34, [maximum glib version])
-AC_DEFINE(GDK_VERSION_MIN_REQUIRED, GDK_VERSION_3_6, [minimum gdk version])
-AC_DEFINE(GDK_VERSION_MAX_ALLOWED, GDK_VERSION_3_6, [maximum gdk version])
+AC_DEFINE(GLIB_VERSION_MIN_REQUIRED, GLIB_VERSION_2_36, [minimum glib version])
+AC_DEFINE(GLIB_VERSION_MAX_ALLOWED, GLIB_VERSION_2_36, [maximum glib version])
+AC_DEFINE(GDK_VERSION_MIN_REQUIRED, GDK_VERSION_3_16, [minimum gdk version])
+AC_DEFINE(GDK_VERSION_MAX_ALLOWED, GDK_VERSION_3_16, [maximum gdk version])
 AC_DEFINE(CLUTTER_VERSION_MIN_REQUIRED, CLUTTER_VERSION_1_8, [minimum clutter version])
 AC_DEFINE(CLUTTER_VERSION_MAX_ALLOWED, CLUTTER_VERSION_1_8, [maximum clutter version])
 
@@ -722,7 +704,7 @@ AC_ARG_ENABLE(grilo,
 			     [Disable Grilo support]),,
 	      enable_grilo=auto)
 if test "x$enable_grilo" != "xno"; then
-	PKG_CHECK_MODULES(GRILO, grilo-0.2 >= $GRILO_REQS, have_grilo=yes, have_grilo=no)
+	PKG_CHECK_MODULES(GRILO, grilo-0.3 >= $GRILO_REQS, have_grilo=yes, have_grilo=no)
 	if test "x$have_grilo" = "xno" -a "x$enable_grilo" = "xyes"; then
 		AC_MSG_ERROR([Grilo support explicitly requested, but grilo couldn not be found])
 	fi
@@ -805,6 +787,7 @@ plugins/notification/Makefile
 plugins/visualizer/Makefile
 plugins/grilo/Makefile
 plugins/soundcloud/Makefile
+plugins/webremote/Makefile
 sample-plugins/Makefile
 sample-plugins/sample/Makefile
 sample-plugins/sample-python/Makefile
@@ -864,11 +847,6 @@ if test x"$have_libnotify" = xyes; then
 	AC_MSG_NOTICE([** libnotify support is enabled])
 else
 	AC_MSG_NOTICE([   libnotify support is disabled])
-fi
-if test x"$have_webkit" = xyes; then
-	AC_MSG_NOTICE([** WebKit support is enabled])
-else
-	AC_MSG_NOTICE([   WebKit support is disabled])
 fi
 if test x"$use_gudev" = xyes; then
 	AC_MSG_NOTICE([** GUdev support enabled])

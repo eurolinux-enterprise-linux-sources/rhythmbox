@@ -8,7 +8,7 @@
 <link rel="up" href="ch07.html" title="Widgets">
 <link rel="prev" href="rhythmbox-rb-rating-helper.html" title="rb-rating-helper">
 <link rel="next" href="RBSearchEntry.html" title="RBSearchEntry">
-<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -61,7 +61,7 @@
 <col width="200px" class="properties_flags">
 </colgroup>
 <tbody><tr>
-<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a></td>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a></td>
 <td class="property_name"><a class="link" href="RBRating.html#RBRating--rating" title="The “rating” property">rating</a></td>
 <td class="property_flags">Read / Write</td>
 </tr></tbody>
@@ -79,17 +79,17 @@
 <tr>
 <td class="signal_type"><span class="returnvalue">void</span></td>
 <td class="signal_name"><a class="link" href="RBRating.html#RBRating-adjust-rating" title="The “adjust-rating” signal">adjust-rating</a></td>
-<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a></td>
 </tr>
 <tr>
 <td class="signal_type"><span class="returnvalue">void</span></td>
 <td class="signal_name"><a class="link" href="RBRating.html#RBRating-rated" title="The “rated” signal">rated</a></td>
-<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
 </tr>
 <tr>
 <td class="signal_type"><span class="returnvalue">void</span></td>
 <td class="signal_name"><a class="link" href="RBRating.html#RBRating-set-rating" title="The “set-rating” signal">set-rating</a></td>
-<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a></td>
 </tr>
 </tbody>
 </table></div>
@@ -115,9 +115,9 @@
 </div>
 <div class="refsect1">
 <a name="RBRating.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-    <span class="lineart">╰──</span> <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-        <span class="lineart">╰──</span> GtkWidget
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct">GtkWidget</a>
             <span class="lineart">╰──</span> RBRating
 </pre>
 </div>
@@ -125,7 +125,7 @@
 <a name="RBRating.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 RBRating implements
- AtkImplementorIface and  GtkBuildable.</p>
+ AtkImplementorIface and  <a href="/usr/share/gtk-doc/html/gtk3GtkBuildable.html#GtkBuildable-struct">GtkBuildable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="RBRating.description"></a><h2>Description</h2>
@@ -140,7 +140,7 @@ alter the rating by clicking.</p>
 rb_rating_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>Creates a new rating widget</p>
 <div class="refsect3">
-<a name="id-1.8.11.10.2.5"></a><h4>Returns</h4>
+<a name="rb-rating-new.returns"></a><h4>Returns</h4>
 <p> a new <a class="link" href="RBRating.html" title="RBRating"><span class="type">RBRating</span></a> widget.</p>
 </div>
 </div>
@@ -172,7 +172,7 @@ rb_rating_new (<em class="parameter"><code><span class="type">void</span></code>
 <a name="RBRating.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="RBRating--rating"></a><h3>The <code class="literal">“rating”</code> property</h3>
-<pre class="programlisting">  “rating”                   <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a></pre>
+<pre class="programlisting">  “rating”                   <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a></pre>
 <p>The rating displayed in the widget, as a floating point value
 between 0.0 and 5.0.</p>
 <p>Flags: Read / Write</p>
@@ -186,12 +186,12 @@ between 0.0 and 5.0.</p>
 <a name="RBRating-adjust-rating"></a><h3>The <code class="literal">“adjust-rating”</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 user_function (<a class="link" href="RBRating.html" title="RBRating"><span class="type">RBRating</span></a> *rating,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>   adjust,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)</pre>
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>   adjust,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)</pre>
 <p>Action signal used to make a relative adjustment to the
 rating.</p>
 <div class="refsect3">
-<a name="id-1.8.11.13.2.5"></a><h4>Parameters</h4>
+<a name="RBRating-adjust-rating.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -217,18 +217,18 @@ rating.</p>
 </tbody>
 </table></div>
 </div>
-<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a></p>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="RBRating-rated"></a><h3>The <code class="literal">“rated”</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 user_function (<a class="link" href="RBRating.html" title="RBRating"><span class="type">RBRating</span></a> *rating,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>   score,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)</pre>
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>   score,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)</pre>
 <p>Emitted when the user changes the rating.</p>
 <div class="refsect3">
-<a name="id-1.8.11.13.3.5"></a><h4>Parameters</h4>
+<a name="RBRating-rated.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -254,18 +254,18 @@ user_function (<a class="link" href="RBRating.html" title="RBRating"><span class
 </tbody>
 </table></div>
 </div>
-<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="RBRating-set-rating"></a><h3>The <code class="literal">“set-rating”</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 user_function (<a class="link" href="RBRating.html" title="RBRating"><span class="type">RBRating</span></a> *rating,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>   score,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)</pre>
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>   score,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)</pre>
 <p>Action signal used to change the rating.</p>
 <div class="refsect3">
-<a name="id-1.8.11.13.4.5"></a><h4>Parameters</h4>
+<a name="RBRating-set-rating.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -291,11 +291,11 @@ user_function (<a class="link" href="RBRating.html" title="RBRating"><span class
 </tbody>
 </table></div>
 </div>
-<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a></p>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a></p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.24</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

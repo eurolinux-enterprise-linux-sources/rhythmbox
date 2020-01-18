@@ -164,11 +164,11 @@ am__uninstall_files_from_dir = { \
   }
 man1dir = $(mandir)/man1
 am__installdirs = "$(DESTDIR)$(man1dir)" "$(DESTDIR)$(Multimediadir)" \
-	"$(DESTDIR)$(appdatadir)" "$(DESTDIR)$(playlistsdir)" \
-	"$(DESTDIR)$(profilesdir)" "$(DESTDIR)$(servicedir)"
+	"$(DESTDIR)$(appdatadir)" "$(DESTDIR)$(profilesdir)" \
+	"$(DESTDIR)$(servicedir)"
 NROFF = nroff
 MANS = $(man_MANS)
-DATA = $(Multimedia_DATA) $(appdata_DATA) $(playlists_DATA) \
+DATA = $(Multimedia_DATA) $(appdata_DATA) $(noinst_DATA) \
 	$(profiles_DATA) $(service_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
@@ -259,9 +259,9 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
-GDK_PIXBUF_CSOURCE = @GDK_PIXBUF_CSOURCE@
 GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
+GLIB_COMPILE_RESOURCES = @GLIB_COMPILE_RESOURCES@
 GLIB_COMPILE_SCHEMAS = @GLIB_COMPILE_SCHEMAS@
 GLIB_GENMARSHAL = @GLIB_GENMARSHAL@
 GMSGFMT = @GMSGFMT@
@@ -394,8 +394,6 @@ VAPIDIR = @VAPIDIR@
 VAPIGEN = @VAPIGEN@
 VERSION = @VERSION@
 WARN_CFLAGS = @WARN_CFLAGS@
-WEBKIT_CFLAGS = @WEBKIT_CFLAGS@
-WEBKIT_LIBS = @WEBKIT_LIBS@
 WNOERROR_CFLAGS = @WNOERROR_CFLAGS@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
@@ -473,8 +471,7 @@ Multimediadir = $(datadir)/applications
 Multimedia_in_files = rhythmbox.desktop.in rhythmbox-device.desktop.in
 Multimedia_DATA = $(Multimedia_in_files:.desktop.in=.desktop)
 playlists_in_files = playlists.xml.in
-playlists_DATA = playlists.xml
-playlistsdir = $(datadir)/rhythmbox
+noinst_DATA = playlists.xml
 man_MANS = rhythmbox.1 rhythmbox-client.1
 profilesdir = $(datadir)/rhythmbox
 profiles_DATA = rhythmbox.gep
@@ -639,27 +636,6 @@ uninstall-appdataDATA:
 	@list='$(appdata_DATA)'; test -n "$(appdatadir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(appdatadir)'; $(am__uninstall_files_from_dir)
-install-playlistsDATA: $(playlists_DATA)
-	@$(NORMAL_INSTALL)
-	@list='$(playlists_DATA)'; test -n "$(playlistsdir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(playlistsdir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(playlistsdir)" || exit 1; \
-	fi; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(playlistsdir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(playlistsdir)" || exit $$?; \
-	done
-
-uninstall-playlistsDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(playlists_DATA)'; test -n "$(playlistsdir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	dir='$(DESTDIR)$(playlistsdir)'; $(am__uninstall_files_from_dir)
 install-profilesDATA: $(profiles_DATA)
 	@$(NORMAL_INSTALL)
 	@list='$(profiles_DATA)'; test -n "$(profilesdir)" || list=; \
@@ -862,7 +838,7 @@ check: check-recursive
 all-am: Makefile $(MANS) $(DATA) all-local
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(man1dir)" "$(DESTDIR)$(Multimediadir)" "$(DESTDIR)$(appdatadir)" "$(DESTDIR)$(playlistsdir)" "$(DESTDIR)$(profilesdir)" "$(DESTDIR)$(servicedir)"; do \
+	for dir in "$(DESTDIR)$(man1dir)" "$(DESTDIR)$(Multimediadir)" "$(DESTDIR)$(appdatadir)" "$(DESTDIR)$(profilesdir)" "$(DESTDIR)$(servicedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -917,8 +893,7 @@ info: info-recursive
 info-am:
 
 install-data-am: install-MultimediaDATA install-appdataDATA \
-	install-man install-playlistsDATA install-profilesDATA \
-	install-serviceDATA
+	install-man install-profilesDATA install-serviceDATA
 	@$(NORMAL_INSTALL)
 	$(MAKE) $(AM_MAKEFLAGS) install-data-hook
 install-dvi: install-dvi-recursive
@@ -964,8 +939,7 @@ ps: ps-recursive
 ps-am:
 
 uninstall-am: uninstall-MultimediaDATA uninstall-appdataDATA \
-	uninstall-man uninstall-playlistsDATA uninstall-profilesDATA \
-	uninstall-serviceDATA
+	uninstall-man uninstall-profilesDATA uninstall-serviceDATA
 	@$(NORMAL_INSTALL)
 	$(MAKE) $(AM_MAKEFLAGS) uninstall-hook
 uninstall-man: uninstall-man1
@@ -981,16 +955,14 @@ uninstall-man: uninstall-man1
 	install-data install-data-am install-data-hook install-dvi \
 	install-dvi-am install-exec install-exec-am install-html \
 	install-html-am install-info install-info-am install-man \
-	install-man1 install-pdf install-pdf-am install-playlistsDATA \
-	install-profilesDATA install-ps install-ps-am \
-	install-serviceDATA install-strip installcheck installcheck-am \
-	installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-am uninstall \
-	uninstall-MultimediaDATA uninstall-am uninstall-appdataDATA \
-	uninstall-hook uninstall-man uninstall-man1 \
-	uninstall-playlistsDATA uninstall-profilesDATA \
-	uninstall-serviceDATA
+	install-man1 install-pdf install-pdf-am install-profilesDATA \
+	install-ps install-ps-am install-serviceDATA install-strip \
+	installcheck installcheck-am installdirs installdirs-am \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags tags-am uninstall uninstall-MultimediaDATA uninstall-am \
+	uninstall-appdataDATA uninstall-hook uninstall-man \
+	uninstall-man1 uninstall-profilesDATA uninstall-serviceDATA
 
 .PRECIOUS: Makefile
 

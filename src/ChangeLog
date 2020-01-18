@@ -1,3 +1,1271 @@
+commit 5e28525305d945e09fc6db07d99d7e29e8796d35
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Sep 4 22:26:06 2016 +1000
+
+    Rhythmbox 3.4.1
+
+ NEWS                   | 29 +++++++++++++++++++++++++++++
+ README                 |  2 +-
+ configure.ac           |  2 +-
+ shell/rb-application.c |  2 +-
+ 4 files changed, 32 insertions(+), 3 deletions(-)
+
+commit df1dee3a05c2e203b1953d2d66dd9e494418d477
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Fri Sep 9 20:52:09 2016 +1000
+
+    browser-source: don't unref NULL if the source doesn't have playlists
+
+ sources/rb-browser-source.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 1d4003652c880a9ba1fab482328804738129e487
+Author: Tiago Santos <tiagofsantos81@sapo.pt>
+Date:   Wed Sep 7 16:39:55 2016 +0000
+
+    Updated Portuguese translation
+
+ po/pt.po | 129 ++++++++++++++++++++++++++++++---------------------------------
+ 1 file changed, 61 insertions(+), 68 deletions(-)
+
+commit 027dcae259afb335905e60f061ecb51f108b6aa6
+Author: vrishab <vrishab.in@gmail.com>
+Date:   Tue Sep 6 22:27:39 2016 +1000
+
+    import-dialog: don't crash if there are no entries to import
+    
+    The import button should be insensitive in this case, but there
+    appears to be a small window for this to happen.
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=770920
+
+ widgets/rb-import-dialog.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 881c76a8ec44c6ab490f0e5250f3dd8c933aa4b4
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Mon Sep 5 20:01:27 2016 +1000
+
+    audioscrobbler: old scrobbling api isn't https accessible
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=768310
+
+ plugins/audioscrobbler/rb-audioscrobbler-service.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit ce0d3910d9a7909dea0ae12753d72c9edb68e96a
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Sep 4 13:52:05 2016 +1000
+
+    audioscrobbler: use https for last.fm
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=768310
+
+ plugins/audioscrobbler/rb-audioscrobbler-service.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit 3a6d2f43488221538747787fa84da4910c3b2695
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed Aug 31 07:54:58 2016 +1000
+
+    webremote: actually install the html/css/js files
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=770601
+
+ plugins/webremote/Makefile.am | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+commit d0e28c07b16969e611243edec9a26e151dfcca2f
+Author: Victor Toso <me@victortoso.com>
+Date:   Thu Aug 25 15:21:49 2016 +0200
+
+    grilo: Fix crash due to lingering signal handler
+    
+    If the grilo rhythmbox plugin is deactivated and reactivated, the
+    signal handler for "source-added" and "source-removed" will remain
+    alive causing a crash as the previous RBGriloPlugin instance does not
+    exist anymore.
+    
+    Backtrace:
+     #0  0x00007f0f9af231c8 in __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:54
+     #1  0x00007f0f9af2464a in __GI_abort () at abort.c:89
+     #2  0x00007f0f9b7386a5 in g_assertion_message (domain=domain@entry=0x7f0f9b759fae "GLib", file=file@entry=0x7f0f9b75ec90 "/build/glib2.0-fJSoGg/glib2.0-2.48.1/./glib/ghash.c", line=line@entry=373,
+         func=func@entry=0x7f0f9b75eed0 <__func__.10230> "g_hash_table_lookup_node", message=message@entry=0x3113c30 "assertion failed: (hash_table->ref_count > 0)")
+         at ././glib/gtestutils.c:2429
+     #3  0x00007f0f9b73873a in g_assertion_message_expr (domain=domain@entry=0x7f0f9b759fae "GLib", file=file@entry=0x7f0f9b75ec90 "/build/glib2.0-fJSoGg/glib2.0-2.48.1/./glib/ghash.c",
+         line=line@entry=373, func=func@entry=0x7f0f9b75eed0 <__func__.10230> "g_hash_table_lookup_node", expr=expr@entry=0x7f0f9b75ebd8 "hash_table->ref_count > 0") at ././glib/gtestutils.c:2452
+     #4  0x00007f0f9b701c4e in g_hash_table_lookup (hash_return=<synthetic pointer>, key=0x19ec730, hash_table=0x7f0f9ea9ca70) at ././glib/ghash.c:373
+     #5  0x00007f0f9b701c4e in g_hash_table_lookup (hash_table=0x7f0f9ea9ca70, key=key@entry=0x19ec730) at ././glib/ghash.c:1147
+     #6  0x00007f0f74024c93 in grilo_source_removed_cb (registry=<optimized out>, grilo_source=0x19ec730 [GrlBookmarksSource], plugin=0x277d370) at rb-grilo-plugin.c:161
+    
+    Reported-by: vrishab <vrishab.in@gmail.com>
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=770044
+
+ plugins/grilo/rb-grilo-plugin.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+commit 1b69c9beec385fa847963960f9a819e0f0f80c6a
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Fri Aug 26 07:41:06 2016 +1000
+
+    play-queue: don't allow the queue to be removed
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=770411
+
+ sources/rb-play-queue-source.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+commit 50fb6fff84468a1d9b6cd2c09ce8ebc1db63bb04
+Author: Ikey Doherty <michael.i.doherty@intel.com>
+Date:   Mon Aug 22 22:41:54 2016 -0700
+
+    rb-application: Ensure paramater nullability is known to bindings
+    
+    Currently the bindings are led to believe this parameter is not allowed to
+    recieve null values, which will break Pythonic extensions using the
+    rb_application_add_accelerator function via GObject Introspection
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=770262
+    
+    Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
+
+ shell/rb-application.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 1e0497cad64694ae56234663d3acde14d41f98b5
+Author: Мирослав Николић <miroslavnikolic@rocketmail.com>
+Date:   Wed Aug 24 04:45:16 2016 +0200
+
+    Updated Serbian translation
+
+ po/sr.po       | 244 +++++++++++++++++++++++++++++++-------------------------
+ po/sr@latin.po | 246 ++++++++++++++++++++++++++++++++-------------------------
+ 2 files changed, 275 insertions(+), 215 deletions(-)
+
+commit 677de5c29b9142f75e83b82f716592ea554b3fad
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Tue Aug 23 08:14:47 2016 +1000
+
+    query-creator: set default sort order after connecting handlers
+    
+    This fixes the initial sort order description.
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=770209
+
+ widgets/rb-query-creator.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit e823101abaf981747d10fb0eab2be58efd8e901d
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Mon Aug 22 08:11:05 2016 +1000
+
+    magnatune: only spawn one uri, regardless of selection
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=770212
+
+ plugins/magnatune/MagnatuneSource.py | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
+
+commit 86d5ff2595754eca647986b21db2df91ef126fd8
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Mon Aug 22 08:10:40 2016 +1000
+
+    magnatune: require a specific Secret version
+
+ plugins/magnatune/MagnatuneAccount.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 6c3e06d0c19c801d3fcc58144862cd2b441c6f4b
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Aug 21 14:40:09 2016 +1000
+
+    track-transfer-batch: set queue on construction, rather than start
+    
+    This makes it possible to cancel a batch before it starts, among
+    other things.
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=770148
+
+ shell/rb-track-transfer-batch.c | 30 +++++++++++++++++++++++++-----
+ shell/rb-track-transfer-batch.h |  7 ++++---
+ shell/rb-track-transfer-queue.c |  2 +-
+ sources/rb-library-source.c     |  2 +-
+ sources/rb-transfer-target.c    |  2 +-
+ 5 files changed, 32 insertions(+), 11 deletions(-)
+
+commit 70495e6f38f267b52067d88acc3476e091cf2122
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Aug 21 08:06:24 2016 +1000
+
+    property-view: select 'all' row when single mode selection is cleared
+    
+    Multiple selection mode has always done this, so single selection mode
+    should do it too.
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=770167
+
+ widgets/rb-property-view.c | 37 ++++++++++++++++++++++++-------------
+ 1 file changed, 24 insertions(+), 13 deletions(-)
+
+commit b58cf63f196b22a9bce31f1da8b8fd4403ed637a
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Fri Aug 19 22:26:13 2016 +1000
+
+    shell-player: avoid NULL unref when there's no next entry
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=770134
+
+ shell/rb-shell-player.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 985e247429ffbb3de423df0719a402cb3cf9eba3
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Thu Aug 18 20:06:22 2016 +1000
+
+    rhythmdb: specify entry type when rereading metadata
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=770071
+
+ rhythmdb/rhythmdb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 3ab8b41897bfa723496085b035ba6b2bc36c4089
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed Aug 17 21:22:10 2016 +1000
+
+    webremote: forgot to remove playpause argument here
+
+ plugins/webremote/webremote.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 16672f7c909f0f0b129474035b973d6a6f9818a2
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Tue Aug 16 10:29:23 2016 +0200
+
+    Updated Polish translation
+
+ po/pl.po | 326 +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 162 insertions(+), 164 deletions(-)
+
+commit 016457bda96de0012f927ea07e43da1de968664d
+Author: Reinout van Schouwen <reinouts@gnome.org>
+Date:   Mon Aug 15 23:27:27 2016 +0200
+
+    Updated Dutch translation by Justin van Steijn
+
+ po/nl.po | 2617 +++++++++++---------------------------------------------------
+ 1 file changed, 452 insertions(+), 2165 deletions(-)
+
+commit ffae13b4c6168d7c42977fff40cce0cf939a706a
+Author: Aurimas Černius <aurisc4@gmail.com>
+Date:   Sun Aug 14 22:01:36 2016 +0300
+
+    Updated Lithuanian translation
+
+ po/lt.po | 246 ++++++++++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 142 insertions(+), 104 deletions(-)
+
+commit 5f1d8f41bd57119c2e40c087f479995665d2dea2
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Aug 14 19:17:46 2016 +1000
+
+    Rhythmbox 3.4
+
+ NEWS         | 46 ++++++++++++++++++++++++++++++++++++++++++++++
+ README       |  2 +-
+ configure.ac |  4 ++--
+ 3 files changed, 49 insertions(+), 3 deletions(-)
+
+commit 2755bc239af0b0e06733046b14e68682ec72fe1d
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Aug 14 19:44:28 2016 +1000
+
+    update version numbers for deprecation checks too
+
+ configure.ac | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit 9a685af49317f6fa4e7fbf0a4c03523ee246a2f8
+Author: Jordi Mas <jmas@softcatala.org>
+Date:   Sat Aug 13 07:50:31 2016 +0200
+
+    Update Catalan translation
+
+ po/ca.po | 771 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 416 insertions(+), 355 deletions(-)
+
+commit c34c5dbd4198cc10a4011bf51591074824b03fb2
+Author: Ask Hjorth Larsen <asklarsen@gmail.com>
+Date:   Sat Aug 13 02:34:48 2016 +0200
+
+    Updated Danish translation
+
+ po/da.po | 6353 ++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 3291 insertions(+), 3062 deletions(-)
+
+commit cedb9bd37ac791b3bd70a63c55492e348acb34b2
+Author: Daniel Șerbănescu <daniel@serbanescu.dk>
+Date:   Fri Aug 12 16:12:02 2016 +0000
+
+    Updated Romanian translation
+
+ po/ro.po | 259 ++++++++++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 148 insertions(+), 111 deletions(-)
+
+commit 29590d6e972d40475f7ec1832834bb943aa1c7f2
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Thu Aug 11 01:46:47 2016 +0200
+
+    Updated Polish translation
+
+ po/pl.po | 369 +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 183 insertions(+), 186 deletions(-)
+
+commit 52e9e4fde4704fa7f84172b29163b23626d6ea5b
+Author: Jiri Grönroos <jiri.gronroos@iki.fi>
+Date:   Wed Aug 10 13:02:38 2016 +0000
+
+    Updated Finnish translation
+
+ po/fi.po | 238 +++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 134 insertions(+), 104 deletions(-)
+
+commit dd9e3bf80cbb74fd4448b96251c0d6adb7287ec8
+Author: Claude Paroz <claude@2xlibre.net>
+Date:   Wed Aug 10 08:54:08 2016 +0200
+
+    Updated French translation
+
+ po/fr.po | 337 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 184 insertions(+), 153 deletions(-)
+
+commit d3d6da4d72e9b90854d8f85668d1efe5211f2f66
+Author: Trần Ngọc Quân <vnwildman@gmail.com>
+Date:   Wed Aug 10 13:44:59 2016 +0700
+
+    Updated Vietnamese translation
+    
+    Signed-off-by: Trần Ngọc Quân <vnwildman@gmail.com>
+
+ po/vi.po | 354 +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 188 insertions(+), 166 deletions(-)
+
+commit 9d4509548e7e08356ed6d2c91474272982184e28
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed Aug 10 14:29:52 2016 +1000
+
+    use GResources to make widget tests work
+
+ tests/Makefile.am                | 11 +++++++++++
+ tests/test-widgets.gresource.xml |  7 +++++++
+ 2 files changed, 18 insertions(+)
+
+commit 823dac4b0b09b6be29eb5c898cb47322aa710d04
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Jul 24 14:28:58 2016 +1000
+
+    android: fix widget names
+
+ plugins/android/android-info.ui | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 141f175283c270fccb0daf65278346339cee9c30
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Tue Jul 19 21:23:27 2016 +1000
+
+    plugins: move data files into resources
+
+ .gitignore                                         |   1 +
+ plugins/android/Makefile.am                        |  19 ++++++++-----
+ plugins/android/android.gresource.xml              |  10 +++++++
+ plugins/android/rb-android-plugin.c                |   8 +++++-
+ plugins/android/rb-android-source.c                |  16 +----------
+ plugins/audiocd/Makefile.am                        |  17 ++++++++----
+ plugins/audiocd/audiocd.gresource.xml              |   7 +++++
+ plugins/daap/Makefile.am                           |  23 +++++++++-------
+ plugins/daap/daap.gresource.xml                    |   7 +++++
+ plugins/daap/rb-daap-plugin.c                      |  11 ++------
+ plugins/daap/rb-dacp-pairing-page.c                |   7 +----
+ plugins/daap/remote-icon.png                       | Bin 4641 -> 0 bytes
+ plugins/fmradio/Makefile.am                        |  16 ++++++++---
+ plugins/fmradio/fmradio.gresource.xml              |   7 +++++
+ plugins/generic-player/Makefile.am                 |  16 ++++++++---
+ .../generic-player/generic-player.gresource.xml    |   7 +++++
+ plugins/generic-player/rb-generic-player-source.c  |  16 +----------
+ plugins/ipod/Makefile.am                           |  20 ++++++++++----
+ plugins/ipod/ipod.gresource.xml                    |   8 ++++++
+ plugins/ipod/rb-ipod-source.c                      |  26 ++----------------
+ plugins/iradio/Makefile.am                         |  30 +++++++++++----------
+ plugins/iradio/iradio.gresource.xml                |   9 +++++++
+ plugins/iradio/rb-iradio-source.c                  |  18 ++-----------
+ plugins/iradio/rb-station-properties-dialog.c      |   6 +----
+ plugins/mtpdevice/Makefile.am                      |  20 ++++++++++----
+ plugins/mtpdevice/mtpdevice.gresource.xml          |   7 +++++
+ plugins/mtpdevice/rb-mtp-source.c                  |  16 +----------
+ 27 files changed, 191 insertions(+), 157 deletions(-)
+
+commit e3861d7d41add564be03371675a8c871f81feb52
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Tue Jul 19 22:07:16 2016 +1000
+
+    in normal builds, try loading plugin builder files from resources
+
+ lib/rb-builder-helpers.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
+
+commit 7cfbc97f12a8c1bae86b2e1b6a1f573ff5a9c23b
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Tue Jul 19 22:06:47 2016 +1000
+
+    file-helpers: add helper for constructing resource paths for plugins
+
+ lib/rb-file-helpers.c | 24 ++++++++++++++++++++++++
+ lib/rb-file-helpers.h |  2 ++
+ 2 files changed, 26 insertions(+)
+
+commit 98f4920b9ed11e4780c1aaa49dab76a2ea0fc915
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Tue Jul 19 22:05:46 2016 +1000
+
+    allow loading of builder files from full resource paths
+
+ lib/rb-builder-helpers.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+commit 48c6c3c539e5a343294fc965807fe4e618a001c3
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Mon Jul 18 20:36:57 2016 +1000
+
+    mpid: try loading from resources as well as files
+
+ lib/libmediaplayerid/mpid-files.c | 46 +++++++++++++++++++++++++++++----------
+ 1 file changed, 34 insertions(+), 12 deletions(-)
+
+commit ca9209b6c7a9b1d419bbf4b0961baa7f08203089
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed Jun 22 20:49:27 2016 +1000
+
+    move default playlists file into GResources
+
+ Makefile.am                   |  4 ++--
+ data/Makefile.am              |  3 +--
+ shell/rb-playlist-manager.c   | 32 +++++++++++++-------------------
+ shell/rhythmbox.gresource.xml |  2 ++
+ 4 files changed, 18 insertions(+), 23 deletions(-)
+
+commit 6a85e2c72c0d5c5442fb2b352e1133d06709d47c
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed Jun 22 20:27:53 2016 +1000
+
+    move GtkBuilder and CSS files into GResources for normal builds
+    
+    Loading CSS from a resource requires gtk+ 3.16.
+
+ configure.ac                     |  2 +-
+ data/ui/Makefile.am              |  8 ++------
+ lib/rb-builder-helpers.c         | 36 +++++++++++++++++++++++++++---------
+ shell/rb-application.c           |  9 ++++-----
+ shell/rhythmbox.gresource.xml    | 35 +++++++++++++++++++++++++++++++++++
+ sources/rb-media-player-source.c | 21 +++------------------
+ sources/sync/rb-sync-state-ui.c  |  9 +--------
+ 7 files changed, 73 insertions(+), 47 deletions(-)
+
+commit 63d5e8443938cfc7296968686bc7bf485918fc7a
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Tue Jun 21 22:44:53 2016 +1000
+
+    initial gresources: just some icons
+
+ .gitignore                                  |  1 +
+ configure.ac                                |  2 +-
+ data/icons/hicolor/16x16/status/Makefile.am | 14 +-----------
+ data/icons/hicolor/48x48/status/Makefile.am | 11 +--------
+ lib/Makefile.am                             | 16 +------------
+ lib/rb-stock-icons.c                        | 35 ++---------------------------
+ shell/Makefile.am                           | 14 +++++++++++-
+ shell/rhythmbox.gresource.xml               |  9 ++++++++
+ 8 files changed, 29 insertions(+), 73 deletions(-)
+
+commit 4f3a82c078821c8e652dae9f28a157327087a015
+Author: Anders Jonsson <anders.jonsson@norsjovallen.se>
+Date:   Tue Aug 9 18:10:26 2016 +0000
+
+    Updated Swedish translation
+
+ po/sv.po | 240 +++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 134 insertions(+), 106 deletions(-)
+
+commit 12096c7cb8d8dfaec2d6ef56b114d3808baccb01
+Author: Sinisa Habek <sinisa@habek.net>
+Date:   Thu Aug 4 20:03:11 2016 +0000
+
+    Updated Croatian translation
+
+ po/hr.po | 5578 ++++++++++++++++++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 4481 insertions(+), 1097 deletions(-)
+
+commit fa27c47aa19359983031351d337b8a70a30168a4
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed Aug 3 07:47:52 2016 +1000
+
+    encoder: unref encoder elements created to check formats work
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=769404
+
+ backends/gstreamer/rb-encoder-gst.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 6073129ef5baee45fbd60d2747bb013d586d6584
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Thu Mar 17 20:58:41 2016 +1000
+
+    replace default window event handling
+    
+    This allows us to add default actions for keys without overriding
+    normal widget behaviour.  Some of the playback controls were
+    overriding tree view shortcuts, which is apparently an outrage.
+
+ shell/rb-application.c  | 79 +++++++++++++++++++++++++++++++++++++++++++++++++
+ shell/rb-application.h  |  3 ++
+ shell/rb-shell-player.c | 11 ++++---
+ shell/rb-shell.c        | 32 +++++++++++++++-----
+ 4 files changed, 113 insertions(+), 12 deletions(-)
+
+commit 7c24ec4936a84b1a8e5f3ebec8eccfd49f95cc5e
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sat Mar 19 20:07:16 2016 +1000
+
+    shell-player: remove unused parameter to rb_shell_player_playpause
+    
+    This hasn't been part of a dbus interface for a while now
+
+ plugins/daap/rb-dacp-player.c                 | 2 +-
+ plugins/lirc/rb-lirc-plugin.c                 | 4 ++--
+ plugins/mmkeys/rb-mmkeys-plugin.c             | 4 ++--
+ plugins/mpris/rb-mpris-plugin.c               | 2 +-
+ plugins/notification/rb-notification-plugin.c | 2 +-
+ plugins/visualizer/rb-visualizer-fullscreen.c | 2 +-
+ shell/rb-shell-player.c                       | 7 ++-----
+ shell/rb-shell-player.h                       | 2 +-
+ shell/rb-shell.c                              | 2 +-
+ 9 files changed, 12 insertions(+), 15 deletions(-)
+
+commit 55edaa2de2089c9d268e04a086e0353761968573
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Mon Dec 29 16:08:14 2014 +1000
+
+    source-search: we don't use GtkActions for anything any more
+
+ sources/rb-source-search.c | 35 -----------------------------------
+ sources/rb-source-search.h |  4 ----
+ 2 files changed, 39 deletions(-)
+
+commit cea5d4d3c8c52bdc5f37303c525fc2346fa8f349
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed Mar 16 20:07:36 2016 +1000
+
+    implement get_property_views for RBPodcastSource
+
+ podcast/rb-podcast-source.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit bedca3e48724d1beb755cd5a5ddf45011ac8721c
+Author: Balázs Meskó <meskobalazs@gmail.com>
+Date:   Sun Jul 31 21:50:51 2016 +0000
+
+    Updated Hungarian translation
+
+ po/hu.po | 240 +++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 134 insertions(+), 106 deletions(-)
+
+commit 165a82e2cbeb87ba134e0caff2f588cebc51f7c4
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed Jul 27 22:20:55 2016 +1000
+
+    encoder: explicitly check that an encoder is available
+    
+    encodebin can operate in passthrough mode, in which it doesn't require
+    an encoder, so it doesn't post missing plugin messages if no encoder is
+    available.  We now check this ourselves.
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=768545
+
+ backends/gstreamer/rb-encoder-gst.c | 75 ++++++++++++++++++++++---------------
+ 1 file changed, 44 insertions(+), 31 deletions(-)
+
+commit 000666ed43a9bed8e1c70ca8fbade11e7b260b0f
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed Jul 27 22:19:49 2016 +1000
+
+    media-types: add a helper for getting the encoder caps for a profile
+
+ lib/rb-gst-media-types.c | 17 ++++++++++++++++-
+ lib/rb-gst-media-types.h |  1 +
+ 2 files changed, 17 insertions(+), 1 deletion(-)
+
+commit 7de6cd5e1d739d0bd2742c559688fae13115d6e1
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Mon Jul 25 03:57:16 2016 +0200
+
+    Add Language headers to po files
+    
+    Future versions of gettext will fail if this header is missing.
+
+ po/am.po          | 1 +
+ po/as.po          | 1 +
+ po/az.po          | 1 +
+ po/be.po          | 2 +-
+ po/be@latin.po    | 1 +
+ po/bn_IN.po       | 1 +
+ po/br.po          | 1 +
+ po/ca@valencia.po | 1 +
+ po/cy.po          | 1 +
+ po/dz.po          | 1 +
+ po/en_CA.po       | 1 +
+ po/es.po          | 2 +-
+ po/eu.po          | 1 +
+ po/fa.po          | 1 +
+ po/fi.po          | 1 -
+ po/ga.po          | 1 +
+ po/gu.po          | 1 +
+ po/he.po          | 1 +
+ po/hi.po          | 1 +
+ po/hr.po          | 1 +
+ po/is.po          | 1 +
+ po/kn.po          | 1 +
+ po/lv.po          | 3 ---
+ po/mk.po          | 2 +-
+ po/ml.po          | 1 +
+ po/mn.po          | 1 +
+ po/mr.po          | 1 +
+ po/ms.po          | 1 +
+ po/nb.po          | 2 +-
+ po/nds.po         | 1 +
+ po/ne.po          | 1 +
+ po/nn.po          | 1 +
+ po/oc.po          | 2 +-
+ po/or.po          | 1 +
+ po/ps.po          | 1 +
+ po/ru.po          | 2 +-
+ po/rw.po          | 2 +-
+ po/si.po          | 1 +
+ po/sl.po          | 2 +-
+ po/sr@latin.po    | 2 +-
+ po/ta.po          | 1 +
+ po/zh_HK.po       | 2 +-
+ 42 files changed, 40 insertions(+), 14 deletions(-)
+
+commit 092de5a68f85f69576c2536f7516464115e5fc8c
+Author: Tiago Santos <tiagofsantos81@sapo.pt>
+Date:   Mon Jul 4 13:55:02 2016 +0000
+
+    Updated Portuguese translation
+
+ po/pt.po | 238 +++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 134 insertions(+), 104 deletions(-)
+
+commit 69de02497b3e5859988b9882fe1b3da00bf6d9fc
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sat Jul 2 15:55:21 2016 +1000
+
+    encoder: clear source id when stopping the timeout
+
+ backends/gstreamer/rb-encoder-gst.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit 9b243491bcb150d7da3db9c2697238d329e24649
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Mon Jun 20 19:55:53 2016 +1000
+
+    podcast: avoid warnings with older compilers
+    
+    gcc 4.2.1 can't figure out that e and elen are always assigned before
+    being used, so make it more obvious.
+
+ podcast/rb-podcast-properties-dialog.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit b9e493f60f08d2d6cfaeb270b4ff5410da9d7fc2
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Jun 19 19:37:29 2016 +1000
+
+    podcast: define the description label in the builder file
+
+ data/ui/podcast-properties.ui          | 50 +++++++++++++++++++---------------
+ podcast/rb-podcast-properties-dialog.c | 19 +------------
+ 2 files changed, 29 insertions(+), 40 deletions(-)
+
+commit fe09b0893dc397404f214b4b5e0dad9b5ebd06ab
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Jun 19 19:17:30 2016 +1000
+
+    update versions of things
+
+ INSTALL.quick | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+commit c7315e3267503db9fbb2c0816d9ea7d1ad8c3469
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Jun 19 18:15:46 2016 +1000
+
+    media-types: add some missing annotations
+
+ lib/rb-gst-media-types.c               | 23 +++++++++++++++++++++++
+ podcast/rb-podcast-properties-dialog.c | 20 ++++++++++++++++++--
+ 2 files changed, 41 insertions(+), 2 deletions(-)
+
+commit c1cc0d663f55ba6a4de371579a0e34293f39a504
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Jun 19 17:02:58 2016 +1000
+
+    podcast: remove tags and decode entities in html podcast descriptions
+
+ podcast/rb-podcast-properties-dialog.c | 156 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 153 insertions(+), 3 deletions(-)
+
+commit 4c951c864807843a448884d75490a510be852aef
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Jun 19 13:39:09 2016 +1000
+
+    podcast: drop webkit code for displaying episode descriptions
+
+ configure.ac                           |  23 -----
+ podcast/Makefile.am                    |   1 -
+ podcast/rb-podcast-properties-dialog.c | 162 +--------------------------------
+ shell/Makefile.am                      |   2 -
+ 4 files changed, 1 insertion(+), 187 deletions(-)
+
+commit 704ac8e4fbb8726e30abe77fbf15a0e3dbdbc351
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sat Jun 18 15:58:40 2016 +1000
+
+    require glib 2.36 and stop calling g_type_init
+
+ configure.ac                        | 2 +-
+ lib/libmediaplayerid/testmpid.c     | 2 --
+ metadata/rb-metadata-dbus-service.c | 1 -
+ metadata/test-metadata.c            | 2 --
+ plugins/audiocd/test-cd.c           | 1 -
+ podcast/test-podcast-parse.c        | 1 -
+ podcast/test-podcast-search.c       | 1 -
+ remote/dbus/rb-client.c             | 1 -
+ shell/main.c                        | 1 -
+ tests/test-audioscrobbler.c         | 1 -
+ tests/test-rb-lib.c                 | 1 -
+ 11 files changed, 1 insertion(+), 13 deletions(-)
+
+commit eef91d5edd4763246b51076936f44670ff3a39cf
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sat Jun 18 15:50:17 2016 +1000
+
+    require libsoup 2.42 and switch to SoupSession
+
+ configure.ac                                            |  2 +-
+ plugins/audiocd/rb-musicbrainz-lookup.c                 | 10 +++++-----
+ plugins/audioscrobbler/rb-audioscrobbler-account.c      |  6 +++---
+ plugins/audioscrobbler/rb-audioscrobbler-radio-source.c |  6 +++---
+ plugins/audioscrobbler/rb-audioscrobbler-user.c         |  6 +++---
+ plugins/audioscrobbler/rb-audioscrobbler.c              |  2 +-
+ podcast/rb-podcast-search-itunes.c                      |  6 +++---
+ podcast/rb-podcast-search-miroguide.c                   |  6 +++---
+ 8 files changed, 22 insertions(+), 22 deletions(-)
+
+commit 2ef1ca8e191ff28f9d206695f41a21efc71e5dad
+Author: Bastien Nocera <hadess@hadess.net>
+Date:   Thu Jun 9 19:11:07 2016 +0200
+
+    daap: Fix warnings when configuring music sharing
+    
+    Even though both "plugin" instances we get for the main plugin and the
+    configuration widget are RbDaapPlugin types, they're separate instances.
+    So we cannot expect ->builder to be available in the main plugin.
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=767466
+
+ plugins/daap/rb-daap-plugin.c | 28 ++++++++++++++++++----------
+ 1 file changed, 18 insertions(+), 10 deletions(-)
+
+commit a6371f2723264ff93fd4005ea19eec5036055714
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed Jun 15 21:46:40 2016 +1000
+
+    use Gio.Settings.new to avoid GSettings:schema deprecation warnings
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=749388
+
+ plugins/lyrics/LyricsConfigureDialog.py | 2 +-
+ plugins/lyrics/LyricsParse.py           | 2 +-
+ plugins/lyrics/lyrics.py                | 2 +-
+ plugins/magnatune/MagnatuneAccount.py   | 2 +-
+ plugins/magnatune/MagnatuneSource.py    | 6 +++---
+ plugins/magnatune/magnatune.py          | 6 +++---
+ plugins/replaygain/config.py            | 2 +-
+ plugins/replaygain/player.py            | 2 +-
+ plugins/webremote/webremote.py          | 4 ++--
+ 9 files changed, 14 insertions(+), 14 deletions(-)
+
+commit 3c2c35bc1b0de4ec441b5ec4223ac709fb283d2b
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed Jun 15 21:44:55 2016 +1000
+
+    stop using deprecated margin properties in GtkBuilder files
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=749388
+
+ data/ui/general-prefs.ui                           |  8 ++++----
+ data/ui/main-toolbar.ui                            | 16 +++++++--------
+ data/ui/podcast-prefs.ui                           |  4 ++--
+ data/ui/sync-dialog.ui                             |  4 ++--
+ plugins/audiocd/album-info.ui                      |  2 +-
+ .../audioscrobbler/audioscrobbler-preferences.ui   |  4 ++--
+ plugins/audioscrobbler/audioscrobbler-profile.ui   | 24 +++++++++++-----------
+ plugins/daap/daap-prefs.ui                         |  4 ++--
+ plugins/magnatune/magnatune-prefs.ui               |  4 ++--
+ plugins/replaygain/replaygain-prefs.ui             |  4 ++--
+ plugins/webremote/webremote-config.ui              |  4 ++--
+ 11 files changed, 39 insertions(+), 39 deletions(-)
+
+commit fff0ef6ca7d9e0fcdceae0b5fb769a2724ebef1a
+Author: Hubert Figuière <hub@figuiere.net>
+Date:   Wed Jun 15 21:43:24 2016 +1000
+
+    Bug 749388 - Part 1: Remove some deprecated properties, checked at runtime.
+
+ sources/rb-display-page-tree.c | 4 +++-
+ widgets/rb-entry-view.c        | 9 +++++----
+ 2 files changed, 8 insertions(+), 5 deletions(-)
+
+commit 85108e0e5b64445b5af4056f8dc50d45d06f4e83
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed Jun 15 19:45:27 2016 +1000
+
+    button-bar: switch to non-deprecated margin properties
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=749388
+
+ widgets/rb-button-bar.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 338e1dcdcbcb4071e7cc35e0e72babb702f5a631
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed Jun 15 19:42:30 2016 +1000
+
+    header: remove hacks for old versions of gtk
+
+ widgets/rb-header.c | 16 +---------------
+ 1 file changed, 1 insertion(+), 15 deletions(-)
+
+commit 0cdc753995089c52b87f5e48fcdd5285b4253dfc
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Mon Jun 13 22:09:45 2016 +1000
+
+    shell: use source dir rather than build dir for uninstalled plugin data
+    
+    We currently don't have any plugin data files that are generated as part
+    of the build, so locating them from the source dir works for now.
+    Python plugins still don't work in uninstalled builddir != srcdir builds,
+    however.
+
+ shell/rb-shell.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+commit b1677340c2b92986b4726f0f4ccbcc1ae9ba9aef
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Mon Jun 13 21:59:41 2016 +1000
+
+    build: ensure uninstalled paths are absolute
+    
+    This means you can run srcdir != builddir builds from the shell directory
+    like nature intended, rather than from the root of the source tree.
+
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 0547e27b824255c703f420c390920e1e1edeadbb
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Jun 12 14:39:23 2016 +1000
+
+    song-info: fix context for 'of'
+    
+    At some point intltool decided it didn't like single quotes in translator
+    notes in xml files, so reword this to avoid them.
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=767524
+
+ data/ui/song-info.ui | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 8f196bb5ba840adf17164ca33f7a562a6708f152
+Author: Bastien Nocera <hadess@hadess.net>
+Date:   Fri May 20 15:57:12 2016 +0200
+
+    shell: Fix state of the "Party Mode" toggle item
+    
+    The "Party Mode" menu item is a toggle menu item. If we only listen to
+    the "activate" signal, we'll listen for clicks, but we won't change the
+    state. So when the gear menu appears, the old state would be shown.
+    
+    Listen to the state change instead, and update the action state.
+    
+    http://bugzilla.gnome.org/show_bug.cgi?id=703910
+
+ shell/rb-shell.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit 8738f0d483a1e9602702858966a3a4da444d9401
+Author: Bastien Nocera <hadess@hadess.net>
+Date:   Thu Jun 9 17:04:33 2016 +0200
+
+    build: Fix plugins not finding their data in jhbuild
+    
+    Now that jhbuild launches configure from a different builddir, `pwd`
+    isn't the root of the source tree, but the builddir. Using `dirname $0`
+    instead means that ROOT_UNINSTALLED_DIR will be the source tree instead
+    of the builddir.
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=767456
+
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 396e6b510e356d0575bfd9e9819b20b0ada683ef
+Author: Bastien Nocera <hadess@hadess.net>
+Date:   Thu Jun 9 16:21:09 2016 +0200
+
+    shell: Fix crash when menu doesn't exist
+    
+     #0  0x00007fffef7db4a5 in g_menu_model_get_n_items (model=0x0) at gmenumodel.c:493
+     #1  0x00007ffff7aa07b1 in rb_application_link_shared_menus (app=0x628840, menu=0x0) at /jhbuild/rhythmbox/shell/rb-application.c:778
+     #2  0x00007fffca9c6444 in rb_iradio_source_new (shell=0x8df1b0, plugin=0x1172a50) at /jhbuild/rhythmbox/plugins/iradio/rb-iradio-source.c:458
+     #3  0x00007fffca9c523a in impl_activate (plugin=0x1172a50) at /jhbuild/rhythmbox/plugins/iradio/rb-iradio-plugin.c:89
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=767456
+
+ shell/rb-application.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit f676800eac9d866cef6b4b7fbac2024a5d4d2baf
+Author: Marvin Schmidt <marv@exherbo.org>
+Date:   Fri Jun 3 22:20:20 2016 +0200
+
+    build: Use pkg-config binary as detected by PKG_PROG_PKG_CONFIG
+    
+    In cross-compilation scenarios `pkg-config` is not be the correct
+    pkg-config executable for the host. PKG_PROG_PKG_CONFIG checks for
+    the correct host prefixed executable and defines $PKG_CONFIG, so use
+    that instead of `pkg-config`
+
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit adf15e136ccd27a45ad77c2e5f93e3054ee649ee
+Author: Marek Černocký <marek@manet.cz>
+Date:   Sat Jun 11 17:45:34 2016 +0200
+
+    Updated Czech translation
+
+ po/cs.po | 189 +++++++++++++++++++++++++++++++++++++--------------------------
+ 1 file changed, 112 insertions(+), 77 deletions(-)
+
+commit e85e3de6a3d306a3c89d17d87babab8b43079ace
+Author: GNOME Translation Robot <gnome-sysadmin@gnome.org>
+Date:   Sat Jun 11 09:02:56 2016 +0000
+
+    Updated Scottish Gaelic translation
+
+ po/gd.po | 1415 +++++++++++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 858 insertions(+), 557 deletions(-)
+
+commit a34a32d9767a7d8b13836a9e7ab1210695d216a7
+Author: Enrico Nicoletto <liverig@gmail.com>
+Date:   Mon May 30 20:18:16 2016 +0000
+
+    Updated Brazilian Portuguese translation
+
+ po/pt_BR.po | 47 +++++++++++++++++++++++------------------------
+ 1 file changed, 23 insertions(+), 24 deletions(-)
+
+commit eb86a82b79ecf6bebe01e7216ec5b6450d99eb38
+Author: Daniel Mustieles <daniel.mustieles@gmail.com>
+Date:   Mon May 30 19:19:29 2016 +0200
+
+    Updated Spanish translation
+
+ po/es.po | 177 ++++++++++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 101 insertions(+), 76 deletions(-)
+
+commit 842f1ecb9d34a22930dd1a8af20eb4284b678d89
+Author: Gayan Weerakutti <gayan@linuxdeveloper.space>
+Date:   Mon May 16 17:21:28 2016 +0530
+
+    lyrics: update TerraParser to match current layout
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=721926
+
+ plugins/lyrics/TerraParser.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit ba24e933e9197fdc980cba504c68c5cbfab7d664
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun May 29 19:15:19 2016 +1000
+
+    soundcloud: use pagination to fetch more search results and tracks
+    
+    Fetch more containers when the bottom of the list is visible, and
+    provide a button for fetching more tracks.
+
+ plugins/soundcloud/soundcloud.py | 90 +++++++++++++++++++++++++++++++++++++---
+ plugins/soundcloud/soundcloud.ui |  4 +-
+ 2 files changed, 86 insertions(+), 8 deletions(-)
+
+commit b951577b692596672e17f49abf7068238ef5da91
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sat May 28 22:54:39 2016 +1000
+
+    soundcloud: enable pausing
+    
+    souphttpsrc seems to handle this pretty well.
+
+ plugins/soundcloud/soundcloud.py | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 632ac4558b70323329b745fb04f697d19b01e284
+Author: Mario Blättermann <mario.blaettermann@gmail.com>
+Date:   Thu May 26 17:01:24 2016 +0200
+
+    Updated German translation
+
+ po/de.po | 170 +++++++++++++++++++++++++++++++++++++--------------------------
+ 1 file changed, 99 insertions(+), 71 deletions(-)
+
+commit 19ae41092bbbf8e5fcf1445e0e8b4e90109ceee5
+Author: Dušan Kazik <prescott66@gmail.com>
+Date:   Sat May 21 07:27:26 2016 +0000
+
+    Updated Slovak translation
+
+ po/sk.po | 42 +++++++++++++++++++++---------------------
+ 1 file changed, 21 insertions(+), 21 deletions(-)
+
+commit 595a2aa6aa457be022321fb6aab3fed479629f57
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Thu May 19 15:29:52 2016 +0200
+
+    Updated Polish translation
+
+ po/pl.po | 38 +++++++++++++++++++-------------------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
+
+commit 9ca6bec5253858131979a70dce30f05272f3a187
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Thu May 19 21:54:19 2016 +1000
+
+    grilo: chain up in delete_thyself
+
+ plugins/grilo/rb-grilo-source.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 81b5071b6bc0833209aa3f2ea50e2f9ea7acaa87
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Wed May 18 22:17:54 2016 +1000
+
+    replaygain: link to hydrogenaudio wiki instead of replaygain.org
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=766584
+
+ plugins/replaygain/replaygain-prefs.ui | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 1bcefdffd07875f4ded2c08e1c91ddc623426d2e
+Author: Richard Hughes <richard@hughsie.com>
+Date:   Wed May 18 11:39:10 2016 +0100
+
+    Upgrade the AppData file to 0.6v and add missing data
+
+ data/rhythmbox.appdata.xml.in | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
+
+commit 3e986dd5c959b8d5ec3b5b2cffa72f81323d8cbe
+Author: Victor Toso <me@victortoso.com>
+Date:   Fri May 13 23:16:31 2016 +0200
+
+    grilo: fix crash due NULL url from GrlMedia
+    
+     #0 g_str_hash (v=0x0) at ghash.c:1876
+     #1 in g_hash_table_lookup_node (hash_return=<synthetic pointer>,
+        key=0x0, hash_table=0x604640) at ghash.c:375
+     #2 g_hash_table_lookup (hash_table=0x604640, key=key@entry=0x0) at ghash.c:1147
+     #3 in rb_refstring_find (init=0x0) at rb-refstring.c:122
+     #4 in rhythmdb_entry_lookup_by_location (db=0x76a490, uri=<optimized out>)
+        at rhythmdb.c:4036
+     #5 in create_entry_for_media (container=0x0, data=0xcb5360,
+        entry_type=<optimized out>, db=0x76a490) at rb-grilo-source.c:553
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=766392
+
+ plugins/grilo/rb-grilo-source.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+commit c5febca53197395ac4bd127daa543fcb25a0efd0
+Author: Victor Toso <me@victortoso.com>
+Date:   Fri May 13 22:58:04 2016 +0200
+
+    grilo: port to 0.3
+    
+    Current grilo version is 0.3.1. There were a few API breaks from
+    0.2.x to 0.3.0 which this patch addresses.
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=766392
+
+ configure.ac                    |  4 ++--
+ plugins/grilo/rb-grilo-plugin.c |  2 +-
+ plugins/grilo/rb-grilo-source.c | 10 +++++-----
+ 3 files changed, 8 insertions(+), 8 deletions(-)
+
+commit 3922e9c965e79e0a2440b8e0f4061313d05ddde3
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun May 15 21:51:25 2016 +1000
+
+    webremote: store the access key in normal (non-secret) settings
+    
+    The complexity of dealing with locked keyrings and async requests
+    to the secret service doesn't seem to be worth it in this case.
+
+ data/org.gnome.rhythmbox.gschema.xml |  6 +++-
+ plugins/webremote/webremote.py       | 59 ++++++------------------------------
+ 2 files changed, 14 insertions(+), 51 deletions(-)
+
+commit 9a604bc95943e7c88f7e8a43202ccc7cffdfb3d2
+Author: Dušan Kazik <prescott66@gmail.com>
+Date:   Sun May 15 11:07:16 2016 +0000
+
+    Updated Slovak translation
+
+ po/sk.po | 139 ++++++++++++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 84 insertions(+), 55 deletions(-)
+
+commit b40a05d5c4202ae3b9658472328fb2246a054f66
+Author: Rafael Fontenelle <rafaelff@gnome.org>
+Date:   Wed May 11 19:30:31 2016 +0000
+
+    Updated Brazilian Portuguese translation
+
+ po/pt_BR.po | 158 +++++++++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 93 insertions(+), 65 deletions(-)
+
+commit a2d508b07016f4e3ed8d5e770c5b96f6433b4c87
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Wed May 11 18:14:19 2016 +0200
+
+    Updated Polish translation
+
+ po/pl.po | 50 +++++++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 39 insertions(+), 11 deletions(-)
+
+commit d03895d621b3f3208891ee0057671f5eb5fd86a4
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Tue May 10 00:59:57 2016 +0200
+
+    Updated POTFILES.in
+
+ po/POTFILES.in | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 445186d6577efecf7a3e7f4a8ecdd58347d0c800
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Mon May 9 22:30:44 2016 +1000
+
+    new web remote control plugin
+    
+    This provides a simple interface to control playback, and soon will
+    be able to stream the playing track to the client.
+
+ configure.ac                                   |   1 +
+ data/org.gnome.rhythmbox.gschema.xml           |   9 +
+ plugins/Makefile.am                            |   1 +
+ plugins/webremote/Makefile.am                  |  17 +
+ plugins/webremote/css/grids-responsive-min.css |   7 +
+ plugins/webremote/css/pure-min.css             |  11 +
+ plugins/webremote/css/webremote.css            |  72 +++
+ plugins/webremote/js/webremote.js              | 399 +++++++++++++++
+ plugins/webremote/siphash.py                   | 261 ++++++++++
+ plugins/webremote/webremote-config.ui          |  88 ++++
+ plugins/webremote/webremote.html               |  82 ++++
+ plugins/webremote/webremote.plugin.in          |  10 +
+ plugins/webremote/webremote.py                 | 655 +++++++++++++++++++++++++
+ 13 files changed, 1613 insertions(+)
+
+commit 10d44762421c23442a8f4d4ba82a874643d81724
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Mon May 9 18:54:49 2016 +1000
+
+    introspect gstreamer media type helpers
+
+ bindings/gi/Makefile.am | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 38dbea885b69cad748279af747ec438bf62605f4
+Author: Tiago Santos <tiagofsantos81@sapo.pt>
+Date:   Wed May 4 19:25:42 2016 +0000
+
+    Updated Portuguese translation
+
+ po/pt.po | 76 ++++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 43 insertions(+), 33 deletions(-)
+
+commit b9a13191a23fc57a1e9b31a753775b91ff84f0d8
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Mon May 2 12:01:37 2016 +1000
+
+    header: control cover art image visibility properly
+    
+    Initial visibility gets applied during construction of the header, but that
+    gets overridden when the entire header is made visible.  Setting the image
+    to no-show-all fixes this.
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=765833
+
+ widgets/rb-header.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 8bc4971dd8e79bb3f6dbc6fc00789e896b223eea
+Author: Jonathan Matthew <jonathan@d14n.org>
+Date:   Sun Apr 17 13:46:21 2016 +1000
+
+    replaygain: simplify config dialog a bit
+
+ plugins/replaygain/config.py           |   4 -
+ plugins/replaygain/replaygain-prefs.ui | 158 ++++++++++++++-------------------
+ 2 files changed, 65 insertions(+), 97 deletions(-)
+
+commit c414b79b8318b233ac0b68772d2e84dacb2c527e
+Author: Daniel Mustieles <daniel.mustieles@gmail.com>
+Date:   Sun Apr 10 11:01:53 2016 +0200
+
+    Updated Spanish translation
+
+ po/es.po | 130 +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 69 insertions(+), 61 deletions(-)
+
+commit 5dfcfeb8a685a5f73032fe425303358cecc206b6
+Author: Shi Jing <jingshi@ubuntukylin.com>
+Date:   Fri Apr 8 17:56:41 2016 +0800
+
+    Update zh_CN translation
+
+ po/zh_CN.po | 1834 +++++++++++++++++++++++++++++++++++------------------------
+ 1 file changed, 1082 insertions(+), 752 deletions(-)
+
+commit fc26740adf5df14bf98db230cb7f4fec510f62e4
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Thu Apr 7 20:41:40 2016 +0200
+
+    Updated Polish translation
+
+ po/pl.po | 56 ++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 28 insertions(+), 28 deletions(-)
+
 commit c11434b405ba1d2fcf699b2db7e5a50ee13d5705
 Author: Jonathan Matthew <jonathan@d14n.org>
 Date:   Sun Apr 3 19:09:03 2016 +1000

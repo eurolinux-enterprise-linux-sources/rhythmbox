@@ -8,7 +8,7 @@
 <link rel="up" href="ch05.html" title="Shell">
 <link rel="prev" href="ch05.html" title="Shell">
 <link rel="next" href="RBHistory.html" title="RBHistory">
-<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -44,7 +44,7 @@
 <tbody>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/gio/unstable/GApplication.html"><span class="returnvalue">GApplication</span></a> *
+<a href="/usr/share/gtk-doc/html/gioGApplication.html#GApplication-struct"><span class="returnvalue">GApplication</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="RBApplication.html#rb-application-new" title="rb_application_new ()">rb_application_new</a> <span class="c_punctuation">()</span>
@@ -76,7 +76,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/gio/unstable/GMenuModel.html"><span class="returnvalue">GMenuModel</span></a> *
+<a href="/usr/share/gtk-doc/html/gioGMenuModel.html#GMenuModel-struct"><span class="returnvalue">GMenuModel</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="RBApplication.html#rb-application-get-shared-menu" title="rb_application_get_shared_menu ()">rb_application_get_shared_menu</a> <span class="c_punctuation">()</span>
@@ -84,7 +84,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/gio/unstable/GMenuModel.html"><span class="returnvalue">GMenuModel</span></a> *
+<a href="/usr/share/gtk-doc/html/gioGMenuModel.html#GMenuModel-struct"><span class="returnvalue">GMenuModel</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="RBApplication.html#rb-application-get-plugin-menu" title="rb_application_get_plugin_menu ()">rb_application_get_plugin_menu</a> <span class="c_punctuation">()</span>
@@ -146,9 +146,9 @@
 </div>
 <div class="refsect1">
 <a name="RBApplication.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-    <span class="lineart">╰──</span> <a href="https://developer.gnome.org/gio/unstable/GApplication.html">GApplication</a>
-        <span class="lineart">╰──</span> GtkApplication
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gioGApplication.html#GApplication-struct">GApplication</a>
+        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkApplication.html#GtkApplication-struct">GtkApplication</a>
             <span class="lineart">╰──</span> RBApplication
 </pre>
 </div>
@@ -156,7 +156,7 @@
 <a name="RBApplication.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 RBApplication implements
- <a href="https://developer.gnome.org/gio/unstable/GActionGroup.html">GActionGroup</a> and  <a href="https://developer.gnome.org/gio/unstable/GActionMap.html">GActionMap</a>.</p>
+ <a href="/usr/share/gtk-doc/html/gioGActionGroup.html#GActionGroup-struct">GActionGroup</a> and  <a href="/usr/share/gtk-doc/html/gioGActionMap.html#GActionMap-struct">GActionMap</a>.</p>
 </div>
 <div class="refsect1">
 <a name="RBApplication.description"></a><h2>Description</h2>
@@ -168,11 +168,11 @@ on the command line.</p>
 <a name="RBApplication.functions_details"></a><h2>Functions</h2>
 <div class="refsect2">
 <a name="rb-application-new"></a><h3>rb_application_new ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/gio/unstable/GApplication.html"><span class="returnvalue">GApplication</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gioGApplication.html#GApplication-struct"><span class="returnvalue">GApplication</span></a> *
 rb_application_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>Creates the application instance.</p>
 <div class="refsect3">
-<a name="id-1.6.2.9.2.5"></a><h4>Returns</h4>
+<a name="rb-application-new.returns"></a><h4>Returns</h4>
 <p> application instance</p>
 </div>
 </div>
@@ -185,7 +185,7 @@ rb_application_run (<em class="parameter"><code><a class="link" href="RBApplicat
                     <em class="parameter"><code><span class="type">char</span> **argv</code></em>);</pre>
 <p>Runs the application</p>
 <div class="refsect3">
-<a name="id-1.6.2.9.3.5"></a><h4>Parameters</h4>
+<a name="rb-application-run.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -212,7 +212,7 @@ rb_application_run (<em class="parameter"><code><a class="link" href="RBApplicat
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.2.9.3.6"></a><h4>Returns</h4>
+<a name="rb-application-run.returns"></a><h4>Returns</h4>
 <p> exit code</p>
 </div>
 </div>
@@ -221,7 +221,7 @@ rb_application_run (<em class="parameter"><code><a class="link" href="RBApplicat
 <a name="rb-application-link-shared-menus"></a><h3>rb_application_link_shared_menus ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 rb_application_link_shared_menus (<em class="parameter"><code><a class="link" href="RBApplication.html" title="Application"><span class="type">RBApplication</span></a> *app</code></em>,
-                                  <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GMenu.html"><span class="type">GMenu</span></a> *menu</code></em>);</pre>
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGMenu.html#GMenu-struct"><span class="type">GMenu</span></a> *menu</code></em>);</pre>
 <p>Processes shared menu links in the given menu.  Menu links take the
 form of items with "rb-menu-link" or "rb-plugin-menu-link" and "rb-menu-link-type" attributes.
 "rb-menu-link" specifies the name of a shared menu to link in,
@@ -230,7 +230,7 @@ form of items with "rb-menu-link" or "rb-plugin-menu-link" and "rb-menu-link-typ
 "submenu".  A link item must have "rb-menu-link-type" and one of
 "rb-menu-link" or "rb-plugin-menu-link".</p>
 <div class="refsect3">
-<a name="id-1.6.2.9.4.5"></a><h4>Parameters</h4>
+<a name="rb-application-link-shared-menus.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -245,7 +245,7 @@ form of items with "rb-menu-link" or "rb-plugin-menu-link" and "rb-menu-link-typ
 </tr>
 <tr>
 <td class="parameter_name"><p>menu</p></td>
-<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GMenu.html"><span class="type">GMenu</span></a> to process</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGMenu.html#GMenu-struct"><span class="type">GMenu</span></a> to process</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
@@ -258,11 +258,11 @@ form of items with "rb-menu-link" or "rb-plugin-menu-link" and "rb-menu-link-typ
 <pre class="programlisting"><span class="returnvalue">void</span>
 rb_application_add_shared_menu (<em class="parameter"><code><a class="link" href="RBApplication.html" title="Application"><span class="type">RBApplication</span></a> *app</code></em>,
                                 <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
-                                <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GMenuModel.html"><span class="type">GMenuModel</span></a> *menu</code></em>);</pre>
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGMenuModel.html#GMenuModel-struct"><span class="type">GMenuModel</span></a> *menu</code></em>);</pre>
 <p>Adds a menu model to the set of shared menus
 available for linking into other menus.</p>
 <div class="refsect3">
-<a name="id-1.6.2.9.5.5"></a><h4>Parameters</h4>
+<a name="rb-application-add-shared-menu.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -282,7 +282,7 @@ available for linking into other menus.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>menu</p></td>
-<td class="parameter_description"><p><a href="https://developer.gnome.org/gio/unstable/GMenuModel.html"><span class="type">GMenuModel</span></a> instance</p></td>
+<td class="parameter_description"><p><a href="/usr/share/gtk-doc/html/gioGMenuModel.html#GMenuModel-struct"><span class="type">GMenuModel</span></a> instance</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
@@ -292,13 +292,13 @@ available for linking into other menus.</p>
 <hr>
 <div class="refsect2">
 <a name="rb-application-get-shared-menu"></a><h3>rb_application_get_shared_menu ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/gio/unstable/GMenuModel.html"><span class="returnvalue">GMenuModel</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gioGMenuModel.html#GMenuModel-struct"><span class="returnvalue">GMenuModel</span></a> *
 rb_application_get_shared_menu (<em class="parameter"><code><a class="link" href="RBApplication.html" title="Application"><span class="type">RBApplication</span></a> *app</code></em>,
                                 <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
 <p>Returns a shared menu instance added with <em class="parameter"><code>rb_application_add_shared_menu</code></em>
 </p>
 <div class="refsect3">
-<a name="id-1.6.2.9.6.5"></a><h4>Parameters</h4>
+<a name="rb-application-get-shared-menu.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -320,7 +320,7 @@ rb_application_get_shared_menu (<em class="parameter"><code><a class="link" href
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.2.9.6.6"></a><h4>Returns</h4>
+<a name="rb-application-get-shared-menu.returns"></a><h4>Returns</h4>
 <p> menu model instance, or NULL if not found. </p>
 <p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
 </div>
@@ -328,7 +328,7 @@ rb_application_get_shared_menu (<em class="parameter"><code><a class="link" href
 <hr>
 <div class="refsect2">
 <a name="rb-application-get-plugin-menu"></a><h3>rb_application_get_plugin_menu ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/gio/unstable/GMenuModel.html"><span class="returnvalue">GMenuModel</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gioGMenuModel.html#GMenuModel-struct"><span class="returnvalue">GMenuModel</span></a> *
 rb_application_get_plugin_menu (<em class="parameter"><code><a class="link" href="RBApplication.html" title="Application"><span class="type">RBApplication</span></a> *app</code></em>,
                                 <em class="parameter"><code>const <span class="type">char</span> *menu</code></em>);</pre>
 <p>Returns a plugin menu instance.  Plugin menus are like shared menus except
@@ -336,7 +336,7 @@ they are created empty on first access, and they consist solely of entries
 added through <em class="parameter"><code>rb_application_add_plugin_item</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.6.2.9.7.5"></a><h4>Parameters</h4>
+<a name="rb-application-get-plugin-menu.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -358,7 +358,7 @@ added through <em class="parameter"><code>rb_application_add_plugin_item</code><
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.2.9.7.6"></a><h4>Returns</h4>
+<a name="rb-application-get-plugin-menu.returns"></a><h4>Returns</h4>
 <p> plugin menu instance. </p>
 <p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
 </div>
@@ -370,10 +370,10 @@ added through <em class="parameter"><code>rb_application_add_plugin_item</code><
 rb_application_add_plugin_menu_item (<em class="parameter"><code><a class="link" href="RBApplication.html" title="Application"><span class="type">RBApplication</span></a> *app</code></em>,
                                      <em class="parameter"><code>const <span class="type">char</span> *menu</code></em>,
                                      <em class="parameter"><code>const <span class="type">char</span> *id</code></em>,
-                                     <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GMenu.html#GMenuItem"><span class="type">GMenuItem</span></a> *item</code></em>);</pre>
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGMenu.html#GMenuItem-struct"><span class="type">GMenuItem</span></a> *item</code></em>);</pre>
 <p>Adds an item to a plugin menu.  The id can be used to remove the item.</p>
 <div class="refsect3">
-<a name="id-1.6.2.9.8.5"></a><h4>Parameters</h4>
+<a name="rb-application-add-plugin-menu-item.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -447,6 +447,6 @@ rb_application_remove_plugin_menu_item
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.24</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

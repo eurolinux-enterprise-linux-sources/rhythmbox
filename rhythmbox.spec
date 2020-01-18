@@ -1,69 +1,54 @@
-%define desktop_file_utils_version 0.9
-%define gtk3_version 3.12.0
-%define libdmapsharing_version 2.9.16
+%global gtk3_version 3.16.0
+%global libdmapsharing_version 2.9.19
+%global libsecret_version 0.18
 
 Name: rhythmbox
 Summary: Music Management Application
-Version: 3.3.1
-Release: 5%{?dist}
+Version: 3.4.1
+Release: 1%{?dist}
 License: GPLv2+ with exceptions and GFDL
-Group: Applications/Multimedia
-URL: http://projects.gnome.org/rhythmbox/
+URL: https://wiki.gnome.org/Apps/Rhythmbox
 #VCS: git://git.gnome.org/rhythmbox
-Source: http://download.gnome.org/sources/rhythmbox/3.3/%{name}-%{version}.tar.xz
+Source: https://download.gnome.org/sources/rhythmbox/3.4/%{name}-%{version}.tar.xz
 
-Requires: gnome-icon-theme-legacy
-Requires: gtk3%{?_isa} >= %{gtk3_version}
-Requires: libdmapsharing%{?_isa} >= %{libdmapsharing_version}
-Requires: media-player-info
-Requires(post): desktop-file-utils >= %{desktop_file_utils_version}
-Requires(postun): desktop-file-utils >= %{desktop_file_utils_version}
-Requires: gvfs-afc gnome-icon-theme-extras
-Requires: pygobject3 python-mako
-
-BuildRequires: brasero-devel
-BuildRequires: clutter-gst2-devel
-BuildRequires: clutter-gtk-devel
+BuildRequires: pkgconfig(clutter-gst-2.0)
+BuildRequires: pkgconfig(clutter-gtk-1.0)
+BuildRequires: pkgconfig(gobject-introspection-1.0) >= 0.10.0
+BuildRequires: pkgconfig(grilo-0.3) >= 0.3.0
+BuildRequires: pkgconfig(gstreamer-1.0)
+BuildRequires: pkgconfig(gstreamer-pbutils-1.0)
+BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
+BuildRequires: pkgconfig(gudev-1.0)
+BuildRequires: pkgconfig(json-glib-1.0)
+BuildRequires: pkgconfig(libbrasero-media3)
+BuildRequires: pkgconfig(libdmapsharing-3.0) >= %{libdmapsharing_version}
+BuildRequires: pkgconfig(libgpod-1.0)
+BuildRequires: pkgconfig(libmtp)
+BuildRequires: pkgconfig(libnotify)
+BuildRequires: pkgconfig(libpeas-gtk-1.0)
+BuildRequires: pkgconfig(libsecret-1) >= %{libsecret_version}
+BuildRequires: pkgconfig(libsoup-2.4) >= 2.34.0
+BuildRequires: pkgconfig(libxml-2.0)
+BuildRequires: pkgconfig(mx-1.0)
+BuildRequires: pkgconfig(tdb)
+BuildRequires: pkgconfig(totem-plparser) >= 3.2.0
 BuildRequires: gettext
-BuildRequires: gobject-introspection-devel >= 0.10.0
-BuildRequires: grilo-devel >= 0.2
-BuildRequires: gstreamer1-devel
-BuildRequires: gstreamer1-plugins-base-devel
-BuildRequires: gtk3-devel >= %{gtk3_version}
 BuildRequires: intltool
 BuildRequires: itstool
-BuildRequires: json-glib-devel
 BuildRequires: kernel-headers
-BuildRequires: libdmapsharing-devel >= %{libdmapsharing_version}
-BuildRequires: libgpod-devel
-BuildRequires: libgudev1-devel
-BuildRequires: libmtp-devel
-BuildRequires: libmx-devel
-BuildRequires: libnotify-devel
-BuildRequires: libpeas-devel
-BuildRequires: libsecret-devel
-BuildRequires: libSM-devel
-BuildRequires: libsoup-devel >= 2.26.0
-BuildRequires: libtdb-devel
-BuildRequires: pygobject3-devel
-BuildRequires: totem-pl-parser-devel >= 3.2.0
-BuildRequires: webkitgtk3-devel
+BuildRequires: libappstream-glib
+BuildRequires: yelp-tools
 
 ExcludeArch:    s390 s390x
 
+Requires: gtk3%{?_isa} >= %{gtk3_version}
+Requires: gvfs-afc
+Requires: libdmapsharing%{?_isa} >= %{libdmapsharing_version}
+Requires: libsecret%{?_isa} >= %{libsecret_version}
+Requires: media-player-info
+
 Obsoletes: rhythmbox-upnp < %{version}-%{release}
 Provides: rhythmbox-upnp = %{version}-%{release}
-
-# http://bugzilla.gnome.org/show_bug.cgi?id=703910
-# https://bugzilla.redhat.com/show_bug.cgi?id=1036203
-Patch0: 0001-shell-Fix-state-of-the-Party-Mode-toggle-item.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=1259708
-# http://bugzilla.gnome.org/show_bug.cgi?id=767466
-Patch1: 0001-daap-Fix-warnings-when-configuring-music-sharing.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=1273062
-Patch2: rhythmbox-3.3.1-EL7.3_translations.patch
 
 %description
 Rhythmbox is an integrated music management application based on the powerful
@@ -75,18 +60,14 @@ Rhythmbox is extensible through a plugin system.
 
 %package devel
 Summary: Development files for Rhythmbox plugins
-Group: Development/Libraries
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 This package contains the development files necessary to create
 a Rhythmbox plugin.
 
 %prep
-%setup -q
-%patch0 -p1 -b .party-mode
-%patch1 -p1 -b .daap-config
-%patch2 -p1 -b .translations
+%autosetup -p1
 
 %build
 %configure \
@@ -113,6 +94,23 @@ rm -f %{buildroot}%{_libdir}/rhythmbox/plugins/libsample-vala.so \
 # Don't include header files for plugins
 rm -rf %{buildroot}%{_libdir}/rhythmbox/plugins/*/*.h
 
+# Rhythmbox plugins are Python 3, but python-zeitgeist is Python 2.
+# https://bugzilla.redhat.com/show_bug.cgi?id=1062912
+rm -rf %{buildroot}%{_libdir}/rhythmbox/plugins/rbzeitgeist
+
+# Context plugin is disabled, so do not install the files.
+rm -rf %{buildroot}%{_libdir}/rhythmbox/plugins/context
+
+# Update the screenshot shown in the software center
+#
+# NOTE: It would be *awesome* if this file was pushed upstream.
+#
+# See http://people.freedesktop.org/~hughsient/appdata/#screenshots for more details.
+#
+appstream-util replace-screenshots $RPM_BUILD_ROOT%{_datadir}/appdata/rhythmbox.appdata.xml \
+  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/rhythmbox/a.png \
+  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/rhythmbox/b.png 
+
 %post
 /sbin/ldconfig
 update-desktop-database >&/dev/null || :
@@ -132,17 +130,17 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas >&/dev/null || :
 
 
 %files -f %{name}.lang
-%doc AUTHORS COPYING README NEWS
+%license COPYING
+%doc AUTHORS README NEWS
 %{_bindir}/*
 %{_datadir}/rhythmbox/
+%{_datadir}/appdata/rhythmbox.appdata.xml
 %{_datadir}/applications/rhythmbox.desktop
 %{_datadir}/applications/rhythmbox-device.desktop
 %{_datadir}/dbus-1/services/org.gnome.Rhythmbox3.service
 %{_datadir}/glib-2.0/schemas/org.gnome.rhythmbox.gschema.xml
-%{_datadir}/appdata/rhythmbox.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/icons/hicolor/*/apps/*.svg
-%{_datadir}/icons/hicolor/*/status/*.png
 %{_libdir}/librhythmbox-core.so*
 %{_libdir}/mozilla/plugins/*.so
 %dir %{_libdir}/rhythmbox
@@ -167,7 +165,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas >&/dev/null || :
 %{_libdir}/rhythmbox/plugins/visualizer/
 %{_libdir}/rhythmbox/sample-plugins/
 %{_libexecdir}/rhythmbox-metadata
-%{_mandir}/man1/rhythmbox*.1.gz
+%{_mandir}/man1/rhythmbox*.1*
 
 %files devel
 %{_includedir}/rhythmbox
@@ -175,6 +173,11 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas >&/dev/null || :
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Wed Mar 01 2017 Bastien Nocera <bnocera@redhat.com> - 3.4.1-1
++ rhythmbox-3.4.1-1
+- Rebase to 3.4.1
+Resolves: #1387041, #1259708
+
 * Thu Jun 30 2016 Bastien Nocera <bnocera@redhat.com> - 3.3.1-5
 - Update translations
 Resolves: #1273062

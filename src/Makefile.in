@@ -274,9 +274,9 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
-GDK_PIXBUF_CSOURCE = @GDK_PIXBUF_CSOURCE@
 GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
+GLIB_COMPILE_RESOURCES = @GLIB_COMPILE_RESOURCES@
 GLIB_COMPILE_SCHEMAS = @GLIB_COMPILE_SCHEMAS@
 GLIB_GENMARSHAL = @GLIB_GENMARSHAL@
 GMSGFMT = @GMSGFMT@
@@ -409,8 +409,6 @@ VAPIDIR = @VAPIDIR@
 VAPIGEN = @VAPIGEN@
 VERSION = @VERSION@
 WARN_CFLAGS = @WARN_CFLAGS@
-WEBKIT_CFLAGS = @WEBKIT_CFLAGS@
-WEBKIT_LIBS = @WEBKIT_LIBS@
 WNOERROR_CFLAGS = @WNOERROR_CFLAGS@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
@@ -486,8 +484,8 @@ top_srcdir = @top_srcdir@
 ACLOCAL_AMFLAGS = --install -I m4 ${ACLOCAL_FLAGS}
 DISTCHECK_CONFIGURE_FLAGS = --disable-schemas-install --enable-gtk-doc --disable-scrollkeeper
 distuninstallcheck_listfiles = find . -type f -print | grep -v '^\./var/scrollkeeper'
-SUBDIRS = lib metadata rhythmdb widgets sources podcast \
-	backends shell bindings sample-plugins plugins remote data po help tests doc
+SUBDIRS = data lib metadata rhythmdb widgets sources podcast \
+	backends shell bindings sample-plugins plugins remote po help tests doc
 
 
 # what?

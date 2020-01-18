@@ -879,11 +879,13 @@ construct_plugins (RBShell *shell)
 
 #ifdef USE_UNINSTALLED_DIRS
 	plugindir = g_build_filename (SHARE_UNINSTALLED_BUILDDIR, "..", UNINSTALLED_PLUGINS_LOCATION, NULL);
-	rb_debug ("plugin search path: %s", plugindir);
+	plugindatadir = g_build_filename (SHARE_UNINSTALLED_DIR, "..", UNINSTALLED_PLUGINS_LOCATION, NULL);
+	rb_debug ("plugin search path: %s / %s", plugindir, plugindatadir);
 	peas_engine_add_search_path (shell->priv->plugin_engine,
 				     plugindir,
-				     plugindir);
+				     plugindatadir);
 	g_free (plugindir);
+	g_free (plugindatadir);
 #endif
 
 	plugindir = g_build_filename (LIBDIR, "rhythmbox", "plugins", NULL);
@@ -1742,7 +1744,7 @@ rb_shell_constructed (GObject *object)
 							 NULL,
 							 g_variant_new_boolean (FALSE)));
 	g_action_map_add_action (G_ACTION_MAP (shell->priv->window), action);
-	g_signal_connect (action, "activate", G_CALLBACK (view_party_mode_changed_cb), shell);
+	g_signal_connect (action, "change-state", G_CALLBACK (view_party_mode_changed_cb), shell);
 
 	action = G_ACTION (g_simple_action_new ("library-import", NULL));
 	g_signal_connect (action, "activate", G_CALLBACK (add_music_action_cb), shell);
@@ -1976,25 +1978,41 @@ rb_shell_key_press_event_cb (GtkWidget *win,
 			     GdkEventKey *event,
 			     RBShell *shell)
 {
-#ifndef HAVE_MMKEYS
-	return FALSE;
-#else
+	GtkWindow *window = GTK_WINDOW (win);
+	gboolean handled = FALSE;
 
-	gboolean retval = TRUE;
-
+#ifdef HAVE_MMKEYS
 	switch (event->keyval) {
 	case XF86XK_Back:
 		rb_shell_player_do_previous (shell->priv->player_shell, NULL);
+		handled = TRUE;
 		break;
 	case XF86XK_Forward:
 		rb_shell_player_do_next (shell->priv->player_shell, NULL);
+		handled = TRUE;
 		break;
 	default:
-		retval = FALSE;
+		break;
+	}
+#endif
+
+	if (!handled)
+		handled = gtk_window_activate_key (window, event);
+
+	if (!handled)
+		handled = gtk_window_propagate_key_event (window, event);
+
+	if (!handled)
+		handled = rb_application_activate_key (shell->priv->application, event);
+
+	if (!handled) {
+		GObjectClass *object_class;
+		object_class = G_OBJECT_GET_CLASS (win);
+		handled = GTK_WIDGET_CLASS (g_type_class_peek_parent (object_class))->key_press_event (win, event);
 	}
 
-	return retval;
-#endif /* !HAVE_MMKEYS */
+	/* we're completely replacing the default window handling, so always return TRUE */
+	return TRUE;
 }
 
 static void
@@ -2066,7 +2084,7 @@ rb_shell_activate_source (RBShell *shell, RBSource *source, guint play, GError *
 		/* fall through */
 	case RB_SHELL_ACTIVATION_ALWAYS_PLAY:
 		rb_shell_player_set_playing_source (shell->priv->player_shell, source);
-		return rb_shell_player_playpause (shell->priv->player_shell, FALSE, error);
+		return rb_shell_player_playpause (shell->priv->player_shell, error);
 
 	default:
 		return FALSE;
@@ -2415,7 +2433,8 @@ rb_shell_set_window_title (RBShell *shell,
 static void
 view_party_mode_changed_cb (GAction *action, GVariant *parameter, RBShell *shell)
 {
-	shell->priv->party_mode = (shell->priv->party_mode == FALSE);
+	shell->priv->party_mode = g_variant_get_boolean (parameter);
+	g_simple_action_set_state (G_SIMPLE_ACTION (action), parameter);
 	rb_shell_sync_party_mode (shell);
 }
 

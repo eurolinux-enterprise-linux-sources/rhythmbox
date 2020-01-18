@@ -7,7 +7,7 @@
 <link rel="home" href="index.html" title="Rhythmbox Development Reference Manual">
 <link rel="up" href="ch07.html" title="Widgets">
 <link rel="prev" href="RBSongInfo.html" title="RBSongInfo">
-<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -43,7 +43,7 @@
 </colgroup>
 <tbody><tr>
 <td class="function_type">
-<span class="returnvalue">GtkWidget</span> *
+<a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct"><span class="returnvalue">GtkWidget</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="RBURIDialog.html#rb-uri-dialog-new" title="rb_uri_dialog_new ()">rb_uri_dialog_new</a> <span class="c_punctuation">()</span>
@@ -61,7 +61,7 @@
 </colgroup>
 <tbody><tr>
 <td class="property_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
 <td class="property_name"><a class="link" href="RBURIDialog.html#RBURIDialog--label" title="The “label” property">label</a></td>
 <td class="property_flags">Read / Write / Construct Only</td>
 </tr></tbody>
@@ -78,7 +78,7 @@
 <tbody><tr>
 <td class="signal_type"><span class="returnvalue">void</span></td>
 <td class="signal_name"><a class="link" href="RBURIDialog.html#RBURIDialog-location-added" title="The “location-added” signal">location-added</a></td>
-<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
 </tr></tbody>
 </table></div>
 </div>
@@ -103,13 +103,13 @@
 </div>
 <div class="refsect1">
 <a name="RBURIDialog.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-    <span class="lineart">╰──</span> <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-        <span class="lineart">╰──</span> GtkWidget
-            <span class="lineart">╰──</span> GtkContainer
-                <span class="lineart">╰──</span> GtkBin
-                    <span class="lineart">╰──</span> GtkWindow
-                        <span class="lineart">╰──</span> GtkDialog
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct">GtkWidget</a>
+            <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkContainer.html#GtkContainer-struct">GtkContainer</a>
+                <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkBin.html#GtkBin-struct">GtkBin</a>
+                    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkWindow.html#GtkWindow-struct">GtkWindow</a>
+                        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkDialog.html#GtkDialog-struct">GtkDialog</a>
                             <span class="lineart">╰──</span> RBURIDialog
 </pre>
 </div>
@@ -117,7 +117,7 @@
 <a name="RBURIDialog.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 RBURIDialog implements
- AtkImplementorIface and  GtkBuildable.</p>
+ AtkImplementorIface and  <a href="/usr/share/gtk-doc/html/gtk3GtkBuildable.html#GtkBuildable-struct">GtkBuildable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="RBURIDialog.includes"></a><h2>Includes</h2>
@@ -132,12 +132,12 @@ RBURIDialog implements
 <a name="RBURIDialog.functions_details"></a><h2>Functions</h2>
 <div class="refsect2">
 <a name="rb-uri-dialog-new"></a><h3>rb_uri_dialog_new ()</h3>
-<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct"><span class="returnvalue">GtkWidget</span></a> *
 rb_uri_dialog_new (<em class="parameter"><code>const <span class="type">char</span> *title</code></em>,
                    <em class="parameter"><code>const <span class="type">char</span> *label</code></em>);</pre>
 <p>Creates a URI entry dialog.</p>
 <div class="refsect3">
-<a name="id-1.8.14.11.2.5"></a><h4>Parameters</h4>
+<a name="rb-uri-dialog-new.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -159,7 +159,7 @@ rb_uri_dialog_new (<em class="parameter"><code>const <span class="type">char</sp
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.8.14.11.2.6"></a><h4>Returns</h4>
+<a name="rb-uri-dialog-new.returns"></a><h4>Returns</h4>
 <p> URI dialog instance.</p>
 </div>
 </div>
@@ -190,7 +190,7 @@ rb_uri_dialog_new (<em class="parameter"><code>const <span class="type">char</sp
 <a name="RBURIDialog.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="RBURIDialog--label"></a><h3>The <code class="literal">“label”</code> property</h3>
-<pre class="programlisting">  “label”                    <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<pre class="programlisting">  “label”                    <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
 <p>The label displayed in the dialog.</p>
 <p>Flags: Read / Write / Construct Only</p>
 <p>Default value: ""</p>
@@ -202,11 +202,11 @@ rb_uri_dialog_new (<em class="parameter"><code>const <span class="type">char</sp
 <a name="RBURIDialog-location-added"></a><h3>The <code class="literal">“location-added”</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 user_function (<a class="link" href="RBURIDialog.html" title="RBURIDialog"><span class="type">RBURIDialog</span></a> *dialog,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>       *uri,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)</pre>
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a>       *uri,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)</pre>
 <p>Emitted when the user has entered a URI into the dialog.</p>
 <div class="refsect3">
-<a name="id-1.8.14.14.2.5"></a><h4>Parameters</h4>
+<a name="RBURIDialog-location-added.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -232,11 +232,11 @@ user_function (<a class="link" href="RBURIDialog.html" title="RBURIDialog"><span
 </tbody>
 </table></div>
 </div>
-<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.24</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

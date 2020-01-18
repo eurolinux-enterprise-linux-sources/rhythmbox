@@ -8,7 +8,7 @@
 <link rel="up" href="ch02.html" title="Lib">
 <link rel="prev" href="rhythmbox-rb-async-queue-watch.html" title="rb-async-queue-watch">
 <link rel="next" href="rhythmbox-rb-file-helpers.html" title="rb-file-helpers">
-<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -63,7 +63,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="rhythmbox-rb-debug.html#rb-debug-matches" title="rb_debug_matches ()">rb_debug_matches</a> <span class="c_punctuation">()</span>
@@ -162,7 +162,7 @@ including a timestamp, the thread ID, the file and function names, and
 the line number.  A newline will be appended, so the format string shouldn't
 include one.</p>
 <div class="refsect3">
-<a name="id-1.3.3.6.2.5"></a><h4>Parameters</h4>
+<a name="rb-debug.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -181,11 +181,11 @@ include one.</p>
 <div class="refsect2">
 <a name="rb-debug-init"></a><h3>rb_debug_init ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-rb_debug_init (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> debug</code></em>);</pre>
+rb_debug_init (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> debug</code></em>);</pre>
 <p>Sets up debug output, with either all debug enabled
 or none.</p>
 <div class="refsect3">
-<a name="id-1.3.3.6.3.5"></a><h4>Parameters</h4>
+<a name="rb-debug-init.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -211,7 +211,7 @@ names that contain the specified match string.</p>
 break for critical or warning level output if any debug output
 at all is enabled.</p>
 <div class="refsect3">
-<a name="id-1.3.3.6.4.6"></a><h4>Parameters</h4>
+<a name="rb-debug-init-match.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -229,14 +229,14 @@ at all is enabled.</p>
 <hr>
 <div class="refsect2">
 <a name="rb-debug-matches"></a><h3>rb_debug_matches ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
 rb_debug_matches (<em class="parameter"><code>const <span class="type">char</span> *func</code></em>,
                   <em class="parameter"><code>const <span class="type">char</span> *file</code></em>);</pre>
 <p>Checks if <em class="parameter"><code>file</code></em>
  or <em class="parameter"><code>func</code></em>
  matches the current debug output settings.</p>
 <div class="refsect3">
-<a name="id-1.3.3.6.5.5"></a><h4>Parameters</h4>
+<a name="rb-debug-matches.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -258,8 +258,8 @@ rb_debug_matches (<em class="parameter"><code>const <span class="type">char</spa
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.3.3.6.5.6"></a><h4>Returns</h4>
-<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if matched</p>
+<a name="rb-debug-matches.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if matched</p>
 </div>
 </div>
 <hr>
@@ -271,8 +271,8 @@ rb_debug_get_args (<em class="parameter"><code><span class="type">void</span></c
 this debug output code that will produce the same debug output
 settings.</p>
 <div class="refsect3">
-<a name="id-1.3.3.6.6.5"></a><h4>Returns</h4>
-<p> debug output arguments, must be freed with <a href="https://developer.gnome.org/glib/unstable/glib-String-Utility-Functions.html#g-strfreev"><code class="function"><GTKDOCLINK HREF="g-strfreev"><code class="function">g_strfreev()</code></a></code></GTKDOCLINK>. </p>
+<a name="rb-debug-get-args.returns"></a><h4>Returns</h4>
+<p> debug output arguments, must be freed with <a href="/usr/share/gtk-doc/html/glibglib-String-Utility-Functions.html#g-strfreev"><code class="function"><GTKDOCLINK HREF="g-strfreev"><code class="function">g_strfreev()</code></a></code></GTKDOCLINK>. </p>
 <p><span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span></p>
 </div>
 </div>
@@ -294,7 +294,7 @@ rb_profiler_new (<em class="parameter"><code>const <span class="type">char</span
 time certain sections of code.</p>
 <p><span class="annotation">[<a href="http://foldoc.org/skip"><span class="acronym">skip</span></a>]</span></p>
 <div class="refsect3">
-<a name="id-1.3.3.6.8.6"></a><h4>Parameters</h4>
+<a name="rb-profiler-new.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -309,7 +309,7 @@ time certain sections of code.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.3.3.6.8.7"></a><h4>Returns</h4>
+<a name="rb-profiler-new.returns"></a><h4>Returns</h4>
 <p> profiler instance</p>
 </div>
 </div>
@@ -322,7 +322,7 @@ rb_profiler_dump (<em class="parameter"><code><a class="link" href="rhythmbox-rb
 showing the elapsed time.</p>
 <p><span class="annotation">[<a href="http://foldoc.org/skip"><span class="acronym">skip</span></a>]</span></p>
 <div class="refsect3">
-<a name="id-1.3.3.6.9.6"></a><h4>Parameters</h4>
+<a name="rb-profiler-dump.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -345,7 +345,7 @@ rb_profiler_reset (<em class="parameter"><code><a class="link" href="rhythmbox-r
 <p>Resets the elapsed time for the profiler</p>
 <p><span class="annotation">[<a href="http://foldoc.org/skip"><span class="acronym">skip</span></a>]</span></p>
 <div class="refsect3">
-<a name="id-1.3.3.6.10.6"></a><h4>Parameters</h4>
+<a name="rb-profiler-reset.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -368,7 +368,7 @@ rb_profiler_free (<em class="parameter"><code><a class="link" href="rhythmbox-rb
 <p>Frees the memory associated with a profiler instance.</p>
 <p><span class="annotation">[<a href="http://foldoc.org/skip"><span class="acronym">skip</span></a>]</span></p>
 <div class="refsect3">
-<a name="id-1.3.3.6.11.6"></a><h4>Parameters</h4>
+<a name="rb-profiler-free.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -393,7 +393,7 @@ This profile mechanism operates by issuing file access
 requests with filenames indicating the profile points.
 Use 'strace -e access' to gather this information.</p>
 <div class="refsect3">
-<a name="id-1.3.3.6.12.5"></a><h4>Parameters</h4>
+<a name="rb-profile-start.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -416,7 +416,7 @@ Use 'strace -e access' to gather this information.</p>
 <p>Records an end point for profiling.  See <em class="parameter"><code>rb_profile_start</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.3.3.6.13.5"></a><h4>Parameters</h4>
+<a name="rb-profile-end.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -444,6 +444,6 @@ Use 'strace -e access' to gather this information.</p>
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.24</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

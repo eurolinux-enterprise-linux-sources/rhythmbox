@@ -8,7 +8,7 @@
 <link rel="up" href="ch06.html" title="Sources">
 <link rel="prev" href="RBDisplayPageModel.html" title="RBDisplayPageModel">
 <link rel="next" href="RBImportErrorsSource.html" title="RBImportErrorsSource">
-<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -89,7 +89,7 @@
 <tbody>
 <tr>
 <td class="property_type">
-<span class="type">GtkTreeModel</span> *</td>
+<a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeModel-struct"><span class="type">GtkTreeModel</span></a> *</td>
 <td class="property_name"><a class="link" href="RBDisplayPageTree.html#RBDisplayPageTree--model" title="The “model” property">model</a></td>
 <td class="property_flags">Read</td>
 </tr>
@@ -114,12 +114,12 @@
 <tr>
 <td class="signal_type"><span class="returnvalue">void</span></td>
 <td class="signal_name"><a class="link" href="RBDisplayPageTree.html#RBDisplayPageTree-drop-received" title="The “drop-received” signal">drop-received</a></td>
-<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
 </tr>
 <tr>
 <td class="signal_type"><span class="returnvalue">void</span></td>
 <td class="signal_name"><a class="link" href="RBDisplayPageTree.html#RBDisplayPageTree-selected" title="The “selected” signal">selected</a></td>
-<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
 </tr>
 </tbody>
 </table></div>
@@ -145,11 +145,11 @@
 </div>
 <div class="refsect1">
 <a name="RBDisplayPageTree.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-    <span class="lineart">╰──</span> <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-        <span class="lineart">╰──</span> GtkWidget
-            <span class="lineart">╰──</span> GtkContainer
-                <span class="lineart">╰──</span> GtkGrid
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct">GtkWidget</a>
+            <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkContainer.html#GtkContainer-struct">GtkContainer</a>
+                <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkGrid.html#GtkGrid-struct">GtkGrid</a>
                     <span class="lineart">╰──</span> RBDisplayPageTree
 </pre>
 </div>
@@ -157,7 +157,7 @@
 <a name="RBDisplayPageTree.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 RBDisplayPageTree implements
- AtkImplementorIface,  GtkBuildable and  GtkOrientable.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3GtkBuildable.html#GtkBuildable-struct">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk3gtk3-Orientable.html#GtkOrientable-struct">GtkOrientable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="RBDisplayPageTree.description"></a><h2>Description</h2>
@@ -180,7 +180,7 @@ child sources, such as playlists on portable audio players.</p>
 rb_display_page_tree_new (<em class="parameter"><code><a class="link" href="RBShell.html" title="RBShell"><span class="type">RBShell</span></a> *shell</code></em>);</pre>
 <p>Creates the display page tree widget.</p>
 <div class="refsect3">
-<a name="id-1.7.7.10.2.5"></a><h4>Parameters</h4>
+<a name="rb-display-page-tree-new.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -195,7 +195,7 @@ rb_display_page_tree_new (<em class="parameter"><code><a class="link" href="RBSh
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.7.10.2.6"></a><h4>Returns</h4>
+<a name="rb-display-page-tree-new.returns"></a><h4>Returns</h4>
 <p> the display page tree widget.</p>
 </div>
 </div>
@@ -209,7 +209,7 @@ rb_display_page_tree_edit_source_name (<em class="parameter"><code><a class="lin
 is selected and given input focus, allowing the user to edit the name.
 source_name_edited_cb is called when the user finishes editing.</p>
 <div class="refsect3">
-<a name="id-1.7.7.10.3.5"></a><h4>Parameters</h4>
+<a name="rb-display-page-tree-edit-source-name.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -240,7 +240,7 @@ rb_display_page_tree_select (<em class="parameter"><code><a class="link" href="R
 <p>Selects the specified page in the tree.  This will result in the 'selected'
 signal being emitted.</p>
 <div class="refsect3">
-<a name="id-1.7.7.10.4.5"></a><h4>Parameters</h4>
+<a name="rb-display-page-tree-select.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -271,7 +271,7 @@ rb_display_page_tree_toggle_expanded (<em class="parameter"><code><a class="link
 <p>If <em class="parameter"><code>page</code></em>
  is expanded (children visible), collapses it, otherwise expands it.</p>
 <div class="refsect3">
-<a name="id-1.7.7.10.5.5"></a><h4>Parameters</h4>
+<a name="rb-display-page-tree-toggle-expanded.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -321,8 +321,8 @@ rb_display_page_tree_toggle_expanded (<em class="parameter"><code><a class="link
 <a name="RBDisplayPageTree.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="RBDisplayPageTree--model"></a><h3>The <code class="literal">“model”</code> property</h3>
-<pre class="programlisting">  “model”                    <span class="type">GtkTreeModel</span> *</pre>
-<p>The <span class="type">GtkTreeModel</span> for the display page tree</p>
+<pre class="programlisting">  “model”                    <a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeModel-struct"><span class="type">GtkTreeModel</span></a> *</pre>
+<p>The <a href="/usr/share/gtk-doc/html/gtk3GtkTreeModel.html#GtkTreeModel-struct"><span class="type">GtkTreeModel</span></a> for the display page tree</p>
 <p>Flags: Read</p>
 </div>
 <hr>
@@ -339,12 +339,12 @@ rb_display_page_tree_toggle_expanded (<em class="parameter"><code><a class="link
 <a name="RBDisplayPageTree-drop-received"></a><h3>The <code class="literal">“drop-received”</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 user_function (<a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *tree,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           page,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           data,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           page,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           data,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
 <p>Emitted when a drag and drop to the tree completes.</p>
 <div class="refsect3">
-<a name="id-1.7.7.13.2.5"></a><h4>Parameters</h4>
+<a name="RBDisplayPageTree-drop-received.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -375,18 +375,18 @@ user_function (<a class="link" href="RBDisplayPageTree.html" title="RBDisplayPag
 </tbody>
 </table></div>
 </div>
-<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="RBDisplayPageTree-selected"></a><h3>The <code class="literal">“selected”</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 user_function (<a class="link" href="RBDisplayPageTree.html" title="RBDisplayPageTree"><span class="type">RBDisplayPageTree</span></a> *tree,
-               <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>           *page,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+               <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct"><span class="type">GObject</span></a>           *page,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
 <p>Emitted when a page is selected from the tree</p>
 <div class="refsect3">
-<a name="id-1.7.7.13.3.5"></a><h4>Parameters</h4>
+<a name="RBDisplayPageTree-selected.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -412,11 +412,11 @@ user_function (<a class="link" href="RBDisplayPageTree.html" title="RBDisplayPag
 </tbody>
 </table></div>
 </div>
-<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.24</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

@@ -21,7 +21,7 @@ and/or use gtk-doc annotations.  -->
   <c:include name="rhythmbox.h"/>
   <namespace name="RB"
              version="3.0"
-             shared-library="librhythmbox-core.so.9"
+             shared-library="librhythmbox-core.so.10"
              c:identifier-prefixes="RB"
              c:symbol-prefixes="rb_">
     <alias name="RhythmDBQuery" c:type="RhythmDBQuery">
@@ -43,6 +43,53 @@ and/or use gtk-doc annotations.  -->
           <type name="Gio.Application" c:type="GApplication*"/>
         </return-value>
       </constructor>
+      <method name="activate_key" c:identifier="rb_application_activate_key">
+        <doc xml:space="preserve">Attempts to activate an accelerator registered using #rb_application_add_accelerator.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">%TRUE if an accelerator was activated</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="app" transfer-ownership="none">
+            <doc xml:space="preserve">the #RBApplication</doc>
+            <type name="Application" c:type="RBApplication*"/>
+          </instance-parameter>
+          <parameter name="event" transfer-ownership="none">
+            <doc xml:space="preserve">a #GdkEventKey</doc>
+            <type name="Gdk.EventKey" c:type="GdkEventKey*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="add_accelerator"
+              c:identifier="rb_application_add_accelerator">
+        <doc xml:space="preserve">Like #gtk_application_add_accelerator, except the accelerator only applies
+if the key was not handled by the focused widget.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="app" transfer-ownership="none">
+            <doc xml:space="preserve">the #RBApplication</doc>
+            <type name="Application" c:type="RBApplication*"/>
+          </instance-parameter>
+          <parameter name="accel" transfer-ownership="none">
+            <doc xml:space="preserve">accelerator string</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+          <parameter name="action" transfer-ownership="none">
+            <doc xml:space="preserve">the name of the action to activate</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+          <parameter name="parameter"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">parameter to pass when activating the action, or NULL if
+  the action does not accept an activation parameter.</doc>
+            <type name="GLib.Variant" c:type="GVariant*"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="add_plugin_menu_item"
               c:identifier="rb_application_add_plugin_menu_item">
         <doc xml:space="preserve">Adds an item to a plugin menu.  The id can be used to remove the item.</doc>
@@ -288,7 +335,10 @@ this function will return a #GError, otherwise NULL.</doc>
             <type name="AsyncCopyProgressCallback"
                   c:type="RBAsyncCopyProgressCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
           <parameter name="destroy_data"
@@ -324,7 +374,10 @@ this function will return a #GError, otherwise NULL.</doc>
             <doc xml:space="preserve">completion callback</doc>
             <type name="AsyncCopyCallback" c:type="RBAsyncCopyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data for completion callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -354,7 +407,10 @@ this function will return a #GError, otherwise NULL.</doc>
         <parameter name="success" transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </parameter>
-        <parameter name="data" transfer-ownership="none">
+        <parameter name="data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
       </parameters>
@@ -383,7 +439,10 @@ this function will return a #GError, otherwise NULL.</doc>
         <parameter name="total" transfer-ownership="none">
           <type name="gint64" c:type="goffset"/>
         </parameter>
-        <parameter name="data" transfer-ownership="none">
+        <parameter name="data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
       </parameters>
@@ -1016,7 +1075,10 @@ This must be called before @rb_chunk_loader_start.</doc>
             <doc xml:space="preserve">the data/error callback</doc>
             <type name="ChunkLoaderCallback" c:type="RBChunkLoaderCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data to pass to the callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -1070,7 +1132,11 @@ of at most @chunk_size to the callback.</doc>
         <parameter name="total" transfer-ownership="none">
           <type name="gint64" c:type="goffset"/>
         </parameter>
-        <parameter name="user_data" transfer-ownership="none" closure="3">
+        <parameter name="user_data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1"
+                   closure="3">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
       </parameters>
@@ -1094,7 +1160,10 @@ of at most @chunk_size to the callback.</doc>
         <parameter name="settings" transfer-ownership="none">
           <type name="Gio.Settings" c:type="GSettings*"/>
         </parameter>
-        <parameter name="data" transfer-ownership="none">
+        <parameter name="data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
       </parameters>
@@ -2267,7 +2336,10 @@ visible, and the returned iterator can only be used with the child model
             <doc xml:space="preserve">the drop position</doc>
             <type name="gint" c:type="gint"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">the drop data</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -2494,11 +2566,17 @@ signal being emitted.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="page" transfer-ownership="none">
+          <parameter name="page"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">the #RBDisplagePage receiving the drop</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">the drop data</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -2563,6 +2641,16 @@ signal being emitted.</doc>
     </record>
     <constant name="ENABLE_PROFILING" value="1" c:type="ENABLE_PROFILING">
       <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="ENCODING_STYLE_CBR"
+              value="cbr"
+              c:type="RB_ENCODING_STYLE_CBR">
+      <type name="utf8" c:type="gchar*"/>
+    </constant>
+    <constant name="ENCODING_STYLE_VBR"
+              value="vbr"
+              c:type="RB_ENCODING_STYLE_VBR">
+      <type name="utf8" c:type="gchar*"/>
     </constant>
     <interface name="Encoder"
                c:symbol-prefix="encoder"
@@ -2784,7 +2872,10 @@ and flushed to disk before this signal is emitted.</doc>
             <doc xml:space="preserve">output media type</doc>
             <type name="utf8" c:type="gchar*"/>
           </parameter>
-          <parameter name="error" transfer-ownership="none">
+          <parameter name="error"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">encoding error, or NULL if successful</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -3283,7 +3374,11 @@ source that the column be visible.</doc>
             <doc xml:space="preserve">comparison function to use for sorting on the column</doc>
             <type name="GLib.CompareDataFunc" c:type="GCompareDataFunc"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none" scope="notified">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     scope="notified">
             <doc xml:space="preserve">data to pass to the sort function</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -3495,7 +3590,11 @@ separated by a comma.</doc>
             <doc xml:space="preserve">comparison function to use for sorting on the column</doc>
             <type name="GLib.CompareDataFunc" c:type="GCompareDataFunc"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none" scope="notified">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     scope="notified">
             <doc xml:space="preserve">data to pass to the sort function</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -4252,7 +4351,10 @@ synchronously.  Otherwise, metadata providers will provide results asynchronousl
             <doc xml:space="preserve">callback to call with results</doc>
             <type name="ExtDBRequestCallback" c:type="RBExtDBRequestCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data to pass to the callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -4389,7 +4491,7 @@ media player.</doc>
       <glib:signal name="load" when="last">
         <doc xml:space="preserve">Emitted when loading a metadata item from a local file or from a
 URI.</doc>
-        <return-value transfer-ownership="full">
+        <return-value transfer-ownership="full" nullable="1">
           <doc xml:space="preserve">converted value</doc>
           <type name="gpointer" c:type="gpointer"/>
         </return-value>
@@ -4422,7 +4524,7 @@ signal.</doc>
         <doc xml:space="preserve">Emitted when a metadata item needs to be written to a local file.
 This only needs to be used for metadata that needs to be encoded
 or compressed, such as images.</doc>
-        <return-value transfer-ownership="full">
+        <return-value transfer-ownership="full" nullable="1">
           <doc xml:space="preserve">the value to write to a file</doc>
           <type name="gpointer" c:type="gpointer"/>
         </return-value>
@@ -4729,7 +4831,10 @@ Metadata providers and consumers shouldn't need to do this.</doc>
             <type name="ExtDBKeyLookupCallback"
                   c:type="RBExtDBKeyLookupCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data to pass to @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -4843,7 +4948,11 @@ Use @rb_ext_db_key_add_field to add more.</doc>
         <parameter name="key" transfer-ownership="none">
           <type name="ExtDBKey" c:type="RBExtDBKey*"/>
         </parameter>
-        <parameter name="user_data" transfer-ownership="none" closure="2">
+        <parameter name="user_data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1"
+                   closure="2">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
       </parameters>
@@ -4867,7 +4976,11 @@ Use @rb_ext_db_key_add_field to add more.</doc>
         <parameter name="data" transfer-ownership="none">
           <type name="GObject.Value" c:type="GValue*"/>
         </parameter>
-        <parameter name="user_data" transfer-ownership="none" closure="4">
+        <parameter name="user_data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1"
+                   closure="4">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
       </parameters>
@@ -5009,6 +5122,38 @@ something tricky happens.</doc>
             c:type="RBFadingImagePrivate"
             disguised="1">
     </record>
+    <constant name="GST_MEDIA_TYPE_AAC"
+              value="audio/x-aac"
+              c:type="RB_GST_MEDIA_TYPE_AAC">
+      <type name="utf8" c:type="gchar*"/>
+    </constant>
+    <constant name="GST_MEDIA_TYPE_FLAC"
+              value="audio/x-flac"
+              c:type="RB_GST_MEDIA_TYPE_FLAC">
+      <type name="utf8" c:type="gchar*"/>
+    </constant>
+    <constant name="GST_MEDIA_TYPE_MP3"
+              value="audio/mpeg"
+              c:type="RB_GST_MEDIA_TYPE_MP3">
+      <type name="utf8" c:type="gchar*"/>
+    </constant>
+    <constant name="GST_MEDIA_TYPE_OGG_VORBIS"
+              value="audio/x-vorbis"
+              c:type="RB_GST_MEDIA_TYPE_OGG_VORBIS">
+      <type name="utf8" c:type="gchar*"/>
+    </constant>
+    <enumeration name="GstMediaType" c:type="RBGstMediaType">
+      <member name="none" value="0" c:identifier="MEDIA_TYPE_NONE">
+      </member>
+      <member name="container" value="1" c:identifier="MEDIA_TYPE_CONTAINER">
+      </member>
+      <member name="audio" value="2" c:identifier="MEDIA_TYPE_AUDIO">
+      </member>
+      <member name="video" value="3" c:identifier="MEDIA_TYPE_VIDEO">
+      </member>
+      <member name="other" value="4" c:identifier="MEDIA_TYPE_OTHER">
+      </member>
+    </enumeration>
     <class name="History"
            c:symbol-prefix="history"
            c:type="RBHistory"
@@ -5034,7 +5179,10 @@ something tricky happens.</doc>
             <doc xml:space="preserve">function to call when removing an entry from the history</doc>
             <type name="GLib.Func" c:type="GFunc"/>
           </parameter>
-          <parameter name="destroy_userdata" transfer-ownership="none">
+          <parameter name="destroy_userdata"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data to pass to @destroyer</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -5301,7 +5449,10 @@ already at the start of the history, nothing happens.</doc>
             <doc xml:space="preserve">function to call when removing an entry from the history</doc>
             <type name="GLib.Func" c:type="GFunc"/>
           </parameter>
-          <parameter name="destroy_userdata" transfer-ownership="none">
+          <parameter name="destroy_userdata"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data to pass to @destroyer</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -5623,7 +5774,10 @@ it changes.</doc>
             <doc xml:space="preserve">an #RBListModel</doc>
             <type name="ListModel" c:type="RBListModel*"/>
           </instance-parameter>
-          <parameter name="item" transfer-ownership="none">
+          <parameter name="item"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">item to append</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -5641,7 +5795,10 @@ or -1 if the item is not in the list.</doc>
             <doc xml:space="preserve">an #RBListModel</doc>
             <type name="ListModel" c:type="RBListModel*"/>
           </instance-parameter>
-          <parameter name="item" transfer-ownership="none">
+          <parameter name="item"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">item to find</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -5649,7 +5806,7 @@ or -1 if the item is not in the list.</doc>
       </method>
       <method name="get" c:identifier="rb_list_model_get">
         <doc xml:space="preserve">Returns an item from the list.</doc>
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve">item at the specified index</doc>
           <type name="gpointer" c:type="gpointer"/>
         </return-value>
@@ -5693,7 +5850,10 @@ list.</doc>
             <doc xml:space="preserve">position to insert the item at</doc>
             <type name="gint" c:type="int"/>
           </parameter>
-          <parameter name="item" transfer-ownership="none">
+          <parameter name="item"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">item to insert</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -5722,7 +5882,10 @@ list.</doc>
             <doc xml:space="preserve">an #RBListModel</doc>
             <type name="ListModel" c:type="RBListModel*"/>
           </instance-parameter>
-          <parameter name="item" transfer-ownership="none">
+          <parameter name="item"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">item to prepend</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -5755,7 +5918,10 @@ list multiple times, only the first instance is removed.</doc>
             <doc xml:space="preserve">an #RBListModel</doc>
             <type name="ListModel" c:type="RBListModel*"/>
           </instance-parameter>
-          <parameter name="item" transfer-ownership="none">
+          <parameter name="item"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">item to remove</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -6000,7 +6166,11 @@ list multiple times, only the first instance is removed.</doc>
             <type name="MediaPlayerSourceDeleteCallback"
                   c:type="RBMediaPlayerSourceDeleteCallback"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none" scope="notified">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     scope="notified">
             <doc xml:space="preserve">data for callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -6105,7 +6275,11 @@ list multiple times, only the first instance is removed.</doc>
             <type name="MediaPlayerSourceDeleteCallback"
                   c:type="RBMediaPlayerSourceDeleteCallback"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none" scope="notified">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     scope="notified">
             <doc xml:space="preserve">data for callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -6300,7 +6474,11 @@ list multiple times, only the first instance is removed.</doc>
               <type name="MediaPlayerSourceDeleteCallback"
                     c:type="RBMediaPlayerSourceDeleteCallback"/>
             </parameter>
-            <parameter name="data" transfer-ownership="none" scope="notified">
+            <parameter name="data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1"
+                       scope="notified">
               <doc xml:space="preserve">data for callback</doc>
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
@@ -6373,7 +6551,10 @@ list multiple times, only the first instance is removed.</doc>
         <parameter name="source" transfer-ownership="none">
           <type name="MediaPlayerSource" c:type="RBMediaPlayerSource*"/>
         </parameter>
-        <parameter name="data" transfer-ownership="none">
+        <parameter name="data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
       </parameters>
@@ -7921,7 +8102,10 @@ buttons may need to be updated.</doc>
           <instance-parameter name="player" transfer-ownership="none">
             <type name="Player" c:type="RBPlayer*"/>
           </instance-parameter>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
           <parameter name="progress" transfer-ownership="none">
@@ -7959,7 +8143,10 @@ be released.</doc>
           <instance-parameter name="player" transfer-ownership="none">
             <type name="Player" c:type="RBPlayer*"/>
           </instance-parameter>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
           <parameter name="early" transfer-ownership="none">
@@ -7975,7 +8162,10 @@ be released.</doc>
           <instance-parameter name="player" transfer-ownership="none">
             <type name="Player" c:type="RBPlayer*"/>
           </instance-parameter>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
           <parameter name="error" transfer-ownership="none">
@@ -7991,10 +8181,16 @@ be released.</doc>
           <instance-parameter name="player" transfer-ownership="none">
             <type name="Player" c:type="RBPlayer*"/>
           </instance-parameter>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
         </parameters>
@@ -8033,7 +8229,10 @@ be released.</doc>
           <instance-parameter name="player" transfer-ownership="none">
             <type name="Player" c:type="RBPlayer*"/>
           </instance-parameter>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
           <parameter name="image" transfer-ownership="none">
@@ -8049,7 +8248,10 @@ be released.</doc>
           <instance-parameter name="player" transfer-ownership="none">
             <type name="Player" c:type="RBPlayer*"/>
           </instance-parameter>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
           <parameter name="field" transfer-ownership="none">
@@ -8092,7 +8294,10 @@ asynchronously, in which case errors may be reported from
             <doc xml:space="preserve">URI to open</doc>
             <type name="utf8" c:type="const char*"/>
           </parameter>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">arbitrary data to associate with the stream</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -8191,7 +8396,10 @@ A stream is playing if it's not paused or being faded out.</doc>
           <instance-parameter name="player" transfer-ownership="none">
             <type name="Player" c:type="RBPlayer*"/>
           </instance-parameter>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
         </parameters>
@@ -8204,7 +8412,10 @@ A stream is playing if it's not paused or being faded out.</doc>
           <instance-parameter name="player" transfer-ownership="none">
             <type name="Player" c:type="RBPlayer*"/>
           </instance-parameter>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
           <parameter name="uri" transfer-ownership="none">
@@ -8269,7 +8480,10 @@ this volume adjustment.</doc>
           <instance-parameter name="player" transfer-ownership="none">
             <type name="Player" c:type="RBPlayer*"/>
           </instance-parameter>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
           <parameter name="elapsed" transfer-ownership="none">
@@ -8373,7 +8587,10 @@ asynchronously, in which case errors may be reported from
             <doc xml:space="preserve">URI to open</doc>
             <type name="utf8" c:type="const char*"/>
           </parameter>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">arbitrary data to associate with the stream</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -8521,7 +8738,10 @@ from 0 to 100, and once it reaches 100, playback resumes.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">the data associated with the buffering stream</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -8539,7 +8759,10 @@ played immediately afterwards.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">the data associated with the stream that finished</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -8556,11 +8779,17 @@ while opening or playing a stream.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">the data associated with the stream</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
-          <parameter name="error" transfer-ownership="none">
+          <parameter name="error"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">description of the error</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -8577,11 +8806,17 @@ of the structure found in the message.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data associated with the stream</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">event data</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -8594,7 +8829,10 @@ from the stream.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data associated with the stream</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -8611,7 +8849,10 @@ the stream.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">the data associated with the stream</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -8634,7 +8875,10 @@ depending on the player backend.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data associated with the stream</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -8646,7 +8890,10 @@ depending on the player backend.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data associated with the stream</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -8664,7 +8911,10 @@ prepare new streams for crossfade or gapless playback.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="stream_data" transfer-ownership="none">
+          <parameter name="stream_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">the data associated with the stream</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -9176,7 +9426,10 @@ is unlinked and removed from the pipeline</doc>
               <doc xml:space="preserve">URI to open</doc>
               <type name="utf8" c:type="const char*"/>
             </parameter>
-            <parameter name="stream_data" transfer-ownership="none">
+            <parameter name="stream_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <doc xml:space="preserve">arbitrary data to associate with the stream</doc>
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
@@ -9369,7 +9622,10 @@ is unlinked and removed from the pipeline</doc>
             <parameter name="player" transfer-ownership="none">
               <type name="Player" c:type="RBPlayer*"/>
             </parameter>
-            <parameter name="stream_data" transfer-ownership="none">
+            <parameter name="stream_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
           </parameters>
@@ -9384,7 +9640,10 @@ is unlinked and removed from the pipeline</doc>
             <parameter name="player" transfer-ownership="none">
               <type name="Player" c:type="RBPlayer*"/>
             </parameter>
-            <parameter name="stream_data" transfer-ownership="none">
+            <parameter name="stream_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
             <parameter name="early" transfer-ownership="none">
@@ -9402,7 +9661,10 @@ is unlinked and removed from the pipeline</doc>
             <parameter name="player" transfer-ownership="none">
               <type name="Player" c:type="RBPlayer*"/>
             </parameter>
-            <parameter name="stream_data" transfer-ownership="none">
+            <parameter name="stream_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
             <parameter name="field" transfer-ownership="none">
@@ -9423,7 +9685,10 @@ is unlinked and removed from the pipeline</doc>
             <parameter name="player" transfer-ownership="none">
               <type name="Player" c:type="RBPlayer*"/>
             </parameter>
-            <parameter name="stream_data" transfer-ownership="none">
+            <parameter name="stream_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
             <parameter name="progress" transfer-ownership="none">
@@ -9441,7 +9706,10 @@ is unlinked and removed from the pipeline</doc>
             <parameter name="player" transfer-ownership="none">
               <type name="Player" c:type="RBPlayer*"/>
             </parameter>
-            <parameter name="stream_data" transfer-ownership="none">
+            <parameter name="stream_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
             <parameter name="error" transfer-ownership="none">
@@ -9459,7 +9727,10 @@ is unlinked and removed from the pipeline</doc>
             <parameter name="player" transfer-ownership="none">
               <type name="Player" c:type="RBPlayer*"/>
             </parameter>
-            <parameter name="stream_data" transfer-ownership="none">
+            <parameter name="stream_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
             <parameter name="elapsed" transfer-ownership="none">
@@ -9480,10 +9751,16 @@ is unlinked and removed from the pipeline</doc>
             <parameter name="player" transfer-ownership="none">
               <type name="Player" c:type="RBPlayer*"/>
             </parameter>
-            <parameter name="stream_data" transfer-ownership="none">
+            <parameter name="stream_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
-            <parameter name="data" transfer-ownership="none">
+            <parameter name="data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
           </parameters>
@@ -9513,7 +9790,10 @@ is unlinked and removed from the pipeline</doc>
             <parameter name="player" transfer-ownership="none">
               <type name="Player" c:type="RBPlayer*"/>
             </parameter>
-            <parameter name="stream_data" transfer-ownership="none">
+            <parameter name="stream_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
             <parameter name="image" transfer-ownership="none">
@@ -9531,7 +9811,10 @@ is unlinked and removed from the pipeline</doc>
             <parameter name="player" transfer-ownership="none">
               <type name="Player" c:type="RBPlayer*"/>
             </parameter>
-            <parameter name="stream_data" transfer-ownership="none">
+            <parameter name="stream_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
             <parameter name="uri" transfer-ownership="none">
@@ -11046,7 +11329,10 @@ Remote DAAP playlists, for example, are not local.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="object" transfer-ownership="none">
+          <parameter name="object"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
         </parameters>
@@ -11374,7 +11660,10 @@ the row it is passed.</doc>
             <type name="Gtk.TreeViewSearchEqualFunc"
                   c:type="GtkTreeViewSearchEqualFunc"/>
           </parameter>
-          <parameter name="func_data" transfer-ownership="none">
+          <parameter name="func_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data to pass to the search function</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -11469,7 +11758,10 @@ use the property-selected signal.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="properties" transfer-ownership="none">
+          <parameter name="properties"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">a list containing the selected property values</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -11892,11 +12184,17 @@ since there can only be one refstring for a given string.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
-          <parameter name="ap" transfer-ownership="none">
+          <parameter name="ap"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">an #RBRefString</doc>
             <type name="gpointer" c:type="gconstpointer"/>
           </parameter>
-          <parameter name="bp" transfer-ownership="none">
+          <parameter name="bp"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">another #RBRefstring</doc>
             <type name="gpointer" c:type="gconstpointer"/>
           </parameter>
@@ -11924,7 +12222,10 @@ its reference count is increased.</doc>
           <type name="guint" c:type="guint"/>
         </return-value>
         <parameters>
-          <parameter name="p" transfer-ownership="none">
+          <parameter name="p"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">an #RBRefString</doc>
             <type name="gpointer" c:type="gconstpointer"/>
           </parameter>
@@ -12561,7 +12862,10 @@ It must be freed with rhythmdb_query_free()</doc>
             <type name="RhythmDBEntryForeachFunc"
                   c:type="RhythmDBEntryForeachFunc"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
         </parameters>
@@ -12581,7 +12885,10 @@ It must be freed with rhythmdb_query_free()</doc>
             <type name="RhythmDBEntryForeachFunc"
                   c:type="RhythmDBEntryForeachFunc"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
         </parameters>
@@ -13159,7 +13466,10 @@ removable media being removed, or a network share becoming unavailable.</doc>
             <type name="RhythmDBEntryForeachFunc"
                   c:type="RhythmDBEntryForeachFunc"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data to pass to the function.</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -13189,7 +13499,10 @@ of a given type.</doc>
             <type name="RhythmDBEntryForeachFunc"
                   c:type="RhythmDBEntryForeachFunc"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data to pass to the function.</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -14141,7 +14454,10 @@ writeable after being read-only.</doc>
             <doc xml:space="preserve">URI of the database file</doc>
             <type name="utf8" c:type="gchar*"/>
           </parameter>
-          <parameter name="error" transfer-ownership="none">
+          <parameter name="error"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">the error that occurred</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -14547,7 +14863,10 @@ writeable after being read-only.</doc>
               <type name="RhythmDBEntryForeachFunc"
                     c:type="RhythmDBEntryForeachFunc"/>
             </parameter>
-            <parameter name="data" transfer-ownership="none">
+            <parameter name="data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
           </parameters>
@@ -14581,7 +14900,10 @@ writeable after being read-only.</doc>
               <type name="RhythmDBEntryForeachFunc"
                     c:type="RhythmDBEntryForeachFunc"/>
             </parameter>
-            <parameter name="data" transfer-ownership="none">
+            <parameter name="data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
           </parameters>
@@ -14982,7 +15304,7 @@ or NULL if the entry cannot be played.</doc>
 the size of the data structure matches what is expected.
 Callers should use the RHYTHMDB_ENTRY_GET_TYPE_DATA macro for
 a slightly more friendly interface to this functionality.</doc>
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve">type-specific data pointer</doc>
           <type name="gpointer" c:type="gpointer"/>
         </return-value>
@@ -15208,7 +15530,10 @@ handling of entries.</doc>
         <parameter name="entry" transfer-ownership="none">
           <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
         </parameter>
-        <parameter name="data" transfer-ownership="none">
+        <parameter name="data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
       </parameters>
@@ -16592,7 +16917,10 @@ parameters.</doc>
             <doc xml:space="preserve">the sort function for the new model</doc>
             <type name="GLib.CompareDataFunc" c:type="GCompareDataFunc"/>
           </parameter>
-          <parameter name="sort_data" transfer-ownership="none">
+          <parameter name="sort_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data to pass to the sort function</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -16662,7 +16990,10 @@ disc number, then track number, then title.</doc>
             <doc xml:space="preserve">a #RhythmDBEntry</doc>
             <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">nothing</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -16685,7 +17016,10 @@ album, then disc number, then track number, then title.</doc>
             <doc xml:space="preserve">a #RhythmDBEntry</doc>
             <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">nothing</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -16709,7 +17043,10 @@ Falls back to sorting by location for equal bitrates.</doc>
             <doc xml:space="preserve">a #RhythmDBEntry</doc>
             <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">nothing</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -16732,7 +17069,10 @@ album, then disc number, then track number, then title.</doc>
             <doc xml:space="preserve">a #RhythmDBEntry</doc>
             <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">nothing</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -16755,7 +17095,10 @@ Falls back to album sort order for equal dates.</doc>
             <doc xml:space="preserve">a #RhythmDBEntry</doc>
             <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">nothing</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -16779,7 +17122,10 @@ If the values are the same, falls back to sorting by location.</doc>
             <doc xml:space="preserve">a #RhythmDBEntry</doc>
             <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">property to sort on</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -16802,7 +17148,10 @@ then album, then disc number, then track number, then title.</doc>
             <doc xml:space="preserve">a #RhythmDBEntry</doc>
             <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">nothing</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -16824,7 +17173,10 @@ then album, then disc number, then track number, then title.</doc>
             <doc xml:space="preserve">a #RhythmDBEntry</doc>
             <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">nothing</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -16847,7 +17199,10 @@ Falls back to location sort order if the strings are equal.</doc>
             <doc xml:space="preserve">a #RhythmDBEntry</doc>
             <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">property to sort on</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -16870,7 +17225,10 @@ by location if the titles are the same.</doc>
             <doc xml:space="preserve">a #RhythmDBEntry</doc>
             <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">nothing</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -16893,7 +17251,10 @@ then album, then disc number, then track number, then title.</doc>
             <doc xml:space="preserve">a #RhythmDBEntry</doc>
             <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">nothing</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -16916,7 +17277,10 @@ If the values are the same, falls back to sorting by location.</doc>
             <doc xml:space="preserve">a #RhythmDBEntry</doc>
             <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">property to sort on</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -17296,7 +17660,10 @@ in the model to match the new sort order.</doc>
             <doc xml:space="preserve">new sort function</doc>
             <type name="GLib.CompareDataFunc" c:type="GCompareDataFunc"/>
           </parameter>
-          <parameter name="sort_data" transfer-ownership="none">
+          <parameter name="sort_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data to pass to the new sort function</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -17422,11 +17789,17 @@ signal is emitted, all changes have already been applied to the
             <doc xml:space="preserve">the #RhythmDBPropType that was changed</doc>
             <type name="gint" c:type="gint"/>
           </parameter>
-          <parameter name="old" transfer-ownership="none">
+          <parameter name="old"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">the previous value for the property</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
-          <parameter name="new_value" transfer-ownership="none">
+          <parameter name="new_value"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">the new value for the property</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -18311,7 +18684,10 @@ source.</doc>
             <type name="SegmentedBarValueFormatter"
                   c:type="RBSegmentedBarValueFormatter"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data to pass to the formatter</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -18378,7 +18754,10 @@ bar.</doc>
         <parameter name="percent" transfer-ownership="none">
           <type name="gdouble" c:type="gdouble"/>
         </parameter>
-        <parameter name="data" transfer-ownership="none">
+        <parameter name="data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
       </parameters>
@@ -19520,7 +19899,7 @@ selected for playback.</doc>
         <doc xml:space="preserve">Retrieves the currently playing #RhythmDBEntry, or NULL if
 nothing is playing.  The caller must unref the entry
 (using #rhythmdb_entry_unref) when it is no longer needed.</doc>
-        <return-value transfer-ownership="full">
+        <return-value transfer-ownership="full" nullable="1">
           <doc xml:space="preserve">the currently playing #RhythmDBEntry, or NULL</doc>
           <type name="RhythmDBEntry" c:type="RhythmDBEntry*"/>
         </return-value>
@@ -19721,10 +20100,6 @@ the selection in the current source, or the play order.</doc>
             <doc xml:space="preserve">the #RBShellPlayer</doc>
             <type name="ShellPlayer" c:type="RBShellPlayer*"/>
           </instance-parameter>
-          <parameter name="unused" transfer-ownership="none">
-            <doc xml:space="preserve">nothing</doc>
-            <type name="gboolean" c:type="gboolean"/>
-          </parameter>
         </parameters>
       </method>
       <method name="remove_play_order"
@@ -20660,7 +21035,10 @@ play queue.</doc>
             <doc xml:space="preserve">a callback function to call when complete</doc>
             <type name="SourceAddCallback" c:type="RBSourceAddCallback"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data to pass to the callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -21121,7 +21499,10 @@ play queue.</doc>
             <doc xml:space="preserve">a callback function to call when complete</doc>
             <type name="SourceAddCallback" c:type="RBSourceAddCallback"/>
           </parameter>
-          <parameter name="data" transfer-ownership="none">
+          <parameter name="data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data to pass to the callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -21789,7 +22170,10 @@ entry.</doc>
         <parameter name="uri" transfer-ownership="none">
           <type name="utf8" c:type="const char*"/>
         </parameter>
-        <parameter name="data" transfer-ownership="none">
+        <parameter name="data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
       </parameters>
@@ -22156,7 +22540,10 @@ the currently selected entries from the source.</doc>
               <doc xml:space="preserve">a callback function to call when complete</doc>
               <type name="SourceAddCallback" c:type="RBSourceAddCallback"/>
             </parameter>
-            <parameter name="data" transfer-ownership="none">
+            <parameter name="data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
               <doc xml:space="preserve">data to pass to the callback</doc>
               <type name="gpointer" c:type="gpointer"/>
             </parameter>
@@ -22367,21 +22754,6 @@ the currently selected entries from the source.</doc>
           </parameter>
         </parameters>
       </function>
-      <function name="get_from_action"
-                c:identifier="rb_source_search_get_from_action">
-        <doc xml:space="preserve">Returns the #RBSourceSearch associated with the
-specified UI action.</doc>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve">associated #RBSourceSearch</doc>
-          <type name="SourceSearch" c:type="RBSourceSearch*"/>
-        </return-value>
-        <parameters>
-          <parameter name="action" transfer-ownership="none">
-            <doc xml:space="preserve">the action to find the #RBSourceSearch for</doc>
-            <type name="GObject.Object" c:type="GObject*"/>
-          </parameter>
-        </parameters>
-      </function>
       <virtual-method name="create_query" invoker="create_query">
         <doc xml:space="preserve">Creates a #RhythmDBQuery from the user's search text.</doc>
         <return-value transfer-ownership="full">
@@ -22440,24 +22812,6 @@ used to optimise the search query.</doc>
           </parameter>
         </parameters>
       </virtual-method>
-      <method name="action_attach"
-              c:identifier="rb_source_search_action_attach">
-        <doc xml:space="preserve">Attaches a #RBSourceSearch to a UI action so that
-the search implementation will be used when the action is active.</doc>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="search" transfer-ownership="none">
-            <doc xml:space="preserve">#RBSourceSearch to associate with the action</doc>
-            <type name="SourceSearch" c:type="RBSourceSearch*"/>
-          </instance-parameter>
-          <parameter name="action" transfer-ownership="none">
-            <doc xml:space="preserve">UI action to associate the search with</doc>
-            <type name="GObject.Object" c:type="GObject*"/>
-          </parameter>
-        </parameters>
-      </method>
       <method name="create_query" c:identifier="rb_source_search_create_query">
         <doc xml:space="preserve">Creates a #RhythmDBQuery from the user's search text.</doc>
         <return-value transfer-ownership="full">
@@ -23530,6 +23884,10 @@ before the batch can be started (#rb_track_transfer_manager_start_batch).</doc>
             <doc xml:space="preserve">the #RBSource to which the entries are to be transferred</doc>
             <type name="GObject.Object" c:type="GObject*"/>
           </parameter>
+          <parameter name="queue" transfer-ownership="none">
+            <doc xml:space="preserve">the #RBTrackTransferQueue instance</doc>
+            <type name="GObject.Object" c:type="GObject*"/>
+          </parameter>
         </parameters>
       </constructor>
       <virtual-method name="cancelled">
@@ -23745,6 +24103,13 @@ If NULL, the default set of profiles will be used.</doc>
         <doc xml:space="preserve">Fraction of the transfer batch that has been processed.</doc>
         <type name="gdouble" c:type="gdouble"/>
       </property>
+      <property name="queue"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <doc xml:space="preserve">The #RBTrackTransferQueue instance</doc>
+        <type name="TrackTransferQueue"/>
+      </property>
       <property name="settings"
                 writable="1"
                 construct-only="1"
@@ -23855,7 +24220,10 @@ or because the batch was cancelled (maybe..).</doc>
             <doc xml:space="preserve">the media type of the destination file</doc>
             <type name="utf8" c:type="gchar*"/>
           </parameter>
-          <parameter name="error" transfer-ownership="none">
+          <parameter name="error"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">any error that occurred during transfer</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -24795,7 +25163,10 @@ want any of the entries.</doc>
         <parameter name="info" transfer-ownership="none">
           <type name="Gio.FileInfo" c:type="GFileInfo*"/>
         </parameter>
-        <parameter name="data" transfer-ownership="none">
+        <parameter name="data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
       </parameters>
@@ -24834,9 +25205,12 @@ mutex implementations.</doc>
     </function>
     <function name="builder_load" c:identifier="rb_builder_load">
       <doc xml:space="preserve">Locates and reads a GtkBuilder file, automatically connecting
-signal handlers where possible.  The caller can specify a path
-relative to the shared data directory, or its 'ui' or 'art'
-subdirectories.</doc>
+signal handlers where possible.
+
+The caller can specify an absolute path to the file, a resource path
+starting with /org/gnome/Rhythmbox/ or just a filename, in which case
+the file will be loaded from GResources (in normal builds) or the source
+data/ui directory (in uninstalled builds).</doc>
       <return-value transfer-ownership="full">
         <doc xml:space="preserve">#GtkBuilder object built from the file</doc>
         <type name="Gtk.Builder" c:type="GtkBuilder*"/>
@@ -24846,7 +25220,10 @@ subdirectories.</doc>
           <doc xml:space="preserve">filename, either absolute or relative to the data directory</doc>
           <type name="utf8" c:type="const char*"/>
         </parameter>
-        <parameter name="user_data" transfer-ownership="none">
+        <parameter name="user_data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">user data to pass to autoconnected signal handlers</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
@@ -24869,7 +25246,10 @@ plugins as well as those in the core data directories.</doc>
           <doc xml:space="preserve">name of file to load</doc>
           <type name="utf8" c:type="const char*"/>
         </parameter>
-        <parameter name="user_data" transfer-ownership="none">
+        <parameter name="user_data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">user data to pass to autoconnected signal handlers</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
@@ -24988,7 +25368,10 @@ as a separator.</doc>
           <doc xml:space="preserve">a #GtkTreeIter</doc>
           <type name="Gtk.TreeIter" c:type="GtkTreeIter*"/>
         </parameter>
-        <parameter name="data" transfer-ownership="none">
+        <parameter name="data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">nothing</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
@@ -25015,12 +25398,15 @@ as a separator.</doc>
               c:identifier="rb_copy_function"
               introspectable="0">
       <doc xml:space="preserve">Just returns its first argument.  Useful as a callback function.</doc>
-      <return-value>
+      <return-value transfer-ownership="none" nullable="1">
         <doc xml:space="preserve">@data</doc>
         <type name="gpointer" c:type="gpointer"/>
       </return-value>
       <parameters>
-        <parameter name="data" transfer-ownership="none">
+        <parameter name="data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">generic argument</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
@@ -25296,7 +25682,10 @@ Use @rb_ext_db_key_add_field to add more.</doc>
         <type name="gboolean" c:type="gboolean"/>
       </return-value>
       <parameters>
-        <parameter name="dummy" transfer-ownership="none">
+        <parameter name="dummy"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">unused</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
@@ -25418,6 +25807,24 @@ Should be called on shutdown.</doc>
         </parameter>
       </parameters>
     </function>
+    <function name="find_plugin_resource"
+              c:identifier="rb_find_plugin_resource">
+      <doc xml:space="preserve">Constructs a resource path for a plugin data file.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:space="preserve">allocated string containing the resource path</doc>
+        <type name="utf8" c:type="char*"/>
+      </return-value>
+      <parameters>
+        <parameter name="plugin" transfer-ownership="none">
+          <doc xml:space="preserve">the plugin object</doc>
+          <type name="GObject.Object" c:type="GObject*"/>
+        </parameter>
+        <parameter name="name" transfer-ownership="none">
+          <doc xml:space="preserve">name of the file to find</doc>
+          <type name="utf8" c:type="const char*"/>
+        </parameter>
+      </parameters>
+    </function>
     <function name="find_user_cache_file"
               c:identifier="rb_find_user_cache_file">
       <doc xml:space="preserve">Determines the full path to use for user-specific cached files
@@ -25503,6 +25910,17 @@ be holding the stream lock for the filter bin.</doc>
         </parameter>
       </parameters>
     </function>
+    <function name="gst_caps_to_media_type"
+              c:identifier="rb_gst_caps_to_media_type">
+      <return-value transfer-ownership="full">
+        <type name="utf8" c:type="char*"/>
+      </return-value>
+      <parameters>
+        <parameter name="caps" transfer-ownership="none">
+          <type name="Gst.Caps" c:type="const GstCaps*"/>
+        </parameter>
+      </parameters>
+    </function>
     <function name="gst_create_filter_bin"
               c:identifier="rb_gst_create_filter_bin">
       <doc xml:space="preserve">Creates an initial bin to use for dynamically plugging filter elements into the
@@ -25511,6 +25929,118 @@ pipeline.</doc>
         <doc xml:space="preserve">filter bin</doc>
         <type name="Gst.Element" c:type="GstElement*"/>
       </return-value>
+    </function>
+    <function name="gst_encoder_set_encoding_style"
+              c:identifier="rb_gst_encoder_set_encoding_style">
+      <return-value transfer-ownership="none">
+        <type name="gboolean" c:type="gboolean"/>
+      </return-value>
+      <parameters>
+        <parameter name="element" transfer-ownership="none">
+          <type name="Gst.Element" c:type="GstElement*"/>
+        </parameter>
+        <parameter name="style" transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_encoding_profile_get_encoder"
+              c:identifier="rb_gst_encoding_profile_get_encoder">
+      <return-value transfer-ownership="full">
+        <doc xml:space="preserve">an encoder element instance</doc>
+        <type name="Gst.Element" c:type="GstElement*"/>
+      </return-value>
+      <parameters>
+        <parameter name="profile" transfer-ownership="none">
+          <doc xml:space="preserve">a #GstEncodingProfile</doc>
+          <type name="GstPbutils.EncodingProfile"
+                c:type="GstEncodingProfile*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_encoding_profile_get_encoder_caps"
+              c:identifier="rb_gst_encoding_profile_get_encoder_caps">
+      <return-value transfer-ownership="full">
+        <doc xml:space="preserve">output caps for the encoder</doc>
+        <type name="Gst.Caps" c:type="GstCaps*"/>
+      </return-value>
+      <parameters>
+        <parameter name="profile" transfer-ownership="none">
+          <doc xml:space="preserve">a #GstEncodingProfile</doc>
+          <type name="GstPbutils.EncodingProfile"
+                c:type="GstEncodingProfile*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_encoding_profile_get_media_type"
+              c:identifier="rb_gst_encoding_profile_get_media_type">
+      <return-value transfer-ownership="full">
+        <type name="utf8" c:type="char*"/>
+      </return-value>
+      <parameters>
+        <parameter name="profile" transfer-ownership="none">
+          <type name="GstPbutils.EncodingProfile"
+                c:type="GstEncodingProfile*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_encoding_profile_get_presets"
+              c:identifier="rb_gst_encoding_profile_get_presets">
+      <return-value transfer-ownership="full">
+        <doc xml:space="preserve">preset names</doc>
+        <array c:type="char**">
+          <type name="gchar"/>
+        </array>
+      </return-value>
+      <parameters>
+        <parameter name="profile" transfer-ownership="none">
+          <doc xml:space="preserve">profile to return presets for</doc>
+          <type name="GstPbutils.EncodingProfile"
+                c:type="GstEncodingProfile*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_encoding_profile_get_settings"
+              c:identifier="rb_gst_encoding_profile_get_settings">
+      <doc xml:space="preserve">Returns a list of settings for the profile @profile that can usefully
+be exposed to a user.  This usually means just bitrate/quality settings.
+This works by finding the name of the encoder element for the profile
+and retrieving a list specific to that encoder.</doc>
+      <return-value transfer-ownership="full">
+        <doc xml:space="preserve">list of settings</doc>
+        <array c:type="char**">
+          <type name="utf8"/>
+        </array>
+      </return-value>
+      <parameters>
+        <parameter name="profile" transfer-ownership="none">
+          <doc xml:space="preserve">a #GstEncodingProfile</doc>
+          <type name="GstPbutils.EncodingProfile"
+                c:type="GstEncodingProfile*"/>
+        </parameter>
+        <parameter name="style" transfer-ownership="none">
+          <doc xml:space="preserve">encoding style (NULL or "cbr" or "vbr")</doc>
+          <type name="utf8" c:type="const char*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_encoding_profile_set_preset"
+              c:identifier="rb_gst_encoding_profile_set_preset">
+      <doc xml:space="preserve">Applies the preset @preset to the audio encoding profile within @profile.</doc>
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="profile" transfer-ownership="none">
+          <doc xml:space="preserve">a #GstEncodingProfile</doc>
+          <type name="GstPbutils.EncodingProfile"
+                c:type="GstEncodingProfile*"/>
+        </parameter>
+        <parameter name="preset" transfer-ownership="none">
+          <doc xml:space="preserve">preset to apply</doc>
+          <type name="utf8" c:type="const char*"/>
+        </parameter>
+      </parameters>
     </function>
     <function name="gst_error_get_error_code"
               c:identifier="rb_gst_error_get_error_code">
@@ -25523,6 +26053,107 @@ pipeline.</doc>
         <parameter name="error" transfer-ownership="none">
           <doc xml:space="preserve">error received from GStreamer</doc>
           <type name="GLib.Error" c:type="const GError*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_get_default_encoding_target"
+              c:identifier="rb_gst_get_default_encoding_target">
+      <return-value transfer-ownership="none">
+        <doc xml:space="preserve">default encoding target</doc>
+        <type name="GstPbutils.EncodingTarget" c:type="GstEncodingTarget*"/>
+      </return-value>
+    </function>
+    <function name="gst_get_encoding_profile"
+              c:identifier="rb_gst_get_encoding_profile">
+      <return-value transfer-ownership="full">
+        <doc xml:space="preserve">encoding profile</doc>
+        <type name="GstPbutils.EncodingProfile" c:type="GstEncodingProfile*"/>
+      </return-value>
+      <parameters>
+        <parameter name="media_type" transfer-ownership="none">
+          <doc xml:space="preserve">media type to get a profile for</doc>
+          <type name="utf8" c:type="const char*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_get_missing_plugin_type"
+              c:identifier="rb_gst_get_missing_plugin_type">
+      <return-value transfer-ownership="none">
+        <type name="GstMediaType" c:type="RBGstMediaType"/>
+      </return-value>
+      <parameters>
+        <parameter name="structure" transfer-ownership="none">
+          <type name="Gst.Structure" c:type="const GstStructure*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_media_type_is_lossless"
+              c:identifier="rb_gst_media_type_is_lossless">
+      <return-value transfer-ownership="none">
+        <type name="gboolean" c:type="gboolean"/>
+      </return-value>
+      <parameters>
+        <parameter name="media_type" transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_media_type_matches_profile"
+              c:identifier="rb_gst_media_type_matches_profile">
+      <return-value transfer-ownership="none">
+        <type name="gboolean" c:type="gboolean"/>
+      </return-value>
+      <parameters>
+        <parameter name="profile" transfer-ownership="none">
+          <type name="GstPbutils.EncodingProfile"
+                c:type="GstEncodingProfile*"/>
+        </parameter>
+        <parameter name="media_type" transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_media_type_to_caps"
+              c:identifier="rb_gst_media_type_to_caps">
+      <return-value transfer-ownership="full">
+        <type name="Gst.Caps" c:type="GstCaps*"/>
+      </return-value>
+      <parameters>
+        <parameter name="media_type" transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_media_type_to_extension"
+              c:identifier="rb_gst_media_type_to_extension">
+      <return-value transfer-ownership="none">
+        <type name="utf8" c:type="const char*"/>
+      </return-value>
+      <parameters>
+        <parameter name="media_type" transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_media_type_to_mime_type"
+              c:identifier="rb_gst_media_type_to_mime_type">
+      <return-value transfer-ownership="none">
+        <type name="utf8" c:type="const char*"/>
+      </return-value>
+      <parameters>
+        <parameter name="media_type" transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="gst_mime_type_to_media_type"
+              c:identifier="rb_gst_mime_type_to_media_type">
+      <return-value transfer-ownership="none">
+        <type name="utf8" c:type="const char*"/>
+      </return-value>
+      <parameters>
+        <parameter name="mime_type" transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
         </parameter>
       </parameters>
     </function>
@@ -25789,12 +26420,15 @@ This will usually be the 'Music' directory under the home directory.</doc>
               c:identifier="rb_null_function"
               introspectable="0">
       <doc xml:space="preserve">Just returns NULL.  Useful as a callback function.</doc>
-      <return-value>
+      <return-value transfer-ownership="none" nullable="1">
         <doc xml:space="preserve">NULL</doc>
         <type name="gpointer" c:type="gpointer"/>
       </return-value>
       <parameters>
-        <parameter name="dummy" transfer-ownership="none">
+        <parameter name="dummy"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">unused</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
@@ -25958,11 +26592,17 @@ since there can only be one refstring for a given string.</doc>
         <type name="gboolean" c:type="gboolean"/>
       </return-value>
       <parameters>
-        <parameter name="ap" transfer-ownership="none">
+        <parameter name="ap"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">an #RBRefString</doc>
           <type name="gpointer" c:type="gconstpointer"/>
         </parameter>
-        <parameter name="bp" transfer-ownership="none">
+        <parameter name="bp"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">another #RBRefstring</doc>
           <type name="gpointer" c:type="gconstpointer"/>
         </parameter>
@@ -25994,7 +26634,10 @@ its reference count is increased.</doc>
         <type name="guint" c:type="guint"/>
       </return-value>
       <parameters>
-        <parameter name="p" transfer-ownership="none">
+        <parameter name="p"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">an #RBRefString</doc>
           <type name="gpointer" c:type="gconstpointer"/>
         </parameter>
@@ -26218,7 +26861,10 @@ returned (boolean) values.</doc>
           <doc xml:space="preserve">holds the return value to be accumulated</doc>
           <type name="GObject.Value" c:type="const GValue*"/>
         </parameter>
-        <parameter name="dummy" transfer-ownership="none">
+        <parameter name="dummy"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">user data (unused)</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
@@ -26249,7 +26895,10 @@ no accumulator is specified, where the last signal handler wins.</doc>
           <doc xml:space="preserve">holds the return value to be accumulated</doc>
           <type name="GObject.Value" c:type="const GValue*"/>
         </parameter>
-        <parameter name="dummy" transfer-ownership="none">
+        <parameter name="dummy"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">user data (unused)</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
@@ -26278,7 +26927,10 @@ a #GArray of #GValue instances.</doc>
           <doc xml:space="preserve">holds the return value to be accumulated</doc>
           <type name="GObject.Value" c:type="const GValue*"/>
         </parameter>
-        <parameter name="dummy" transfer-ownership="none">
+        <parameter name="dummy"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">user data (unused)</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
@@ -26309,7 +26961,10 @@ no accumulator is specified, where the last signal handler wins.</doc>
           <doc xml:space="preserve">holds the return value to be accumulated</doc>
           <type name="GObject.Value" c:type="const GValue*"/>
         </parameter>
-        <parameter name="dummy" transfer-ownership="none">
+        <parameter name="dummy"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">user data (unused)</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
@@ -26463,7 +27118,10 @@ regardless of order.</doc>
         <type name="gboolean" c:type="gboolean"/>
       </return-value>
       <parameters>
-        <parameter name="dummy" transfer-ownership="none">
+        <parameter name="dummy"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">unused</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
@@ -26642,7 +27300,10 @@ If @uri identifies a file, calls @func for that instead.</doc>
           <doc xml:space="preserve">Callback function</doc>
           <type name="UriRecurseFunc" c:type="RBUriRecurseFunc"/>
         </parameter>
-        <parameter name="user_data" transfer-ownership="none">
+        <parameter name="user_data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">Data for callback function</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
@@ -26679,7 +27340,10 @@ processed, or when the operation is cancelled.</doc>
           <doc xml:space="preserve">callback function</doc>
           <type name="UriRecurseFunc" c:type="RBUriRecurseFunc"/>
         </parameter>
-        <parameter name="user_data" transfer-ownership="none">
+        <parameter name="user_data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">data to pass to callback</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>

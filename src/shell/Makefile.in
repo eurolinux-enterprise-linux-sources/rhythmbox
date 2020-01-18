@@ -155,7 +155,7 @@ librhythmbox_core_la_DEPENDENCIES =  \
 	$(top_builddir)/lib/librb.la \
 	$(top_builddir)/lib/libmediaplayerid/libmediaplayerid.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1)
 am__objects_1 =
 am_librhythmbox_core_la_OBJECTS = $(am__objects_1) \
 	librhythmbox_core_la-rb-application.lo \
@@ -172,6 +172,7 @@ am_librhythmbox_core_la_OBJECTS = $(am__objects_1) \
 	librhythmbox_core_la-rb-play-order-shuffle.lo \
 	librhythmbox_core_la-rb-playlist-manager.lo \
 	librhythmbox_core_la-rb-removable-media-manager.lo \
+	librhythmbox_core_la-rb-resources.lo \
 	librhythmbox_core_la-rb-shell.lo \
 	librhythmbox_core_la-rb-shell-clipboard.lo \
 	librhythmbox_core_la-rb-shell-player.lo \
@@ -294,9 +295,9 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
-GDK_PIXBUF_CSOURCE = @GDK_PIXBUF_CSOURCE@
 GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
+GLIB_COMPILE_RESOURCES = @GLIB_COMPILE_RESOURCES@
 GLIB_COMPILE_SCHEMAS = @GLIB_COMPILE_SCHEMAS@
 GLIB_GENMARSHAL = @GLIB_GENMARSHAL@
 GMSGFMT = @GMSGFMT@
@@ -429,8 +430,6 @@ VAPIDIR = @VAPIDIR@
 VAPIGEN = @VAPIGEN@
 VERSION = @VERSION@
 WARN_CFLAGS = @WARN_CFLAGS@
-WEBKIT_CFLAGS = @WEBKIT_CFLAGS@
-WEBKIT_LIBS = @WEBKIT_LIBS@
 WNOERROR_CFLAGS = @WNOERROR_CFLAGS@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
@@ -503,9 +502,9 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-BUILT_SOURCES = $(tab_files)
+BUILT_SOURCES = $(tab_files) rb-resources.c
 CLEANFILES = $(BUILT_SOURCES)
-EXTRA_DIST = 
+EXTRA_DIST = rhythmbox.gresource.xml
 tab_files = AUTHORS.tab MAINTAINERS.tab MAINTAINERS.old.tab DOCUMENTERS.tab
 rhythmbox_SOURCES = main.c
 lib_LTLIBRARIES = librhythmbox-core.la
@@ -531,7 +530,6 @@ AM_CPPFLAGS = \
 	$(TOTEM_PLPARSER_CFLAGS)			\
 	$(DBUS_CFLAGS)					\
 	$(GUDEV_CFLAGS)					\
-	$(WEBKIT_FLAGS)				\
 	-D__EXTENSIONS__
 
 shellincludedir = $(includedir)/rhythmbox/shell
@@ -572,6 +570,7 @@ librhythmbox_core_la_SOURCES = \
 	rb-play-order-shuffle.h				\
 	rb-playlist-manager.c				\
 	rb-removable-media-manager.c			\
+	rb-resources.c					\
 	rb-shell.c					\
 	rb-shell-clipboard.c				\
 	rb-shell-clipboard.h				\
@@ -598,7 +597,6 @@ librhythmbox_core_la_LIBADD = \
 	$(DBUS_LIBS)					\
 	$(TOTEM_PLPARSER_LIBS)				\
 	$(GUDEV_LIBS)					\
-	$(WEBKIT_LIBS)				\
 	$(RHYTHMBOX_LIBS)				\
 	-lgstpbutils-1.0				\
 	-lgstcontroller-1.0				\
@@ -613,6 +611,7 @@ rhythmbox_LDADD = librhythmbox-core.la $(TOTEM_PLPARSER_LIBS) \
 	$(RHYTHMBOX_LIBS) $(DBUS_LIBS) $(INTROSPECTION_LIBS) \
 	$(am__append_1)
 rhythmbox_LDFLAGS = -export-dynamic -no-undefined
+rb_resource_deps = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(top_srcdir)/data --sourcedir $(top_builddir)/data $(srcdir)/rhythmbox.gresource.xml)
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -759,6 +758,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/librhythmbox_core_la-rb-play-order.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/librhythmbox_core_la-rb-playlist-manager.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/librhythmbox_core_la-rb-removable-media-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/librhythmbox_core_la-rb-resources.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/librhythmbox_core_la-rb-shell-clipboard.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/librhythmbox_core_la-rb-shell-player.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/librhythmbox_core_la-rb-shell-preferences.Plo@am__quote@
@@ -887,6 +887,13 @@ librhythmbox_core_la-rb-removable-media-manager.lo: rb-removable-media-manager.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='rb-removable-media-manager.c' object='librhythmbox_core_la-rb-removable-media-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(librhythmbox_core_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o librhythmbox_core_la-rb-removable-media-manager.lo `test -f 'rb-removable-media-manager.c' || echo '$(srcdir)/'`rb-removable-media-manager.c
+
+librhythmbox_core_la-rb-resources.lo: rb-resources.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(librhythmbox_core_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT librhythmbox_core_la-rb-resources.lo -MD -MP -MF $(DEPDIR)/librhythmbox_core_la-rb-resources.Tpo -c -o librhythmbox_core_la-rb-resources.lo `test -f 'rb-resources.c' || echo '$(srcdir)/'`rb-resources.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/librhythmbox_core_la-rb-resources.Tpo $(DEPDIR)/librhythmbox_core_la-rb-resources.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='rb-resources.c' object='librhythmbox_core_la-rb-resources.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(librhythmbox_core_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o librhythmbox_core_la-rb-resources.lo `test -f 'rb-resources.c' || echo '$(srcdir)/'`rb-resources.c
 
 librhythmbox_core_la-rb-shell.lo: rb-shell.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(librhythmbox_core_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT librhythmbox_core_la-rb-shell.lo -MD -MP -MF $(DEPDIR)/librhythmbox_core_la-rb-shell.Tpo -c -o librhythmbox_core_la-rb-shell.lo `test -f 'rb-shell.c' || echo '$(srcdir)/'`rb-shell.c
@@ -1205,6 +1212,13 @@ MAINTAINERS.old.tab : $(top_srcdir)/MAINTAINERS.old
 DOCUMENTERS.tab : $(top_srcdir)/DOCUMENTERS
 	sed -e 's/^/"/' -e 's/$$/",/' < $(top_srcdir)/DOCUMENTERS > $@.tmp
 	mv $@.tmp $@
+
+rb-resources.c: $(rb_resource_deps) $(srcdir)/rhythmbox.gresource.xml
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES)		\
+		--target="$@"				\
+		--sourcedir="$(top_srcdir)/data"	\
+		--sourcedir="$(top_builddir)/data"	\
+		--generate-source "$(srcdir)/rhythmbox.gresource.xml"
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

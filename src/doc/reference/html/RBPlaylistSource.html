@@ -8,7 +8,7 @@
 <link rel="up" href="ch06.html" title="Sources">
 <link rel="prev" href="RBPlayQueueSource.html" title="RBPlayQueueSource">
 <link rel="next" href="RBSource.html" title="RBSource">
-<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -100,7 +100,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="RBPlaylistSource.html#rb-playlist-source-location-in-map" title="rb_playlist_source_location_in_map ()">rb_playlist_source_location_in_map</a> <span class="c_punctuation">()</span>
@@ -108,7 +108,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="RBPlaylistSource.html#rb-playlist-source-add-to-map" title="rb_playlist_source_add_to_map ()">rb_playlist_source_add_to_map</a> <span class="c_punctuation">()</span>
@@ -133,12 +133,12 @@
 <td class="property_flags">Read</td>
 </tr>
 <tr>
-<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
 <td class="property_name"><a class="link" href="RBPlaylistSource.html#RBPlaylistSource--dirty" title="The “dirty” property">dirty</a></td>
 <td class="property_flags">Read</td>
 </tr>
 <tr>
-<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
 <td class="property_name"><a class="link" href="RBPlaylistSource.html#RBPlaylistSource--is-local" title="The “is-local” property">is-local</a></td>
 <td class="property_flags">Read / Write / Construct Only</td>
 </tr>
@@ -166,11 +166,11 @@
 </div>
 <div class="refsect1">
 <a name="RBPlaylistSource.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-    <span class="lineart">╰──</span> <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-        <span class="lineart">╰──</span> GtkWidget
-            <span class="lineart">╰──</span> GtkContainer
-                <span class="lineart">╰──</span> GtkBox
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkWidget.html#GtkWidget-struct">GtkWidget</a>
+            <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkContainer.html#GtkContainer-struct">GtkContainer</a>
+                <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gtk3GtkBox.html#GtkBox-struct">GtkBox</a>
                     <span class="lineart">╰──</span> <a class="link" href="RBDisplayPage.html" title="RBDisplayPage">RBDisplayPage</a>
                         <span class="lineart">╰──</span> <a class="link" href="RBSource.html" title="RBSource">RBSource</a>
                             <span class="lineart">╰──</span> RBPlaylistSource
@@ -182,7 +182,7 @@
 <a name="RBPlaylistSource.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 RBPlaylistSource implements
- AtkImplementorIface,  GtkBuildable and  GtkOrientable.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3GtkBuildable.html#GtkBuildable-struct">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk3gtk3-Orientable.html#GtkOrientable-struct">GtkOrientable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="RBPlaylistSource.description"></a><h2>Description</h2>
@@ -209,7 +209,7 @@ can be saved to disk, and it hands off the XML node to the
 appropriate constructor based on the 'type' attribute of
 the root node of the playlist.</p>
 <div class="refsect3">
-<a name="id-1.7.13.9.2.5"></a><h4>Parameters</h4>
+<a name="rb-playlist-source-new-from-xml.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -231,7 +231,7 @@ the root node of the playlist.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.13.9.2.6"></a><h4>Returns</h4>
+<a name="rb-playlist-source-new-from-xml.returns"></a><h4>Returns</h4>
 <p> the playlist</p>
 </div>
 </div>
@@ -245,7 +245,7 @@ rb_playlist_source_save_playlist (<em class="parameter"><code><a class="link" hr
 <p>Saves the playlist to an external file in a standard
 format (M3U, PLS, or XSPF).</p>
 <div class="refsect3">
-<a name="id-1.7.13.9.3.5"></a><h4>Parameters</h4>
+<a name="rb-playlist-source-save-playlist.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -281,7 +281,7 @@ rb_playlist_source_save_to_xml (<em class="parameter"><code><a class="link" href
 <p>Converts the playlist to XML format, below the specified
 parent node.</p>
 <div class="refsect3">
-<a name="id-1.7.13.9.4.5"></a><h4>Parameters</h4>
+<a name="rb-playlist-source-save-to-xml.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -315,7 +315,7 @@ source query-model property.</p>
 <p>This needs to be called when the playlist subclass
 creates a new query model.</p>
 <div class="refsect3">
-<a name="id-1.7.13.9.5.6"></a><h4>Parameters</h4>
+<a name="rb-playlist-source-set-query-model.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -345,7 +345,7 @@ rb_playlist_source_get_query_model (<em class="parameter"><code><a class="link" 
 <p>Returns the current <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a> for the playlist.
 The caller must not unref the object once finished with it.</p>
 <div class="refsect3">
-<a name="id-1.7.13.9.6.5"></a><h4>Parameters</h4>
+<a name="rb-playlist-source-get-query-model.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -360,7 +360,7 @@ The caller must not unref the object once finished with it.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.13.9.6.6"></a><h4>Returns</h4>
+<a name="rb-playlist-source-get-query-model.returns"></a><h4>Returns</h4>
 <p> the current <a class="link" href="RhythmDBQueryModel.html" title="RhythmDBQueryModel"><span class="type">RhythmDBQueryModel</span></a>. </p>
 <p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
 </div>
@@ -373,7 +373,7 @@ rb_playlist_source_get_db (<em class="parameter"><code><a class="link" href="RBP
 <p>Returns the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance.  The caller must not
 unref the object once finished with it.</p>
 <div class="refsect3">
-<a name="id-1.7.13.9.7.5"></a><h4>Parameters</h4>
+<a name="rb-playlist-source-get-db.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -388,7 +388,7 @@ unref the object once finished with it.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.13.9.7.6"></a><h4>Returns</h4>
+<a name="rb-playlist-source-get-db.returns"></a><h4>Returns</h4>
 <p> the <a class="link" href="RhythmDB.html" title="RhythmDB"><span class="type">RhythmDB</span></a> instance. </p>
 <p><span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span></p>
 </div>
@@ -402,7 +402,7 @@ rb_playlist_source_mark_dirty (<em class="parameter"><code><a class="link" href=
 will be saved to disk fairly soon, but the exact meaning can vary
 between playlist types.</p>
 <div class="refsect3">
-<a name="id-1.7.13.9.8.5"></a><h4>Parameters</h4>
+<a name="rb-playlist-source-mark-dirty.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -420,12 +420,12 @@ between playlist types.</p>
 <hr>
 <div class="refsect2">
 <a name="rb-playlist-source-location-in-map"></a><h3>rb_playlist_source_location_in_map ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
 rb_playlist_source_location_in_map (<em class="parameter"><code><a class="link" href="RBPlaylistSource.html" title="RBPlaylistSource"><span class="type">RBPlaylistSource</span></a> *source</code></em>,
                                     <em class="parameter"><code>const <span class="type">char</span> *location</code></em>);</pre>
 <p>Returns TRUE if the specified URI is in the playlist entry map</p>
 <div class="refsect3">
-<a name="id-1.7.13.9.9.5"></a><h4>Parameters</h4>
+<a name="rb-playlist-source-location-in-map.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -447,21 +447,21 @@ rb_playlist_source_location_in_map (<em class="parameter"><code><a class="link" 
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.13.9.9.6"></a><h4>Returns</h4>
-<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the URI is present</p>
+<a name="rb-playlist-source-location-in-map.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the URI is present</p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="rb-playlist-source-add-to-map"></a><h3>rb_playlist_source_add_to_map ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
 rb_playlist_source_add_to_map (<em class="parameter"><code><a class="link" href="RBPlaylistSource.html" title="RBPlaylistSource"><span class="type">RBPlaylistSource</span></a> *source</code></em>,
                                <em class="parameter"><code>const <span class="type">char</span> *location</code></em>);</pre>
 <p>Adds a URI to the playlist's entry map.  This is useful when the
 URI is being added to the database, but no entry exists for it yet.
 When the entry is created, it will be added to the query model.</p>
 <div class="refsect3">
-<a name="id-1.7.13.9.10.5"></a><h4>Parameters</h4>
+<a name="rb-playlist-source-add-to-map.parameters"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -483,7 +483,7 @@ When the entry is created, it will be added to the query model.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.7.13.9.10.6"></a><h4>Returns</h4>
+<a name="rb-playlist-source-add-to-map.returns"></a><h4>Returns</h4>
 <p> TRUE if the URI was added to the entry map,
 FALSE if it was already there.</p>
 </div>
@@ -524,7 +524,7 @@ FALSE if it was already there.</p>
 <hr>
 <div class="refsect2">
 <a name="RBPlaylistSource--dirty"></a><h3>The <code class="literal">“dirty”</code> property</h3>
-<pre class="programlisting">  “dirty”                    <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<pre class="programlisting">  “dirty”                    <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
 <p>Whether the playlist has been changed since it was last saved
 to disk.</p>
 <p>Flags: Read</p>
@@ -533,7 +533,7 @@ to disk.</p>
 <hr>
 <div class="refsect2">
 <a name="RBPlaylistSource--is-local"></a><h3>The <code class="literal">“is-local”</code> property</h3>
-<pre class="programlisting">  “is-local”                 <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<pre class="programlisting">  “is-local”                 <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
 <p>Whether the playlist is attached to the local library.
 Remote DAAP playlists, for example, are not local.</p>
 <p>Flags: Read / Write / Construct Only</p>
@@ -542,6 +542,6 @@ Remote DAAP playlists, for example, are not local.</p>
 </div>
 </div>
 <div class="footer">
-<hr>Generated by GTK-Doc V1.24</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

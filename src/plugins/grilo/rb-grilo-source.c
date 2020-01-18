@@ -502,6 +502,8 @@ impl_delete_thyself (RBDisplayPage *page)
 	g_object_unref (entry_type);
 
 	rhythmdb_commit (source->priv->db);
+
+	RB_DISPLAY_PAGE_CLASS (rb_grilo_source_parent_class)->delete_thyself (page);
 }
 
 void
@@ -524,7 +526,7 @@ make_operation_options (RBGriloSource *source, GrlSupportedOps op, int position)
 	grl_operation_options_set_count (options,
 					 CONTAINER_FETCH_SIZE);
 	grl_operation_options_set_type_filter (options, GRL_TYPE_FILTER_AUDIO);
-	grl_operation_options_set_flags (options, GRL_RESOLVE_NORMAL);
+	grl_operation_options_set_resolution_flags (options, GRL_RESOLVE_NORMAL);
 
 	return options;
 }
@@ -549,8 +551,14 @@ create_entry_for_media (RhythmDB *db, RhythmDBEntryType *entry_type, GrlData *da
 {
 	RhythmDBEntry *entry;
 	RBGriloEntryData *entry_data;
+	const gchar *url;
 
-	entry = rhythmdb_entry_lookup_by_location (db, grl_media_get_url (GRL_MEDIA (data)));
+	url = grl_media_get_url (GRL_MEDIA (data));
+	if (url == NULL) {
+		return NULL;
+	}
+
+	entry = rhythmdb_entry_lookup_by_location (db, url);
 	if (entry != NULL) {
 		return entry;
 	}
@@ -684,7 +692,7 @@ grilo_browse_cb (GrlSource *grilo_source, guint operation_id, GrlMedia *media, g
 		source->priv->browse_position++;
 	}
 
-	if (media && GRL_IS_MEDIA_BOX (media)) {
+	if (media && grl_media_is_container (media)) {
 
 		GtkTreeIter new_row;
 		if (source->priv->browse_container == NULL) {
@@ -724,7 +732,7 @@ grilo_browse_cb (GrlSource *grilo_source, guint operation_id, GrlMedia *media, g
 						   2, CONTAINER_MARKER,
 						   3, 0,
 						   -1);
-	} else if (media && GRL_IS_MEDIA_AUDIO (media)) {
+	} else if (media && grl_media_is_audio (media)) {
 		source->priv->browse_got_media = TRUE;
 	}
 
@@ -854,7 +862,7 @@ grilo_media_browse_cb (GrlSource *grilo_source, guint operation_id, GrlMedia *me
 		source->priv->media_browse_got_results = TRUE;
 		source->priv->media_browse_position++;
 
-		if (GRL_IS_MEDIA_AUDIO (media)) {
+		if (grl_media_is_audio (media)) {
 			RhythmDBEntry *entry;
 			entry = create_entry_for_media (source->priv->db,
 							source->priv->entry_type,
@@ -863,7 +871,7 @@ grilo_media_browse_cb (GrlSource *grilo_source, guint operation_id, GrlMedia *me
 			if (entry != NULL) {
 				rhythmdb_query_model_add_entry (source->priv->query_model, entry, -1);
 			}
-		} else if (GRL_IS_MEDIA_BOX (media)) {
+		} else if (grl_media_is_container (media)) {
 			source->priv->media_browse_got_containers = TRUE;
 		}
 	}

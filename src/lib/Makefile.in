@@ -294,9 +294,9 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
-GDK_PIXBUF_CSOURCE = @GDK_PIXBUF_CSOURCE@
 GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
+GLIB_COMPILE_RESOURCES = @GLIB_COMPILE_RESOURCES@
 GLIB_COMPILE_SCHEMAS = @GLIB_COMPILE_SCHEMAS@
 GLIB_GENMARSHAL = @GLIB_GENMARSHAL@
 GMSGFMT = @GMSGFMT@
@@ -429,8 +429,6 @@ VAPIDIR = @VAPIDIR@
 VAPIGEN = @VAPIGEN@
 VERSION = @VERSION@
 WARN_CFLAGS = @WARN_CFLAGS@
-WEBKIT_CFLAGS = @WEBKIT_CFLAGS@
-WEBKIT_LIBS = @WEBKIT_LIBS@
 WNOERROR_CFLAGS = @WNOERROR_CFLAGS@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
@@ -535,8 +533,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/widgets				\
 	$(RHYTHMBOX_CFLAGS)
 
-BUILT_SOURCES = rb-marshal.c rb-marshal.h rhythmbox-set-star-inline.h \
-	rhythmbox-unset-star-inline.h rhythmbox-no-star-inline.h
+BUILT_SOURCES = rb-marshal.c rb-marshal.h
 CLEAN_FILES = $(BUILT_SOURCES)
 librb_la_LDFLAGS = -export-dynamic
 EXTRA_DIST = rb-marshal.list
@@ -954,16 +951,6 @@ rb-marshal.c: rb-marshal.list
 
 rb-marshal.h: rb-marshal.list
 	@GLIB_GENMARSHAL@ --prefix=rb_marshal $(srcdir)/rb-marshal.list --header > rb-marshal.h
-
-# inline icons
-rhythmbox-set-star-inline.h: $(top_srcdir)/data/icons/hicolor/16x16/status/rhythmbox-set-star.png
-	@GDK_PIXBUF_CSOURCE@ --raw --name=rhythmbox_set_star_inline $< > $@
-
-rhythmbox-unset-star-inline.h: $(top_srcdir)/data/icons/hicolor/16x16/status/rhythmbox-unset-star.png
-	@GDK_PIXBUF_CSOURCE@ --raw --name=rhythmbox_unset_star_inline $< > $@
-
-rhythmbox-no-star-inline.h: $(top_srcdir)/data/icons/hicolor/16x16/status/rhythmbox-no-star.png
-	@GDK_PIXBUF_CSOURCE@ --raw --name=rhythmbox_no_star_inline $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
